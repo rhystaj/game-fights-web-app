@@ -1,0 +1,13 @@
+.userDisplay {
+  display: inline-block;
+  margin-right: 1em;
+}
+
+.userDisplay img {
+  margin-right: 0.5em;
+}
+
+.userDisplay p {
+  margin: 0px;
+  padding: 0px;
+}
