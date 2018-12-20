@@ -12,7 +12,7 @@ const App = () => {
         logoSrc='https://via.placeholder.com/200x100'
         notificationsIconSrc='https://via.placeholder.com/50x50'
       />
-      <Body matchStatus='invite' id='Body' />
+      <Body matchStatus='match' id='Body' />
     </div>
   )
 }

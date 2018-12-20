@@ -2,6 +2,9 @@ import React from 'react'
 import RunNewMatch from './pre_match_dialogues/RunNewMatch'
 import MatchInvitation from './pre_match_dialogues/MatchInvitation'
 
+// For testing - remove later.
+import ParticipantMatchInfo from './match_info/ParticipantMatchInfo'
+
 import '../style/Body.css'
 
 const INVALID_STATUS_MESSAGE = 'Error: Body was given an invalid state.'
@@ -18,6 +21,10 @@ const Body = props => {
           matchName='The coolest match ever!'
         />
       )
+
+    // For testing - remove later.
+    case 'match':
+      return <ParticipantMatchInfo matchTitle='Test Match' />
 
     default:
       return <p>{INVALID_STATUS_MESSAGE}</p>
