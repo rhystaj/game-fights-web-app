@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './../../style/ParticipantInfo.css'
+import './../../../style/ParticipantInfo.css'
 
 /**
  * Displays the judge an participants for a solo match.

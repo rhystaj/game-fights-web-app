@@ -4,7 +4,7 @@ import MatchDates from './MatchDates'
 import SoloParticipantInfo from './SoloParticipantInfo'
 import TeamParticipantInfo from './TeamParticipantInfo'
 
-import './../../style/MatchInfo.css'
+import './../../../style/MatchInfo.css'
 
 // For testing - remove later.
 const users = ['user1', 'user2', 'user3']

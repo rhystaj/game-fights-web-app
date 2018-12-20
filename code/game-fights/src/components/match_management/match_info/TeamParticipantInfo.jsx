@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './../../style/ParticipantInfo.css'
+import './../../../style/ParticipantInfo.css'
 
 const TeamParticipantInfo = props => {
   return (

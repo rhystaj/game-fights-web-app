@@ -1,9 +1,7 @@
 import React from 'react'
 import RunNewMatch from './pre_match_dialogues/RunNewMatch'
 import MatchInvitation from './pre_match_dialogues/MatchInvitation'
-
-// For testing - remove later.
-import ParticipantMatchInfo from './match_info/ParticipantMatchInfo'
+import MatchManager from './match_management/MatchManager'
 
 import '../style/Body.css'
 
@@ -28,7 +26,7 @@ const Body = props => {
 
     // For testing - remove later.
     case 'match':
-      return <ParticipantMatchInfo matchTitle='Test Match' teamMatch />
+      return <MatchManager />
 
     default:
       return <p>{INVALID_STATUS_MESSAGE}</p>
