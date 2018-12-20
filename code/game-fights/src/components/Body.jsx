@@ -9,6 +9,10 @@ import '../style/Body.css'
 
 const INVALID_STATUS_MESSAGE = 'Error: Body was given an invalid state.'
 
+/**
+ * Where the main content of the page is displayed. Can vary greatly depending on if the user is involved in a match, and if they are judging it.
+ * @param {*} props
+ */
 const Body = props => {
   switch (props.matchStatus) {
     case 'none':

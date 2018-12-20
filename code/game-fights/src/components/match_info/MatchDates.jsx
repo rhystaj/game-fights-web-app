@@ -1,5 +1,15 @@
 import React from 'react'
 
+/**
+ * Displays the dates relevant to a match.
+ *
+ * Is given as properties:
+ *  matchDate - the date the match will be held.
+ *  openDate - the date when anwers to questions will be accepted.
+ *  closeDate - the date when anwers to questions will no longer be accepted.
+ *
+ * @param {*} props
+ */
 const MatchDates = props => {
   return (
     <div id='dates'>

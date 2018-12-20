@@ -2,6 +2,10 @@ import React from 'react'
 
 import './../../style/SoloParticipantInfo.css'
 
+/**
+ * Displays the judge an participants for a solo match.
+ * @param {*} props
+ */
 const SoloParticipantInfo = props => {
   return (
     <div>
