@@ -1,10 +1,13 @@
 import React from 'react'
+import Header from './Header'
 
 const Body = props => {
   return (
     <div>
-      <h1>Game Fights</h1>
-      <h2>{props.text}</h2>
+      <Header
+        logoSrc='https://via.placeholder.com/200x100'
+        notificationsIconSrc='https://via.placeholder.com/50x50'
+      />
     </div>
   )
 }
