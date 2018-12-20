@@ -1,15 +1,27 @@
 import React from 'react'
-import Header from './Header'
+import RunNewMatch from './pre_match_dialogues/RunNewMatch'
+import MatchInvitation from './pre_match_dialogues/MatchInvitation'
+
+import '../style/Body.css'
+
+const INVALID_STATUS_MESSAGE = 'Error: Body was given an invalid state.'
 
 const Body = props => {
-  return (
-    <div>
-      <Header
-        logoSrc='https://via.placeholder.com/200x100'
-        notificationsIconSrc='https://via.placeholder.com/50x50'
-      />
-    </div>
-  )
+  switch (props.matchStatus) {
+    case 'none':
+      return <RunNewMatch />
+
+    case 'invite':
+      return (
+        <MatchInvitation
+          invitationSender='Rhys'
+          matchName='The coolest match ever!'
+        />
+      )
+
+    default:
+      return <p>{INVALID_STATUS_MESSAGE}</p>
+  }
 }
 
 export default Body
