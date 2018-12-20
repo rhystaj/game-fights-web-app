@@ -28,7 +28,7 @@ const Body = props => {
 
     // For testing - remove later.
     case 'match':
-      return <ParticipantMatchInfo matchTitle='Test Match' />
+      return <ParticipantMatchInfo matchTitle='Test Match' teamMatch />
 
     default:
       return <p>{INVALID_STATUS_MESSAGE}</p>
