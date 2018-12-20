@@ -1,12 +1,16 @@
 import React from 'react'
 
 import MatchDates from './MatchDates'
+import SoloParticipantInfo from './SoloParticipantInfo'
+
+// For testing - remove later.
+const users = ['user1', 'user2', 'user3']
 
 const ParticipantMatchInfo = props => {
   return (
     <div>
       <h1>{props.matchTitle}</h1>
-      {/* Determine Solo or Team */}
+      <SoloParticipantInfo users={users} />
       <MatchDates
         matchDate='11/12/1996'
         openDate='12/12/1996'
