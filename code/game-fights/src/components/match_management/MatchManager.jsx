@@ -4,7 +4,7 @@ import questionSubmissionState from './../../enums/questionSubmissionState'
 
 import ParticipantMatchInfo from './match_info/ParticipantMatchInfo'
 import QuestionDisplay from './question_submission/QuesionDisplay'
-import QuestionSubmissionManager from './question_submission/QuestionSubmissionManager'
+import QuestionSubmissionManager from './question_submission/manager/QuestionSubmissionManager'
 
 // For testing - remove later.
 const signedInUser = 'me'

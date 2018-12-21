@@ -1,6 +1,6 @@
 import React from 'react'
 
-import submissionStates from './../../../enums/questionSubmissionState'
+import submissionStates from '../../../../enums/questionSubmissionState'
 
 const QuestionSubmission = props => {
   return (
