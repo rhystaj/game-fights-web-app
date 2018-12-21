@@ -7,7 +7,6 @@ import QuestionDisplay from './question_submission/QuesionDisplay'
 import QuestionSubmissionManager from './question_submission/manager/QuestionSubmissionManager'
 
 // For testing - remove later.
-const signedInUser = 'me'
 const questions = [
   'What is the best placeholder question?',
   'Pitch a good placeholder question.',
@@ -20,38 +19,38 @@ const submissions = [
     question: 'What is the best placeholder question?',
     answer: '',
     state: questionSubmissionState.NO_ANSWER,
-    user: 'me'
+    validatedByUser: false
   },
   {
     question: 'Pitch a good placeholder question',
     answer:
       'I want this answer to be long so I can see what it looks like when it is required for an answer to go down a few lines.',
     state: questionSubmissionState.AWAITING_VALIDATION,
-    user: 'me'
+    validatedByUser: false
   },
   {
     question: 'Best Template?',
     answer: 'One in which most of the work is done for you',
     state: questionSubmissionState.AWAITING_VALIDATION,
-    user: 'you'
+    validatedByUser: true
   },
   {
     question: 'If you had use wireframing software, which one would you use?',
     answer: 'Not XD',
     state: questionSubmissionState.PENDING_JUDGE_APPROVAL,
-    user: 'me'
+    validatedByUser: true
   },
   {
     question: 'What is the best placeholder question?',
     answer: 'Placeholder Answer',
     state: questionSubmissionState.ACCEPTED,
-    user: 'me'
+    validatedByUser: true
   },
   {
     question: 'Is 5 a good number of placeholder questions.',
     answer: 'Yes',
     state: questionSubmissionState.DECLINED,
-    user: 'me'
+    validatedByUser: true
   }
 ]
 
@@ -64,10 +63,7 @@ class MatchManager extends Component {
     return (
       <div>
         <ParticipantMatchInfo matchTitle='Test Match' />
-        <QuestionSubmissionManager
-          submissions={submissions}
-          signedInUser={signedInUser}
-        />
+        <QuestionSubmissionManager submissions={submissions} />
       </div>
     )
   }

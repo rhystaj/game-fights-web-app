@@ -1,5 +1,7 @@
 import React from 'react'
 
+import QuestionSubmissionOptions from './QuestionSubmissionOptions'
+
 import submissionStates from '../../../../enums/questionSubmissionState'
 
 const QuestionSubmission = props => {
@@ -9,13 +11,13 @@ const QuestionSubmission = props => {
         <h3>{props.submission.question}</h3>
         <p>{props.submission.answer ? props.submission.answer : '-'}</p>
         <p>
-          {determineStatusText(
-            props.submission.state,
-            props.submission.user,
-            props.signedInUser
-          )}
+          {determineStatusText(props.submission.state, props.validatedByUser)}
         </p>
       </div>
+      <QuestionSubmissionOptions
+        state={props.submission.state}
+        validatedByUser={props.validatedByUser}
+      />
     </div>
   )
 }
@@ -27,19 +29,16 @@ const QuestionSubmission = props => {
  * @param {The id of the user that is currently signed in, and therefore viewing the submission.} signedInUser
  * @returns {The text appropriate for the state.}
  */
-function determineStatusText (state, submittingUser, signedInUser) {
+function determineStatusText (state, validatedByUser) {
   switch (state) {
     case submissionStates.NO_ANSWER:
       return '(Not Answered)'
 
     // Changed depending on whether the user that is signed in (and therefore viewing the submission) is the same as the one that made the submission.
     case submissionStates.AWAITING_VALIDATION:
-      switch (submittingUser) {
-        case signedInUser:
-          return 'Awaiting Validation'
-        default:
-          return 'Requiring Validation'
-      }
+      return validatedByUser
+        ? 'Awaiting Team Validation'
+        : 'Requiring Team Validation'
 
     case submissionStates.PENDING_JUDGE_APPROVAL:
       return 'Pending Judge Approval'

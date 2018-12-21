@@ -9,7 +9,7 @@ const QuestionSubmissionManager = props => {
       {props.submissions.map(submission => (
         <QuestionSubmission
           submission={submission}
-          signedInUser={props.signedInUser}
+          validatedByUser={submission.validatedByUser}
         />
       ))}
       <button>Forfiet</button>
