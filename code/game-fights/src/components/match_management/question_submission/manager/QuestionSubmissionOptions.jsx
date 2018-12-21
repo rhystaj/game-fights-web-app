@@ -3,6 +3,8 @@ import QuestionSubmission from './QuesitionSubmission'
 
 import submissionState from './../../../../enums/questionSubmissionState'
 
+import './../../../../style/QuestionSubmissionOptions.css'
+
 const QuestionSubmissionOptions = props => {
   return (
     <div id='container'>
