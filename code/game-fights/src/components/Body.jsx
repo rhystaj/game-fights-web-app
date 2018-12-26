@@ -3,6 +3,8 @@ import RunNewMatch from './pre_match_dialogues/RunNewMatch'
 import MatchInvitation from './pre_match_dialogues/MatchInvitation'
 import MatchManager from './match_management/MatchManager'
 
+import userMatchStatus from './../enums/userMatchStatus'
+
 import '../style/Body.css'
 
 const INVALID_STATUS_MESSAGE = 'Error: Body was given an invalid state.'
@@ -13,10 +15,10 @@ const INVALID_STATUS_MESSAGE = 'Error: Body was given an invalid state.'
  */
 const Body = props => {
   switch (props.matchStatus) {
-    case 'none':
+    case userMatchStatus.NONE:
       return <RunNewMatch />
 
-    case 'invite':
+    case userMatchStatus.INVITE:
       return (
         <MatchInvitation
           invitationSender='Rhys'
@@ -25,7 +27,7 @@ const Body = props => {
       )
 
     // For testing - remove later.
-    case 'match':
+    case userMatchStatus.MATCH:
       return <MatchManager />
 
     default:
