@@ -7,6 +7,9 @@ import './../../../style/ParticipantInfo.css'
  * @param {*} props
  */
 const SoloParticipantInfo = props => {
+  // So each image has a unique key - REMOVE_LATER;
+  let key = 0
+
   return (
     <div>
       {/* Render the image of the Judge */}
@@ -22,6 +25,7 @@ const SoloParticipantInfo = props => {
           // For now, just use a placeholder image.
           return (
             <img
+              key={key++}
               src='https://via.placeholder.com/100'
               alt='Placeholder User Icon'
             />
