@@ -1,47 +1,55 @@
-import React from 'react'
+import React, { Component } from 'react'
+import LoadingComponent from './../../LoadingComponent'
 
 import MatchDates from './MatchDates'
 import SoloParticipantInfo from './SoloParticipantInfo'
 import TeamParticipantInfo from './TeamParticipantInfo'
 
-import './../../../style/MatchInfo.css'
+import beInterface from './../../../backend_interface/interface';
 
-// For testing - remove later.
-const users = ['user1', 'user2', 'user3']
-const teams = [
-  { name: 'The Nightwings', members: ['Rhys', 'Saylor'] },
-  { name: 'The Broly Boys', members: ['Brett', 'Voon'] }
-]
+import './../../../style/MatchInfo.css'
 
 /**
  * Shows the name, participants info, and dates of a match.
- *
- * Is given as properties:
- *  matchTitle - the name of the match
- *  ... (fill out when done)
- *
  * @param {*} props
  */
-const ParticipantMatchInfo = props => {
-  return (
-    <div>
-      <div id='matchInfo'>
-        <h1>{props.matchTitle}</h1>
-        {props.teamMatch ? (
-          <TeamParticipantInfo teamName='Placeholder Team' teams={teams} />
-        ) : (
-          <SoloParticipantInfo users={users} />
-        )}
-      </div>
+class ParticipantMatchInfo extends LoadingComponent {
+  
+  constructor(props){
+    super(props, beInterface.queryParticipantMatchInfo)
+  }
 
-      <MatchDates
-        id='dates'
-        matchDate='11/12/1996'
-        openDate='12/12/1996'
-        closeDate='13/12/1996'
-      />
-    </div>
-  )
+  renderLoaded(){
+    return (
+      <div>
+        <div id='matchInfo'>
+          
+          <h1>{this.state.title}</h1>
+          
+          <MatchDates
+            id='dates'
+            matchDate={this.state.dates.match}
+            openDate={this.state.dates.open}
+            closeDate={this.state.dates.close}
+          />
+          
+          {/* Render the image of the Judge */}
+          <div className='userDisplay'>
+            <img src='https://via.placeholder.com/100' alt='Judge' />
+            <p>Judge</p>
+          </div>
+  
+          {this.state.teamMatch ? (
+            <TeamParticipantInfo teamName='Placeholder Team' teams={{} /*Change later*/ } />
+          ) : (
+            <SoloParticipantInfo users={this.state.participants} />
+          )}
+        </div>
+  
+      </div>
+    )
+  }
+  
 }
 
 export default ParticipantMatchInfo

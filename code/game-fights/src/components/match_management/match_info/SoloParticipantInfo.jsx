@@ -12,12 +12,6 @@ const SoloParticipantInfo = props => {
 
   return (
     <div>
-      {/* Render the image of the Judge */}
-      <div className='userDisplay'>
-        <img src='https://via.placeholder.com/100' alt='Judge' />
-        <p>Judge</p>
-      </div>
-
       {/* Render the images of the participants. */}
       <div className='userDisplay'>
         {props.users.map(element => {
