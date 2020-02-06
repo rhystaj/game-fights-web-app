@@ -20,21 +20,13 @@ const questions = [
 /**
  * Contains child components that enable you to view and edit data regarding a specific match (whichever the signed in user is engaged in).
  */
-class MatchManager extends LoadingComponent {
-  
-  constructor(props){
-    super(props, beInterface.queryQuestionSubmissions)
-  }
-
-  determineNewState(result){
-    return {submissions: result}
-  }
-  
-  renderLoaded () {
+class MatchManager extends Component {
+    
+  render () {
     return (
       <div>
         <ParticipantMatchInfo matchTitle='Test Match' />
-        <QuestionSubmissionManager submissions={this.state.submissions} />
+        <QuestionSubmissionManager />
       </div>
     )
   }
