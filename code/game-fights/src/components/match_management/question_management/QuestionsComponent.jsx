@@ -10,7 +10,10 @@ class Questions extends LoadingComponent{
     }
 
     renderQuestion(question, number){
-        return (<p key={number}>{question}</p>);
+        //It may be the case that this method is not being called directy from the map
+        //function as below, in which case it will not need a key, so do not give it a
+        //key if no question number has been passed.
+        return <p key={number === undefined ? null : number}>{question}</p>;
     }
 
     renderLoaded(){

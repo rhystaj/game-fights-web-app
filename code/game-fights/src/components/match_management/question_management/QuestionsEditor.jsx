@@ -43,6 +43,20 @@ class QuestionsEditor extends QuestionsComponent{
         });
     }
 
+    onDeleteQuestion = e => {
+        
+        console.log("Deleting");
+
+        let newQuestionsArray = Array.from(this.state.questions);
+        
+        console.log(newQuestionsArray);
+        
+        newQuestionsArray.splice(e.target.questionnumber, 1);
+
+        this.setState({questions: newQuestionsArray});
+
+    }
+
     /**
      * Render a text edit for adding questions along with confirm and cancel buttons.
      */
@@ -56,15 +70,29 @@ class QuestionsEditor extends QuestionsComponent{
         )
     }
 
+    renderQuestion(question, number){
+        //Render a delete button alongside each question.
+        return (
+            <div key={number}>
+                {super.renderQuestion(question)}
+                <button onClick={this.onDeleteQuestion} questionnumber={number}>-</button>
+            </div>
+        )
+        
+    }
+
     renderLoaded(){
         return(
             <div>
-                {super.renderLoaded()}
+                {super.renderLoaded() /* Render the questions as normal.*/}
+                
                 {this.state.addingQuestion ? this.renderQuestionEntry() : null}
+                
                 {this.state.showingQuestionSubmissionError ? 
                     <p style={{color: "red"}}>There was an error submitting the question.</p>
                     : null    
                 }
+                
                 <button 
                     onClick={this.addQuestion}
                     disabled={this.state.addingQuestion}>
