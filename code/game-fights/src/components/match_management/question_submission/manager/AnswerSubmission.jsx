@@ -1,12 +1,12 @@
 import React from 'react'
 
-import QuestionSubmissionOptions from './QuestionSubmissionOptions'
+import AnswerSubmissionOptions from './AnswerSubmissionOptions'
 
 import submissionStates from '../../../../enums/questionSubmissionState'
 
 import './../../../../style/QuestionSubmission.css'
 
-const QuestionSubmission = props => {
+const AnswerSubmission = props => {
   return (
     <div id='submission'>
       <div id='submissionInfo'>
@@ -17,7 +17,7 @@ const QuestionSubmission = props => {
         </p>
       </div>
       <div id='submissionOptions'>
-        <QuestionSubmissionOptions
+        <AnswerSubmissionOptions
           state={props.submission.state}
           validatedByUser={props.validatedByUser}
         />
@@ -58,4 +58,4 @@ function determineStatusText (state, validatedByUser) {
   }
 }
 
-export default QuestionSubmission
+export default AnswerSubmission

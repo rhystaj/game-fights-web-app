@@ -1,14 +1,14 @@
 import React from 'react'
 import LoadingComponent from './../../../LoadingComponent';
 
-import QuestionSubmission from './QuesitionSubmission'
+import AnswerSubmission from './AnswerSubmission'
 
 import beInterface from './../../../../backend_interface/interface';
 
-class QuestionSubmissionManager extends LoadingComponent{
+class AnswerSubmissionManager extends LoadingComponent{
   
   constructor(props){
-    super(props, beInterface.queryQuestionSubmissions)
+    super(props, beInterface.queryAnswerSubmissions)
   }
   
   renderLoaded(){
@@ -19,7 +19,7 @@ class QuestionSubmissionManager extends LoadingComponent{
       <div>
         <h2>My Questions</h2>
         {this.state.submissions.map(submission => (
-          <QuestionSubmission
+          <AnswerSubmission
             key={key++}
             submission={submission}
             validatedByUser={submission.validatedByUser}
@@ -31,4 +31,4 @@ class QuestionSubmissionManager extends LoadingComponent{
   }
 }
 
-export default QuestionSubmissionManager
+export default AnswerSubmissionManager

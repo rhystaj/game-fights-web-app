@@ -1,11 +1,10 @@
 import React from 'react'
-import QuestionSubmission from './QuesitionSubmission'
 
 import submissionState from './../../../../enums/questionSubmissionState'
 
 import './../../../../style/QuestionSubmissionOptions.css'
 
-const QuestionSubmissionOptions = props => {
+const AnswerSubmissionOptions = props => {
   return (
     <div id='container'>
       {// Show add answer button if no answer has been submitted.
@@ -34,4 +33,4 @@ const QuestionSubmissionOptions = props => {
   )
 }
 
-export default QuestionSubmissionOptions
+export default AnswerSubmissionOptions
