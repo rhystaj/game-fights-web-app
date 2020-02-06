@@ -20,7 +20,7 @@ const INVALID_STATUS_MESSAGE = 'Error: Body was given an invalid state.'
 class Body extends LoadingComponent {
   
   constructor(props){
-    super(props, beInterface.queryMatchStatus);
+    super(props, beInterface.queryUserMatchStatus);
   }
 
   determineNewState(result){
@@ -37,7 +37,7 @@ class Body extends LoadingComponent {
       case userMatchStatus.NONE:
         return <RunNewMatch />
 
-      case userMatchStatus.INVITE:
+      case userMatchStatus.INVITED:
         return (
           <MatchInvitation
             invitationSender='Rhys'
@@ -45,9 +45,8 @@ class Body extends LoadingComponent {
           />
       )
 
-    // For testing - remove later.
-      case userMatchStatus.MATCH:
-        return <MatchManager />
+      case userMatchStatus.PARTCIPATING:
+        return <MatchManager />;
 
       default:
         return <p>{INVALID_STATUS_MESSAGE}</p>
