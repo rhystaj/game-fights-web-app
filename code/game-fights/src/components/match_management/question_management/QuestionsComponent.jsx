@@ -9,14 +9,15 @@ class Questions extends LoadingComponent{
         super(props, beInterface.queryQuestions)
     }
 
-    renderQuestion(question){
-        return (<p>{question}</p>);
+    renderQuestion(question, number){
+        return (<p key={number}>{question}</p>);
     }
 
     renderLoaded(){
+        let questionNumber = 0;
         return(
             <div>
-                {this.state.questions.map(this.renderQuestion)}
+                {this.state.questions.map(this.renderQuestion, questionNumber++)}
             </div>
         ) 
     }

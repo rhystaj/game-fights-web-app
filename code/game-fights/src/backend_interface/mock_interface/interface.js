@@ -28,6 +28,18 @@ export default Object.freeze({
 
     queryMatchInfo(queryCallback){
         setTimeout(() => queryCallback(matchData.soloData), 1000);
+    },
+
+    submitQuestion(data, successCallback, failureCallback){
+        
+        if(data.localeCompare("Fail") === 0){
+            //For testing purposes.
+            failureCallback();
+        }
+        else{
+            successCallback();
+        }
+        
     }
 
 });
