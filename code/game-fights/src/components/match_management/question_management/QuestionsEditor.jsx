@@ -43,15 +43,10 @@ class QuestionsEditor extends QuestionsComponent{
         });
     }
 
-    onDeleteQuestion = e => {
+    onDeleteQuestion = i => () => {
         
-        console.log("Deleting");
-
         let newQuestionsArray = Array.from(this.state.questions);
-        
-        console.log(newQuestionsArray);
-        
-        newQuestionsArray.splice(e.target.questionnumber, 1);
+        newQuestionsArray.splice(i, 1);
 
         this.setState({questions: newQuestionsArray});
 
@@ -70,12 +65,12 @@ class QuestionsEditor extends QuestionsComponent{
         )
     }
 
-    renderQuestion(question, number){
+    renderQuestion = (question, number) => {
         //Render a delete button alongside each question.
         return (
             <div key={number}>
                 {super.renderQuestion(question)}
-                <button onClick={this.onDeleteQuestion} questionnumber={number}>-</button>
+                <button onClick={this.onDeleteQuestion(number)}>-</button>
             </div>
         )
         

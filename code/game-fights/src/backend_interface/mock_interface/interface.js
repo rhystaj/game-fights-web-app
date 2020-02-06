@@ -10,7 +10,7 @@ const beInterface = {
     queryUserMatchStatus: function(queryCallback){
         
         //Set timeout is to simulate latency.
-        setTimeout(() => {queryCallback(status.PARTCIPATING);}, 1000);
+        setTimeout(() => {queryCallback(status.JUDGING);}, 1000);
         
     },
 
