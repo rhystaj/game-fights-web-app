@@ -3,7 +3,8 @@ import LoadingComponent from './LoadingComponent';
 
 import RunNewMatch from './pre_match_dialogues/RunNewMatch'
 import MatchInvitation from './pre_match_dialogues/MatchInvitation'
-import MatchManager from './match_management/MatchManager'
+import ParticipantMatchManager from './match_management/ParticipantMatchManager'
+import JudgeMatchManager from './match_management/JudgeMatchManager'
 import Loading from './Loading'
 
 import userMatchStatus from './../enums/userMatchStatus'
@@ -46,7 +47,10 @@ class Body extends LoadingComponent {
       )
 
       case userMatchStatus.PARTCIPATING:
-        return <MatchManager />;
+        return (<ParticipantMatchManager />);
+
+      case userMatchStatus.JUDGING:
+        return (<JudgeMatchManager />)
 
       default:
         return <p>{INVALID_STATUS_MESSAGE}</p>
