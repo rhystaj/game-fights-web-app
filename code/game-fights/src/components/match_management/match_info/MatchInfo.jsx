@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-import LoadingComponent from './../../LoadingComponent'
+import LoadingComponent from '../../utility/LoadingComponent'
 
 import MatchDates from './MatchDates'
-import SoloParticipantInfo from './SoloParticipantInfo'
-import TeamParticipantInfo from './TeamParticipantInfo'
 
 import beInterface from './../../../backend_interface/interface';
 
@@ -19,19 +17,49 @@ class MatchInfo extends LoadingComponent {
     super(props, beInterface.queryMatchInfo)
   }
 
-  renderTeamParticipantInfo(){
-    return (<TeamParticipantInfo teams={{} /*Change later*/ } />);
+  renderTitle(title){
+    return <h1>{title}</h1>
   }
 
-  renderSoloParticipantInfo(){
-      return (<SoloParticipantInfo users={this.state.participants} />);
+  /** Render elements displaying information about the judge. */
+  renderJudgeInfo(){
+    return(
+      <div className='userDisplay'>
+        <img src='https://via.placeholder.com/100' alt='Judge' />
+        <p>Judge</p>
+      </div>
+    )
+  }
+
+  renderParticipantsInfo(participants){
+    let key = 0;
+    
+    return(
+      <div className='userDisplay'>
+        {participants.map(this.renderParticipant, key)}
+        <p>Participants</p>
+      </div>
+    )
+  }
+
+  renderParticipant(participant, number){
+    // Find image based on user - IMPLEMENT LATER
+    // For now, just use a placeholder image.
+    return (
+    <img
+      key={number}
+      src='https://via.placeholder.com/100'
+      alt='Placeholder User Icon'
+    />
+    );
   }
 
   renderLoaded(){
+    
     return (
         <div id='matchInfo'>
             
-            <h1>{this.state.title}</h1>
+           {this.renderTitle(this.state.title)}
             
             <MatchDates
                 id='dates'
@@ -40,13 +68,9 @@ class MatchInfo extends LoadingComponent {
                 closeDate={this.state.dates.close}
             />
             
-            {/* Render the image of the Judge */}
-            <div className='userDisplay'>
-                <img src='https://via.placeholder.com/100' alt='Judge' />
-                <p>Judge</p>
-            </div>
+            {this.renderJudgeInfo()}
 
-            {this.state.teamMatch ? this.renderTeamParticipantInfo() : this.renderSoloParticipantInfo()}
+            {this.renderParticipantsInfo(this.state.participants)}
 
         </div>
     );
