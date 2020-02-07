@@ -1,13 +1,13 @@
 import React from 'react';
 import QuestionsComponent from './QuestionsComponent';
+import TextEntry from './../../utility/TextEntry';
+
 import beInterface from '../../../backend_interface/interface';
 
 /**
  * A component that allows you to add/remove items from the list of questions.
  */
 class QuestionsEditor extends QuestionsComponent{
-
-    enteredQuestion = "";
 
     constructor(props){
         super(props);
@@ -23,16 +23,16 @@ class QuestionsEditor extends QuestionsComponent{
         this.setState({addingQuestion: false});
     }
 
-    confirmQuestionEntry = () => {
-        beInterface.submitQuestion(this.enteredQuestion, this.onSuccessfulSubmission,
+    confirmQuestionEntry = newQuestion => {
+        beInterface.submitQuestion(this.enteredQuestion, this.onSuccessfulSubmission(newQuestion),
             this.onSubmissionFailure);
     }
 
-    onSuccessfulSubmission = () => {
+    onSuccessfulSubmission = newQuestion => () => {
         this.setState({
             addingQuestion: false,
             showingQuestionSubmissionError: false,
-            questions: this.state.questions.concat(this.enteredQuestion)
+            questions: this.state.questions.concat(newQuestion)
         });
     }
 
@@ -52,19 +52,6 @@ class QuestionsEditor extends QuestionsComponent{
 
     }
 
-    /**
-     * Render a text edit for adding questions along with confirm and cancel buttons.
-     */
-    renderQuestionEntry(){
-        return (
-            <div>
-                <input type="textedit" onInput={e => {this.enteredQuestion = e.target.value}}/>
-                <button onClick={this.confirmQuestionEntry}>+</button>
-                <button onClick={this.cancelQuestionEntry}>X</button>
-            </div>
-        )
-    }
-
     renderQuestion = (question, number) => {
         //Render a delete button alongside each question.
         return (
@@ -81,7 +68,13 @@ class QuestionsEditor extends QuestionsComponent{
             <div>
                 {super.renderLoaded() /* Render the questions as normal.*/}
                 
-                {this.state.addingQuestion ? this.renderQuestionEntry() : null}
+                {this.state.addingQuestion ? 
+                    <TextEntry 
+                        onConfirmEntry={this.confirmQuestionEntry}
+                        onCancelEntry={this.cancelQuestionEntry}
+                    /> 
+                    : 
+                    null}
                 
                 {this.state.showingQuestionSubmissionError ? 
                     <p style={{color: "red"}}>There was an error submitting the question.</p>
@@ -99,4 +92,4 @@ class QuestionsEditor extends QuestionsComponent{
 
 }
 
-export default QuestionsEditor
+export default QuestionsEditor;
