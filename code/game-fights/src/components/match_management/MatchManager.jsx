@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import LoadingComponent from '../LoadingComponent';
+import LoadingComponent from '../utility/LoadingComponent';
 
 import ParticipantMatchInfo from './match_info/ParticipantMatchInfo'
 import QuestionDisplay from './question_submission/QuesionDisplay'

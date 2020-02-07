@@ -1,12 +1,4 @@
 import React, { Component } from 'react'
-import LoadingComponent from './../../LoadingComponent'
-
-import MatchDates from './MatchDates'
-import SoloParticipantInfo from './SoloParticipantInfo'
-import TeamParticipantInfo from './TeamParticipantInfo'
-
-import beInterface from './../../../backend_interface/interface';
-
 import './../../../style/MatchInfo.css'
 import MatchInfo from './MatchInfo'
 

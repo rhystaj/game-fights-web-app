@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import LoadingComponent from './LoadingComponent';
+import LoadingComponent from './utility/LoadingComponent';
 
 import RunNewMatch from './pre_match_dialogues/RunNewMatch'
 import MatchInvitation from './pre_match_dialogues/MatchInvitation'
 import ParticipantMatchManager from './match_management/ParticipantMatchManager'
 import JudgeMatchManager from './match_management/JudgeMatchManager'
-import Loading from './Loading'
 
 import userMatchStatus from './../enums/userMatchStatus'
 import beInterface from './../backend_interface/interface'
@@ -28,11 +27,7 @@ class Body extends LoadingComponent {
     return {matchStatus: result}
   }
 
-  renderLoaded(){
-    if(this.state.loading){
-      return <Loading />
-    }
-    
+  renderLoaded(){    
     //Match state data has been loaded.
     switch (this.state.matchStatus) {
       case userMatchStatus.NONE:

@@ -1,5 +1,5 @@
 import React from 'react'
-import LoadingComponent from './../../../LoadingComponent';
+import LoadingComponent from './../../../utility/LoadingComponent';
 
 import AnswerSubmission from './AnswerSubmission'
 
