@@ -4,6 +4,7 @@ import stage from './../../enums/matchStage'
 import submissions from './test_data/submissions'
 import matchData from './test_data/matchData'
 import questions from './test_data/questions'
+import fighterSearchResults from './test_data/fighterSearchResults'
 
 const beInterface = {
     
@@ -39,7 +40,11 @@ const beInterface = {
         setTimeout(() => queryCallback(matchData.soloData), 1000);
     },
 
-    submitQuestion: function(data, successCallback, failureCallback){
+    fetchFightersByName(name, queryCallback){
+        queryCallback(fighterSearchResults.filter(fighter => fighter.name.includes(name)));
+    },
+
+    testSubmission: function(data, successCallback, failureCallback){
         
         if(data.localeCompare("Fail") === 0){
             //For testing purposes.
@@ -49,6 +54,14 @@ const beInterface = {
             successCallback();
         }
         
+    },
+
+    submitQuestion: function(question, successCallback, failureCallback){
+        beInterface.testSubmission(question, successCallback, failureCallback);
+    }, 
+
+    submitMatchTitle: function(title, successCallback, failureCallback){
+        beInterface.testSubmission(title, successCallback, failureCallback)
     },
 
     events: {
