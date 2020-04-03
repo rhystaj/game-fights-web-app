@@ -34,7 +34,7 @@ class LoadingComponent extends Component {
         
             let newState = this.determineNewState(queryResult);
             if(newState.loading !== undefined){
-                throw new Error('The loading flag should not be set outsideof the LoadingComponent object!');
+                throw new Error('The loading flag should not be set outside of the LoadingComponent object!');
             }
 
             newState.loading = false;
