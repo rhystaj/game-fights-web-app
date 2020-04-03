@@ -3,8 +3,6 @@ import React from 'react'
 import Header from './components/Header'
 import Body from './components/Body'
 
-import userMatchStatus from './enums/userMatchStatus'
-
 import './style/App.css'
 
 const App = () => {
