@@ -3,7 +3,7 @@ import MatchInfo from './MatchInfo';
 import TextEntry from '../../utility/TextEntry';
 import beInterface from '../../../backend_interface/interface';
 
-import ParticipantsInviteScreen from '../../modals/ParticipantsInviteScreen';
+import FighterInvitationSearchModal from '../../modals/ParticipantsInviteScreen/FighterInvitationSearchModal';
 
 class JudgeMatchInfo extends MatchInfo{
 
@@ -70,7 +70,7 @@ class JudgeMatchInfo extends MatchInfo{
         return (
             <div>
                 {super.renderLoaded()}
-                <ParticipantsInviteScreen />
+                <FighterInvitationSearchModal />
             </div>
         )
     }
