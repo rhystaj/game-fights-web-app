@@ -3,7 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react-scripts": "2.1.1"
+    "@types/react": "^16.9.26",
+    "@types/react-dom": "^16.9.5",
+    "compass": "^0.1.1",
+    "jsx": "^0.9.89",
+    "react-scripts": "2.1.1",
+    "scss": "^0.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -25,6 +30,9 @@
     "enzyme": "^3.8.0",
     "react": "^16.12.0",
     "react-addons-test-utils": "^15.6.2",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "source-map-loader": "^0.2.4",
+    "ts-loader": "^6.2.2",
+    "typescript": "^3.8.3"
   }
 }
