@@ -1,0 +1,21 @@
+.participantInvitesScreenModal{
+    display: block;
+    position: absolute;
+    left: calc(50% - 250px);
+    width: 800px;
+}
+
+.searchBox{
+    display: block;
+    width: 100%;
+}
+
+.modalScreenDataListColumn{
+    border: 1px;
+    border-style: solid;
+    display: inline-block;
+    height: 650px;
+    margin: 3%;
+    width: 40%;
+    overflow-y: scroll;
+}
