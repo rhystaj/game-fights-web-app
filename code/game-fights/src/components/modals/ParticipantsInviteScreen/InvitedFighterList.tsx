@@ -9,6 +9,9 @@ interface InvitedFighterListProps extends ItemListProps<FighterData>{
     onUninviteFighter: (fighter: FighterData) => () => void;
 }
 
+/**
+ * [DES/PRE] Renders a list of invited fighters that can be unininvited.
+ */
 export default class InvitedFighterList extends FighterList<InvitedFighterListProps>{
 
     constructor(props: InvitedFighterListProps){
