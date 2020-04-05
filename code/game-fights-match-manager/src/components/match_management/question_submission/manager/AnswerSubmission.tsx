@@ -2,11 +2,24 @@ import React from 'react'
 
 import AnswerSubmissionOptions from './AnswerSubmissionOptions'
 
-import submissionStates from '../../../../enums/questionSubmissionState'
+import { QuestionSubmissionState } from '../../../../enums/statusEnums'
 
 import './../../../../style/QuestionSubmission.css'
 
-const AnswerSubmission = props => {
+export interface AnswerSubmissionProps{
+  submission: {
+    question: string,
+    answer: string,
+    state: QuestionSubmissionState
+  }
+  validatedByUser: boolean,
+}
+
+/**
+ * Shows the submission of an answer to a question and it's related details such as status.
+ * @param props The properties of the submission to display.
+ */
+export default function AnswerSubmission(props: AnswerSubmissionProps) {
   return (
     <div id='submission'>
       <div id='submissionInfo'>
@@ -29,33 +42,30 @@ const AnswerSubmission = props => {
 /**
  * Determine the test to be displayed to communicate the status of the submission.
  * @param {The state the submission is in - no answer, awaiting validation, pending judge approval, accepted or declined} state
- * @param {The id of the user that made the submission} submittingUser
- * @param {The id of the user that is currently signed in, and therefore viewing the submission.} signedInUser
+ * @param {Determines whether the submission is expected to be validated by the user} validatedByUser
  * @returns {The text appropriate for the state.}
  */
-function determineStatusText (state, validatedByUser) {
+function determineStatusText (state: QuestionSubmissionState, validatedByUser: boolean) {
   switch (state) {
-    case submissionStates.NO_ANSWER:
+    case QuestionSubmissionState.NO_ANSWER:
       return '(Not Answered)'
 
     // Changed depending on whether the user that is signed in (and therefore viewing the submission) is the same as the one that made the submission.
-    case submissionStates.AWAITING_VALIDATION:
+    case QuestionSubmissionState.AWAITING_VALIDATION:
       return validatedByUser
         ? 'Awaiting Team Validation'
         : 'Requiring Team Validation'
 
-    case submissionStates.PENDING_JUDGE_APPROVAL:
+    case QuestionSubmissionState.PENDING_JUDGE_APPROVAL:
       return 'Pending Judge Approval'
 
-    case submissionStates.ACCEPTED:
+    case QuestionSubmissionState.ACCEPTED:
       return 'Accepted'
 
-    case submissionStates.DECLINED:
+    case QuestionSubmissionState.DECLINED:
       return 'Declined'
 
     default:
       return ''
   }
 }
-
-export default AnswerSubmission
