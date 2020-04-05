@@ -2,23 +2,26 @@ export interface UniquelyIdentifiable {
     id: number 
 }
 
-export type SoloMatchData = {
-    title: string,
-    teamMatch: boolean,
-    dates: {
-        match: string,
-        open: string,
-        close: string
-    }
-    participants: { name: string }[]
-}
-
 export interface FighterData extends UniquelyIdentifiable{
     name: string,
     engaged: boolean
 }
 
-export type QuestionSubmission = {
+export interface Question extends UniquelyIdentifiable {
+    text: string;
+}
+
+export interface MatchData{
+    title: string,
+    dates: {
+        match: string,
+        open: string,
+        close: string
+    },
+    participants: FighterData[]
+}
+
+export interface AnswerSubmissionData extends UniquelyIdentifiable {
     question: string,
     answer: string,
     state: number,
