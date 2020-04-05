@@ -1,4 +1,4 @@
-export enum matchStage {
+export enum MatchStage {
     DETERMINING_QUESTIONS,
     QUESTIONS_DETERMINED,
     ANSWERS_OPENED,
@@ -6,7 +6,7 @@ export enum matchStage {
     RECORDING_RESULTS
 }
 
-export enum questionSubmissionState {
+export enum QuestionSubmissionState {
     NO_ANSWER,
     AWAITING_VALIDATION,
     PENDING_JUDGE_APPROVAL,
@@ -14,7 +14,7 @@ export enum questionSubmissionState {
     DECLINED
 }
 
-export enum userMatchStatus{
+export enum UserMatchStatus{
     NONE,
     INVITED,
     PARTCIPATING,
