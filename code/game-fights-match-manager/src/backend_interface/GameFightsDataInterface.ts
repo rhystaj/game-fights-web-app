@@ -1,4 +1,4 @@
-import { QuestionSubmission, SoloMatchData, FighterData } from '../types/datatypes'
+import { AnswerSubmissionData, MatchData, FighterData, Question } from '../types/datatypes'
 import { UserMatchStatus, MatchStage } from '../enums/statusEnums';
 import { QueryCallback } from '../types/functionTypes';
 
@@ -37,26 +37,26 @@ export default abstract class GameFightsDataInterface{
      * @param queryCallback Defines what it to be done with the collection of choosen questions once they have been
      * retrieved.  
      */
-    public abstract queryQuestions(queryCallback: QueryCallback<string[]>): void;
+    public abstract queryQuestions(queryCallback: QueryCallback<Question[]>): void;
 
     /**
      * [DES/PRE] Retrieve and respond to the answers to each of the match's questions submitted by the users being managed by
      * the data.
      * @param queryCallback Defines what us to be done with the answers once they have been retrieved.
      */
-    public abstract queryAnswerSubmissions(queryCallback : QueryCallback<QuestionSubmission[]>): void;
+    public abstract queryAnswerSubmissions(queryCallback : QueryCallback<AnswerSubmissionData[]>): void;
 
     /**
      * [DES/PRE] Retieve and respond to information about the match being managed by the data.
      * @param queryCallback 
      */
-    public abstract queryMatchInfo(queryCallback: QueryCallback<SoloMatchData>): void;
+    public abstract queryMatchInfo(queryCallback: QueryCallback<MatchData>): void;
 
     /**
      * [DES/PRE] Retrieve and respond to a list of fighter whos name contains a specified string.
      * @param name The string being used to identifiy the desired fighters.
      */
-    public abstract fetchFightersByName(name: string): (queryCallback: QueryCallback<FighterData>) => void;
+    public abstract fetchFightersByName(name: string): (queryCallback: QueryCallback<FighterData[]>) => void;
 
     /**
      * [DES/PRE] Specify a question that is to be added to the managed data.

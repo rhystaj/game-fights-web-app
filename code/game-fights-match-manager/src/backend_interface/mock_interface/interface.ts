@@ -1,52 +1,75 @@
-import status from '../../enums/userMatchStatus'
-import stage from '../../enums/matchStage'
-
 import submissions from './test_data/submissions'
 import matchData from './test_data/matchData'
 import questions from './test_data/questions'
 import fighterSearchResults from './test_data/fighterSearchResults'
 
-import { QuestionSubmission, SoloMatchData, FighterData } from '../../types/datatypes';
+import { QueryCallback } from '../../types/functionTypes';
 
+import GameFightsDataInterface from '../GameFightsDataInterface';
 
-const beInterface = {
-    queryUserMatchStatus: function(queryCallback: (resultStatus: number) => void){
+import { UserMatchStatus, MatchStage } from '../../enums/statusEnums';
+import { Question, AnswerSubmissionData, MatchData, FighterData } from '../../types/datatypes';
+
+export default class MockGameFightsDataInterface extends GameFightsDataInterface{
+    
+    public queryUserMatchStatus(queryCallback: QueryCallback<UserMatchStatus>){
         
         //Set timeout is to simulate latency.
-        setTimeout(() => {queryCallback(status.JUDGING);}, 1000);
+        setTimeout(() => {queryCallback(UserMatchStatus.JUDGING);}, 1000);
         
-    },
+    }
 
-    queryMatchStage: function(queryCallback: (resultStage: number) => void){
-        setTimeout(() => {queryCallback(stage.DETERMINING_QUESTIONS)}, 1000);
-    },
+    public queryMatchStage(queryCallback: QueryCallback<MatchStage>){
+        setTimeout(() => {queryCallback(MatchStage.DETERMINING_QUESTIONS)}, 1000);
+    }
 
-    queryQuestions: function(queryCallback: (resultQuestions: {questions: string[]}) => void){
-        setTimeout(() => {queryCallback({questions});}, 1000);
+    public queryQuestions(queryCallback: QueryCallback<Question[]>){
+        
+        setTimeout(() => {queryCallback(questions);}, 1000);
         
         //To simulate a question being added after the page has loaded.
-        setTimeout(() => {beInterface.updateQuestion()}, 10000);
-    },
+        setTimeout(() => {this.updateQuestion()}, 10000);
+        
+    }
 
-    updateQuestion: function(){
+    /**
+     * [DES] Mocks the addition of a new question and the successive calling of the event.
+     */
+    private updateQuestion(){
         if(this.events.onQuestionUpdate !== undefined){
             this.events.onQuestionUpdate(questions.concat("New quesiton"));
         }
-    },
+    }
 
-    queryAnswerSubmissions: function(queryCallback : (resultSubmissions: { submissions: QuestionSubmission[] }) => void){
-        setTimeout(() => {queryCallback( {submissions} );}, 1000);
-    },
+    public queryAnswerSubmissions(queryCallback : QueryCallback<AnswerSubmissionData[]>){
+        setTimeout(() => {queryCallback(submissions);}, 1000);
+    }
 
-    queryMatchInfo: function(queryCallback: (matchData: SoloMatchData) => void){
+    public queryMatchInfo(queryCallback: QueryCallback<MatchData>){
         setTimeout(() => queryCallback(matchData.soloData), 1000);
-    },
+    }
 
-    fetchFightersByName: (name: string) => (queryCallback: (fighterData: FighterData[]) => void) => {
-        queryCallback(fighterSearchResults.filter(fighter => fighter.name.indexOf(name) >= 0));
-    },
+    public fetchFightersByName(name: string): (queryCallback: QueryCallback<FighterData[]>) => void {
+        return queryCallback => {
+            queryCallback(fighterSearchResults.filter(fighter => fighter.name.indexOf(name) >= 0))
+        };
+    }
 
-    testSubmission: function(data: string, successCallback: () => void, failureCallback: () => void){
+    public submitQuestion(question: string, successCallback: () => void, failureCallback: () => void){
+        this.testSubmission(question, successCallback, failureCallback);
+    }
+
+    public submitMatchTitle(title: string, successCallback: () => void, failureCallback: () => void){
+        this.testSubmission(title, successCallback, failureCallback)
+    }
+
+    /**
+     * Mock a submission that can be deliberately failed by enterinf keyword 'Fail', but otherwise will succeed/
+     * @param data The data to be sent in the mock submission.
+     * @param successCallback Called if the data is not set to 'Fail' - mocks a successful submission.
+     * @param failureCallback Called if the dtat is set to 'Fail' - mocks a failed submission.
+     */
+    private testSubmission(data: string, successCallback: () => void, failureCallback: () => void){
         
         if(data.localeCompare("Fail") === 0){
             //For testing purposes.
@@ -56,20 +79,6 @@ const beInterface = {
             successCallback();
         }
         
-    },
-
-    submitQuestion: function(question: string, successCallback: () => void, failureCallback: () => void){
-        beInterface.testSubmission(question, successCallback, failureCallback);
-    }, 
-
-    submitMatchTitle: function(title: string, successCallback: () => void, failureCallback: () => void){
-        beInterface.testSubmission(title, successCallback, failureCallback)
-    },
-
-    events: {
-        //Does nothing - to be overridden.
-        onQuestionUpdate: (mockParam: string[]) => {}
     }
-}
 
-export default beInterface;
+}
