@@ -8,23 +8,18 @@ import GameFightsDataInterface from '../../../backend_interface/GameFightsDataIn
 
 import { MatchData, FighterData } from '../../../types/datatypes';
 import { QueryCallback } from "../../../types/functionTypes";
-import matchData from '../../../backend_interface/mock_interface/test_data/matchData';
 
 /**
  * [DES/PRE] Shows the name, participants info, and dates of a match.
  * @param {*} props
  */
-export default class MatchInfo extends LoadingComponent<GameFightsDataInterface, MatchData,
-    LoadingComponentProps<GameFightsDataInterface>> {
+export default abstract class MatchInfoComponent<S extends LoadingComponentState<MatchData>> extends 
+    LoadingComponent<GameFightsDataInterface, MatchData, LoadingComponentProps<GameFightsDataInterface>, S> {
   
   protected loadData(dataInterface: GameFightsDataInterface): (loadCallback: QueryCallback<MatchData>) => void {
     return loadCallback => {
       dataInterface.queryMatchInfo(loadCallback);
     }
-  }
-  
-  protected instantiateState(loading: boolean, data: MatchData): LoadingComponentState<MatchData>{
-    return new LoadingComponentState<MatchData>(loading, data);
   }
 
   protected determineInitalData(){
