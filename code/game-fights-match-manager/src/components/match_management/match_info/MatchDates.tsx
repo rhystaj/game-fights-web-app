@@ -1,5 +1,11 @@
 import React from 'react'
 
+type MatchDateProps = {
+  matchDate: string,
+  openDate: string,
+  closeDate: string
+}
+
 /**
  * Displays the dates relevant to a match.
  *
@@ -10,7 +16,7 @@ import React from 'react'
  *
  * @param {*} props
  */
-const MatchDates = props => {
+const MatchDates = (props: MatchDateProps) => {
   return (
     <div id='dates'>
       <p>

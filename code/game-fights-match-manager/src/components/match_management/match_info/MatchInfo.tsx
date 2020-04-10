@@ -77,7 +77,6 @@ export default abstract class MatchInfoComponent<S extends LoadingComponentState
            {this.renderTitle(data.title)}
             
             <MatchDates
-                id='dates'
                 matchDate={data.dates.match}
                 openDate={data.dates.open}
                 closeDate={data.dates.close}
