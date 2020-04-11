@@ -3,6 +3,14 @@
 */
 
 /**
+ * Determines if a variable has not been assigned a value, i.e. is null or undefined.
+ * @param x The value being checked.
+ */
+export function isUnassigned<T>(x: T){
+    return x === null || x === undefined;
+}
+
+/**
  * Handles a null value by returning a specified alternative value instead.
  * @param potentiallyUnassignedValue The value that could be null
  * @param valueWhenUnassigned The value that will be returned in place of the potentiallyNullValue if it is null.
