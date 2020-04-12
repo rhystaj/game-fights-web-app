@@ -1,13 +1,18 @@
 import React from 'react';
-import LoadingComponent, { LoadingComponentState, LoadingComponentProps } from '../../utility/LoadingComponent';
 
 import GameFightsDataInterface from '../../../backend_interface/GameFightsDataInterface';
 
-import { Question } from '../../../types/datatypes';
+import LoadingComponent, { LoadingComponentState, LoadingComponentProps } from '../../utility/LoadingComponent';
+
 import { QueryCallback } from "../../../types/functionTypes";
+
 import UniquelyIdentifiableCollection from '../../../utility/UniquelyIdentifiableCollection';
+
 import QuestionEquator from '../../../types/equators/UniquelyIndentifiableEquators';
 import { NullQuestion } from '../../../types/nullTypes';
+
+import { Question } from '../../../types/datatypes';
+
 
 //Some type aliases to hopefully make type references more digestable.
 type QuestionCollection = UniquelyIdentifiableCollection<Question>;
