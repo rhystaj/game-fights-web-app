@@ -1,3 +1,7 @@
+export interface IEquator<T>{
+    areEqual: (a: T, b: T) => boolean;
+}
+
 export interface UniquelyIdentifiable { 
     id: number 
 }
