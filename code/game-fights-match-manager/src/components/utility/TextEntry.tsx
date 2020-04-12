@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 type TextEntryProps = {
-    onConfirmEntry: (currentValue: string) => () => void
+    onConfirmEntry: (currentValue: string) => void
     onCancelEntry: () => void;
 }
 
