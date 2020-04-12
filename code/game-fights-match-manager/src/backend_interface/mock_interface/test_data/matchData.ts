@@ -7,10 +7,10 @@ const soloMatchData = {
         close: '13/12/1996'
     },
     participants: [
-        {name: "user1"},
-        {name: "user2"},
-        {name: "user3"}
+        {id: 1, name: "user1", engaged: true },
+        {id: 2, name: "user2", engaged: true },
+        {id: 3, name: "user3", engaged: true }
     ]
 }
 
-export default {soloData: soloMatchData}
+export default soloMatchData

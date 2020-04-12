@@ -37,7 +37,10 @@ export default class MockGameFightsDataInterface extends GameFightsDataInterface
      */
     private updateQuestion(){
         if(this.events.onQuestionUpdate !== undefined){
-            this.events.onQuestionUpdate(questions.concat("New quesiton"));
+            this.events.onQuestionUpdate(questions.concat({
+                id: 6,
+                text: "New quesiton"
+            }));
         }
     }
 
@@ -46,7 +49,7 @@ export default class MockGameFightsDataInterface extends GameFightsDataInterface
     }
 
     public queryMatchInfo(queryCallback: QueryCallback<MatchData>){
-        setTimeout(() => queryCallback(matchData.soloData), 1000);
+        setTimeout(() => queryCallback(matchData), 1000);
     }
 
     public fetchFightersByName(name: string): (queryCallback: QueryCallback<FighterData[]>) => void {

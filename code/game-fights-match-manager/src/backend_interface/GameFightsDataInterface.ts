@@ -6,7 +6,7 @@ import { QueryCallback } from '../types/functionTypes';
  * [DES/PRE] A set of functions defining reponses to changes in GameFights data.
  */
 type GameFightsDataEvents = {
-    onQuestionUpdate: (mockParam: string[]) => void;
+    onQuestionUpdate: (questions: Question[]) => void;
 }
 
 /**
@@ -16,7 +16,7 @@ type GameFightsDataEvents = {
 export default abstract class GameFightsDataInterface{
  
     public events: GameFightsDataEvents = {
-        onQuestionUpdate: (mockParam: string[]) => { }
+        onQuestionUpdate: (questions: Question[]) => { }
     }
 
     /**

@@ -6,7 +6,7 @@ export enum MatchStage {
     RECORDING_RESULTS
 }
 
-export enum QuestionSubmissionState {
+export enum AnswerSubmissionState {
     NO_ANSWER,
     AWAITING_VALIDATION,
     PENDING_JUDGE_APPROVAL,

@@ -2,7 +2,7 @@ import React from 'react'
 
 import AnswerSubmissionOptions from './AnswerSubmissionOptions'
 
-import { QuestionSubmissionState } from '../../../../enums/statusEnums'
+import { AnswerSubmissionState } from '../../../../enums/statusEnums'
 
 import './../../../../style/QuestionSubmission.css'
 
@@ -10,7 +10,7 @@ export interface AnswerSubmissionProps{
   submission: {
     question: string,
     answer: string,
-    state: QuestionSubmissionState
+    state: AnswerSubmissionState
   }
   validatedByUser: boolean,
 }
@@ -45,24 +45,24 @@ export default function AnswerSubmission(props: AnswerSubmissionProps) {
  * @param {Determines whether the submission is expected to be validated by the user} validatedByUser
  * @returns {The text appropriate for the state.}
  */
-function determineStatusText (state: QuestionSubmissionState, validatedByUser: boolean) {
+function determineStatusText (state: AnswerSubmissionState, validatedByUser: boolean) {
   switch (state) {
-    case QuestionSubmissionState.NO_ANSWER:
+    case AnswerSubmissionState.NO_ANSWER:
       return '(Not Answered)'
 
     // Changed depending on whether the user that is signed in (and therefore viewing the submission) is the same as the one that made the submission.
-    case QuestionSubmissionState.AWAITING_VALIDATION:
+    case AnswerSubmissionState.AWAITING_VALIDATION:
       return validatedByUser
         ? 'Awaiting Team Validation'
         : 'Requiring Team Validation'
 
-    case QuestionSubmissionState.PENDING_JUDGE_APPROVAL:
+    case AnswerSubmissionState.PENDING_JUDGE_APPROVAL:
       return 'Pending Judge Approval'
 
-    case QuestionSubmissionState.ACCEPTED:
+    case AnswerSubmissionState.ACCEPTED:
       return 'Accepted'
 
-    case QuestionSubmissionState.DECLINED:
+    case AnswerSubmissionState.DECLINED:
       return 'Declined'
 
     default:

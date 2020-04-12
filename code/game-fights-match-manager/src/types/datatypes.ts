@@ -1,3 +1,4 @@
+import { AnswerSubmissionState } from "../enums/statusEnums";
 
 
 export interface UniquelyIdentifiable { 
@@ -26,6 +27,6 @@ export interface MatchData{
 export interface AnswerSubmissionData extends UniquelyIdentifiable {
     question: string,
     answer: string,
-    state: number,
+    state: AnswerSubmissionState,
     validatedByUser: boolean
 }
