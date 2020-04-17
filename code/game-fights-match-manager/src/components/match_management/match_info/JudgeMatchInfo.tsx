@@ -91,7 +91,7 @@ class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoState>{
         return (
             <div>
                 {super.renderLoaded(dataInterface, data)}
-                <FighterInvitationSearchModal />
+                <FighterInvitationSearchModal dataInterface={dataInterface}/>
             </div>
         )
     }

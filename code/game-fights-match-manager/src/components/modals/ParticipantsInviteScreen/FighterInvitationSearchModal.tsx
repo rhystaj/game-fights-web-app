@@ -4,12 +4,13 @@ import SearchModal, { SearchModalState } from '../../utility/SearchModal';
 
 import InvitationSearchResultsFighterList from './InvitationSearchResultsFighterList';
 
-import beInterface from './../../../backend_interface/interface';
-
 import { FighterData } from '../../../types/datatypes';
 import { whenUnassigned } from '../../../utility/qolFunctions'
 
 import InvitedFighterList from './InvitedFighterList';
+import GameFightsDataInterface from '../../../backend_interface/GameFightsDataInterface';
+
+type FighterInvitationSearchModalProps = {dataInterface: GameFightsDataInterface};
 
 interface FighterInvitationSearchModalState extends SearchModalState<FighterData>{
     invitedFighters: FighterData[]
@@ -18,13 +19,10 @@ interface FighterInvitationSearchModalState extends SearchModalState<FighterData
 /**
  * [DES] A SerachModal that allows you to search for and invite fighters.
  */
-export default class FighterInvitationSearchModal extends SearchModal<FighterData, FighterInvitationSearchModalState>{
+export default class FighterInvitationSearchModal 
+    extends SearchModal<FighterInvitationSearchModalProps, FighterData, FighterInvitationSearchModalState>{
 
-    constructor(props: {}){
-        super(props);
-    }
-
-    getDerivedStateFromProps = (props: {}, state: FighterInvitationSearchModalState) => {
+    getDerivedStateFromProps = (props: FighterInvitationSearchModalProps, state: FighterInvitationSearchModalState) => {
         return {
             searchResults:[],
             invitedFighters: []
@@ -44,7 +42,7 @@ export default class FighterInvitationSearchModal extends SearchModal<FighterDat
     }
     
     fetchSearchResults = (searchString: string) => (searchCallback: (searchResults: FighterData[]) => void) => {
-        beInterface.fetchFightersByName(searchString)(searchCallback);
+        this.props.dataInterface.fetchFightersByName(searchString)(searchCallback);
     }
 
     /**

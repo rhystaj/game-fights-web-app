@@ -6,13 +6,10 @@ export interface SearchModalState<I extends UniquelyIdentifiable>{
     searchResults: I[];
 }
 
-export default class SearchModal<I extends UniquelyIdentifiable, S extends SearchModalState<I>> extends Component<{}, S>{
+export default class SearchModal<P, I extends UniquelyIdentifiable, S extends SearchModalState<I>> 
+        extends Component<P, S>{
 
-    constructor(props: {}){
-        super(props);
-    }
-
-    getDerivedStateFromProps = (props: {}, state: S) => {
+    getDerivedStateFromProps = (props: P, state: S) => {
         return {
             searchResults: []
         }

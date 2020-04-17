@@ -1,12 +1,16 @@
 import React from 'react'
 
+import GameFightsDataInterface from '../../../../backend_interface/GameFightsDataInterface'
+
 import AnswerSubmissionOptions from './AnswerSubmissionOptions'
 
 import { AnswerSubmissionState } from '../../../../enums/statusEnums'
 
 import './../../../../style/QuestionSubmission.css'
+import { LoadingComponentProps } from '../../../utility/LoadingComponent'
 
-export interface AnswerSubmissionProps{
+
+export interface AnswerSubmissionProps extends LoadingComponentProps<GameFightsDataInterface>{
   submission: {
     question: string,
     answer: string,
@@ -31,6 +35,7 @@ export default function AnswerSubmission(props: AnswerSubmissionProps) {
       </div>
       <div id='submissionOptions'>
         <AnswerSubmissionOptions
+          dataInterface={props.dataInterface}
           state={props.submission.state}
           validatedByUser={props.validatedByUser}
         />

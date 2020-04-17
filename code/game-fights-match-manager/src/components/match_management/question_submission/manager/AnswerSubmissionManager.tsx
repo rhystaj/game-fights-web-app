@@ -33,6 +33,7 @@ export default class AnswerSubmissionManager extends LoadingComponent<GameFights
         <h2>My Questions</h2>
         {submissions.map(submission => (
           <AnswerSubmission
+            dataInterface={dataInterface}
             key={submission.id}
             submission={submission}
             validatedByUser={submission.validatedByUser}
