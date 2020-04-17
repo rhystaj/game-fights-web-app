@@ -66,10 +66,6 @@ export default abstract class LoadingComponent<I, D, P extends LoadingComponentP
         this.loadData(this.dataInterface)(queryResult => {
         
             let newState: S = this.determineNewState(queryResult);
-            if(newState.loading !== undefined){
-                throw new Error('The loading flag should not be set outside of the LoadingComponent object!');
-            }
-
             this.setState(newState.setLoading(false));
 
         });
