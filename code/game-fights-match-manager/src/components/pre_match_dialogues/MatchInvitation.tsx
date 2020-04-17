@@ -9,7 +9,7 @@ import React from 'react'
  *
  * @param {} props
  */
-const MatchInvitation = props => {
+const MatchInvitation = (props: {invitationSender: string, matchName: string}) => {
   return (
     <div>
       <p>

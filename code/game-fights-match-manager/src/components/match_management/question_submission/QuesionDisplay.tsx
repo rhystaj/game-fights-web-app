@@ -1,6 +1,8 @@
 import React from 'react'
 
-const QuestionDisplay = props => {
+import { Question } from '../../../types/datatypes'
+
+const QuestionDisplay = (props: {questions: Question[]}) => {
   return (
     <div>
       <h1>Questions</h1>

@@ -10,7 +10,7 @@ import '../style/Header.css'
  *
  * @param {*} props
  */
-const Header = props => {
+const Header = (props: {logoSrc: string, notificationsIconSrc: string}) => {
   return (
     <div className='Header'>
       <img className='HeaderChild' src={props.logoSrc} alt='Game Fights Logo' />
