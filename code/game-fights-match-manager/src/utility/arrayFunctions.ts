@@ -68,3 +68,13 @@ export function shareElementsExactly<I>(arrayA: I[], arrayB: I[], equalityChecke
 export function numberOfElementsThat<T>(array: T[], predicate: (t: T) => boolean): number{
     return array.filter((element: T) => !predicate(element)).length;
 }
+
+/**
+ * Determine whether a condition holds for all elements in an array.
+ * @param array The array in question.
+ * @param predicate The predicate that describes the condition that should hold for all elements in the array.
+ */
+export function trueForAllInArray<T>(array: T[], predicate: (t: T) => boolean): boolean{
+    return array.map<boolean>((t: T) => predicate(t))
+                .reduce((prevValue: boolean, currentValue: boolean) => prevValue && currentValue, true);
+}

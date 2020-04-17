@@ -6,11 +6,12 @@ import { NullFighterData } from '../types/nullTypes';
 import { Collection, List, LinkedList, ArrayList, TreeMap, MapEntry } from 'typescriptcollectionsframework';
 
 import { isUnassigned } from '../utility/qolFunctions';
-import { allValuesAssigned, numberOfElementsThat, shareElementsExactly } from './arrayFunctions';
+import { allValuesAssigned, numberOfElementsThat, shareElementsExactly, trueForAllInArray } from './arrayFunctions';
 import IFactory from '../types/factories/IFactory';
 import UniquelyIdentifiableFactory, { UniquelyIdentifiableGenerator } from '../types/factories/UniquelyIdentifiableFactories/UniquelyIdentifiableFactory';
 import IEquator from '../types/equators/IEquator';
 import { UniquelyIdentifiableEquator } from '../types/equators/UniquelyIndentifiableEquators';
+import { trueForAllInCollection } from './collectionFunctions';
 
 /**
  * [DES/PRE] An immutable collection of UniquelyIdentifiable objects that ensures that no two objects within it have the
@@ -376,19 +377,12 @@ export default class UniquelyIdentifiableCollection<I extends UniquelyIdentifiab
             }
         });
 
-
         //Postconditions
         assert(allValuesAssigned(returnArray), 
             "Postcondition Fail: The resulting array should not contain any null or undefined values.");
-        assert(returnArray.forEach((element: I) => {
-                this.elements.contains(element);
-            }), 
+        assert(trueForAllInArray(returnArray, (i: I) => this.elements.contains(i)), 
             "Postcondition Fail: All elements in the new array should be contained within the collection.");
-        assert(this.elements.forEach({
-                accept: (element: I) => {
-                    returnArray.includes(element);
-                }
-            }), 
+        assert(trueForAllInCollection(this.elements, (i: I) => returnArray.includes(i)), 
             "Postcondition Fail: All elements in the collection should be contained within the new array.");
 
 
