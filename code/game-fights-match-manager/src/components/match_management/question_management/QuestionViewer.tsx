@@ -6,10 +6,12 @@ import QuestionsComponent from './QuestionsComponent'
 import UniquelyIdentifiableCollection from '../../../utility/UniquelyIdentifiableCollection';
 
 import { Question } from '../../../types/datatypes';
+import { QuestionsEditorState } from './QuestionsEditor';
 
 //Some type aliases to make declarations more digestable.
-type QuestionsViewerState = LoadingComponentState<UniquelyIdentifiableCollection<Question>>
-type QuestionsViewerProps = LoadingComponentProps<GameFightsDataInterface>
+type QuestionCollection = UniquelyIdentifiableCollection<Question>;
+type QuestionsViewerState = LoadingComponentState<QuestionCollection>;
+type QuestionsViewerProps = LoadingComponentProps<GameFightsDataInterface>;
 
 
 /**
@@ -23,11 +25,15 @@ class QuestionsViewer extends QuestionsComponent<QuestionsViewerState>{
         props.dataInterface.events.onQuestionUpdate = this.onQuestionUpdate;
     }
 
+    determineInitialState(initialLoadingValue: boolean, initialQuestionCollection: QuestionCollection){
+        return new LoadingComponentState<QuestionCollection>(initialLoadingValue, initialQuestionCollection);
+    }
+
     onQuestionUpdate = (questions: Question[]) => {
         this.setState(this.state.setData(this.state.data.addAll(questions)))
     }
 
-    protected instantiateState(loading: boolean, data: UniquelyIdentifiableCollection<Question>): QuestionsViewerState {
+    protected instantiateNewState(loading: boolean, data: QuestionCollection): QuestionsViewerState {
         throw new Error("Method not implemented.");
     }
 

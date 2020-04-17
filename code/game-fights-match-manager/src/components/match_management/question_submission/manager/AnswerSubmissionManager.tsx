@@ -19,12 +19,16 @@ export default class AnswerSubmissionManager extends LoadingComponent<GameFights
     }
   }
 
-  protected instantiateState(loading: boolean, data: AnswerSubmissionData[]): LoadingComponentState<AnswerSubmissionData[]> {
+  protected instantiateNewState(loading: boolean, data: AnswerSubmissionData[]): LoadingComponentState<AnswerSubmissionData[]> {
     return new LoadingComponentState<AnswerSubmissionData[]>(loading, data);
   }
   
   protected determineInitalData(): AnswerSubmissionData[] {
     return [];
+  }
+
+  protected determineInitialState(intialLoadingValue: boolean, initalAnswerSubmissions: AnswerSubmissionData[]){
+    return new LoadingComponentState<AnswerSubmissionData[]>(intialLoadingValue, initalAnswerSubmissions);
   }
  
   renderLoaded(dataInterface: GameFightsDataInterface, submissions: AnswerSubmissionData[]){

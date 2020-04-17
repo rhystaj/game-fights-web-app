@@ -28,12 +28,16 @@ export default class Body extends LoadingComponent<GameFightsDataInterface, User
     }
   }
 
-  protected instantiateState(loading: boolean, data: UserMatchStatus): LoadingComponentState<UserMatchStatus> {
+  protected instantiateNewState(loading: boolean, data: UserMatchStatus): LoadingComponentState<UserMatchStatus> {
     return new LoadingComponentState<UserMatchStatus>(loading, data);
   }
   
   protected determineInitalData(): UserMatchStatus {
     return UserMatchStatus.NONE;
+  }
+
+  protected determineInitialState(initialLoading: boolean, initialMatchStatus: UserMatchStatus){
+    return new LoadingComponentState<UserMatchStatus>(initialLoading, initialMatchStatus);
   }
 
   renderLoaded(dataInterface: GameFightsDataInterface, matchStatus: UserMatchStatus){    

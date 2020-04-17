@@ -10,6 +10,8 @@ import UniquelyIdentifiableCollection from '../../../utility/UniquelyIdentifiabl
 
 import { Question } from '../../../types/datatypes';
 
+type QuestionCollection = UniquelyIdentifiableCollection<Question>;
+
 export class QuestionsEditorState extends LoadingComponentState<UniquelyIdentifiableCollection<Question>>{
 
     public readonly addingQuestion: boolean;
@@ -33,14 +35,17 @@ export class QuestionsEditorState extends LoadingComponentState<UniquelyIdentifi
     }
 
 }
-
 /**
  * A component that allows you to add/remove items from the list of questions.
  */
 export default class QuestionsEditor extends QuestionsComponent<QuestionsEditorState>{
     
-    protected instantiateState(loading: boolean, data: UniquelyIdentifiableCollection<Question>): QuestionsEditorState {
+    protected instantiateNewState(loading: boolean, data: QuestionCollection): QuestionsEditorState {
         return new QuestionsEditorState(loading, data, this.state.addingQuestion, this.state.showingQuestionSubmissionError);
+    }
+
+    protected determineInitialState(initialloadingValue: boolean, initialQuestionCollection: QuestionCollection){
+        return new QuestionsEditorState(initialloadingValue, initialQuestionCollection, false, false);
     }
 
     private enteredQuestion: string = '';

@@ -20,12 +20,16 @@ export default class MatchManager extends LoadingComponent<GameFightsDataInterfa
     }
   }
 
-  protected instantiateState(loading: boolean, data: MatchStage): LoadingComponentState<MatchStage> {
+  protected instantiateNewState(loading: boolean, data: MatchStage): LoadingComponentState<MatchStage> {
     return new LoadingComponentState<MatchStage>(loading, data);
   }
   
   protected determineInitalData(): MatchStage {
     return MatchStage.DETERMINING_QUESTIONS;
+  }
+
+  protected determineInitialState(initialLoadingValue: boolean, initialMatchStage: MatchStage){
+    return new LoadingComponentState<MatchStage>(initialLoadingValue, initialMatchStage)
   }
 
   protected renderMatchInfo(dataInterface: GameFightsDataInterface, stage: MatchStage){

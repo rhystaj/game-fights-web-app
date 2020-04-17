@@ -5,8 +5,13 @@ import JudgeMatchInfo from './match_info/JudgeMatchInfo';
 
 import { MatchStage } from '../../enums/statusEnums';
 import GameFightsDataInterface from '../../backend_interface/GameFightsDataInterface';
+import { LoadingComponentState } from '../utility/LoadingComponent';
 
 export default class JudgeMatchManager extends MatchManager{
+
+    protected determineInitialState(initialLoadingValue: boolean, initialMatchStage: MatchStage): LoadingComponentState<MatchStage>{
+        return new LoadingComponentState<MatchStage>(initialLoadingValue, initialMatchStage);
+    }
 
     renderMatchInfo(dataInterface: GameFightsDataInterface, stage: MatchStage){
         return <JudgeMatchInfo dataInterface={dataInterface} />

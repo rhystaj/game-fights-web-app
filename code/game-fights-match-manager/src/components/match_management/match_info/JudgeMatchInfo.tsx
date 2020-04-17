@@ -26,7 +26,11 @@ class JudgeMatchInfoState extends LoadingComponentState<MatchData>{
 
 class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoState>{
     
-    protected instantiateState(loading: boolean, data: MatchData): JudgeMatchInfoState {
+    protected determineInitialState(initialLoadingValue: boolean, initialMatchData: MatchData){
+        return new JudgeMatchInfoState(initialLoadingValue, initialMatchData, false);
+    }
+
+    protected instantiateNewState(loading: boolean, data: MatchData): JudgeMatchInfoState {
         return new JudgeMatchInfoState(loading, data, false);
     }
 
