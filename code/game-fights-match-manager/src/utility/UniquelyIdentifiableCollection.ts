@@ -105,7 +105,7 @@ export default class UniquelyIdentifiableCollection<I extends UniquelyIdentifiab
             "Precondition Fail: The given initialElements should not be null or undefined.");
         assert(!isUnassigned(equator), "Precondition Fail: The given equator should not be null or undefined.");
         assert(!isUnassigned(nullValue), "The given nullValue should be null or undefined");
-        assert(elements.filter((e: I) => !equator.areEqual(e, nullValue)).length === 0,
+        assert(trueForAllInArray(elements, (i: I) => !equator.areEqual(i, nullValue)),
             "Precondition Fail: There should be no null value in the inital elements.")
 
         
@@ -381,7 +381,7 @@ export default class UniquelyIdentifiableCollection<I extends UniquelyIdentifiab
         assert(allValuesAssigned(returnArray), 
             "Postcondition Fail: The resulting array should not contain any null or undefined values.");
         assert(trueForAllInArray(returnArray, (i: I) => this.elements.contains(i)), 
-            "Postcondition Fail: All elements in the new array should be contained within the collection.");
+           "Postcondition Fail: All elements in the new array should be contained within the collection.");
         assert(trueForAllInCollection(this.elements, (i: I) => returnArray.includes(i)), 
             "Postcondition Fail: All elements in the collection should be contained within the new array.");
 
