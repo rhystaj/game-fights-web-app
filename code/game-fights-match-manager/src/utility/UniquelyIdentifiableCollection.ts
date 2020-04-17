@@ -31,12 +31,18 @@ export default class UniquelyIdentifiableCollection<I extends UniquelyIdentifiab
             "Precondition Fail: The items in the given list must be indexed by thier ids.")
 
 
-        let i: number = elements.size() - 1;
-        while(i > 0 && isUnassigned(elements.get(i))){
-            i--;
-        }
+        let result: number = 1;
+
+        if(!elements.isEmpty()){
+            
+            let i: number = elements.size() - 1;
+            while(i > 0 && isUnassigned(elements.get(i))){
+                i--;
+            }
         
-        let result = elements.get(i).id + 1;
+            result = elements.get(i).id + 1;
+            
+        }
 
         
         assert(result > 0, "Postcondition Fail: The id returned should be positive.");
