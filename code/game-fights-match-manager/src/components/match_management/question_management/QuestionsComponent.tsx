@@ -36,7 +36,7 @@ export default abstract class Questions<S extends QuestionComponentState> extend
     }
 
     protected renderQuestion(question: Question){
-        return <p key={question.id}>{question.id}</p>;
+        return <p key={question.id}>{question.text}</p>;
     }
 
     protected renderLoaded(dataInterface: GameFightsDataInterface, questions: UniquelyIdentifiableCollection<Question>){
