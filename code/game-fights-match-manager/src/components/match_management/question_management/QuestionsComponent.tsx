@@ -32,7 +32,7 @@ export default abstract class Questions<S extends QuestionComponentState> extend
     }
 
     protected determineInitalData(): UniquelyIdentifiableCollection<Question> {
-        return new UniquelyIdentifiableCollection([], new QuestionEquator(), new NullQuestion());
+        return new UniquelyIdentifiableCollection([], new QuestionEquator());
     }
 
     protected renderQuestion(question: Question){

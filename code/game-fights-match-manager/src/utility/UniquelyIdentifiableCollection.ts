@@ -1,17 +1,14 @@
 import assert from 'assert'; 
 
 import { UniquelyIdentifiable } from "../types/datatypes";
-import { NullFighterData } from '../types/nullTypes';
 
-import { Collection, List, LinkedList, ArrayList, TreeMap, MapEntry } from 'typescriptcollectionsframework';
+import {TreeMap, MapEntry } from 'typescriptcollectionsframework';
 
 import { isUnassigned } from '../utility/qolFunctions';
-import { allValuesAssigned, numberOfElementsThat, shareElementsExactly, trueForAllInArray } from './arrayFunctions';
-import IFactory from '../types/factories/IFactory';
-import UniquelyIdentifiableFactory, { UniquelyIdentifiableGenerator } from '../types/factories/UniquelyIdentifiableFactories/UniquelyIdentifiableFactory';
+import { allValuesAssigned, trueForAllInArray, shallowCloneArray, shareElementsExactly } from './arrayFunctions';
+
 import IEquator from '../types/equators/IEquator';
 import { UniquelyIdentifiableEquator } from '../types/equators/UniquelyIndentifiableEquators';
-import { trueForAllInCollection } from './collectionFunctions';
 
 /**
  * [DES/PRE] An immutable collection of UniquelyIdentifiable objects that ensures that no two objects within it have the
@@ -25,23 +22,24 @@ export default class UniquelyIdentifiableCollection<I extends UniquelyIdentifiab
      * the collection, from a list of elements indexed by thier ids.
      * @param elements 
      */
-    public static h_determineNextAvailiableId<I extends UniquelyIdentifiable>(elements: List<I>): number{
+    public static h_determineNextAvailiableId<I extends UniquelyIdentifiable>(elements: I[]): number{
         
         //Preconditions
-        assert(UniquelyIdentifiableCollection.a_listElementsIndexedByIds(elements),
+        assert(UniquelyIdentifiableCollection.a_ElementsIndexedByIds(elements),
             "Precondition Fail: The items in the given list must be indexed by thier ids.")
 
 
         let result: number = 1;
 
-        if(!elements.isEmpty()){
+        if(elements.length > 0){
             
-            let i: number = elements.size() - 1;
-            while(i > 0 && isUnassigned(elements.get(i))){
+            let i: number = elements.length - 1;
+            while(i > 0 && elements[i] === undefined){
                 i--;
             }
         
-            result = elements.get(i).id + 1;
+            if(!isUnassigned(elements[i]))
+                result = elements[i].id + 1;
             
         }
 
@@ -52,23 +50,23 @@ export default class UniquelyIdentifiableCollection<I extends UniquelyIdentifiab
 
     }
 
-    public static a_elementListsEqual<I extends UniquelyIdentifiable>(a: List<I>, b: List<I>, equator: IEquator<I>): boolean {
+    public static a_elementListsEqual<I extends UniquelyIdentifiable>(a: I[], b: I[], equator: IEquator<I>): boolean {
 
         //Preconditions
-        assert(UniquelyIdentifiableCollection.a_listElementsIndexedByIds(a),
+        assert(UniquelyIdentifiableCollection.a_ElementsIndexedByIds(a),
             "Precondition Fail: The elements in given list a should be indexed by their ids.");
-        assert(UniquelyIdentifiableCollection.a_listElementsIndexedByIds(b),
+        assert(UniquelyIdentifiableCollection.a_ElementsIndexedByIds(b),
             "Precondition Fail: The elements in given list b should be indexed by their ids.")
 
 
         let result: boolean = true;
-        if(a.size() !== b.size()){
+        if(a.length !== b.length){
             //There is no way two collections can be equal if they don't have the same number of elements.
             result = false;
         }
         else{
-            for(let i: number = 0; i < b.size(); i++){
-                if(equator.areEqual(a.get(i), b.get(i))){
+            for(let i: number = 0; i < b.length; i++){
+                if(equator.areEqual(a[i], b[i])){
                     result = false;
                     break;
                 }
@@ -79,11 +77,9 @@ export default class UniquelyIdentifiableCollection<I extends UniquelyIdentifiab
         
     }
 
-    private readonly elements: List<I>;
+    private readonly elements: I[];
 
     private readonly equator: UniquelyIdentifiableEquator<I>;
-
-    private readonly nullValue: I;
 
     /**
      * An apporiate id for the next element to the added to the collection, i.e. one not already assigned to an
@@ -98,24 +94,20 @@ export default class UniquelyIdentifiableCollection<I extends UniquelyIdentifiab
      * @param comparator The comparator used to compare objects within the collection.
      * @param nullValue The value of I that represnents a null value.
      */
-    constructor(elements: I[], equator: UniquelyIdentifiableEquator<I>, nullValue: I){
+    constructor(elements: I[], equator: UniquelyIdentifiableEquator<I>){
         
         //Preconditions
         assert(!isUnassigned(elements),
             "Precondition Fail: The given initialElements should not be null or undefined.");
         assert(!isUnassigned(equator), "Precondition Fail: The given equator should not be null or undefined.");
-        assert(!isUnassigned(nullValue), "The given nullValue should be null or undefined");
-        assert(trueForAllInArray(elements, (i: I) => !equator.areEqual(i, nullValue)),
-            "Precondition Fail: There should be no null value in the inital elements.")
-
+        assert(allValuesAssigned(elements), "Precondition Fail: None of the given elements should be null.")
         
         this.equator = equator;
-        this.nullValue = nullValue;
 
         //Sort the elements by id and ensure that there are non with duplicate keys. 
         const sortedInitialElements = new TreeMap<number, I>({
             compare: (o1: number, o2: number) => {
-                return o2 - o1;
+                return o1 - o2;
             }
         });
         for(let i: number = 0; i < elements.length; i++){
@@ -131,19 +123,12 @@ export default class UniquelyIdentifiableCollection<I extends UniquelyIdentifiab
         }
 
         //Add the elements to the list at the index corresponding to thier ids.
-        this.elements = new ArrayList<I>();
+        this.elements = new Array<I>(sortedInitialElements.isEmpty() ? 0 : sortedInitialElements.lastKey() + 1);
         sortedInitialElements.entrySet().forEach({
             accept: (entry: MapEntry<number, I>) => {
-                this.elements.addIndex(entry.getKey(), entry.getValue());
+                this.elements[entry.getKey()] = entry.getValue();
             }
         });
-
-        //Assign null value to all remaining spots in the array.
-        for(let i: number = 0; i < this.elements.size(); i++){
-            if(isUnassigned(this.elements.get(i))){
-                this.elements.set(i, this.nullValue);
-            }
-        }
 
         this.nextAvaliableId = UniquelyIdentifiableCollection.h_determineNextAvailiableId(this.elements);
 
@@ -157,18 +142,18 @@ export default class UniquelyIdentifiableCollection<I extends UniquelyIdentifiab
 
     }
 
-    public retrieveElementWithId(id: number): I{
+    public retrieveElementWithId(id: number): I | undefined{
         
         //Preconditions
         assert(this.classInvariantsHold())
 
-        let result: I;
-        if(id < 0 || id >= this.elements.size()){
+        let result: I | undefined;
+        if(id < 0 || id >= this.elements.length){
             //The id given is outside the bounds of elements, so it is not valid. Return the null value. 
-            result = this.nullValue;
+            result = undefined
         }
         else{
-            result = this.elements.get(id);
+            result = this.elements[id];
         }
 
 
@@ -190,8 +175,8 @@ export default class UniquelyIdentifiableCollection<I extends UniquelyIdentifiab
 
 
         let result: boolean = false;
-        if(id >= 0 && id < this.elements.size()){
-            result = !isUnassigned(this.elements.get(id));
+        if(id >= 0 && id < this.elements.length){
+            result = !isUnassigned(this.elements[id]);
         }
 
         //Postconditions
@@ -243,11 +228,11 @@ export default class UniquelyIdentifiableCollection<I extends UniquelyIdentifiab
         newElementArray.push(newElement);
 
         let result: UniquelyIdentifiableCollection<I> = 
-            new UniquelyIdentifiableCollection<I>(newElementArray, this.equator, this.nullValue);
+            new UniquelyIdentifiableCollection<I>(newElementArray, this.equator);
 
 
         //Postconditions
-        assert(result.elements.contains(newElement),
+        assert(result.elements.includes(newElement),
             "Postcondition Fail: The new collection could contain the specified newElement.");
         
 
@@ -286,7 +271,7 @@ export default class UniquelyIdentifiableCollection<I extends UniquelyIdentifiab
             newCollectionElementsArray[currentElementArray.length + i] = newElements[i];
         }
 
-        let result = new UniquelyIdentifiableCollection<I>(newCollectionElementsArray, this.equator, this.nullValue);
+        let result = new UniquelyIdentifiableCollection<I>(newCollectionElementsArray, this.equator);
 
 
         //Postconditions
@@ -330,15 +315,18 @@ export default class UniquelyIdentifiableCollection<I extends UniquelyIdentifiab
         });
 
         let result: UniquelyIdentifiableCollection<I> = 
-            new UniquelyIdentifiableCollection<I>(newElementArray, this.equator, this.nullValue);
+            new UniquelyIdentifiableCollection<I>(newElementArray, this.equator);
         
         
         //Postconditions
         assert(() => {
-            let newListClone = new ArrayList(undefined, result.elements.immutableCollection());
-            newListClone.addIndex(id, this.retrieveElementWithId(id));
+            let newArrayClone: I[] = shallowCloneArray(result.elements);
+            let removedElement = this.retrieveElementWithId(id)
+            
+            if(removedElement !== undefined)
+                newArrayClone[id] = removedElement;
 
-            return UniquelyIdentifiableCollection.a_elementListsEqual(this.elements, newListClone, this.equator);
+            return UniquelyIdentifiableCollection.a_elementListsEqual(this.elements, newArrayClone, this.equator);
         },
         "Poscondition Fail: Aside from the element that has been removed, the result and the current collection should " +
             "be equal.");
@@ -357,33 +345,15 @@ export default class UniquelyIdentifiableCollection<I extends UniquelyIdentifiab
         assert(this.classInvariantsHold());
 
 
-        //Condense elements into a collection that contains only them and no null values.
-        let condensedElements: Collection<I> = new LinkedList<I>();
-        this.elements.forEach({
-            accept: (element => {
-                if(!isUnassigned(element)){
-                    condensedElements.add(element);
-                }
-            })
-        })
-
-
-        let i: number = 0;
-        let returnArray: I[] = new Array(condensedElements.size());
-        condensedElements.forEach({
-            accept: element => {
-                returnArray[i] = element;
-                i++;
-            }
-        });
+        let returnArray: I[] = this.elements.filter((i: I) => !isUnassigned(i));
 
         //Postconditions
         assert(allValuesAssigned(returnArray), 
             "Postcondition Fail: The resulting array should not contain any null or undefined values.");
-        assert(trueForAllInArray(returnArray, (i: I) => this.elements.contains(i)), 
-           "Postcondition Fail: All elements in the new array should be contained within the collection.");
-        assert(trueForAllInCollection(this.elements, (i: I) => returnArray.includes(i)), 
-            "Postcondition Fail: All elements in the collection should be contained within the new array.");
+        assert(shareElementsExactly(this.elements.filter((i: I) => !isUnassigned(i)), returnArray, 
+            (a: I, b: I) => this.equator.areEqual(a, b)), 
+            "Postcondition Fail: The resulting array should share exactly the same elements with the collection's array minus " +
+            "the null and undefined elements.");
 
 
         //Postconditions
@@ -397,7 +367,7 @@ export default class UniquelyIdentifiableCollection<I extends UniquelyIdentifiab
 
     private classInvariantsHold(): boolean{
 
-        assert(UniquelyIdentifiableCollection.a_listElementsIndexedByIds(this.elements),
+        assert(UniquelyIdentifiableCollection.a_ElementsIndexedByIds(this.elements),
             "Postcondition Fail: The items in the elements list should be indexed by thier ids.")
 
         return true;
@@ -408,12 +378,12 @@ export default class UniquelyIdentifiableCollection<I extends UniquelyIdentifiab
      * Determines whether all items in a list of UniquelyIdentifiable objects are indexed by thier ids. 
      * @param list 
      */
-    public static a_listElementsIndexedByIds<I extends UniquelyIdentifiable>(list: List<I>){
+    public static a_ElementsIndexedByIds<I extends UniquelyIdentifiable>(array: I[]){
 
         let result: boolean = true;
-        for(let i: number = 0; i < list.size(); i++){
-            if(!isUnassigned(list.get(i))){
-                if(i !== list.get(i).id){
+        for(let i: number = 0; i < array.length; i++){
+            if(!isUnassigned(array[i])){
+                if(i !== array[i].id){
                     result = false;
                     break;
                 }
