@@ -34,7 +34,7 @@ class QuestionsViewer extends QuestionsComponent<QuestionsViewerState>{
     }
 
     protected instantiateNewState(loading: boolean, data: QuestionCollection): QuestionsViewerState {
-        throw new Error("Method not implemented.");
+        return new LoadingComponentState<QuestionCollection>(loading, data);
     }
 
 }

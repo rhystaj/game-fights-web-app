@@ -15,7 +15,7 @@ export default class MockGameFightsDataInterface extends GameFightsDataInterface
     public queryUserMatchStatus(queryCallback: QueryCallback<UserMatchStatus>){
         
         //Set timeout is to simulate latency.
-        setTimeout(() => {queryCallback(UserMatchStatus.JUDGING);}, 1000);
+        setTimeout(() => {queryCallback(UserMatchStatus.PARTCIPATING);}, 1000);
         
     }
 
