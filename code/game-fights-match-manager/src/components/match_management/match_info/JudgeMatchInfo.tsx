@@ -9,31 +9,28 @@ import GameFightsDataInterface from '../../../backend_interface/GameFightsDataIn
 import { LoadingComponentState } from '../../utility/LoadingComponent';
 import { MatchData, FighterData } from '../../../types/datatypes';
 
-class JudgeMatchInfoState extends LoadingComponentState<MatchData>{
-
-    public readonly editingTitle: boolean;
-
-    constructor(loading: boolean, data: MatchData, editingTitle: boolean){
-        super(loading, data);
-        this.editingTitle = editingTitle;
-    }
-
-    public setEditingTitle(editingTitle: boolean): JudgeMatchInfoState {
-        return new JudgeMatchInfoState(this.loading, this.data, editingTitle);
-    }
-
+interface JudgeMatchInfoState extends LoadingComponentState<MatchData>{
+    editingTitle: boolean;
 }
 
 class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoState>{
     
-    protected determineInitialState(initialLoadingValue: boolean, initialMatchData: MatchData){
-        return new JudgeMatchInfoState(initialLoadingValue, initialMatchData, false);
+    protected determineInitialState(initialLoadingValue: boolean, initialData: MatchData): JudgeMatchInfoState {
+        return {
+            loading: initialLoadingValue,
+            data: initialData,
+            editingTitle: false
+        }
     }
-
-    protected instantiateNewState(loading: boolean, data: MatchData): JudgeMatchInfoState {
-        return new JudgeMatchInfoState(loading, data, false);
+    
+    protected determineNewStateFromData(data: MatchData): JudgeMatchInfoState {
+        return {
+            loading: this.state.loading,
+            data: data,
+            editingTitle: this.state.editingTitle
+        }
     }
-
+    
     onConfirmTitle = (title: string) => {
         this.props.dataInterface.submitMatchTitle(title, this.onTitleSubmissionSuccess(title), 
             this.onTitleSubmissionFailure);
@@ -48,8 +45,10 @@ class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoState>{
         let newData: MatchData = this.state.data;
         newData.title = title;
         
-        this.setState(this.state.setEditingTitle(false)
-                                .setData(newData));
+        this.setState({
+            data: newData,
+            editingTitle: false
+        });
 
     }
 

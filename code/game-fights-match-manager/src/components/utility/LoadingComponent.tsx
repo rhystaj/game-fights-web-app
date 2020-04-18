@@ -14,33 +14,9 @@ export class LoadingComponentProps<I> {
 
 }
 
-export class LoadingComponentState<D>{
-    
-    public readonly loading: boolean;
-
-    public readonly data: D;
-
-    public constructor(loading: boolean, data: D){
-        this.loading = loading;
-        this.data = Object.freeze(data);
-    }
-
-    /**
-     * Creates a copy of the state with loading changed to the specified value.
-     * @param loading The new loading value the copy of the state will adopt.
-     */
-    public setLoading(loading: boolean): LoadingComponentState<D>{
-        return new LoadingComponentState<D>(loading, this.data);
-    }
-
-    /**
-     * Creates a copy of the state with the data changed to the specified value.
-     * @param data The new data the copy of the state will adopt.
-     */
-    public setData(data: D): LoadingComponentState<D>{
-        return new LoadingComponentState<D>(this.loading, data);
-    }
-
+export interface LoadingComponentState<D>{
+    loading: boolean;
+    data: D;
 }
 
 /**
@@ -66,8 +42,9 @@ export default abstract class LoadingComponent<I, D, P extends LoadingComponentP
         //Load the data using the query, updating the state based on the result when done.
         this.loadData(this.dataInterface)(queryResult => {
         
-            let newState: S = this.determineNewState(queryResult);
-            this.setState(newState.setLoading(false));
+            let newState: LoadingComponentState<D> = this.determineNewStateFromData(queryResult);
+            newState.loading = false;
+            this.setState(newState);
 
         });
 
@@ -80,14 +57,6 @@ export default abstract class LoadingComponent<I, D, P extends LoadingComponentP
     protected abstract loadData(dataInterface: I): (loadCallback: QueryCallback<D>) => void;
 
     /**
-     * [DES/PRE] Creates a new copy of the components current state, with the specified changes to the loading and data values.
-     * NOTE: Any properties of the state's descendants will be given the same value.
-     * @param loading The loading value the new state will have.
-     * @param data The data the new state will contain.
-     */
-    protected abstract instantiateNewState(loading: boolean, data: D): S;
-
-    /**
      * [DES/PRE] Determines the data contained within the state the component will start with.
      */
     protected abstract determineInitalData(): D;
@@ -98,14 +67,13 @@ export default abstract class LoadingComponent<I, D, P extends LoadingComponentP
      * @param initialData The data that it has been determined the state will start with.
      */
     protected abstract determineInitialState(initialLoadingValue: boolean, initialData: D): S;
+    
 
     /**
      * [DES/PRE] Determine the state the component should be in based on a set of data.
      * @param data The data being used to determine the component's state.
      */
-    protected determineNewState(data: D): S {
-        return this.instantiateNewState(this.state.loading, data)
-    }
+    protected abstract determineNewStateFromData(data: D): S;
 
     /**
      * [DES/PRE] What the component should look like when the data has been loaded.

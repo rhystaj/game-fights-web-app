@@ -12,6 +12,7 @@ import { QueryCallback } from "../types/functionTypes";
 import { UserMatchStatus } from './../enums/statusEnums';
 
 import '../style/Body.css'
+import SimpleStateLoadingComponent from './utility/SimpleStateLoadingComponent';
 
 const INVALID_STATUS_MESSAGE = 'Error: Body was given an invalid state.'
 
@@ -20,24 +21,16 @@ const INVALID_STATUS_MESSAGE = 'Error: Body was given an invalid state.'
  * a match, and if they are judging it.
  * @param {*} props
  */
-export default class Body extends LoadingComponent<GameFightsDataInterface, UserMatchStatus> {
+export default class Body extends SimpleStateLoadingComponent<GameFightsDataInterface, UserMatchStatus> {
   
   protected loadData(dataInterface: GameFightsDataInterface): (loadCallback: QueryCallback<UserMatchStatus>) => void {
     return loadCallback => {
       dataInterface.queryUserMatchStatus(loadCallback);
     }
   }
-
-  protected instantiateNewState(loading: boolean, data: UserMatchStatus): LoadingComponentState<UserMatchStatus> {
-    return new LoadingComponentState<UserMatchStatus>(loading, data);
-  }
   
   protected determineInitalData(): UserMatchStatus {
     return UserMatchStatus.NONE;
-  }
-
-  protected determineInitialState(initialLoading: boolean, initialMatchStatus: UserMatchStatus){
-    return new LoadingComponentState<UserMatchStatus>(initialLoading, initialMatchStatus);
   }
 
   renderLoaded(dataInterface: GameFightsDataInterface, matchStatus: UserMatchStatus){    

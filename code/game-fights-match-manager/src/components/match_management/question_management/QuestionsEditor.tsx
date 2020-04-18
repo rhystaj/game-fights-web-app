@@ -12,51 +12,43 @@ import { Question } from '../../../types/datatypes';
 
 type QuestionCollection = UniquelyIdentifiableCollection<Question>;
 
-export class QuestionsEditorState extends LoadingComponentState<UniquelyIdentifiableCollection<Question>>{
-
-    public readonly addingQuestion: boolean;
-    
-    public readonly showingQuestionSubmissionError: boolean;
-
-    constructor(loading: boolean, data: UniquelyIdentifiableCollection<Question>, addingQuestion: boolean, 
-            showingQuestionSubmissionError: boolean){
-        super(loading, data);
-
-        this.addingQuestion = addingQuestion;
-        this.showingQuestionSubmissionError = showingQuestionSubmissionError;
-    }
-
-    public setAddingQuestion(addingQuestion: boolean): QuestionsEditorState{
-        return new QuestionsEditorState(this.loading, this.data, addingQuestion, this.showingQuestionSubmissionError);
-    }
-
-    public setShowingQuestionSubmissionError(showingQuestionSubmissionError: boolean){
-        return new QuestionsEditorState(this.loading, this.data, this.addingQuestion, showingQuestionSubmissionError);
-    }
-
+export interface QuestionsEditorState extends LoadingComponentState<QuestionCollection>{
+    addingQuestion: boolean;
+    showingQuestionSubmissionError: boolean;
 }
+
 /**
  * A component that allows you to add/remove items from the list of questions.
  */
 export default class QuestionsEditor extends QuestionsComponent<QuestionsEditorState>{
     
-    protected instantiateNewState(loading: boolean, data: QuestionCollection): QuestionsEditorState {
-        return new QuestionsEditorState(loading, data, this.state.addingQuestion, this.state.showingQuestionSubmissionError);
+    protected determineNewStateFromData(data: UniquelyIdentifiableCollection<Question>): QuestionsEditorState {
+        return{
+            loading: this.state.loading,
+            data: data,
+            addingQuestion: this.state.addingQuestion,
+            showingQuestionSubmissionError: this.state.showingQuestionSubmissionError
+        }
     }
-
+    
     protected determineInitialState(initialloadingValue: boolean, initialQuestionCollection: QuestionCollection){
-        return new QuestionsEditorState(initialloadingValue, initialQuestionCollection, false, false);
+        return{
+            loading: initialloadingValue,
+            data: initialQuestionCollection,
+            addingQuestion: false,
+            showingQuestionSubmissionError: false
+        }
     }
 
     private enteredQuestion: string = '';
 
     addQuestion = () => {
         this.enteredQuestion = "";
-        this.setState(this.state.setAddingQuestion(true));
+        this.setState({ addingQuestion: true });
     }
 
     cancelQuestionEntry = () => {
-        this.setState(this.state.setAddingQuestion(false));
+        this.setState({ addingQuestion: false });
     }
 
     confirmQuestionEntry = (newQuestion: string) => {
@@ -71,19 +63,23 @@ export default class QuestionsEditor extends QuestionsComponent<QuestionsEditorS
             text: newQuestionText,
         }
 
-        this.setState(this.state.setAddingQuestion(false)
-                                .setShowingQuestionSubmissionError(false)
-                                .setData(this.state.data.add(newQuestion)));
+        this.setState({
+            addingQuestion: false,
+            showingQuestionSubmissionError: false,
+            data: this.state.data.add(newQuestion)
+        });
             
     }
 
     onSubmissionFailure = () => {
-        this.setState(this.state.setAddingQuestion(false)
-                                .setShowingQuestionSubmissionError(true));
+        this.setState({
+            addingQuestion: false,
+            showingQuestionSubmissionError: true
+        });
     }
 
     onDeleteQuestion = (id: number) => () => {
-        this.setState(this.state.setData(this.state.data.removeElementWithId(id)));
+        this.setState({ data: this.state.data.removeElementWithId(id) });
     }
 
     renderQuestion = (question: Question) => {
@@ -96,7 +92,7 @@ export default class QuestionsEditor extends QuestionsComponent<QuestionsEditorS
         )
     }
 
-    renderLoaded(dataInterface: GameFightsDataInterface, questions: UniquelyIdentifiableCollection<Question>){
+    renderLoaded(dataInterface: GameFightsDataInterface, questions: QuestionCollection){
         return(
             <div>
                 {super.renderLoaded(dataInterface, questions) /* Render the questions as normal.*/}

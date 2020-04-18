@@ -1,5 +1,6 @@
 import React from 'react'
-import LoadingComponent, { LoadingComponentState } from '../utility/LoadingComponent';
+
+import SimpleStateLoadingComponent from '../utility/SimpleStateLoadingComponent';
 
 import ParticipantMatchInfo from './match_info/ParticipantMatchInfo'
 import AnswerSubmissionManager from './question_submission/manager/AnswerSubmissionManager'
@@ -9,27 +10,20 @@ import GameFightsDataInterface from '../../backend_interface/GameFightsDataInter
 import { MatchStage } from '../../enums/statusEnums';
 import { QueryCallback } from "../../types/functionTypes";
 
+
 /**
  * Contains child components that enable you to view and edit data regarding a specific match (whichever the signed in user is engaged in).
  */
-export default class MatchManager extends LoadingComponent<GameFightsDataInterface, MatchStage>{
+export default class MatchManager extends SimpleStateLoadingComponent<GameFightsDataInterface, MatchStage>{
  
   protected loadData(dataInterface: GameFightsDataInterface): (loadCallback: QueryCallback<MatchStage>) => void {
     return loadCallback => {
       dataInterface.queryMatchStage(loadCallback);
     }
   }
-
-  protected instantiateNewState(loading: boolean, data: MatchStage): LoadingComponentState<MatchStage> {
-    return new LoadingComponentState<MatchStage>(loading, data);
-  }
   
   protected determineInitalData(): MatchStage {
     return MatchStage.DETERMINING_QUESTIONS;
-  }
-
-  protected determineInitialState(initialLoadingValue: boolean, initialMatchStage: MatchStage){
-    return new LoadingComponentState<MatchStage>(initialLoadingValue, initialMatchStage)
   }
 
   protected renderMatchInfo(dataInterface: GameFightsDataInterface, stage: MatchStage){

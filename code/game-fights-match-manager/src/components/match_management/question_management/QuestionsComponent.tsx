@@ -9,7 +9,6 @@ import { QueryCallback } from "../../../types/functionTypes";
 import UniquelyIdentifiableCollection from '../../../utility/UniquelyIdentifiableCollection';
 
 import QuestionEquator from '../../../types/equators/UniquelyIndentifiableEquators';
-import { NullQuestion } from '../../../types/nullTypes';
 
 import { Question } from '../../../types/datatypes';
 

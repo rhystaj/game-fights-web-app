@@ -6,7 +6,7 @@ import QuestionsComponent from './QuestionsComponent'
 import UniquelyIdentifiableCollection from '../../../utility/UniquelyIdentifiableCollection';
 
 import { Question } from '../../../types/datatypes';
-import { QuestionsEditorState } from './QuestionsEditor';
+import QuestionEquator from '../../../types/equators/UniquelyIndentifiableEquators';
 
 //Some type aliases to make declarations more digestable.
 type QuestionCollection = UniquelyIdentifiableCollection<Question>;
@@ -26,15 +26,27 @@ class QuestionsViewer extends QuestionsComponent<QuestionsViewerState>{
     }
 
     determineInitialState(initialLoadingValue: boolean, initialQuestionCollection: QuestionCollection){
-        return new LoadingComponentState<QuestionCollection>(initialLoadingValue, initialQuestionCollection);
+        return {
+            loading: initialLoadingValue,
+            data: initialQuestionCollection
+        }
+    }
+
+    protected determineNewStateFromData(data: UniquelyIdentifiableCollection<Question>): QuestionsViewerState {
+        return{
+            loading: this.state.loading,
+            data: data
+        }
     }
 
     onQuestionUpdate = (questions: Question[]) => {
-        this.setState(this.state.setData(this.state.data.addAll(questions)))
+        this.updateQuestionDisplay(questions);
     }
 
-    protected instantiateNewState(loading: boolean, data: QuestionCollection): QuestionsViewerState {
-        return new LoadingComponentState<QuestionCollection>(loading, data);
+    protected updateQuestionDisplay(questions: Question[]): void{
+        this.setState({
+            data: new UniquelyIdentifiableCollection<Question>(questions, new QuestionEquator())
+        });
     }
 
 }

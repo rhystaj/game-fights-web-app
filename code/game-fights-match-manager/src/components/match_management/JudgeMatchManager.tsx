@@ -10,7 +10,10 @@ import { LoadingComponentState } from '../utility/LoadingComponent';
 export default class JudgeMatchManager extends MatchManager{
 
     protected determineInitialState(initialLoadingValue: boolean, initialMatchStage: MatchStage): LoadingComponentState<MatchStage>{
-        return new LoadingComponentState<MatchStage>(initialLoadingValue, initialMatchStage);
+        return {
+            loading: initialLoadingValue,
+            data: initialMatchStage
+        }
     }
 
     renderMatchInfo(dataInterface: GameFightsDataInterface, stage: MatchStage){
