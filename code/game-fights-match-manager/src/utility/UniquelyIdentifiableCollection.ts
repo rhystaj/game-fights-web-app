@@ -50,7 +50,7 @@ export default class UniquelyIdentifiableCollection<I extends UniquelyIdentifiab
 
     }
 
-    public static a_elementListsEqual<I extends UniquelyIdentifiable>(a: I[], b: I[], equator: IEquator<I>): boolean {
+    public static h_elementCollectionsEqual<I extends UniquelyIdentifiable>(a: I[], b: I[], equator: IEquator<I>): boolean {
 
         //Preconditions
         assert(UniquelyIdentifiableCollection.a_ElementsIndexedByIds(a),
@@ -59,16 +59,17 @@ export default class UniquelyIdentifiableCollection<I extends UniquelyIdentifiab
             "Precondition Fail: The elements in given list b should be indexed by their ids.")
 
 
+        let aFiltered = a.filter((i: I) => !isUnassigned(i));
+        let bFiltered = b.filter((i: I) => !isUnassigned(i));
+
         let result: boolean = true;
-        if(a.length !== b.length){
-            //There is no way two collections can be equal if they don't have the same number of elements.
+        if(aFiltered.length !== bFiltered.length){
             result = false;
         }
         else{
-            for(let i: number = 0; i < b.length; i++){
-                if(equator.areEqual(a[i], b[i])){
+            for(let i: number = 0; i < aFiltered.length; i++){
+                if(!equator.areEqual(aFiltered[i], bFiltered[i])){
                     result = false;
-                    break;
                 }
             }
         }
@@ -199,7 +200,7 @@ export default class UniquelyIdentifiableCollection<I extends UniquelyIdentifiab
 
         
         let result: boolean = 
-            UniquelyIdentifiableCollection.a_elementListsEqual(this.elements, otherCollection.elements, this.equator);
+            UniquelyIdentifiableCollection.h_elementCollectionsEqual(this.elements, otherCollection.elements, this.equator);
         
 
         //Postconditions
@@ -326,7 +327,7 @@ export default class UniquelyIdentifiableCollection<I extends UniquelyIdentifiab
             if(removedElement !== undefined)
                 newArrayClone[id] = removedElement;
 
-            return UniquelyIdentifiableCollection.a_elementListsEqual(this.elements, newArrayClone, this.equator);
+            return UniquelyIdentifiableCollection.h_elementCollectionsEqual(this.elements, newArrayClone, this.equator);
         },
         "Poscondition Fail: Aside from the element that has been removed, the result and the current collection should " +
             "be equal.");

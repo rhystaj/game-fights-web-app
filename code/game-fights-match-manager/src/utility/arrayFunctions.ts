@@ -48,7 +48,7 @@ export function shareElementsExactly<I>(arrayA: I[], arrayB: I[], equalityChecke
         arrayAFiltered = arrayAFiltered.filter((elementInA: I) => !equalityChecker(currentElement, elementInA));
         arrayBFiltered = arrayBFiltered.filter((elementInB: I) => !equalityChecker(currentElement, elementInB));
 
-        if(arrayA.length !== arrayB.length){
+        if(arrayAFiltered.length !== arrayBFiltered.length){
             //If the arrays are not the same size after the removal of an element, it means that they did not contain
             //the same number of instances of that element, so they are not the same.
             result = false;

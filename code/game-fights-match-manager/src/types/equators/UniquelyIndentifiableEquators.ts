@@ -9,10 +9,7 @@ export abstract class UniquelyIdentifiableEquator<I extends UniquelyIdentifiable
     
     areEqual(a: I, b: I): boolean{
 
-        if(isUnassigned(a) || isUnassigned(b)){
-            //If one values is unAssigned, the values can only be equal if both are.
-            return isUnassigned(a) && isUnassigned(b);
-        }
+        if(isUnassigned(a) || isUnassigned(b)) return false;
 
         return a.id === b.id;
 
