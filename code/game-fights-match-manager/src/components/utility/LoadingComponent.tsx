@@ -25,8 +25,7 @@ export interface LoadingComponentState<D>{
  * @type S The type of the state the component can have.
  */
 export default abstract class LoadingComponent<I, D, P extends LoadingComponentProps<I> = LoadingComponentProps<I>, 
-        S extends LoadingComponentState<D> = LoadingComponentState<D>> 
-        extends Component<P, S> {
+        S extends LoadingComponentState<D> = LoadingComponentState<D>> extends Component<P, S> {
 
     private readonly dataInterface: I;
 
