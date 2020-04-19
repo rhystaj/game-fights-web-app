@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -17,7 +19,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test-react": "react-scripts test",
+    "test": "jest tests",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -36,6 +39,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.9.0",
     "@types/react": "^16.9.34",
     "assert": "^2.0.0",
     "typescriptcollectionsframework": "^4.4.10"
