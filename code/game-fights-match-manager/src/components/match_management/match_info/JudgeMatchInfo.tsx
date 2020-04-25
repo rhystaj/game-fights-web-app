@@ -8,9 +8,11 @@ import GameFightsDataInterface from '../../../backend_interface/GameFightsDataIn
 
 import { LoadingComponentState } from '../../utility/LoadingComponent';
 import { MatchData, FighterData } from '../../../types/datatypes';
+import { resolve } from 'dns';
+import Entry from '../../utility/Entry/Entry';
+import EnterableHeading from '../../utility/Enterable_Text/EnterableHeading';
 
 interface JudgeMatchInfoState extends LoadingComponentState<MatchData>{
-    editingTitle: boolean;
     showingInvitationModal: boolean;
 }
 
@@ -20,7 +22,6 @@ export default class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoSta
         return {
             loading: initialLoadingValue,
             data: initialData,
-            editingTitle: false,
             showingInvitationModal: false
         }
     }
@@ -29,30 +30,21 @@ export default class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoSta
         return {
             loading: this.state.loading,
             data: data,
-            editingTitle: this.state.editingTitle,
             showingInvitationModal: this.state.showingInvitationModal
         }
     }
-    
-    onConfirmTitle = (title: string) => {
-        this.props.dataInterface.submitMatchTitle(title)
-                                .then(this.onTitleSubmissionSuccess);
-    }
 
-    onCancelTitle = () => {
-        this.setState({editingTitle: false});
-    }
-
-    onTitleSubmissionSuccess = (title: string) => {
+    onConfirmTitle = async (title: string) => {
+          
+        await this.props.dataInterface.submitMatchTitle(title);
         
         let newData: MatchData = this.state.data;
         newData.title = title;
-        
+    
         this.setState({
             data: newData,
-            editingTitle: false
         });
-
+        
     }
 
     onInviteClick = () => {
@@ -84,18 +76,14 @@ export default class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoSta
     }
 
     renderTitle(title: string){
-        if(this.state.editingTitle){
+        
             return(
-                <TextEntry
-                    defaultValue={this.state.data.title} 
-                    onConfirmEntry={this.onConfirmTitle}
-                    onCancelEntry={this.onCancelTitle}
+                <EnterableHeading
+                    initialValue={this.state.data.title}
+                    onSubmitValue={this.onConfirmTitle}
                 />
             )
-        }
-        else{
-            return <h1 onClick={() => this.setState({editingTitle: true})}>{title}</h1>
-        }
+        
     }
 
     renderJudgeInfo(){

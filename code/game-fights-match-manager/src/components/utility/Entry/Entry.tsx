@@ -1,27 +1,35 @@
 import React, { Component } from 'react';
 
-type EntryProps<T> = {
-    defaultValue: T,
-    onConfirmEntry: (currentValue: T) => void,
-    onCancelEntry: () => void;
+type EntryProps<D> = {
+    initialValue: D,
+    onConfirmEntry: (value: D) => void,
+    onCancelEntry: () => void
 }
 
 /**
  * [DES/PRE] A component in which you can enter data and either confirm or cancel your progress.
  */
-export default abstract class Entry<T> extends Component<EntryProps<T>>{
+export default abstract class Entry<D> extends Component<EntryProps<D>>{
     
-    private _currentValue: T;
-    protected get CurrentValue(): T{
-        return this._currentValue;
+    private _valueBeingEntered: D;
+    protected get ValueBeingEntered(): D{
+        return this._valueBeingEntered;
     }
-    protected set CurrentValue(value: T){
-        this._currentValue = value;
+    protected set ValueBeingEntered(value: D){
+        this._valueBeingEntered = value;
     }
 
-    constructor(props: EntryProps<T>){
+    constructor(props: EntryProps<D>){
         super(props);
-        this._currentValue = this.props.defaultValue
+        this._valueBeingEntered = this.props.initialValue;
+    }
+
+    private onConfirmEntryClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        this.props.onConfirmEntry(this._valueBeingEntered);
+    }
+
+    private onCancelEntryClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        this.props.onCancelEntry();
     }
 
     /**
@@ -33,8 +41,8 @@ export default abstract class Entry<T> extends Component<EntryProps<T>>{
         return(
             <div>
                 {this.renderEntryArea()}
-                <button onClick={() => {this.props.onConfirmEntry(this._currentValue)}}>+</button>
-                <button onClick={this.props.onCancelEntry}>X</button>
+                <button onClick={this.onConfirmEntryClick}>+</button>
+                <button onClick={this.onCancelEntryClick}>X</button>
             </div>
         )
     }

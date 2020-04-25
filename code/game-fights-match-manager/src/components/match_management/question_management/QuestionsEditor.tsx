@@ -100,7 +100,7 @@ export default class QuestionsEditor extends QuestionsComponent<QuestionsEditorS
                 
                 {this.state.addingQuestion ? 
                     <TextEntry 
-                        defaultValue=""
+                        initialValue=""
                         onConfirmEntry={this.confirmQuestionEntry}
                         onCancelEntry={this.cancelQuestionEntry}
                     /> 
