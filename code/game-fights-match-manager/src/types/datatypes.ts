@@ -7,7 +7,8 @@ export interface UniquelyIdentifiable {
 
 export interface FighterData extends UniquelyIdentifiable{
     name: string,
-    engaged: boolean
+    engaged: boolean,
+    profileImageURL: string
 }
 
 export interface Question extends UniquelyIdentifiable {

@@ -1,3 +1,7 @@
+import testFighterDatabase from './testFighterDatabase';
+import { FighterDataEquator } from '../../../types/equators/UniquelyIndentifiableEquators';
+import { FighterData } from '../../../types/datatypes';
+
 const soloMatchData = {
     title: "Test Match",
     teamMatch: false,
@@ -7,9 +11,9 @@ const soloMatchData = {
         close: '13/12/1996'
     },
     participants: [
-        {id: 1, name: "user1", engaged: true },
-        {id: 2, name: "user2", engaged: true },
-        {id: 3, name: "user3", engaged: true }
+        testFighterDatabase.retrieveElementWithId(15) as FighterData,
+        testFighterDatabase.retrieveElementWithId(3) as FighterData,
+        testFighterDatabase.retrieveElementWithId(8) as FighterData
     ]
 }
 
