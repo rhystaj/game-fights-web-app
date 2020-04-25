@@ -19,7 +19,7 @@ export default class FighterList<P extends ItemListProps<FighterData>> extends I
     renderItem = (fighter: FighterData) => {
         return(
             <div key={fighter.id} className='fighterListItem'>
-                <img src='https://via.placeholder.com/50' alt={fighter.name} />
+                <img src={fighter.profileImageURL} alt={fighter.name} />
                 <p>{fighter.name}</p>
                 {this.renderInteractionButton(fighter)}    
             </div>

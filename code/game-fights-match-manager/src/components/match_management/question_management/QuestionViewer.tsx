@@ -6,7 +6,7 @@ import QuestionsComponent from './QuestionsComponent'
 import UniquelyIdentifiableCollection from '../../../utility/UniquelyIdentifiableCollection';
 
 import { Question } from '../../../types/datatypes';
-import QuestionEquator from '../../../types/equators/UniquelyIndentifiableEquators';
+import { QuestionEquator } from '../../../types/equators/UniquelyIndentifiableEquators';
 
 //Some type aliases to make declarations more digestable.
 type QuestionCollection = UniquelyIdentifiableCollection<Question>;

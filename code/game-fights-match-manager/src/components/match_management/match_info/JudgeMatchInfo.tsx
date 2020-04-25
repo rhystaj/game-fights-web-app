@@ -11,15 +11,17 @@ import { MatchData, FighterData } from '../../../types/datatypes';
 
 interface JudgeMatchInfoState extends LoadingComponentState<MatchData>{
     editingTitle: boolean;
+    showingInvitationModal: boolean;
 }
 
-class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoState>{
+export default class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoState>{
     
     protected determineInitialState(initialLoadingValue: boolean, initialData: MatchData): JudgeMatchInfoState {
         return {
             loading: initialLoadingValue,
             data: initialData,
-            editingTitle: false
+            editingTitle: false,
+            showingInvitationModal: false
         }
     }
     
@@ -27,13 +29,14 @@ class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoState>{
         return {
             loading: this.state.loading,
             data: data,
-            editingTitle: this.state.editingTitle
+            editingTitle: this.state.editingTitle,
+            showingInvitationModal: this.state.showingInvitationModal
         }
     }
     
     onConfirmTitle = (title: string) => {
-        this.props.dataInterface.submitMatchTitle(title, this.onTitleSubmissionSuccess(title), 
-            this.onTitleSubmissionFailure);
+        this.props.dataInterface.submitMatchTitle(title)
+                                .then(this.onTitleSubmissionSuccess);
     }
 
     onCancelTitle = () => {
@@ -52,8 +55,32 @@ class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoState>{
 
     }
 
-    onTitleSubmissionFailure(){
-        //Not sure yet...
+    onInviteClick = () => {
+        this.setState({
+            showingInvitationModal: true
+        });
+    }
+
+    onConfirmInvites = (invites: FighterData[]) => {
+
+        this.props.dataInterface.submitMatchParticipants(invites)
+                                .then(this.onConfirmInvitesSuccess);
+
+        this.setState({
+            showingInvitationModal: false
+        });
+
+    }
+
+    onConfirmInvitesSuccess = (invites: FighterData[]) => {
+        
+        const newMatchData = this.state.data;
+        newMatchData.participants = invites;
+        
+        this.setState({
+            data: newMatchData
+        });
+        
     }
 
     renderTitle(title: string){
@@ -78,7 +105,7 @@ class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoState>{
         return (
             <div>
                 {super.renderParticipantsInfo(participants)}
-                <button>Invite</button>
+                <button onClick={this.onInviteClick}>Invite</button>
             </div>
         )
     }
@@ -94,11 +121,17 @@ class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoState>{
         return (
             <div>
                 {super.renderLoaded(dataInterface, data)}
-                <FighterInvitationSearchModal dataInterface={dataInterface}/>
+                {this.state.showingInvitationModal ?
+                    (<FighterInvitationSearchModal 
+                        dataInterface={dataInterface}
+                        preInvitedFighters={data.participants}
+                        onCancel={() => { this.setState({ showingInvitationModal: false }) }}
+                        onConfirmInvites={this.onConfirmInvites}
+                    />)
+                    :
+                    (<div/>)}
             </div>
         )
     }
 
 }
-
-export default JudgeMatchInfo;

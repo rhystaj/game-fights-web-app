@@ -8,7 +8,7 @@ import { QueryCallback } from "../../../types/functionTypes";
 
 import UniquelyIdentifiableCollection from '../../../utility/UniquelyIdentifiableCollection';
 
-import QuestionEquator from '../../../types/equators/UniquelyIndentifiableEquators';
+import { QuestionEquator } from '../../../types/equators/UniquelyIndentifiableEquators';
 
 import { Question } from '../../../types/datatypes';
 

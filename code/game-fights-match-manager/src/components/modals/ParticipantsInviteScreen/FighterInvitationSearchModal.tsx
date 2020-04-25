@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SearchModal, { SearchModalState } from '../../utility/SearchModal';
+import SearchModal, { SearchModalState, SearchModalProps } from '../../utility/SearchModal';
 
 import InvitationSearchResultsFighterList from './InvitationSearchResultsFighterList';
 
@@ -9,8 +9,12 @@ import { whenUnassigned } from '../../../utility/qolFunctions'
 
 import InvitedFighterList from './InvitedFighterList';
 import GameFightsDataInterface from '../../../backend_interface/GameFightsDataInterface';
+import { FetchFunction } from '../../../types/functionTypes';
 
-type FighterInvitationSearchModalProps = {dataInterface: GameFightsDataInterface};
+interface FighterInvitationSearchModalProps extends SearchModalProps<GameFightsDataInterface>{
+    preInvitedFighters: FighterData[],
+    onConfirmInvites: (invites: FighterData[]) => void;
+};
 
 interface FighterInvitationSearchModalState extends SearchModalState<FighterData>{
     invitedFighters: FighterData[]
@@ -20,15 +24,9 @@ interface FighterInvitationSearchModalState extends SearchModalState<FighterData
  * [DES] A SerachModal that allows you to search for and invite fighters.
  */
 export default class FighterInvitationSearchModal 
-    extends SearchModal<FighterInvitationSearchModalProps, FighterData, FighterInvitationSearchModalState>{
-
-    getDerivedStateFromProps = (props: FighterInvitationSearchModalProps, state: FighterInvitationSearchModalState) => {
-        return {
-            searchResults:[],
-            invitedFighters: []
-        }
-    }
-
+    extends SearchModal<GameFightsDataInterface, FighterData, FighterInvitationSearchModalProps, 
+        FighterInvitationSearchModalState>{
+    
     onInviteFighter = (fighter: FighterData) => () => {
         this.setState({
             invitedFighters: whenUnassigned(this.state.invitedFighters, []).concat(fighter)
@@ -40,9 +38,20 @@ export default class FighterInvitationSearchModal
             invitedFighters: this.state.invitedFighters.filter(f => f.id !== fighter.id)
         });
     }
-    
+
     fetchSearchResults = (searchString: string) => (searchCallback: (searchResults: FighterData[]) => void) => {
         this.props.dataInterface.fetchFightersByName(searchString)(searchCallback);
+    }
+
+    protected determineInitialState(searchResults: FighterData[]): FighterInvitationSearchModalState{
+        return {
+            searchResults: searchResults,
+            invitedFighters: this.props.preInvitedFighters
+        }
+    }
+
+    protected GenerateFetchFunctionForSearchString(searchString: string): FetchFunction<FighterData[]> {
+        return this.props.dataInterface.fetchFightersByName(searchString);
     }
 
     /**
@@ -66,6 +75,16 @@ export default class FighterInvitationSearchModal
                 />
             </div>
         );
+    }
+
+    protected getConfirmButtonText(): string {
+        return "Confirm Invites";
+    }
+
+    protected getOnConfirmClickAction(): (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void {
+        return (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+            this.props.onConfirmInvites(this.state.invitedFighters);
+        }
     }
 
 }

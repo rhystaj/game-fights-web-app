@@ -1,24 +1,35 @@
 import React, { Component, ChangeEvent } from 'react';
 
 import { UniquelyIdentifiable } from '../../types/datatypes';
+import { FetchFunction, QueryCallback } from '../../types/functionTypes';
+
+export interface SearchModalProps<I>{
+    dataInterface: I,
+    onCancel: () => void;
+}
 
 export interface SearchModalState<I extends UniquelyIdentifiable>{
     searchResults: I[];
 }
 
-export default class SearchModal<P, I extends UniquelyIdentifiable, S extends SearchModalState<I>> 
-        extends Component<P, S>{
+export default abstract class SearchModal<I, UI extends UniquelyIdentifiable, P extends SearchModalProps<I>, 
+        S extends SearchModalState<UI>> extends Component<P, S>{
 
-    getDerivedStateFromProps = (props: P, state: S) => {
-        return {
-            searchResults: []
-        }
+    constructor(props: P){
+        super(props);
+        this.state = this.determineInitialState([]);
+    }
+
+    protected abstract determineInitialState(searchResults: UI[]): S;
+
+    private onCancelButtonClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        this.props.onCancel();
     }
 
     /**
-     * Render an area where the user can enter data for the search.
+     * [DES/PRE] Render an area where the user can enter data for the search.
      */
-    renderSearchArea = () => {
+    protected renderSearchArea(): JSX.Element{
         return (
             <div>
                 <input onInput={this.onSearchBoxInput} type="text" className="modalSearchBox" />
@@ -27,35 +38,60 @@ export default class SearchModal<P, I extends UniquelyIdentifiable, S extends Se
     }
 
     /**
-     * Render an area where the results of the search will be displayed.
+     * [DES/PRE] Render an area where the results of the search will be displayed.
      */
-    renderSearchResults = () => {
-        return (<div />); //To be overridden;
+    protected abstract renderSearchResults(): JSX.Element;
+
+    /**
+     * [DES/PRE] Render options to describe what to be done with the results of the search.
+     */
+    protected renderResultOptions(): JSX.Element {
+        return(
+            <div>
+                <button onClick={this.onCancelButtonClick}>Cancel</button>
+                <button onClick={this.getOnConfirmClickAction()}>{this.getConfirmButtonText()}</button>
+            </div>
+        )
+        
     }
+
+    /**
+     * Retrieve the text to be displayed on the confirm button.
+     */
+    protected abstract getConfirmButtonText(): string;
+
+    /**
+     * Get the action to be perfomred when the confirm button is clicked.
+     */
+    protected abstract getOnConfirmClickAction(): (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 
     /**
      * Called each time the string in the search box is changed.
      */
-    onSearchBoxInput = (e: ChangeEvent<HTMLInputElement>) => {
-        this.fetchSearchResults(e.target.value)((searchResults: I[]) => {
+    protected readonly onSearchBoxInput = (e: ChangeEvent<HTMLInputElement>) => {
+        
+        let fetchFunction: FetchFunction<UI[]> = this.GenerateFetchFunctionForSearchString(e.target.value);
+        let searchCallback: QueryCallback<UI[]> = (searchResults: UI[]) => {
             this.setState(
                 {searchResults: searchResults}
             );
-        });
+        };
+
+        fetchFunction(searchCallback);
+
     }
 
     /**
      * Fetch a list of the items that match the search string.
      */
-    fetchSearchResults = (searchString: string) => (searchCallback: (searchResults: I[]) => void) =>{
-       //To be overridden; 
-    }
+    protected abstract GenerateFetchFunctionForSearchString(searchString: string): FetchFunction<UI[]>
 
     render(){
         return (
             <div>
                 {this.renderSearchArea()}
                 {this.renderSearchResults()}
+                {this.renderResultOptions()}
             </div>
         )
     }
