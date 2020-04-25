@@ -43,7 +43,7 @@ export default class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoSta
         this.setState({editingTitle: false});
     }
 
-    onTitleSubmissionSuccess = (title: string) => () => {
+    onTitleSubmissionSuccess = (title: string) => {
         
         let newData: MatchData = this.state.data;
         newData.title = title;
