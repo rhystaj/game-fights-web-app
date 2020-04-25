@@ -26,9 +26,9 @@ export default abstract class MatchInfoComponent<S extends LoadingComponentState
     return{
       title: '',
       dates: {
-        match: '',
-        open: '',
-        close: ''
+        match: undefined,
+        open: undefined,
+        close: undefined
       },
       participants: []
     }

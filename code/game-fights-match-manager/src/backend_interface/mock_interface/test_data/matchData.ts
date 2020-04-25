@@ -6,9 +6,9 @@ const soloMatchData = {
     title: "Test Match",
     teamMatch: false,
     dates: {
-        match: '11/12/1996',
-        open: '12/12/1996',
-        close: '13/12/1996'
+        match: new Date("1996-12-11"),
+        open: new Date("1996-12-11"),
+        close: new Date("1996-12-11")
     },
     participants: [
         testFighterDatabase.retrieveElementWithId(15) as FighterData,

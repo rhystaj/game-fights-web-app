@@ -1,9 +1,9 @@
 import React from 'react'
 
 type MatchDateProps = {
-  matchDate: string,
-  openDate: string,
-  closeDate: string
+  matchDate: Date | undefined,
+  openDate: Date | undefined,
+  closeDate: Date | undefined
 }
 
 /**

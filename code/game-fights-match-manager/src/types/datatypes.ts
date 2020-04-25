@@ -18,9 +18,9 @@ export interface Question extends UniquelyIdentifiable {
 export interface MatchData{
     title: string,
     dates: {
-        match: string,
-        open: string,
-        close: string
+        match: Date | undefined,
+        open: Date | undefined,
+        close: Date | undefined
     },
     participants: FighterData[]
 }
