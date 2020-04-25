@@ -63,7 +63,7 @@ export default abstract class MatchInfoComponent<S extends LoadingComponentState
     return (
     <img
       key={participant.id}
-      src='https://via.placeholder.com/100'
+      src={participant.profileImageURL}
       alt='Placeholder User Icon'
     />
     );
