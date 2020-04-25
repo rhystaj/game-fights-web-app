@@ -64,7 +64,15 @@ export default abstract class GameFightsDataInterface{
      * @param successCallback Defines the reponse to the question being successfully added.
      * @param failureCallback Defines the response the addition of the question failing in some way.
      */
-    public abstract submitQuestion (question: string, successCallback: () => void, failureCallback: () => void): void
+    public abstract submitQuestion (question: string): Promise<string>;
+
+    /**
+     * [DES/PRE] Specify which participants are taking part in a match.
+     * @param participants The collection of participants to be set as the partipants in a the match.
+     * @param successCallback Defines the response to the collection of particpants being correctly set.
+     * @param failureCallback Defines the response to the setting of the collection of participants failing in some way.
+     */
+    public abstract submitMatchParticipants(participants: FighterData[]): Promise<FighterData[]>;
     
     /**
      * [DES/PRE] Specify a title to be set as the title of the currently managed match.
@@ -72,6 +80,6 @@ export default abstract class GameFightsDataInterface{
      * @param successCallback Defines the response to the setting of the match title being successful. 
      * @param failureCallback Defines the response to the setting of the match title failing in some way.
      */
-    public abstract submitMatchTitle (title: string, successCallback: () => void, failureCallback: () => void): void;
+    public abstract submitMatchTitle (title: string): Promise<string>;
     
 }

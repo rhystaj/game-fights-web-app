@@ -52,8 +52,9 @@ export default class QuestionsEditor extends QuestionsComponent<QuestionsEditorS
     }
 
     confirmQuestionEntry = (newQuestion: string) => {
-        this.props.dataInterface.submitQuestion(this.enteredQuestion, this.onSuccessfulSubmission(newQuestion),
-            this.onSubmissionFailure);
+        this.props.dataInterface.submitQuestion(newQuestion)
+                                .then(this.onSuccessfulSubmission)
+                                .catch(this.onSubmissionFailure);
     }
 
     onSuccessfulSubmission = (newQuestionText: string) => () => {

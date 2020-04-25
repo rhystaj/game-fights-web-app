@@ -1,7 +1,7 @@
 import submissions from './test_data/submissions'
 import matchData from './test_data/matchData'
 import questions from './test_data/questions'
-import fighterSearchResults from './test_data/fighterSearchResults'
+import fighterDatabase, { FAILURE_FIGHTER_ID } from './test_data/testFighterDatabase'
 
 import { QueryCallback } from '../../types/functionTypes';
 
@@ -11,11 +11,11 @@ import { UserMatchStatus, MatchStage } from '../../enums/statusEnums';
 import { Question, AnswerSubmissionData, MatchData, FighterData } from '../../types/datatypes';
 
 export default class MockGameFightsDataInterface extends GameFightsDataInterface{
-    
+
     public queryUserMatchStatus(queryCallback: QueryCallback<UserMatchStatus>){
         
         //Set timeout is to simulate latency.
-        setTimeout(() => {queryCallback(UserMatchStatus.PARTCIPATING);}, 1000);
+        setTimeout(() => {queryCallback(UserMatchStatus.JUDGING);}, 1000);
         
     }
 
@@ -54,16 +54,21 @@ export default class MockGameFightsDataInterface extends GameFightsDataInterface
 
     public fetchFightersByName(name: string): (queryCallback: QueryCallback<FighterData[]>) => void {
         return queryCallback => {
-            queryCallback(fighterSearchResults.filter(fighter => fighter.name.indexOf(name) >= 0))
+            queryCallback(fighterDatabase.asArray().filter(fighter => fighter.name.indexOf(name) >= 0))
         };
     }
 
-    public submitQuestion(question: string, successCallback: () => void, failureCallback: () => void){
-        this.testSubmission(question, successCallback, failureCallback);
+    public submitQuestion(question: string){
+        return new Promise<string>(this.testSubmission(question, (data: string) => (data.localeCompare("Fail") === 0)));
     }
 
-    public submitMatchTitle(title: string, successCallback: () => void, failureCallback: () => void){
-        this.testSubmission(title, successCallback, failureCallback)
+    public submitMatchParticipants(participants: FighterData[]) {
+        return new Promise<FighterData[]>(this.testSubmission(participants, 
+            (participants: FighterData[]) => participants.filter(f => f.id === FAILURE_FIGHTER_ID).length > 0));
+    }
+
+    public submitMatchTitle(title: string){
+        return new Promise<string>(this.testSubmission(title, (data: string) => (data.localeCompare("Fail") === 0)));
     }
 
     /**
@@ -72,16 +77,21 @@ export default class MockGameFightsDataInterface extends GameFightsDataInterface
      * @param successCallback Called if the data is not set to 'Fail' - mocks a successful submission.
      * @param failureCallback Called if the dtat is set to 'Fail' - mocks a failed submission.
      */
-    private testSubmission(data: string, successCallback: () => void, failureCallback: () => void){
-        
-        if(data.localeCompare("Fail") === 0){
-            //For testing purposes.
-            failureCallback();
+    private testSubmission<T>(data: T, failCondition: (t: T) => boolean): 
+        (resolve: (result: T) => void, reject: (any: any) => void) => void{
+
+
+        return (resolve: (result: T) => void, reject: (any: any) => void) => {
+            if(failCondition(data)){
+                //For testing purposes.
+                reject(null);
+            }
+            else{
+                resolve(data);
+            }
         }
-        else{
-            successCallback();
-        }
-        
+
+    
     }
 
 }
