@@ -57,7 +57,7 @@ export default class QuestionsEditor extends QuestionsComponent<QuestionsEditorS
                                 .catch(this.onSubmissionFailure);
     }
 
-    onSuccessfulSubmission = (newQuestionText: string) => () => {
+    onSuccessfulSubmission = (newQuestionText: string) => {
         
         let newQuestion: Question = {
             id: this.state.data.nextAvaliableId,
