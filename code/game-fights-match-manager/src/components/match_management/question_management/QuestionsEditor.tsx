@@ -3,7 +3,7 @@ import React from 'react';
 import GameFightsDataInterface from '../../../backend_interface/GameFightsDataInterface';
 
 import QuestionsComponent from './QuestionsComponent';
-import TextEntry from '../../utility/TextEntry';
+import TextEntry from '../../utility/Entry/TextEntry';
 import { LoadingComponentState } from '../../utility/LoadingComponent';
 
 import UniquelyIdentifiableCollection from '../../../utility/UniquelyIdentifiableCollection';
@@ -100,6 +100,7 @@ export default class QuestionsEditor extends QuestionsComponent<QuestionsEditorS
                 
                 {this.state.addingQuestion ? 
                     <TextEntry 
+                        defaultValue=""
                         onConfirmEntry={this.confirmQuestionEntry}
                         onCancelEntry={this.cancelQuestionEntry}
                     /> 

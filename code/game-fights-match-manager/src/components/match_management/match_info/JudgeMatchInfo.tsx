@@ -1,6 +1,6 @@
 import React from 'react';
 import MatchInfoComponent from './MatchInfo';
-import TextEntry from '../../utility/TextEntry';
+import TextEntry from '../../utility/Entry/TextEntry';
 
 import FighterInvitationSearchModal from '../../modals/ParticipantsInviteScreen/FighterInvitationSearchModal';
 
@@ -86,7 +86,8 @@ export default class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoSta
     renderTitle(title: string){
         if(this.state.editingTitle){
             return(
-                <TextEntry 
+                <TextEntry
+                    defaultValue={this.state.data.title} 
                     onConfirmEntry={this.onConfirmTitle}
                     onCancelEntry={this.onCancelTitle}
                 />
