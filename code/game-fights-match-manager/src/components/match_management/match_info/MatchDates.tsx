@@ -22,15 +22,15 @@ const MatchDates = (props: MatchDateProps) => {
       <p>
         <b>Match Date</b>
       </p>
-      <p>{props.matchDate}</p>
+      <p>{props.matchDate?.toDateString()}</p>
       <p>
         <b>Answers Open</b>
       </p>
-      <p>{props.openDate}</p>
+      <p>{props.openDate?.toDateString()}</p>
       <p>
         <b>Answers Close</b>
       </p>
-      <p>{props.closeDate}</p>
+      <p>{props.closeDate?.toDateString()}</p>
     </div>
   )
 }
