@@ -38,6 +38,29 @@ export default abstract class MatchInfoComponent<S extends LoadingComponentState
     return <h1>{title}</h1>
   }
 
+  protected renderDates(){
+    return (
+      <div id='dates'>
+        <p>
+          <b>Match Date</b>
+        </p>
+        {this.renderDate(this.state.data.dates.match)}
+        <p>
+          <b>Answers Open</b>
+        </p>
+        {this.renderDate(this.state.data.dates.open)}
+        <p>
+          <b>Answers Close</b>
+        </p>
+        {this.renderDate(this.state.data.dates.close)}
+      </div>
+    )
+  }
+
+  protected renderDate(date: Date | undefined){
+    return <p>{date?.toDateString()}</p>
+  }
+
   /** Render elements displaying information about the judge. */
   protected renderJudgeInfo(){
     return(
@@ -76,11 +99,7 @@ export default abstract class MatchInfoComponent<S extends LoadingComponentState
             
            {this.renderTitle(data.title)}
             
-            <MatchDates
-                matchDate={data.dates.match}
-                openDate={data.dates.open}
-                closeDate={data.dates.close}
-            />
+            {this.renderDates()}
             
             {this.renderJudgeInfo()}
 

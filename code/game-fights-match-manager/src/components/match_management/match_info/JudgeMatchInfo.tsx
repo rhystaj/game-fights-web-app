@@ -8,9 +8,10 @@ import GameFightsDataInterface from '../../../backend_interface/GameFightsDataIn
 
 import { LoadingComponentState } from '../../utility/LoadingComponent';
 import { MatchData, FighterData } from '../../../types/datatypes';
-import { resolve } from 'dns';
-import Entry from '../../utility/Entry/Entry';
+
 import EnterableHeading from '../../utility/Enterable_Text/EnterableHeading';
+import DateEntry from '../../utility/Entry/DateEntry';
+import EnterableDateText from '../../utility/Enterable_Text/EnterableDateText';
 
 interface JudgeMatchInfoState extends LoadingComponentState<MatchData>{
     showingInvitationModal: boolean;
@@ -84,6 +85,15 @@ export default class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoSta
                 />
             )
         
+    }
+
+    renderDate(date: Date){
+
+        return<EnterableDateText
+            initialValue={date}
+            onSubmitValue={async () => { }}
+        />
+
     }
 
     renderJudgeInfo(){
