@@ -12,6 +12,7 @@ export default class TextEntry extends Entry<string> {
             <input 
                 type="textedit" 
                 onInput={(e: React.FormEvent<HTMLInputElement>) => { this.ValueBeingEntered = e.currentTarget.value }}
+                value={this.state.valueBeingEntered}
             />       
         )
     }
