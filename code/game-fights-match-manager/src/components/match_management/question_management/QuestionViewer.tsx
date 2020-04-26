@@ -9,8 +9,7 @@ import { Question } from '../../../types/datatypes';
 import { QuestionEquator } from '../../../types/equators/UniquelyIndentifiableEquators';
 
 //Some type aliases to make declarations more digestable.
-type QuestionCollection = UniquelyIdentifiableCollection<Question>;
-type QuestionsViewerState = LoadingComponentState<QuestionCollection>;
+type QuestionsViewerState = LoadingComponentState<Question[]>;
 type QuestionsViewerProps = LoadingComponentProps<GameFightsDataInterface>;
 
 
@@ -25,14 +24,14 @@ class QuestionsViewer extends QuestionsComponent<QuestionsViewerState>{
         props.dataInterface.events.onQuestionUpdate = this.onQuestionUpdate;
     }
 
-    determineInitialState(initialLoadingValue: boolean, initialQuestionCollection: QuestionCollection){
+    determineInitialState(initialLoadingValue: boolean, initialQuestionCollection: Question[]){
         return {
             loading: initialLoadingValue,
             data: initialQuestionCollection
         }
     }
 
-    protected determineNewStateFromData(data: UniquelyIdentifiableCollection<Question>): QuestionsViewerState {
+    protected determineNewStateFromData(data: Question[]): QuestionsViewerState {
         return{
             loading: this.state.loading,
             data: data
@@ -45,7 +44,7 @@ class QuestionsViewer extends QuestionsComponent<QuestionsViewerState>{
 
     protected updateQuestionDisplay(questions: Question[]): void{
         this.setState({
-            data: new UniquelyIdentifiableCollection<Question>(questions, new QuestionEquator())
+            data: questions
         });
     }
 

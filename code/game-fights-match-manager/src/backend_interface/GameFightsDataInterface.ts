@@ -64,7 +64,13 @@ export default abstract class GameFightsDataInterface{
      * @param successCallback Defines the reponse to the question being successfully added.
      * @param failureCallback Defines the response the addition of the question failing in some way.
      */
-    public abstract submitQuestion (question: string): Promise<string>;
+    public abstract submitQuestion(question: string): Promise<Question[]>;
+
+    /**
+     * Sepecify that a question be deleted from the list of match questions.
+     * @param question 
+     */
+    public abstract requestQuestionDeletion(question: Question): Promise<Question[]>
 
     /**
      * [DES/PRE] Specify which participants are taking part in a match.

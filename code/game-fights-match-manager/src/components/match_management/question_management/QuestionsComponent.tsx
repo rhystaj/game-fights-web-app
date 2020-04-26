@@ -6,42 +6,37 @@ import LoadingComponent, { LoadingComponentState, LoadingComponentProps } from '
 
 import { QueryCallback } from "../../../types/functionTypes";
 
-import UniquelyIdentifiableCollection from '../../../utility/UniquelyIdentifiableCollection';
-
-import { QuestionEquator } from '../../../types/equators/UniquelyIndentifiableEquators';
-
 import { Question } from '../../../types/datatypes';
 
 
 //Some type aliases to hopefully make type references more digestable.
-type QuestionCollection = UniquelyIdentifiableCollection<Question>;
-type QuestionComponentState = LoadingComponentState<QuestionCollection>;
+type QuestionComponentState = LoadingComponentState<Question[]>;
 type QuestionComponentProps = LoadingComponentProps<GameFightsDataInterface>;
 
 
 export default abstract class Questions<S extends QuestionComponentState> extends 
-    LoadingComponent<GameFightsDataInterface, QuestionCollection, QuestionComponentProps, S>{
+    LoadingComponent<GameFightsDataInterface, Question[], QuestionComponentProps, S>{
     
-    protected loadData(dataInterface: GameFightsDataInterface): (loadCallback: QueryCallback<QuestionCollection>) => void {
+    protected loadData(dataInterface: GameFightsDataInterface): (loadCallback: QueryCallback<Question[]>) => void {
         return loadCallback => {
             dataInterface.queryQuestions((data: Question[]) => {
-                loadCallback(this.determineInitalData().addAll(data));
+                loadCallback(data);
             });
         }
     }
 
-    protected determineInitalData(): UniquelyIdentifiableCollection<Question> {
-        return new UniquelyIdentifiableCollection([], new QuestionEquator());
+    protected determineInitalData(): Question[] {
+        return []
     }
 
     protected renderQuestion(question: Question){
         return <p key={question.id}>{question.text}</p>;
     }
 
-    protected renderLoaded(dataInterface: GameFightsDataInterface, questions: UniquelyIdentifiableCollection<Question>){
+    protected renderLoaded(dataInterface: GameFightsDataInterface, questions: Question[]){
         return(
             <div>
-                {questions.asArray().map(this.renderQuestion)}
+                {questions.map(this.renderQuestion)}
             </div>
         ) 
     }

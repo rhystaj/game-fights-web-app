@@ -10,21 +10,22 @@ import GameFightsDataInterface from '../GameFightsDataInterface';
 import { UserMatchStatus, MatchStage } from '../../enums/statusEnums';
 import { Question, AnswerSubmissionData, MatchData, FighterData } from '../../types/datatypes';
 import UniquelyIdentifiableCollection from '../../utility/UniquelyIdentifiableCollection';
-import { AnswerSubmissionDataEquator } from '../../types/equators/UniquelyIndentifiableEquators';
+import { AnswerSubmissionDataEquator, QuestionEquator } from '../../types/equators/UniquelyIndentifiableEquators';
 
 export default class MockGameFightsDataInterface extends GameFightsDataInterface{
     
-    private readonly answerSubmissions = new UniquelyIdentifiableCollection(submissions, new AnswerSubmissionDataEquator());
+    private answerSubmissions = new UniquelyIdentifiableCollection(submissions, new AnswerSubmissionDataEquator());
+    private questions = new UniquelyIdentifiableCollection(questions, new QuestionEquator());
 
     public queryUserMatchStatus(queryCallback: QueryCallback<UserMatchStatus>){
         
         //Set timeout is to simulate latency.
-        setTimeout(() => {queryCallback(UserMatchStatus.PARTCIPATING);}, 1000);
+        setTimeout(() => {queryCallback(UserMatchStatus.JUDGING);}, 1000);
         
     }
 
     public queryMatchStage(queryCallback: QueryCallback<MatchStage>){
-        setTimeout(() => {queryCallback(MatchStage.ANSWERS_OPENED)}, 1000);
+        setTimeout(() => {queryCallback(MatchStage.DETERMINING_QUESTIONS)}, 1000);
     }
 
     public queryQuestions(queryCallback: QueryCallback<Question[]>){
@@ -62,8 +63,25 @@ export default class MockGameFightsDataInterface extends GameFightsDataInterface
         };
     }
 
-    public submitQuestion(question: string){
-        return new Promise<string>(this.testSubmission(question, (data: string) => (data.localeCompare("Fail") === 0)));
+    public async submitQuestion(question: string){
+        
+        if(question.localeCompare("Fail") === 0) throw Error();
+        
+        const newQuestionId = this.questions.nextAvaliableId;
+        this.questions = this.questions.add({
+            id: newQuestionId,
+            text: question
+        })
+
+        return this.questions.asArray();
+
+    }
+
+    public async requestQuestionDeletion(question: Question){
+
+        this.questions = this.questions.removeElementWithId(question.id);
+        return this.questions.asArray();
+
     }
 
     public submitMatchParticipants(participants: FighterData[]) {
