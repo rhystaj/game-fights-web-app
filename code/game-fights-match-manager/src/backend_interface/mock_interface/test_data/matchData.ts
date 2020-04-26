@@ -10,6 +10,7 @@ const soloMatchData = {
         open: new Date("1996-12-11"),
         close: new Date("1996-12-11")
     },
+    judge: testFighterDatabase.retrieveElementWithId(12),
     participants: [
         testFighterDatabase.retrieveElementWithId(15) as FighterData,
         testFighterDatabase.retrieveElementWithId(3) as FighterData,

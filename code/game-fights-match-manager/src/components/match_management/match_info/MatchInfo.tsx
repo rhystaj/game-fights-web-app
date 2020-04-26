@@ -1,8 +1,6 @@
 import React from 'react'
 import LoadingComponent, { LoadingComponentState, LoadingComponentProps } from '../../utility/LoadingComponent'
 
-import MatchDates from './MatchDates'
-
 import './../../../style/MatchInfo.css'
 import GameFightsDataInterface from '../../../backend_interface/GameFightsDataInterface';
 
@@ -30,6 +28,7 @@ export default abstract class MatchInfoComponent<S extends LoadingComponentState
         open: undefined,
         close: undefined
       },
+      judge: undefined,
       participants: []
     }
   }
@@ -62,10 +61,10 @@ export default abstract class MatchInfoComponent<S extends LoadingComponentState
   }
 
   /** Render elements displaying information about the judge. */
-  protected renderJudgeInfo(){
+  protected renderJudgeInfo(judgeData: FighterData){
     return(
       <div className='userDisplay'>
-        <img src='https://via.placeholder.com/100' alt='Judge' />
+        <img src={judgeData.profileImageURL} alt='Judge' />
         <p>Judge</p>
       </div>
     )
@@ -101,7 +100,7 @@ export default abstract class MatchInfoComponent<S extends LoadingComponentState
             
             {this.renderDates()}
             
-            {this.renderJudgeInfo()}
+            {this.renderJudgeInfo(data.judge as FighterData)}
 
             {this.renderParticipantsInfo(data.participants)}
 

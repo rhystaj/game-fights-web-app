@@ -22,6 +22,7 @@ export interface MatchData{
         open: Date | undefined,
         close: Date | undefined
     },
+    judge: FighterData | undefined,
     participants: FighterData[]
 }
 
