@@ -20,7 +20,7 @@ export default class MockGameFightsDataInterface extends GameFightsDataInterface
     }
 
     public queryMatchStage(queryCallback: QueryCallback<MatchStage>){
-        setTimeout(() => {queryCallback(MatchStage.DETERMINING_QUESTIONS)}, 1000);
+        setTimeout(() => {queryCallback(MatchStage.ANSWERS_OPENED)}, 1000);
     }
 
     public queryQuestions(queryCallback: QueryCallback<Question[]>){
