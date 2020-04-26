@@ -1,6 +1,7 @@
-import { UniquelyIdentifiable, Question, FighterData } from "../datatypes";
+import { UniquelyIdentifiable, Question, FighterData, AnswerSubmissionData } from "../datatypes";
 import IEquator from "./IEquator";
-import { isUnassigned } from "../../utility/qolFunctions";
+import { isUnassigned } from "../../utility/functions/qolFunctions";
+import UniquelyIdentifiableCollection from "../../utility/UniquelyIdentifiableCollection";
 
 /**
  * [DES/PRE] Determines whether two UniquelyIdetifiable objects are equal.
@@ -25,6 +26,21 @@ export class QuestionEquator extends UniquelyIdentifiableEquator<Question>{
     public areEqual(a: Question, b: Question){
         if(!super.areEqual(a, b)) return false;
         else return a.text.localeCompare(b.text) === 0;
+    }
+
+}
+
+export class AnswerSubmissionDataEquator extends UniquelyIdentifiableEquator<AnswerSubmissionData>{
+
+    public areEqual(a: AnswerSubmissionData, b: AnswerSubmissionData){
+        if(!super.areEqual(a, b)) return false;
+
+        if(a.question.localeCompare(b.question) !== 0) return false;
+        if(a.answer.localeCompare(b.answer) !== 0) return false;
+        if(a.state !== b.state) return false;
+        if(a.validatedByUser !== b.validatedByUser) return false;
+
+        return true;
     }
 
 }

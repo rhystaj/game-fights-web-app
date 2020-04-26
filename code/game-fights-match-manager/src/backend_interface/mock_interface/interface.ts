@@ -9,8 +9,12 @@ import GameFightsDataInterface from '../GameFightsDataInterface';
 
 import { UserMatchStatus, MatchStage } from '../../enums/statusEnums';
 import { Question, AnswerSubmissionData, MatchData, FighterData } from '../../types/datatypes';
+import UniquelyIdentifiableCollection from '../../utility/UniquelyIdentifiableCollection';
+import { AnswerSubmissionDataEquator } from '../../types/equators/UniquelyIndentifiableEquators';
 
 export default class MockGameFightsDataInterface extends GameFightsDataInterface{
+    
+    private readonly answerSubmissions = new UniquelyIdentifiableCollection(submissions, new AnswerSubmissionDataEquator());
 
     public queryUserMatchStatus(queryCallback: QueryCallback<UserMatchStatus>){
         
@@ -69,6 +73,19 @@ export default class MockGameFightsDataInterface extends GameFightsDataInterface
 
     public submitMatchTitle(title: string){
         return new Promise<string>(this.testSubmission(title, (data: string) => (data.localeCompare("Fail") === 0)));
+    }
+
+    public async submitAnswerUpdate(submission: AnswerSubmissionData, updatedAnswer: string){
+        
+        if(updatedAnswer.localeCompare("Fail") === 0) throw Error();
+
+        let answerSub: AnswerSubmissionData | undefined = this.answerSubmissions.retrieveElementWithId(submission.id);
+        if(answerSub !== undefined){
+            answerSub.answer = updatedAnswer;
+        }
+
+        return this.answerSubmissions.asArray();
+
     }
 
     /**

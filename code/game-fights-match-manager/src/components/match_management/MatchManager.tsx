@@ -3,7 +3,7 @@ import React from 'react'
 import SimpleStateLoadingComponent from '../utility/SimpleStateLoadingComponent';
 
 import ParticipantMatchInfo from './match_info/ParticipantMatchInfo'
-import AnswerSubmissionManager from './question_submission/manager/AnswerSubmissionManager'
+import AnswerSubmissionManager from './answer_submission/manager/AnswerSubmissionManager'
 
 import GameFightsDataInterface from '../../backend_interface/GameFightsDataInterface'
 

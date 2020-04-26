@@ -7,6 +7,7 @@ import GameFightsDataInterface from '../../../../backend_interface/GameFightsDat
 import { AnswerSubmissionData } from '../../../../types/datatypes';
 import { QueryCallback } from "../../../../types/functionTypes";
 import SimpleStateLoadingComponent from '../../../utility/SimpleStateLoadingComponent';
+import SubmissionOptionAction from '../../../../actions/SubmissionOptionActions/SubmissionOptionAction';
 
 /**
  * [DES/PRE] Displays and allows the user to edit anwers to questions.
@@ -24,17 +25,20 @@ export default class AnswerSubmissionManager extends SimpleStateLoadingComponent
     return [];
   }
 
- 
+  private onSubmissionOptionAction = async (action: SubmissionOptionAction) => {
+    const newData = await action.execute(this.props.dataInterface);
+    this.setState({ data: newData })
+  }
+
   renderLoaded(dataInterface: GameFightsDataInterface, submissions: AnswerSubmissionData[]){
     return (
       <div>
         <h2>My Questions</h2>
         {submissions.map(submission => (
           <AnswerSubmission
-            dataInterface={dataInterface}
             key={submission.id}
             submission={submission}
-            validatedByUser={submission.validatedByUser}
+            onSubmissionOptionAction={this.onSubmissionOptionAction}
           />
         ))}
         <button>Forfiet</button>

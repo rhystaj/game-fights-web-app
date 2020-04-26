@@ -1,11 +1,17 @@
 import React from 'react'
-import { LoadingComponentProps } from '../../../utility/LoadingComponent'
-import GameFightsDataInterface from '../../../../backend_interface/GameFightsDataInterface'
 import { AnswerSubmissionState } from '../../../../enums/statusEnums'
+import SubmissionOptionAction from '../../../../actions/SubmissionOptionActions/SubmissionOptionAction';
+import UpdateAnswerSubmissionOptionAction from '../../../../actions/SubmissionOptionActions/UpdateAnswerSubmissionOptionAction';
 
-interface AnswerSubmissionOptionsProps extends LoadingComponentProps<GameFightsDataInterface>{
+interface AnswerSubmissionOptionsProps{
   state: AnswerSubmissionState,
-  validatedByUser: boolean
+  validatedByUser: boolean,
+  onOptionSelection: (selection: AnswerSubmissionOptionSelection) => void,
+  enabled: boolean
+}
+
+export enum AnswerSubmissionOptionSelection{
+  UpdateAnswer
 }
 
 const AnswerSubmissionOptions = (props: AnswerSubmissionOptionsProps) => {
@@ -13,7 +19,12 @@ const AnswerSubmissionOptions = (props: AnswerSubmissionOptionsProps) => {
     <div id='container'>
       {// Show add answer button if no answer has been submitted.
         props.state === AnswerSubmissionState.NO_ANSWER ? (
-          <button>Add Answer</button>
+          <button 
+            disabled = {!props.enabled}
+            onClick={() => {props.onOptionSelection(AnswerSubmissionOptionSelection.UpdateAnswer)}}
+          >
+            Add Answer
+          </button>
         ) : (
           <div />
         )}
@@ -21,7 +32,7 @@ const AnswerSubmissionOptions = (props: AnswerSubmissionOptionsProps) => {
       {// Show Validate buttion if the answer requires validation and the user is not the one that submitted it.
         props.state === AnswerSubmissionState.AWAITING_VALIDATION &&
       !props.validatedByUser ? (
-        <button>Validate</button>
+        <button disabled={!props.enabled}>Validate</button>
           ) : (
             <div />
           )}
@@ -29,7 +40,12 @@ const AnswerSubmissionOptions = (props: AnswerSubmissionOptionsProps) => {
       {// Show the Change Answer button if the submission is showing an answer that has not been accepted.
         props.state !== AnswerSubmissionState.NO_ANSWER &&
       props.state !== AnswerSubmissionState.ACCEPTED ? (
-        <button>Change Answer</button>
+        <button 
+          disabled={!props.enabled}
+          onClick={() => {props.onOptionSelection(AnswerSubmissionOptionSelection.UpdateAnswer)}}
+        >
+          Change Answer
+        </button>
           ) : (
             <div />
           )}
@@ -37,4 +53,4 @@ const AnswerSubmissionOptions = (props: AnswerSubmissionOptionsProps) => {
   )
 }
 
-export default AnswerSubmissionOptions
+export default AnswerSubmissionOptions;

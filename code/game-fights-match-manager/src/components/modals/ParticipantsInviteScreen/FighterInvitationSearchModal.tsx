@@ -5,7 +5,7 @@ import SearchModal, { SearchModalState, SearchModalProps } from '../../utility/S
 import InvitationSearchResultsFighterList from './InvitationSearchResultsFighterList';
 
 import { FighterData } from '../../../types/datatypes';
-import { whenUnassigned } from '../../../utility/qolFunctions'
+import { whenUnassigned } from '../../../utility/functions/qolFunctions'
 
 import InvitedFighterList from './InvitedFighterList';
 import GameFightsDataInterface from '../../../backend_interface/GameFightsDataInterface';

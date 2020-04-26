@@ -81,5 +81,13 @@ export default abstract class GameFightsDataInterface{
      * @param failureCallback Defines the response to the setting of the match title failing in some way.
      */
     public abstract submitMatchTitle (title: string): Promise<string>;
+
+    /**
+     * Specify a new answer for an answer submission.
+     * @param submission The AnswerSubmissionData having its answer updated.
+     * @param updatedAnswer The answer the data will be updated to contain.
+     * @returns A promise containing the updated collection of answer submissions.
+     */
+    public abstract submitAnswerUpdate (submission: AnswerSubmissionData, updatedAnswer: string): Promise<AnswerSubmissionData[]>
     
 }

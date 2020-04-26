@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { whenUnassigned } from './../../utility/qolFunctions';
+import { whenUnassigned } from '../../utility/functions/qolFunctions';
 
 export interface ItemListProps<T>{
     items: T[]
