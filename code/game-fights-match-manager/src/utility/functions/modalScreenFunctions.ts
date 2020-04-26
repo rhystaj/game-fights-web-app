@@ -1,6 +1,6 @@
-import { UniquelyIdentifiable } from '../types/datatypes';
+import { UniquelyIdentifiable } from '../../types/datatypes';
 
-import { FetchFunction, QueryCallback } from '../types/functionTypes';
+import { FetchFunction, QueryCallback } from '../../types/functionTypes';
 
 export function fetchAndSelect<T extends UniquelyIdentifiable> (fetchFunction: FetchFunction<T[]>, selectedDataIds: number[], 
     onDataFetchedAndSelected: QueryCallback<{fetched: T[], selected: T[]}>){

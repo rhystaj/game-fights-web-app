@@ -4,8 +4,8 @@ import { UniquelyIdentifiable } from "../types/datatypes";
 
 import {TreeMap, MapEntry } from 'typescriptcollectionsframework';
 
-import { isUnassigned } from '../utility/qolFunctions';
-import { allValuesAssigned, trueForAllInArray, shallowCloneArray, shareElementsExactly } from './arrayFunctions';
+import { isUnassigned } from './functions/qolFunctions';
+import { allValuesAssigned, trueForAllInArray, shallowCloneArray, shareElementsExactly } from './functions/arrayFunctions';
 
 import IEquator from '../types/equators/IEquator';
 import { UniquelyIdentifiableEquator } from '../types/equators/UniquelyIndentifiableEquators';
