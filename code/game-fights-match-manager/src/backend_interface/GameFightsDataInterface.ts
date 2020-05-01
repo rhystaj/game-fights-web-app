@@ -6,7 +6,14 @@ import { QueryCallback } from '../types/functionTypes';
  * [DES/PRE] A set of functions defining reponses to changes in GameFights data.
  */
 type GameFightsDataEvents = {
+    
+    //Called when the judge updates the list of questions for the match.
     onQuestionUpdate: (questions: Question[]) => void;
+
+    //Called when the state of an answer submission is changed outside of the user's session, be
+    //it by a judge, or another participant.
+    onExternalAnswerSubmissionStateChange: (submissions: AnswerSubmissionData[]) => void
+
 }
 
 /**
@@ -15,8 +22,9 @@ type GameFightsDataEvents = {
  */
 export default abstract class GameFightsDataInterface{
  
-    public events: GameFightsDataEvents = {
-        onQuestionUpdate: (questions: Question[]) => { }
+    public events: GameFightsDataEvents = {  
+        onQuestionUpdate: (questions: Question[]) => { },
+        onExternalAnswerSubmissionStateChange: (submissions: AnswerSubmissionData[]) => { }
     }
 
     /**

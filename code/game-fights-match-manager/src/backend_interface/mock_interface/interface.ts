@@ -50,7 +50,15 @@ export default class MockGameFightsDataInterface extends GameFightsDataInterface
     }
 
     public queryAnswerSubmissions(queryCallback : QueryCallback<AnswerSubmissionData[]>){
+        
         setTimeout(() => {queryCallback(submissions);}, 1000);
+
+        //To simulate the state of an answer submission being changed after the submissions have been loaded.
+        setTimeout(() => { 
+            submissions[3].state = AnswerSubmissionState.ACCEPTED;
+            this.events.onExternalAnswerSubmissionStateChange(submissions);
+        }, 5000);
+
     }
 
     public queryMatchInfo(queryCallback: QueryCallback<MatchData>){
