@@ -7,7 +7,7 @@ import { QueryCallback } from '../../types/functionTypes';
 
 import GameFightsDataInterface from '../GameFightsDataInterface';
 
-import { UserMatchStatus, MatchStage } from '../../enums/statusEnums';
+import { UserMatchStatus, MatchStage, AnswerSubmissionState } from '../../enums/statusEnums';
 import { Question, AnswerSubmissionData, MatchData, FighterData } from '../../types/datatypes';
 import UniquelyIdentifiableCollection from '../../utility/UniquelyIdentifiableCollection';
 import { AnswerSubmissionDataEquator, QuestionEquator } from '../../types/equators/UniquelyIndentifiableEquators';
@@ -20,12 +20,12 @@ export default class MockGameFightsDataInterface extends GameFightsDataInterface
     public queryUserMatchStatus(queryCallback: QueryCallback<UserMatchStatus>){
         
         //Set timeout is to simulate latency.
-        setTimeout(() => {queryCallback(UserMatchStatus.JUDGING);}, 1000);
+        setTimeout(() => {queryCallback(UserMatchStatus.PARTCIPATING);}, 1000);
         
     }
 
     public queryMatchStage(queryCallback: QueryCallback<MatchStage>){
-        setTimeout(() => {queryCallback(MatchStage.DETERMINING_QUESTIONS)}, 1000);
+        setTimeout(() => {queryCallback(MatchStage.ANSWERS_OPENED)}, 1000);
     }
 
     public queryQuestions(queryCallback: QueryCallback<Question[]>){
@@ -100,6 +100,7 @@ export default class MockGameFightsDataInterface extends GameFightsDataInterface
         let answerSub: AnswerSubmissionData | undefined = this.answerSubmissions.retrieveElementWithId(submission.id);
         if(answerSub !== undefined){
             answerSub.answer = updatedAnswer;
+            answerSub.state = AnswerSubmissionState.PENDING_JUDGE_APPROVAL;
         }
 
         return this.answerSubmissions.asArray();
