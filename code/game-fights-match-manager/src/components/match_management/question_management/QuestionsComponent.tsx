@@ -14,26 +14,18 @@ type QuestionComponentState = LoadingComponentState<Question[]>;
 type QuestionComponentProps = LoadingComponentProps<GameFightsDataInterface>;
 
 
-export default abstract class Questions<S extends QuestionComponentState> extends 
+export default abstract class Questions<Q extends Question, S extends QuestionComponentState> extends 
     LoadingComponent<GameFightsDataInterface, Question[], QuestionComponentProps, S>{
     
-    protected loadData(dataInterface: GameFightsDataInterface): (loadCallback: QueryCallback<Question[]>) => void {
-        return loadCallback => {
-            dataInterface.queryQuestions((data: Question[]) => {
-                loadCallback(data);
-            });
-        }
-    }
-
-    protected determineInitalData(): Question[] {
+    protected determineInitalData(): Q[] {
         return []
     }
 
-    protected renderQuestion(question: Question){
+    protected renderQuestion(question: Q){
         return <p key={question.id}>{question.text}</p>;
     }
 
-    protected renderLoaded(dataInterface: GameFightsDataInterface, questions: Question[]){
+    protected renderLoaded(dataInterface: GameFightsDataInterface, questions: Q[]){
         return(
             <div>
                 {questions.map(this.renderQuestion)}

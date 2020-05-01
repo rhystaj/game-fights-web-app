@@ -9,6 +9,7 @@ import { LoadingComponentState } from '../../utility/LoadingComponent';
 import UniquelyIdentifiableCollection from '../../../utility/UniquelyIdentifiableCollection';
 
 import { Question } from '../../../types/datatypes';
+import { QueryCallback } from '../../../types/functionTypes';
 
 type QuestionCollection = UniquelyIdentifiableCollection<Question>;
 
@@ -20,9 +21,10 @@ export interface QuestionsEditorState extends LoadingComponentState<Question[]>{
 /**
  * A component that allows you to add/remove items from the list of questions.
  */
-export default class QuestionsEditor extends QuestionsComponent<QuestionsEditorState>{
+export abstract class AbstractQuestionsEditor<Q extends Question> extends QuestionsComponent<Q, 
+        QuestionsEditorState>{
     
-    protected determineNewStateFromData(data: Question[]): QuestionsEditorState {
+    protected determineNewStateFromData(data: Q[]): QuestionsEditorState {
         return{
             loading: this.state.loading,
             data: data,
@@ -31,7 +33,7 @@ export default class QuestionsEditor extends QuestionsComponent<QuestionsEditorS
         }
     }
     
-    protected determineInitialState(initialloadingValue: boolean, initialQuestionCollection: Question[]){
+    protected determineInitialState(initialloadingValue: boolean, initialQuestionCollection: Q[]){
         return{
             loading: initialloadingValue,
             data: initialQuestionCollection,
@@ -40,10 +42,7 @@ export default class QuestionsEditor extends QuestionsComponent<QuestionsEditorS
         }
     }
 
-    private enteredQuestion: string = '';
-
     addQuestion = () => {
-        this.enteredQuestion = "";
         this.setState({ addingQuestion: true });
     }
 
@@ -52,12 +51,14 @@ export default class QuestionsEditor extends QuestionsComponent<QuestionsEditorS
     }
 
     confirmQuestionEntry = (newQuestion: string) => {
-        this.props.dataInterface.submitQuestion(newQuestion)
-                                .then(this.onSuccessfulSubmission)
-                                .catch(this.onSubmissionFailure);
+        this.submitQuestion(this.props.dataInterface, newQuestion)
+            .then(this.onSuccessfulSubmission)
+            .catch(this.onSubmissionFailure);
     }
 
-    onSuccessfulSubmission = (newQuestionsData: Question[]) => {
+    protected abstract submitQuestion(dataInterface: GameFightsDataInterface, newQuestion: string): Promise<Q[]>;
+
+    private onSuccessfulSubmission = (newQuestionsData: Q[]) => {
         
         this.setState({
             addingQuestion: false,
@@ -74,12 +75,14 @@ export default class QuestionsEditor extends QuestionsComponent<QuestionsEditorS
         });
     }
 
-    onDeleteQuestion = (question: Question) => () => {
-        this.props.dataInterface.requestQuestionDeletion(question)
-                                .then((questions: Question[]) => { this.setState({ data: questions }) })
+    onDeleteQuestion = (question: Q) => () => {
+        this.requestQuestionDeletion(this.props.dataInterface, question)
+            .then((questions: Q[]) => { this.setState({ data: questions }) })
     }
 
-    renderQuestion = (question: Question) => {
+    protected abstract requestQuestionDeletion(dataInterface: GameFightsDataInterface, question: Q): Promise<Q[]>;
+
+    renderQuestion = (question: Q) => {
         //Render a delete button alongside each question.
         return (
             <div key={question.id}>
@@ -89,7 +92,7 @@ export default class QuestionsEditor extends QuestionsComponent<QuestionsEditorS
         )
     }
 
-    renderLoaded(dataInterface: GameFightsDataInterface, questions: Question[]){
+    renderLoaded(dataInterface: GameFightsDataInterface, questions: Q[]){
         return(
             <div>
                 {super.renderLoaded(dataInterface, questions) /* Render the questions as normal.*/}
@@ -115,6 +118,22 @@ export default class QuestionsEditor extends QuestionsComponent<QuestionsEditorS
                 </button>
             </div>
         )
+    }
+
+}
+
+export default class QuestionsEditor extends AbstractQuestionsEditor<Question> {
+    
+    protected loadData(dataInterface: GameFightsDataInterface): (loadCallback: QueryCallback<Question[]>) => void {
+        return (loadCallback: QueryCallback<Question[]>) => dataInterface.queryQuestions(loadCallback);
+    }
+
+    protected async submitQuestion(dataInterface: GameFightsDataInterface, newQuestion: string) {
+        return await dataInterface.submitQuestion(newQuestion);
+    }
+    
+    protected async requestQuestionDeletion(dataInterface: GameFightsDataInterface, question: Question) {
+        return await dataInterface.requestQuestionDeletion(question);
     }
 
 }
