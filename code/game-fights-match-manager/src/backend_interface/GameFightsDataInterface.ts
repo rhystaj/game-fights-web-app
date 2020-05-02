@@ -1,5 +1,5 @@
-import { AnswerSubmissionData, MatchData, FighterData, Question } from '../types/datatypes'
-import { UserMatchStatus, MatchStage } from '../enums/statusEnums';
+import { AnswerSubmissionData, MatchData, FighterData, Question, QuestionAnswersJudgementData, AnswerJudgementData } from '../types/datatypes'
+import { UserMatchStatus, MatchStage, AnswerSubmissionState } from '../enums/statusEnums';
 import { QueryCallback } from '../types/functionTypes';
 
 /**
@@ -67,6 +67,12 @@ export default abstract class GameFightsDataInterface{
     public abstract fetchFightersByName(name: string): (queryCallback: QueryCallback<FighterData[]>) => void;
 
     /**
+     * 
+     * @param queryCallback Retrieve and respond to information regarding the judgement of answers to questions.
+     */
+    public abstract queryAnswerJudgements(queryCallback: QueryCallback<QuestionAnswersJudgementData[]>): void;
+
+    /**
      * [DES/PRE] Specify a question that is to be added to the managed data.
      * @param question The question to be added to the data.
      * @param successCallback Defines the reponse to the question being successfully added.
@@ -103,5 +109,14 @@ export default abstract class GameFightsDataInterface{
      * @returns A promise containing the updated collection of answer submissions.
      */
     public abstract submitAnswerUpdate (submission: AnswerSubmissionData, updatedAnswer: string): Promise<AnswerSubmissionData[]>
+
+   /**
+    * Specify a new state for the judgent of the answer to a question. 
+    * @param questionsAnswersJudgement The judgements of the answer to the question.
+    * @param answerIndex The index of the answer judgement thats state will be changed.
+    * @param updateState The new value of the answer judgment.
+    */
+    public abstract submitAnswerJudgementStateUpdate(questionsAnswersJudgement: QuestionAnswersJudgementData, 
+        answerIndex: number, updateState: AnswerSubmissionState): Promise<QuestionAnswersJudgementData[]>;
     
 }

@@ -8,19 +8,28 @@ import { QueryCallback } from '../../types/functionTypes';
 import GameFightsDataInterface from '../GameFightsDataInterface';
 
 import { UserMatchStatus, MatchStage, AnswerSubmissionState } from '../../enums/statusEnums';
-import { Question, AnswerSubmissionData, MatchData, FighterData } from '../../types/datatypes';
+import { Question, AnswerSubmissionData, MatchData, FighterData, QuestionAnswersJudgementData, AnswerJudgementData } from '../../types/datatypes';
 import UniquelyIdentifiableCollection from '../../utility/UniquelyIdentifiableCollection';
-import { AnswerSubmissionDataEquator, QuestionEquator } from '../../types/equators/UniquelyIndentifiableEquators';
+import { AnswerSubmissionDataEquator, QuestionEquator, FighterDataEquator, QuestionAnswersJudgementEquator } from '../../types/equators/UniquelyIndentifiableEquators';
+import answerJudgements from './test_data/answerJudgements';
+import { AnswerJudgementDataEquator } from '../../types/equators/DataEquators';
 
 export default class MockGameFightsDataInterface extends GameFightsDataInterface{
     
-    private answerSubmissions = new UniquelyIdentifiableCollection(submissions, new AnswerSubmissionDataEquator());
-    private questions = new UniquelyIdentifiableCollection(questions, new QuestionEquator());
+    private answerSubmissionDataEquator = new AnswerSubmissionDataEquator();
+    private questionEquator = new QuestionEquator();
+    private fighterDataEquator = new FighterDataEquator();
+    private answerJudgementDataEquator = new AnswerJudgementDataEquator(this.fighterDataEquator);
+    private questionAnswersJudgementDataEquator = new QuestionAnswersJudgementEquator(this.answerJudgementDataEquator);
+
+    private answerSubmissions = new UniquelyIdentifiableCollection(submissions, this.answerSubmissionDataEquator);
+    private questions = new UniquelyIdentifiableCollection(questions, this.questionEquator);
+    private questionAnswersJudgements = new UniquelyIdentifiableCollection(answerJudgements, this.questionAnswersJudgementDataEquator)
 
     public queryUserMatchStatus(queryCallback: QueryCallback<UserMatchStatus>){
         
         //Set timeout is to simulate latency.
-        setTimeout(() => {queryCallback(UserMatchStatus.PARTCIPATING);}, 1000);
+        setTimeout(() => {queryCallback(UserMatchStatus.JUDGING);}, 1000);
         
     }
 
@@ -71,6 +80,10 @@ export default class MockGameFightsDataInterface extends GameFightsDataInterface
         };
     }
 
+    public queryAnswerJudgements(queryCallback: QueryCallback<QuestionAnswersJudgementData[]>){
+        setTimeout(() => queryCallback(answerJudgements), 1000)
+    }
+
     public async submitQuestion(question: string){
         
         if(question.localeCompare("Fail") === 0) throw Error();
@@ -112,6 +125,18 @@ export default class MockGameFightsDataInterface extends GameFightsDataInterface
         }
 
         return this.answerSubmissions.asArray();
+
+    }
+
+    public async submitAnswerJudgementStateUpdate(questionsAnswersJudgement: QuestionAnswersJudgementData, 
+            answerIndex: number, updateState: AnswerSubmissionState){
+
+        const questionsAnswersJudgementInDatabase = this.questionAnswersJudgements.retrieveElementWithId(questionsAnswersJudgement.id);
+        if(questionsAnswersJudgementInDatabase !== undefined){
+            questionsAnswersJudgementInDatabase.answerJudgements[answerIndex].state = updateState;
+        }
+
+        return this.questionAnswersJudgements.asArray();
 
     }
 

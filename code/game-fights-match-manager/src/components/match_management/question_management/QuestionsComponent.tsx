@@ -4,8 +4,6 @@ import GameFightsDataInterface from '../../../backend_interface/GameFightsDataIn
 
 import LoadingComponent, { LoadingComponentState, LoadingComponentProps } from '../../utility/LoadingComponent';
 
-import { QueryCallback } from "../../../types/functionTypes";
-
 import { Question } from '../../../types/datatypes';
 
 
@@ -25,10 +23,21 @@ export default abstract class Questions<Q extends Question, S extends QuestionCo
         return <p key={question.id}>{question.text}</p>;
     }
 
+    private renderQuestionList(questions: Q[]){
+
+        const questionElements = new Array(questions.length);
+        for(let i = 0; i < questionElements.length; i++){
+            questionElements[i] = this.renderQuestion(questions[i])
+        }
+
+        return questionElements;
+
+    }
+
     protected renderLoaded(dataInterface: GameFightsDataInterface, questions: Q[]){
         return(
             <div>
-                {questions.map(this.renderQuestion)}
+                {this.renderQuestionList(questions)}
             </div>
         ) 
     }

@@ -1,7 +1,8 @@
-import { UniquelyIdentifiable, Question, FighterData, AnswerSubmissionData } from "../datatypes";
+import { UniquelyIdentifiable, Question, QuestionAnswersJudgementData, FighterData, AnswerSubmissionData } from "../datatypes";
 import IEquator from "./IEquator";
 import { isUnassigned } from "../../utility/functions/qolFunctions";
 import UniquelyIdentifiableCollection from "../../utility/UniquelyIdentifiableCollection";
+import { AnswerJudgementDataEquator } from "./DataEquators";
 
 /**
  * [DES/PRE] Determines whether two UniquelyIdetifiable objects are equal.
@@ -21,11 +22,37 @@ export abstract class UniquelyIdentifiableEquator<I extends UniquelyIdentifiable
 /**
  * Determines whether two questions are equal.
  */
-export class QuestionEquator extends UniquelyIdentifiableEquator<Question>{
+export abstract class AbstractQuestionEquator<Q extends Question> extends UniquelyIdentifiableEquator<Q>{
     
-    public areEqual(a: Question, b: Question){
+    public areEqual(a: Q, b: Q){
         if(!super.areEqual(a, b)) return false;
         else return a.text.localeCompare(b.text) === 0;
+    }
+
+}
+
+export class QuestionEquator extends AbstractQuestionEquator<Question> { }
+
+export class QuestionAnswersJudgementEquator extends AbstractQuestionEquator<QuestionAnswersJudgementData>{
+
+    private readonly answerJudgementDataEquator: AnswerJudgementDataEquator;
+
+    constructor(answerJudgementDataEquator: AnswerJudgementDataEquator){
+        super();
+        this.answerJudgementDataEquator = answerJudgementDataEquator;
+    }
+
+    public areEqual(a: QuestionAnswersJudgementData , b: QuestionAnswersJudgementData){
+        if(!super.areEqual(a, b)) return false;
+
+        if(a.answerJudgements.length != b.answerJudgements.length) return false;
+        for(let i = 0; i < a.answerJudgements.length; i++){
+            if(!this.answerJudgementDataEquator.areEqual(a.answerJudgements[i], b.answerJudgements[i])){
+                return false;
+            }
+        }
+
+        return true;
     }
 
 }

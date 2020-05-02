@@ -82,7 +82,7 @@ export abstract class AbstractQuestionsEditor<Q extends Question> extends Questi
 
     protected abstract requestQuestionDeletion(dataInterface: GameFightsDataInterface, question: Q): Promise<Q[]>;
 
-    renderQuestion = (question: Q) => {
+    protected renderQuestion(question: Q){
         //Render a delete button alongside each question.
         return (
             <div key={question.id}>
@@ -92,11 +92,10 @@ export abstract class AbstractQuestionsEditor<Q extends Question> extends Questi
         )
     }
 
-    renderLoaded(dataInterface: GameFightsDataInterface, questions: Q[]){
+    protected renderLoaded(dataInterface: GameFightsDataInterface, questions: Q[]){
         return(
             <div>
                 {super.renderLoaded(dataInterface, questions) /* Render the questions as normal.*/}
-                
                 {this.state.addingQuestion ? 
                     <TextEntry 
                         initialValue=""
