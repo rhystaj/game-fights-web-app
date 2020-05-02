@@ -13,6 +13,7 @@ import UniquelyIdentifiableCollection from '../../utility/UniquelyIdentifiableCo
 import { AnswerSubmissionDataEquator, QuestionEquator, FighterDataEquator, QuestionAnswersJudgementEquator } from '../../types/equators/UniquelyIndentifiableEquators';
 import answerJudgements from './test_data/answerJudgements';
 import { AnswerJudgementDataEquator } from '../../types/equators/DataEquators';
+import testFighterDatabase from './test_data/testFighterDatabase';
 
 export default class MockGameFightsDataInterface extends GameFightsDataInterface{
     
@@ -34,7 +35,7 @@ export default class MockGameFightsDataInterface extends GameFightsDataInterface
     }
 
     public queryMatchStage(queryCallback: QueryCallback<MatchStage>){
-        setTimeout(() => {queryCallback(MatchStage.ANSWERS_OPENED)}, 1000);
+        setTimeout(() => {queryCallback(MatchStage.DETERMINING_QUESTIONS)}, 1000);
     }
 
     public queryQuestions(queryCallback: QueryCallback<Question[]>){
@@ -103,6 +104,51 @@ export default class MockGameFightsDataInterface extends GameFightsDataInterface
         this.questions = this.questions.removeElementWithId(question.id);
         return this.questions.asArray();
 
+    }
+
+    public async submitImmediatelyAnswerableQuestion(question: string){
+
+        const newQuestionId = this.questionAnswersJudgements.nextAvaliableId;
+
+        const newQuestionSubmission = {
+
+            id: newQuestionId,
+            text: question,
+            answerJudgements: [
+                {
+                    participant: testFighterDatabase.retrieveElementWithId(1) as FighterData,
+                    answer: "",
+                    state: AnswerSubmissionState.NO_ANSWER
+                },
+                {
+                    participant: testFighterDatabase.retrieveElementWithId(2) as FighterData,
+                    answer: "",
+                    state: AnswerSubmissionState.NO_ANSWER
+                }
+            ]
+
+        }
+
+        this.questionAnswersJudgements = this.questionAnswersJudgements.add(newQuestionSubmission)
+
+        //To simulate an answer submission being set later.
+        setTimeout(() => {
+            
+            const answerJudgement = this.questionAnswersJudgements.retrieveElementWithId(newQuestionId).answerJudgements[0];
+            answerJudgement.answer = "Answer Submitted Later.";
+            answerJudgement.state = AnswerSubmissionState.PENDING_JUDGE_APPROVAL;
+
+            this.events.onParticipantAnswerSubmissionChange(this.questionAnswersJudgements.asArray());
+
+        }, 5000)
+
+        return this.questionAnswersJudgements.asArray();
+
+    }
+
+    public async requestAnswerableQuestionDeletion(question: QuestionAnswersJudgementData){
+        this.questionAnswersJudgements = this.questionAnswersJudgements.removeElementWithId(question.id);
+        return this.questionAnswersJudgements.asArray();
     }
 
     public submitMatchParticipants(participants: FighterData[]) {

@@ -6,9 +6,15 @@ import { QuestionAnswersJudgementData } from "../../../types/datatypes";
 
 import { QueryCallback } from "../../../types/functionTypes"; 
 import { AnswerSubmissionState } from '../../../enums/statusEnums';
+import { LoadingComponentProps } from '../../utility/LoadingComponent';
 
 export default class AnswerJudgementManager extends AbstractQuestionsEditor<QuestionAnswersJudgementData>{
     
+    constructor(props: LoadingComponentProps<GameFightsDataInterface>){
+        super(props)
+        props.dataInterface.events.onParticipantAnswerSubmissionChange = this.onParticipantAnswerSubmissionChange;
+    }
+
     protected loadData(dataInterface: GameFightsDataInterface): (loadCallback: QueryCallback<QuestionAnswersJudgementData[]>) => void {
         return (loadCallback) => dataInterface.queryAnswerJudgements(loadCallback)
     }
@@ -17,12 +23,16 @@ export default class AnswerJudgementManager extends AbstractQuestionsEditor<Ques
         return [];
     }
 
-    protected submitQuestion(dataInterface: GameFightsDataInterface, newQuestion: string): Promise<QuestionAnswersJudgementData[]> {
-        throw new Error("Method not implemented.");
+    protected async submitQuestion(dataInterface: GameFightsDataInterface, newQuestion: string) {
+        return await dataInterface.submitImmediatelyAnswerableQuestion(newQuestion);
     }
 
-    protected requestQuestionDeletion(dataInterface: GameFightsDataInterface, question: QuestionAnswersJudgementData): Promise<QuestionAnswersJudgementData[]> {
-        throw new Error("Method not implemented.");
+    protected async requestQuestionDeletion(dataInterface: GameFightsDataInterface, question: QuestionAnswersJudgementData){
+        return await dataInterface.requestAnswerableQuestionDeletion(question);
+    }
+
+    private onParticipantAnswerSubmissionChange = (questionAnswersJudgements: QuestionAnswersJudgementData[]) => {
+        this.setState({ data: questionAnswersJudgements })
     }
 
     protected renderQuestion(question: QuestionAnswersJudgementData){

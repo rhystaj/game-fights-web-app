@@ -14,6 +14,9 @@ type GameFightsDataEvents = {
     //it by a judge, or another participant.
     onExternalAnswerSubmissionStateChange: (submissions: AnswerSubmissionData[]) => void
 
+    //Called when a participant makes a change to thier anwer submission.
+    onParticipantAnswerSubmissionChange: (questionsAnswersJudgements: QuestionAnswersJudgementData[]) => void;
+
 }
 
 /**
@@ -24,7 +27,8 @@ export default abstract class GameFightsDataInterface{
  
     public events: GameFightsDataEvents = {  
         onQuestionUpdate: (questions: Question[]) => { },
-        onExternalAnswerSubmissionStateChange: (submissions: AnswerSubmissionData[]) => { }
+        onExternalAnswerSubmissionStateChange: (submissions: AnswerSubmissionData[]) => { },
+        onParticipantAnswerSubmissionChange: (questionAnswersJudgements: QuestionAnswersJudgementData[]) => { }
     }
 
     /**
@@ -85,6 +89,18 @@ export default abstract class GameFightsDataInterface{
      * @param question 
      */
     public abstract requestQuestionDeletion(question: Question): Promise<Question[]>
+
+    /**
+     * Specify a question that is to be added to questions that can be answered by participants as soon as it is submitted.
+     * @param question 
+     */
+    public abstract submitImmediatelyAnswerableQuestion(question: string): Promise<QuestionAnswersJudgementData[]>;
+
+    /**
+     * Specift that a question that can be answered by participants should be deleted.
+     * @param question The question to be deleted.
+     */
+    public abstract requestAnswerableQuestionDeletion(question: QuestionAnswersJudgementData): Promise<QuestionAnswersJudgementData[]>;
 
     /**
      * [DES/PRE] Specify which participants are taking part in a match.
