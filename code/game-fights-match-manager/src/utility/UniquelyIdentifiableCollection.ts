@@ -9,6 +9,7 @@ import { allValuesAssigned, trueForAllInArray, shallowCloneArray, shareElementsE
 
 import IEquator from '../types/equators/IEquator';
 import { UniquelyIdentifiableEquator } from '../types/equators/UniquelyIndentifiableEquators';
+import { isNullOrUndefined } from 'util';
 
 /**
  * [DES/PRE] An immutable collection of UniquelyIdentifiable objects that ensures that no two objects within it have the
@@ -143,15 +144,21 @@ export default class UniquelyIdentifiableCollection<I extends UniquelyIdentifiab
 
     }
 
-    public retrieveElementWithId(id: number): I | undefined{
+    public retrieveElementWithId(id: number): I{
         
         //Preconditions
         assert(this.classInvariantsHold())
 
-        let result: I | undefined;
+
+        const errorMessage = "The UniquelyIdentifiableCollection does not contain an element with id " + id + ".";
+
+
+        let result: I;
         if(id < 0 || id >= this.elements.length){
-            //The id given is outside the bounds of elements, so it is not valid. Return the null value. 
-            result = undefined
+            throw Error(errorMessage);
+        }
+        else if (isUnassigned(this.elements[id])){
+            throw Error(errorMessage);
         }
         else{
             result = this.elements[id];
