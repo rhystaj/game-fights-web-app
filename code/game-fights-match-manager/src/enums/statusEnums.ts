@@ -20,3 +20,11 @@ export enum UserMatchStatus{
     PARTCIPATING,
     JUDGING
 }
+
+export enum FighterMatchStatus{
+    AVAILABLE,
+    ENGAGED,
+    INVITED,
+    PARTCIPATING,
+    DECLINED
+}

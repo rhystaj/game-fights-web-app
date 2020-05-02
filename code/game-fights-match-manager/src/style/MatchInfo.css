@@ -6,3 +6,11 @@
   text-align: right;
   float: right;
 }
+
+.acceptedInvite{
+  opacity: 100%;
+}
+
+.pendingInvite{
+  opacity: 50%;
+}

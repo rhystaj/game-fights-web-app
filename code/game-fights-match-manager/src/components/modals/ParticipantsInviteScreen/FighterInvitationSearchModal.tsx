@@ -10,6 +10,7 @@ import { whenUnassigned } from '../../../utility/functions/qolFunctions'
 import InvitedFighterList from './InvitedFighterList';
 import GameFightsDataInterface from '../../../backend_interface/GameFightsDataInterface';
 import { FetchFunction } from '../../../types/functionTypes';
+import { FighterMatchStatus } from '../../../enums/statusEnums';
 
 interface FighterInvitationSearchModalProps extends SearchModalProps<GameFightsDataInterface>{
     preInvitedFighters: FighterData[],
@@ -28,15 +29,23 @@ export default class FighterInvitationSearchModal
         FighterInvitationSearchModalState>{
     
     onInviteFighter = (fighter: FighterData) => () => {
+        
+        fighter.status = FighterMatchStatus.INVITED;
+        
         this.setState({
             invitedFighters: whenUnassigned(this.state.invitedFighters, []).concat(fighter)
         });
+
     };
 
     onUninviteFighter = (fighter: FighterData) => () => {
+        
+        fighter.status = FighterMatchStatus.AVAILABLE;
+        
         this.setState({
             invitedFighters: this.state.invitedFighters.filter(f => f.id !== fighter.id)
         });
+
     }
 
     fetchSearchResults = (searchString: string) => (searchCallback: (searchResults: FighterData[]) => void) => {
@@ -55,11 +64,11 @@ export default class FighterInvitationSearchModal
     }
 
     /**
-     * A filter for fighters who have been added to the invited fighters.
+     * A filter for filtering out fighters who have been added to the invited fighters.
      */
     invitedFightersFilter = (fighter: FighterData) => {
-        const fighterIds: number[] = whenUnassigned(this.state.invitedFighters, []).map(f => f.id);
-        return fighterIds.indexOf(fighter.id) === -1;
+        //If a fighter is avalible or engaged, thry have not been invited.
+        return fighter.status in [FighterMatchStatus.AVAILABLE, FighterMatchStatus.ENGAGED];
     }
 
     renderSearchResults = () => {

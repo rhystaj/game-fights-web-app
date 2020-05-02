@@ -76,7 +76,7 @@ export class FighterDataEquator extends UniquelyIdentifiableEquator<FighterData>
     public areEqual(a: FighterData, b: FighterData){
         if (!super.areEqual(a, b)) return false;
 
-        if(a.engaged !== b.engaged) return false;
+        if(a.status !== b.status) return false;
         if(a.name.localeCompare(b.name) !== 0) return false;
         if(a.profileImageURL.localeCompare(b.profileImageURL)) return false;
 

@@ -6,6 +6,7 @@ import GameFightsDataInterface from '../../../backend_interface/GameFightsDataIn
 
 import { MatchData, FighterData } from '../../../types/datatypes';
 import { QueryCallback } from "../../../types/functionTypes";
+import { FighterMatchStatus } from '../../../enums/statusEnums';
 
 /**
  * [DES/PRE] Shows the name, participants info, and dates of a match.
@@ -29,7 +30,7 @@ export default abstract class MatchInfoComponent<S extends LoadingComponentState
         close: undefined
       },
       judge: undefined,
-      participants: []
+      invitedFighters: []
     }
   }
 
@@ -73,18 +74,24 @@ export default abstract class MatchInfoComponent<S extends LoadingComponentState
   protected renderParticipantsInfo(participants: FighterData[]){
     return(
       <div className='userDisplay'>
-        {participants.map(this.renderParticipant)}
+        {
+          /** Render the invited fighters that have not declined thier invites. */
+          participants.filter(participant => participant.status !== FighterMatchStatus.DECLINED).map(this.renderParticipant)
+        }
         <p>Participants</p>
       </div>
     )
   }
 
   protected renderParticipant(participant: FighterData){
-    // Find image based on user - IMPLEMENT LATER
-    // For now, just use a placeholder image.
+
+    //The image for the user should show up differently depending on whether they have accepted thier invite or not.
+    const imageInvitationsCSSClass = participant.status === FighterMatchStatus.PARTCIPATING ? "acceptedInvite" : "pendingInvite"; 
+
     return (
     <img
       key={participant.id}
+      className={imageInvitationsCSSClass}
       src={participant.profileImageURL}
       alt='Placeholder User Icon'
     />
@@ -102,7 +109,7 @@ export default abstract class MatchInfoComponent<S extends LoadingComponentState
             
             {this.renderJudgeInfo(data.judge as FighterData)}
 
-            {this.renderParticipantsInfo(data.participants)}
+            {this.renderParticipantsInfo(data.invitedFighters)}
 
         </div>
     );

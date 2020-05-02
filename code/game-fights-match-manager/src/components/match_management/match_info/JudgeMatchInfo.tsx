@@ -1,6 +1,5 @@
 import React from 'react';
 import MatchInfoComponent from './MatchInfo';
-import TextEntry from '../../utility/Entry/TextEntry';
 
 import FighterInvitationSearchModal from '../../modals/ParticipantsInviteScreen/FighterInvitationSearchModal';
 
@@ -10,7 +9,6 @@ import { LoadingComponentState } from '../../utility/LoadingComponent';
 import { MatchData, FighterData } from '../../../types/datatypes';
 
 import EnterableHeading from '../../utility/Enterable_Text/EnterableHeading';
-import DateEntry from '../../utility/Entry/DateEntry';
 import EnterableDateText from '../../utility/Enterable_Text/EnterableDateText';
 
 interface JudgeMatchInfoState extends LoadingComponentState<MatchData>{
@@ -48,7 +46,7 @@ export default class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoSta
         
     }
 
-    onInviteClick = () => {
+    onManageInvitesClick = () => {
         this.setState({
             showingInvitationModal: true
         });
@@ -68,7 +66,7 @@ export default class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoSta
     onConfirmInvitesSuccess = (invites: FighterData[]) => {
         
         const newMatchData = this.state.data;
-        newMatchData.participants = invites;
+        newMatchData.invitedFighters = invites;
         
         this.setState({
             data: newMatchData
@@ -104,7 +102,7 @@ export default class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoSta
         return (
             <div>
                 {super.renderParticipantsInfo(participants)}
-                <button onClick={this.onInviteClick}>Invite</button>
+                <button onClick={this.onManageInvitesClick}>Manage Invites</button>
             </div>
         )
     }
@@ -123,7 +121,7 @@ export default class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoSta
                 {this.state.showingInvitationModal ?
                     (<FighterInvitationSearchModal 
                         dataInterface={dataInterface}
-                        preInvitedFighters={data.participants}
+                        preInvitedFighters={data.invitedFighters}
                         onCancel={() => { this.setState({ showingInvitationModal: false }) }}
                         onConfirmInvites={this.onConfirmInvites}
                     />)

@@ -1,4 +1,4 @@
-import { AnswerSubmissionState } from "../enums/statusEnums";
+import { AnswerSubmissionState, FighterMatchStatus } from "../enums/statusEnums";
 
 
 export interface UniquelyIdentifiable { 
@@ -7,7 +7,7 @@ export interface UniquelyIdentifiable {
 
 export interface FighterData extends UniquelyIdentifiable{
     name: string,
-    engaged: boolean,
+    status: FighterMatchStatus,
     profileImageURL: string
 }
 
@@ -23,7 +23,7 @@ export interface MatchData{
         close: Date | undefined
     },
     judge: FighterData | undefined,
-    participants: FighterData[]
+    invitedFighters: FighterData[]
 }
 
 export interface AnswerSubmissionData extends UniquelyIdentifiable {
