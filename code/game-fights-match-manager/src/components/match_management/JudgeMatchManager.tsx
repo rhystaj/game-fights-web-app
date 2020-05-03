@@ -4,9 +4,10 @@ import QuestionsEditor from './question_management/QuestionsEditor';
 import JudgeMatchInfo from './match_info/JudgeMatchInfo';
 
 import { MatchStage } from '../../enums/statusEnums';
-import GameFightsDataInterface from '../../backend_interface/GameFightsDataInterface';
+
 import { LoadingComponentState } from '../utility/LoadingComponent';
 import AnswerJudgementManager from './answer_judgement/AnswerJudgementManager';
+import DataInterface from '../../backend_interface/lib/DataInterface';
 
 export default class JudgeMatchManager extends MatchManager{
 
@@ -17,18 +18,18 @@ export default class JudgeMatchManager extends MatchManager{
         }
     }
 
-    renderMatchInfo(dataInterface: GameFightsDataInterface, stage: MatchStage){
-        return <JudgeMatchInfo dataInterface={dataInterface} />
+    renderMatchInfo(dataInterface: DataInterface<MatchStage>, stage: MatchStage){
+        return <JudgeMatchInfo dataInterfaceManager={this.props.dataInterfaceManager} />
     }
 
-    renderManagementComponent(dataInterface: GameFightsDataInterface, stage: MatchStage){
+    renderManagementComponent(dataInterface: DataInterface<MatchStage>, stage: MatchStage){
         
         switch(stage){
 
             case MatchStage.DETERMINING_QUESTIONS:
-                return (<QuestionsEditor dataInterface={dataInterface}/>)
+                return (<QuestionsEditor dataInterfaceManager={this.props.dataInterfaceManager}/>)
             case MatchStage.ANSWERS_OPENED:
-                return (<AnswerJudgementManager dataInterface={dataInterface}/>)
+                return (<AnswerJudgementManager dataInterfaceManager={this.props.dataInterfaceManager}/>)
             default:
                 return super.renderManagementComponent(dataInterface, stage);
 

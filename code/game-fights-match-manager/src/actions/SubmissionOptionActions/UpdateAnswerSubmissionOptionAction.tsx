@@ -1,4 +1,4 @@
-import GameFightsDataInterface from '../../backend_interface/GameFightsDataInterface';
+import GameFightsDataInterface from '../../backend_interface/game_fights_data_interface/GameFightsDataInterface';
 
 import SubmissionOptionAction from "./SubmissionOptionAction";
 import { AnswerSubmissionData } from "../../types/datatypes";

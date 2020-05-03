@@ -2,7 +2,7 @@ import React from 'react'
 
 import AnswerSubmission from './AnswerSubmission'
 
-import GameFightsDataInterface from '../../../../backend_interface/GameFightsDataInterface';
+import GameFightsDataInterface from '../../../../backend_interface/game_fights_data_interface/GameFightsDataInterface';
 
 import { AnswerSubmissionData } from '../../../../types/datatypes';
 import { QueryCallback } from "../../../../types/functionTypes";
@@ -18,7 +18,7 @@ export default class AnswerSubmissionManager extends SimpleStateLoadingComponent
   
   constructor(props: LoadingComponentProps<GameFightsDataInterface>){
     super(props)
-    props.dataInterface.events.onExternalAnswerSubmissionStateChange = this.onExternalAnwerSubmissionChange;
+    props.dataInterfaceManager.events.onExternalAnswerSubmissionStateChange = this.onExternalAnwerSubmissionChange;
   }
 
   protected loadData(dataInterface: GameFightsDataInterface): (loadCallback: QueryCallback<AnswerSubmissionData[]>) => void {

@@ -6,13 +6,15 @@ import MatchInvitation from './pre_match_dialogues/MatchInvitation'
 import ParticipantMatchManager from './match_management/ParticipantMatchManager'
 import JudgeMatchManager from './match_management/JudgeMatchManager'
 
-import GameFightsDataInterface from '../backend_interface/GameFightsDataInterface';
+import GameFightsDataInterface from '../backend_interface/game_fights_data_interface/GameFightsDataInterface';
 
 import { QueryCallback } from "../types/functionTypes";
 import { UserMatchStatus } from './../enums/statusEnums';
 
 import '../style/Body.css'
 import SimpleStateLoadingComponent from './utility/SimpleStateLoadingComponent';
+import DataInterface from '../backend_interface/lib/DataInterface';
+import { GameFightsDataInterfaceManager } from '../backend_interface/game_fights_data_interface/GameFightsDataInterfaceManager';
 
 const INVALID_STATUS_MESSAGE = 'Error: Body was given an invalid state.'
 
@@ -21,20 +23,18 @@ const INVALID_STATUS_MESSAGE = 'Error: Body was given an invalid state.'
  * a match, and if they are judging it.
  * @param {*} props
  */
-export default class Body extends SimpleStateLoadingComponent<GameFightsDataInterface, UserMatchStatus> {
+export default class Body extends SimpleStateLoadingComponent<GameFightsDataInterfaceManager, UserMatchStatus> {
   
-  protected loadData(dataInterface: GameFightsDataInterface): (loadCallback: QueryCallback<UserMatchStatus>) => void {
-    return loadCallback => {
-      dataInterface.queryUserMatchStatus(loadCallback);
-    }
+  public getDataInterface(): DataInterface<UserMatchStatus> {
+    return this.props.dataInterfaceManager.userMatchStatusInterface;
   }
   
   protected determineInitalData(): UserMatchStatus {
     return UserMatchStatus.NONE;
   }
 
-  renderLoaded(dataInterface: GameFightsDataInterface, matchStatus: UserMatchStatus){    
-    //Match state data has been loaded.
+  renderLoaded(dataInterface: DataInterface<UserMatchStatus>, matchStatus: UserMatchStatus){    
+    
     switch (matchStatus) {
       case UserMatchStatus.NONE:
         return <RunNewMatch />
@@ -48,10 +48,10 @@ export default class Body extends SimpleStateLoadingComponent<GameFightsDataInte
         )
 
       case UserMatchStatus.PARTCIPATING:
-        return (<ParticipantMatchManager dataInterface={dataInterface} />);
+        return (<ParticipantMatchManager dataInterfaceManager={this.props.dataInterfaceManager} />);
 
       case UserMatchStatus.JUDGING:
-        return (<JudgeMatchManager dataInterface={dataInterface} />)
+        return (<JudgeMatchManager dataInterfaceManager={this.props.dataInterfaceManager} />)
 
       default:
         return <p>{INVALID_STATUS_MESSAGE}</p>

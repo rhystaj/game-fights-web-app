@@ -1,5 +1,5 @@
 import InterfaceAction from '../../utility/InterfaceAction'
-import GameFightsDataInterface from '../../backend_interface/GameFightsDataInterface';
+import GameFightsDataInterface from '../../backend_interface/game_fights_data_interface/GameFightsDataInterface';
 import { AnswerSubmissionData } from '../../types/datatypes';
 
 /**

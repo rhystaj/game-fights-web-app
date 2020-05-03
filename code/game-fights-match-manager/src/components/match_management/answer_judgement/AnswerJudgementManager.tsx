@@ -1,22 +1,16 @@
 import React from 'react';
 
 import { AbstractQuestionsEditor } from '../question_management/QuestionsEditor'
-import GameFightsDataInterface from "../../../backend_interface/GameFightsDataInterface";
+import GameFightsDataInterface from "../../../backend_interface/game_fights_data_interface/GameFightsDataInterface";
 import { QuestionAnswersJudgementData } from "../../../types/datatypes";
 
-import { QueryCallback } from "../../../types/functionTypes"; 
 import { AnswerSubmissionState } from '../../../enums/statusEnums';
-import { LoadingComponentProps } from '../../utility/LoadingComponent';
+import QuestionAnswerJudgementsInterface from '../../../backend_interface/game_fights_data_interface/data_interfaces/question_interfaces/QuestionAnswerJudgementsInterface';
 
-export default class AnswerJudgementManager extends AbstractQuestionsEditor<QuestionAnswersJudgementData>{
+export default class AnswerJudgementManager extends AbstractQuestionsEditor<QuestionAnswersJudgementData, QuestionAnswerJudgementsInterface>{
     
-    constructor(props: LoadingComponentProps<GameFightsDataInterface>){
-        super(props)
-        props.dataInterface.events.onParticipantAnswerSubmissionChange = this.onParticipantAnswerSubmissionChange;
-    }
-
-    protected loadData(dataInterface: GameFightsDataInterface): (loadCallback: QueryCallback<QuestionAnswersJudgementData[]>) => void {
-        return (loadCallback) => dataInterface.queryAnswerJudgements(loadCallback)
+    protected getDataInterface(): QuestionAnswerJudgementsInterface {
+        return this.props.dataInterfaceManager.questionAnswerJudgementsListInterface;
     }
 
     protected determineInitalData(): QuestionAnswersJudgementData[] {
@@ -29,10 +23,6 @@ export default class AnswerJudgementManager extends AbstractQuestionsEditor<Ques
 
     protected async requestQuestionDeletion(dataInterface: GameFightsDataInterface, question: QuestionAnswersJudgementData){
         return await dataInterface.requestAnswerableQuestionDeletion(question);
-    }
-
-    private onParticipantAnswerSubmissionChange = (questionAnswersJudgements: QuestionAnswersJudgementData[]) => {
-        this.setState({ data: questionAnswersJudgements })
     }
 
     protected renderQuestion(question: QuestionAnswersJudgementData){
@@ -71,10 +61,7 @@ export default class AnswerJudgementManager extends AbstractQuestionsEditor<Ques
     }
 
     private onUpdateAnswerStatus = (question: QuestionAnswersJudgementData, answerIndex: number, answerStatus: AnswerSubmissionState) => () => {
-        this.props.dataInterface.submitAnswerJudgementStateUpdate(question, answerIndex, answerStatus)
-                                .then((questions: QuestionAnswersJudgementData[]) =>{
-                                    this.setState({ data: questions })
-                                });
+        this.getDataInterface().submitAnswerJudgementStateUpdate(question, answerIndex, answerStatus);
     }
 
     protected renderJudgementControls(question: QuestionAnswersJudgementData, answerIndex: number){
@@ -107,7 +94,7 @@ export default class AnswerJudgementManager extends AbstractQuestionsEditor<Ques
 
     }
 
-    protected renderLoaded(dataInterface: GameFightsDataInterface, data: QuestionAnswersJudgementData[]): JSX.Element {
+    protected renderLoaded(dataInterface: QuestionAnswerJudgementsInterface, data: QuestionAnswersJudgementData[]): JSX.Element {
         return (
             <div>
                 <h1>Questions</h1>

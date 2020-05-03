@@ -3,15 +3,10 @@ import React, { Component } from 'react';
 import Loading from './Loading'
 
 import { QueryCallback } from '../../types/functionTypes';
+import DataInterface from '../../backend_interface/lib/DataInterface';
 
-export class LoadingComponentProps<I> {
-    
-    public readonly dataInterface: I
-
-    public constructor(dataInterface: I){
-        this.dataInterface = dataInterface;
-    }
-
+export interface LoadingComponentProps<M> {
+    readonly dataInterfaceManager: M
 }
 
 export interface LoadingComponentState<D>{
@@ -21,39 +16,40 @@ export interface LoadingComponentState<D>{
 
 /**
  * A component that fetches data and displays a loading message while that data is being fetched.
- * @type D The type of data that the component is loading.
- * @type S The type of the state the component can have.
+ * @type M The manager for the data interfaces.
+ * @type D The type of data used to inform what this component is displaying.
+ * @type I The interface the component will use to interact with the data.
+ * @type P The type of object used to store the component's props.
+ * @type S The type of object used to store the component's state.
  */
-export default abstract class LoadingComponent<I, D, P extends LoadingComponentProps<I> = LoadingComponentProps<I>, 
+export default abstract class LoadingComponent<M, D, I extends DataInterface<D> = DataInterface<D>, 
+        P extends LoadingComponentProps<M> = LoadingComponentProps<M>, 
         S extends LoadingComponentState<D> = LoadingComponentState<D>> extends Component<P, S> {
-
-    private readonly dataInterface: I;
-
+    
     public constructor(props: P){
         
         super(props);
 
-        this.dataInterface = props.dataInterface;
+        //Set component to update the data whenever the interface detects it has changed.
+        this.getDataInterface().registerDataChangeEvent((newData) => {
+            this.setState({ 
+                data: newData,
+                loading: false
+             })
+        })
 
-        let initialData: D = this.determineInitalData();
+        const initialData = this.determineInitalData();
         this.state = this.determineInitialState(true, initialData);
 
-        //Load the data using the query, updating the state based on the result when done.
-        this.loadData(this.dataInterface)(queryResult => {
-        
-            let newState: LoadingComponentState<D> = this.determineNewStateFromData(queryResult);
-            newState.loading = false;
-            this.setState(newState);
-
-        });
+        //Ensure that the data and component are up to date.
+        this.getDataInterface().refresh();
 
     }
 
     /**
-     * [DES/PRE] Load the data to be displayed as part of the component.
-     * @param loadCallback Defines what is to be done with the data once it has been loaded.
+     * Retrieve the interface the component uses to interact with data.
      */
-    protected abstract loadData(dataInterface: I): (loadCallback: QueryCallback<D>) => void;
+    protected abstract getDataInterface(): I
 
     /**
      * [DES/PRE] Determines the data contained within the state the component will start with.
@@ -66,13 +62,6 @@ export default abstract class LoadingComponent<I, D, P extends LoadingComponentP
      * @param initialData The data that it has been determined the state will start with.
      */
     protected abstract determineInitialState(initialLoadingValue: boolean, initialData: D): S;
-    
-
-    /**
-     * [DES/PRE] Determine the state the component should be in based on a set of data.
-     * @param data The data being used to determine the component's state.
-     */
-    protected abstract determineNewStateFromData(data: D): S;
 
     /**
      * [DES/PRE] What the component should look like when the data has been loaded.
@@ -86,7 +75,7 @@ export default abstract class LoadingComponent<I, D, P extends LoadingComponentP
             return <Loading />
         } 
         else {
-            return this.renderLoaded(this.dataInterface, this.state.data);
+            return this.renderLoaded(this.getDataInterface(), this.state.data);
         }
     }
 }

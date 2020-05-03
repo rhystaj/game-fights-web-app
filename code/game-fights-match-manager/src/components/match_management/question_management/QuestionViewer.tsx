@@ -1,27 +1,25 @@
-import GameFightsDataInterface from '../../../backend_interface/GameFightsDataInterface';
+import GameFightsDataInterface from '../../../backend_interface/game_fights_data_interface/GameFightsDataInterface';
 
-import { LoadingComponentState, LoadingComponentProps } from '../../utility/LoadingComponent';
+import { LoadingComponentState } from '../../utility/LoadingComponent';
 import QuestionsComponent from './QuestionsComponent'
 
 import { Question } from '../../../types/datatypes';
 import { QueryCallback } from '../../../types/functionTypes';
+import QuestionsInterface from '../../../backend_interface/game_fights_data_interface/data_interfaces/question_interfaces/QuestionsInterface';
 
 //Some type aliases to make declarations more digestable.
 type QuestionsViewerState = LoadingComponentState<Question[]>;
-type QuestionsViewerProps = LoadingComponentProps<GameFightsDataInterface>;
-
 
 /**
  * [DES/PRE] Displays an uneditable list of the chosen questions and listens for update to the list,
  * displaying changes automatically.
  */
-class QuestionsViewer extends QuestionsComponent<Question, QuestionsViewerState>{
+class QuestionsViewer extends QuestionsComponent<Question, QuestionsInterface<Question>, QuestionsViewerState>{
     
-    constructor(props: QuestionsViewerProps){
-        super(props);
-        props.dataInterface.events.onQuestionUpdate = this.onQuestionUpdate;
+    protected getDataInterface(): QuestionsInterface<Question> {
+        return this.props.dataInterfaceManager.questionsListInterface;
     }
-
+    
     protected loadData(dataInterface: GameFightsDataInterface): (loadCallback: QueryCallback<Question[]>) => void {
         return (loadCallback) => dataInterface.queryQuestions(loadCallback);
     }    

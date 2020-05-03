@@ -1,6 +1,6 @@
-import { AnswerSubmissionData, MatchData, FighterData, Question, QuestionAnswersJudgementData, AnswerJudgementData } from '../types/datatypes'
-import { UserMatchStatus, MatchStage, AnswerSubmissionState } from '../enums/statusEnums';
-import { QueryCallback } from '../types/functionTypes';
+import { AnswerSubmissionData, MatchData, FighterData, Question, QuestionAnswersJudgementData, AnswerJudgementData } from '../../types/datatypes'
+import { UserMatchStatus, MatchStage, AnswerSubmissionState } from '../../enums/statusEnums';
+import { QueryCallback } from '../../types/functionTypes';
 
 /**
  * [DES/PRE] A set of functions defining reponses to changes in GameFights data.

@@ -5,7 +5,7 @@ import fighterDatabase, { FAILURE_FIGHTER_ID } from './test_data/testFighterData
 
 import { QueryCallback } from '../../types/functionTypes';
 
-import GameFightsDataInterface from '../GameFightsDataInterface';
+import GameFightsDataInterface from '../game_fights_data_interface/GameFightsDataInterface';
 
 import { UserMatchStatus, MatchStage, AnswerSubmissionState } from '../../enums/statusEnums';
 import { Question, AnswerSubmissionData, MatchData, FighterData, QuestionAnswersJudgementData, AnswerJudgementData } from '../../types/datatypes';

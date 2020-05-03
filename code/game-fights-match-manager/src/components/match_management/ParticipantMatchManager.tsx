@@ -3,19 +3,24 @@ import MatchManager from './MatchManager';
 
 import ParticipantMatchInfo from './match_info/ParticipantMatchInfo';
 import QuestionsViewer from './question_management/QuestionViewer'
-import GameFightsDataInterface from '../../backend_interface/GameFightsDataInterface';
+
 import { MatchStage } from '../../enums/statusEnums';
 
+import DataInterface from '../../backend_interface/lib/DataInterface';
+
 class ParticipantMatchManager extends MatchManager{
-
-
-    renderMatchInfo(dataInterface: GameFightsDataInterface, matchStage: MatchStage){
-        return <ParticipantMatchInfo dataInterface={dataInterface} />
+    
+    public getDataInterface(): import("../../backend_interface/lib/DataInterface").default<MatchStage> {
+        throw new Error("Method not implemented.");
     }
 
-    renderManagementComponent(dataInterface: GameFightsDataInterface, stage: MatchStage){
+    renderMatchInfo(dataInterface: DataInterface<MatchStage>, matchStage: MatchStage){
+        return <ParticipantMatchInfo dataInterfaceManager={this.props.dataInterfaceManager} />
+    }
+
+    renderManagementComponent(dataInterface: DataInterface<MatchStage>, stage: MatchStage){
         if(stage === MatchStage.DETERMINING_QUESTIONS){
-            return<QuestionsViewer dataInterface={dataInterface} />
+            return<QuestionsViewer dataInterfaceManager={this.props.dataInterfaceManager} />
         }
         else{
             return super.renderManagementComponent(dataInterface, stage);

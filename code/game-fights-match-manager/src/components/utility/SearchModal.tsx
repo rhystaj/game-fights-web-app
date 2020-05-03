@@ -3,8 +3,8 @@ import React, { Component, ChangeEvent } from 'react';
 import { UniquelyIdentifiable } from '../../types/datatypes';
 import { FetchFunction, QueryCallback } from '../../types/functionTypes';
 
-export interface SearchModalProps<I>{
-    dataInterface: I,
+export interface SearchModalProps<M>{
+    dataInterfaceManager: M,
     onCancel: () => void;
 }
 
@@ -12,15 +12,15 @@ export interface SearchModalState<I extends UniquelyIdentifiable>{
     searchResults: I[];
 }
 
-export default abstract class SearchModal<I, UI extends UniquelyIdentifiable, P extends SearchModalProps<I>, 
-        S extends SearchModalState<UI>> extends Component<P, S>{
+export default abstract class SearchModal<M, I extends UniquelyIdentifiable, P extends SearchModalProps<M>, 
+        S extends SearchModalState<I>> extends Component<P, S>{
 
     constructor(props: P){
         super(props);
         this.state = this.determineInitialState([]);
     }
 
-    protected abstract determineInitialState(searchResults: UI[]): S;
+    protected abstract determineInitialState(searchResults: I[]): S;
 
     private onCancelButtonClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         this.props.onCancel();
@@ -70,8 +70,8 @@ export default abstract class SearchModal<I, UI extends UniquelyIdentifiable, P 
      */
     protected readonly onSearchBoxInput = (e: ChangeEvent<HTMLInputElement>) => {
         
-        let fetchFunction: FetchFunction<UI[]> = this.GenerateFetchFunctionForSearchString(e.target.value);
-        let searchCallback: QueryCallback<UI[]> = (searchResults: UI[]) => {
+        let fetchFunction: FetchFunction<I[]> = this.GenerateFetchFunctionForSearchString(e.target.value);
+        let searchCallback: QueryCallback<I[]> = (searchResults: I[]) => {
             this.setState(
                 {searchResults: searchResults}
             );
@@ -84,7 +84,7 @@ export default abstract class SearchModal<I, UI extends UniquelyIdentifiable, P 
     /**
      * Fetch a list of the items that match the search string.
      */
-    protected abstract GenerateFetchFunctionForSearchString(searchString: string): FetchFunction<UI[]>
+    protected abstract GenerateFetchFunctionForSearchString(searchString: string): FetchFunction<I[]>
 
     render(){
         return (

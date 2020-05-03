@@ -8,11 +8,11 @@ import { FighterData } from '../../../types/datatypes';
 import { whenUnassigned } from '../../../utility/functions/qolFunctions'
 
 import InvitedFighterList from './InvitedFighterList';
-import GameFightsDataInterface from '../../../backend_interface/GameFightsDataInterface';
 import { FetchFunction } from '../../../types/functionTypes';
 import { FighterMatchStatus } from '../../../enums/statusEnums';
+import { GameFightsDataInterfaceManager } from '../../../backend_interface/game_fights_data_interface/GameFightsDataInterfaceManager';
 
-interface FighterInvitationSearchModalProps extends SearchModalProps<GameFightsDataInterface>{
+interface FighterInvitationSearchModalProps extends SearchModalProps<GameFightsDataInterfaceManager>{
     preInvitedFighters: FighterData[],
     onConfirmInvites: (invites: FighterData[]) => void;
 };
@@ -25,7 +25,7 @@ interface FighterInvitationSearchModalState extends SearchModalState<FighterData
  * [DES] A SerachModal that allows you to search for and invite fighters.
  */
 export default class FighterInvitationSearchModal 
-    extends SearchModal<GameFightsDataInterface, FighterData, FighterInvitationSearchModalProps, 
+    extends SearchModal<GameFightsDataInterfaceManager, FighterData, FighterInvitationSearchModalProps, 
         FighterInvitationSearchModalState>{
     
     onInviteFighter = (fighter: FighterData) => () => {
