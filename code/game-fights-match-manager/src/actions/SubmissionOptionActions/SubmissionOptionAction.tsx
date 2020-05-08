@@ -1,11 +1,12 @@
 import InterfaceAction from '../../utility/InterfaceAction'
-import GameFightsDataInterface from '../../backend_interface/game_fights_data_interface/GameFightsDataInterface';
 import { AnswerSubmissionData } from '../../types/datatypes';
+import AnswerSubmissionDataInterface from '../../backend_interface/game_fights_data_interface/data_interfaces/AnswerSubmissionDataInterface';
 
 /**
  * An interface action to be performed on an answer submission.
  */
-export default abstract class SubmissionOptionAction implements InterfaceAction<GameFightsDataInterface, AnswerSubmissionData[]>{
+export default abstract class SubmissionOptionAction implements 
+    InterfaceAction<AnswerSubmissionData[], AnswerSubmissionDataInterface>{
     
     private _submission: AnswerSubmissionData;
     get Submission(): AnswerSubmissionData{
@@ -16,6 +17,6 @@ export default abstract class SubmissionOptionAction implements InterfaceAction<
         this._submission = submission;
     }
 
-    public abstract execute(i: GameFightsDataInterface): Promise<AnswerSubmissionData[]>;
+    public abstract execute(i: AnswerSubmissionDataInterface): Promise<void>;
 
 }

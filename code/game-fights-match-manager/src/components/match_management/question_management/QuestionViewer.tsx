@@ -1,5 +1,3 @@
-import GameFightsDataInterface from '../../../backend_interface/game_fights_data_interface/GameFightsDataInterface';
-
 import { LoadingComponentState } from '../../utility/LoadingComponent';
 import QuestionsComponent from './QuestionsComponent'
 
@@ -18,13 +16,9 @@ class QuestionsViewer extends QuestionsComponent<Question, QuestionsInterface<Qu
     
     protected getDataInterface(): QuestionsInterface<Question> {
         return this.props.dataInterfaceManager.questionsListInterface;
-    }
-    
-    protected loadData(dataInterface: GameFightsDataInterface): (loadCallback: QueryCallback<Question[]>) => void {
-        return (loadCallback) => dataInterface.queryQuestions(loadCallback);
-    }    
+    }  
 
-    determineInitialState(initialLoadingValue: boolean, initialQuestionCollection: Question[]){
+    determineInitialLoadingComponentState(initialLoadingValue: boolean, initialQuestionCollection: Question[]){
         return {
             loading: initialLoadingValue,
             data: initialQuestionCollection

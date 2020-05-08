@@ -1,7 +1,5 @@
 import React from 'react';
 
-import GameFightsDataInterface from '../../../backend_interface/game_fights_data_interface/GameFightsDataInterface';
-
 import QuestionsComponent from './QuestionsComponent';
 import TextEntry from '../../utility/Entry/TextEntry';
 import { LoadingComponentState } from '../../utility/LoadingComponent';
@@ -28,7 +26,7 @@ export abstract class AbstractQuestionsEditor<Q extends Question, I extends Ques
         }
     }
     
-    protected determineInitialState(initialloadingValue: boolean, initialQuestionCollection: Q[]){
+    protected determineInitialLoadingComponentState(initialloadingValue: boolean, initialQuestionCollection: Q[]){
         return{
             loading: initialloadingValue,
             data: initialQuestionCollection,
@@ -114,14 +112,6 @@ export default class QuestionsEditor extends AbstractQuestionsEditor<Question, Q
     
     protected getDataInterface(): QuestionsInterface<Question> {
         return this.props.dataInterfaceManager.questionsListInterface;
-    }
-
-    protected async submitQuestion(dataInterface: GameFightsDataInterface, newQuestion: string) {
-        return await dataInterface.submitQuestion(newQuestion);
-    }
-    
-    protected async requestQuestionDeletion(dataInterface: GameFightsDataInterface, question: Question) {
-        return await dataInterface.requestQuestionDeletion(question);
     }
 
 }

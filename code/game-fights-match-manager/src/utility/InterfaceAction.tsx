@@ -1,5 +1,7 @@
-export default interface InterfaceAction<I, D>{
+import DataInterface from "../backend_interface/lib/DataInterface";
 
-    execute: (i: I) => Promise<D>; 
+export default interface InterfaceAction<D, I extends DataInterface<D>>{
+
+    execute: (i: I) => Promise<void>; 
 
 }

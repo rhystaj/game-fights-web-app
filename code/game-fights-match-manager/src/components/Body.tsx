@@ -1,14 +1,10 @@
 import React from 'react'
-import LoadingComponent, { LoadingComponentState } from './utility/LoadingComponent';
 
 import RunNewMatch from './pre_match_dialogues/RunNewMatch'
 import MatchInvitation from './pre_match_dialogues/MatchInvitation'
 import ParticipantMatchManager from './match_management/ParticipantMatchManager'
 import JudgeMatchManager from './match_management/JudgeMatchManager'
 
-import GameFightsDataInterface from '../backend_interface/game_fights_data_interface/GameFightsDataInterface';
-
-import { QueryCallback } from "../types/functionTypes";
 import { UserMatchStatus } from './../enums/statusEnums';
 
 import '../style/Body.css'
@@ -18,7 +14,7 @@ import { GameFightsDataInterfaceManager } from '../backend_interface/game_fights
 
 const INVALID_STATUS_MESSAGE = 'Error: Body was given an invalid state.'
 
-/**
+/**s
  * [PRE/DES] Where the main content of the page is displayed. Can vary greatly depending on if the user is involved in 
  * a match, and if they are judging it.
  * @param {*} props

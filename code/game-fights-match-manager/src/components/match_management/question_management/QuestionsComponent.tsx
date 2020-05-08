@@ -1,17 +1,16 @@
 import React from 'react';
 
-import GameFightsDataInterface from '../../../backend_interface/game_fights_data_interface/GameFightsDataInterface';
-
-import LoadingComponent, { LoadingComponentState, LoadingComponentProps } from '../../utility/LoadingComponent';
+import LoadingComponent, { LoadingComponentState } from '../../utility/LoadingComponent';
 
 import { Question } from '../../../types/datatypes';
 import DataInterface from '../../../backend_interface/lib/DataInterface';
 import { GameFightsDataInterfaceManager } from '../../../backend_interface/game_fights_data_interface/GameFightsDataInterfaceManager';
+import { DataInterfacingComponentProps } from '../../utility/DataInterfacingComponent';
 
 
 //Some type aliases to hopefully make type references more digestable.
 type QuestionComponentState<Q> = LoadingComponentState<Q[]>;
-type QuestionComponentProps = LoadingComponentProps<GameFightsDataInterfaceManager>;
+type QuestionComponentProps = DataInterfacingComponentProps<GameFightsDataInterfaceManager>;
 
 
 export default abstract class Questions<Q extends Question, I extends DataInterface<Q[]>, S extends QuestionComponentState<Q>> extends 

@@ -1,29 +1,25 @@
-import React, { Component, ChangeEvent } from 'react';
+import React, { ChangeEvent } from 'react';
 
-import { UniquelyIdentifiable } from '../../types/datatypes';
-import { FetchFunction, QueryCallback } from '../../types/functionTypes';
+import DataInterfacingComponent, { DataInterfacingComponentProps, DataInterfacingComponentState } from './DataInterfacingComponent';
 
-export interface SearchModalProps<M>{
-    dataInterfaceManager: M,
+import SearchInterface from '../../backend_interface/lib/SearchInterface';
+
+export interface SearchModalProps<M> extends DataInterfacingComponentProps<M>{
     onCancel: () => void;
 }
 
-export interface SearchModalState<I extends UniquelyIdentifiable>{
-    searchResults: I[];
-}
+export default abstract class SearchModal<M, D, I extends SearchInterface<D>, 
+        P extends SearchModalProps<M>,
+        S extends DataInterfacingComponentState<D[]>> 
+        extends DataInterfacingComponent<M, D[], I, P, S>{
 
-export default abstract class SearchModal<M, I extends UniquelyIdentifiable, P extends SearchModalProps<M>, 
-        S extends SearchModalState<I>> extends Component<P, S>{
-
-    constructor(props: P){
-        super(props);
-        this.state = this.determineInitialState([]);
-    }
-
-    protected abstract determineInitialState(searchResults: I[]): S;
 
     private onCancelButtonClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         this.props.onCancel();
+    }
+
+    protected determineInitalData(){
+        return [];
     }
 
     /**
@@ -69,22 +65,8 @@ export default abstract class SearchModal<M, I extends UniquelyIdentifiable, P e
      * Called each time the string in the search box is changed.
      */
     protected readonly onSearchBoxInput = (e: ChangeEvent<HTMLInputElement>) => {
-        
-        let fetchFunction: FetchFunction<I[]> = this.GenerateFetchFunctionForSearchString(e.target.value);
-        let searchCallback: QueryCallback<I[]> = (searchResults: I[]) => {
-            this.setState(
-                {searchResults: searchResults}
-            );
-        };
-
-        fetchFunction(searchCallback);
-
+        this.getDataInterface().searchDataByString(e.target.value);
     }
-
-    /**
-     * Fetch a list of the items that match the search string.
-     */
-    protected abstract GenerateFetchFunctionForSearchString(searchString: string): FetchFunction<I[]>
 
     render(){
         return (

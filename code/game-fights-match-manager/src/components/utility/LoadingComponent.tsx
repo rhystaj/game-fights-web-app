@@ -1,17 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import Loading from './Loading'
 
-import { QueryCallback } from '../../types/functionTypes';
 import DataInterface from '../../backend_interface/lib/DataInterface';
+import DataInterfacingComponent, { DataInterfacingComponentProps, DataInterfacingComponentState } from './DataInterfacingComponent';
 
-export interface LoadingComponentProps<M> {
-    readonly dataInterfaceManager: M
-}
-
-export interface LoadingComponentState<D>{
+export interface LoadingComponentState<D> extends DataInterfacingComponentState<D>{
     loading: boolean;
-    data: D;
 }
 
 /**
@@ -23,45 +18,21 @@ export interface LoadingComponentState<D>{
  * @type S The type of object used to store the component's state.
  */
 export default abstract class LoadingComponent<M, D, I extends DataInterface<D> = DataInterface<D>, 
-        P extends LoadingComponentProps<M> = LoadingComponentProps<M>, 
-        S extends LoadingComponentState<D> = LoadingComponentState<D>> extends Component<P, S> {
-    
-    public constructor(props: P){
-        
-        super(props);
+        P extends DataInterfacingComponentProps<M> = DataInterfacingComponentProps<M>, 
+        S extends LoadingComponentState<D> = LoadingComponentState<D>> 
+        extends DataInterfacingComponent<M, D, I, P, S> {
 
-        //Set component to update the data whenever the interface detects it has changed.
-        this.getDataInterface().registerDataChangeEvent((newData) => {
-            this.setState({ 
-                data: newData,
-                loading: false
-             })
-        })
-
-        const initialData = this.determineInitalData();
-        this.state = this.determineInitialState(true, initialData);
-
-        //Ensure that the data and component are up to date.
-        this.getDataInterface().refresh();
-
+    protected onDataChange(oldData: D, newData: D){
+        //When the data changes, that means it's no longer loading on the back end, so the loading
+        //component can be updated to render the data.
+        this.setState({ loading: false })
     }
 
-    /**
-     * Retrieve the interface the component uses to interact with data.
-     */
-    protected abstract getDataInterface(): I
+    protected determineInitialComponentState(data: D){
+        return this.determineInitialLoadingComponentState(true, data);
+    }
 
-    /**
-     * [DES/PRE] Determines the data contained within the state the component will start with.
-     */
-    protected abstract determineInitalData(): D;
-
-    /**
-     * [DES/PRE] Determines the state the component will start with.
-     * @param initialLoadingValue The loading the value that it has been determined the state will start with.
-     * @param initialData The data that it has been determined the state will start with.
-     */
-    protected abstract determineInitialState(initialLoadingValue: boolean, initialData: D): S;
+    protected abstract determineInitialLoadingComponentState(loading: boolean, data: D): S;
 
     /**
      * [DES/PRE] What the component should look like when the data has been loaded.

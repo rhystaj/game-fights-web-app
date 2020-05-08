@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SearchModal, { SearchModalState, SearchModalProps } from '../../utility/SearchModal';
+import SearchModal, { SearchModalProps } from '../../utility/SearchModal';
 
 import InvitationSearchResultsFighterList from './InvitationSearchResultsFighterList';
 
@@ -8,26 +8,37 @@ import { FighterData } from '../../../types/datatypes';
 import { whenUnassigned } from '../../../utility/functions/qolFunctions'
 
 import InvitedFighterList from './InvitedFighterList';
-import { FetchFunction } from '../../../types/functionTypes';
 import { FighterMatchStatus } from '../../../enums/statusEnums';
 import { GameFightsDataInterfaceManager } from '../../../backend_interface/game_fights_data_interface/GameFightsDataInterfaceManager';
+import { DataInterfacingComponentState } from '../../utility/DataInterfacingComponent';
+import SearchInterface from '../../../backend_interface/lib/SearchInterface';
 
 interface FighterInvitationSearchModalProps extends SearchModalProps<GameFightsDataInterfaceManager>{
     preInvitedFighters: FighterData[],
     onConfirmInvites: (invites: FighterData[]) => void;
 };
 
-interface FighterInvitationSearchModalState extends SearchModalState<FighterData>{
+interface FighterInvitationSearchModalState extends DataInterfacingComponentState<FighterData[]>{
     invitedFighters: FighterData[]
 }
 
 /**
- * [DES] A SerachModal that allows you to search for and invite fighters.
+ * [DES] A SearchModal that allows you to search for and invite fighters.
  */
-export default class FighterInvitationSearchModal 
-    extends SearchModal<GameFightsDataInterfaceManager, FighterData, FighterInvitationSearchModalProps, 
-        FighterInvitationSearchModalState>{
+export default class FighterInvitationSearchModal extends SearchModal<GameFightsDataInterfaceManager, FighterData, 
+    SearchInterface<FighterData>, FighterInvitationSearchModalProps, FighterInvitationSearchModalState>{
     
+    protected getDataInterface(): SearchInterface<FighterData> {
+        return this.props.dataInterfaceManager.fighterDataInvitationInterface;
+    }
+
+    protected determineInitialComponentState(initialData: FighterData[]): FighterInvitationSearchModalState {
+        return{
+            data: initialData,
+            invitedFighters: []
+        }
+    }
+
     onInviteFighter = (fighter: FighterData) => () => {
         
         fighter.status = FighterMatchStatus.INVITED;
@@ -48,26 +59,11 @@ export default class FighterInvitationSearchModal
 
     }
 
-    fetchSearchResults = (searchString: string) => (searchCallback: (searchResults: FighterData[]) => void) => {
-        this.props.dataInterface.fetchFightersByName(searchString)(searchCallback);
-    }
-
-    protected determineInitialState(searchResults: FighterData[]): FighterInvitationSearchModalState{
-        return {
-            searchResults: searchResults,
-            invitedFighters: this.props.preInvitedFighters
-        }
-    }
-
-    protected GenerateFetchFunctionForSearchString(searchString: string): FetchFunction<FighterData[]> {
-        return this.props.dataInterface.fetchFightersByName(searchString);
-    }
-
     /**
      * A filter for filtering out fighters who have been added to the invited fighters.
      */
     invitedFightersFilter = (fighter: FighterData) => {
-        //If a fighter is avalible or engaged, thry have not been invited.
+        //If a fighter is avalible or engaged, they have not been invited.
         return fighter.status in [FighterMatchStatus.AVAILABLE, FighterMatchStatus.ENGAGED];
     }
 
@@ -75,7 +71,7 @@ export default class FighterInvitationSearchModal
         return (
             <div>
                 <InvitationSearchResultsFighterList 
-                    items={this.state === null ? [] : this.state.searchResults.filter(this.invitedFightersFilter)} 
+                    items={this.state === null ? [] : this.state.data.filter(this.invitedFightersFilter)} 
                     onInviteFighter={this.onInviteFighter}    
                 />
                 <InvitedFighterList 

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { AbstractQuestionsEditor } from '../question_management/QuestionsEditor'
-import GameFightsDataInterface from "../../../backend_interface/game_fights_data_interface/GameFightsDataInterface";
 import { QuestionAnswersJudgementData } from "../../../types/datatypes";
 
 import { AnswerSubmissionState } from '../../../enums/statusEnums';
@@ -15,14 +14,6 @@ export default class AnswerJudgementManager extends AbstractQuestionsEditor<Ques
 
     protected determineInitalData(): QuestionAnswersJudgementData[] {
         return [];
-    }
-
-    protected async submitQuestion(dataInterface: GameFightsDataInterface, newQuestion: string) {
-        return await dataInterface.submitImmediatelyAnswerableQuestion(newQuestion);
-    }
-
-    protected async requestQuestionDeletion(dataInterface: GameFightsDataInterface, question: QuestionAnswersJudgementData){
-        return await dataInterface.requestAnswerableQuestionDeletion(question);
     }
 
     protected renderQuestion(question: QuestionAnswersJudgementData){

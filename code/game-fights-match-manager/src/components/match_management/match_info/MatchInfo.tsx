@@ -1,14 +1,13 @@
 import React from 'react'
-import LoadingComponent, { LoadingComponentState, LoadingComponentProps } from '../../utility/LoadingComponent'
+import LoadingComponent, { LoadingComponentState } from '../../utility/LoadingComponent'
 
 import './../../../style/MatchInfo.css'
-import GameFightsDataInterface from '../../../backend_interface/game_fights_data_interface/GameFightsDataInterface';
 
 import { MatchData, FighterData } from '../../../types/datatypes';
-import { QueryCallback } from "../../../types/functionTypes";
 import { FighterMatchStatus } from '../../../enums/statusEnums';
 import MatchDataInterface from '../../../backend_interface/game_fights_data_interface/data_interfaces/MatchDataInterface';
 import { GameFightsDataInterfaceManager } from '../../../backend_interface/game_fights_data_interface/GameFightsDataInterfaceManager';
+import { DataInterfacingComponentProps } from '../../utility/DataInterfacingComponent';
 
 /**
  * [DES/PRE] Shows the name, participants info, and dates of a match.
@@ -16,7 +15,7 @@ import { GameFightsDataInterfaceManager } from '../../../backend_interface/game_
  */
 export default abstract class MatchInfoComponent<S extends LoadingComponentState<MatchData>> extends 
     LoadingComponent<GameFightsDataInterfaceManager, MatchData, MatchDataInterface, 
-    LoadingComponentProps<GameFightsDataInterfaceManager>, S> {
+    DataInterfacingComponentProps<GameFightsDataInterfaceManager>, S> {
   
   protected getDataInterface(){
     return this.props.dataInterfaceManager.matchDataInterface;

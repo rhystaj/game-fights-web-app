@@ -27,12 +27,12 @@ export default class MatchManager extends SimpleStateLoadingComponent<GameFights
 
   protected renderMatchInfo(dataInterface: DataInterface<MatchStage>, stage: MatchStage){
     //To be overridden in child components if needed.
-    return (<ParticipantMatchInfo dataInterfaceManager={dataInterface} />);
+    return (<ParticipantMatchInfo dataInterfaceManager={this.props.dataInterfaceManager} />);
   }
 
   protected renderManagementComponent(dataInterface: DataInterface<MatchStage>, stage: MatchStage){
     //To be overridden in child components if needed.
-    return (<AnswerSubmissionManager dataInterfaceManager={dataInterface} />);
+    return (<AnswerSubmissionManager dataInterfaceManager={this.props.dataInterfaceManager} />);
   }
 
   protected renderLoaded(dataInterface: DataInterface<MatchStage>, matchStage: MatchStage) {

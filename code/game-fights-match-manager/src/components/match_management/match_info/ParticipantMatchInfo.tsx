@@ -18,7 +18,7 @@ class ParticipantMatchInfo extends MatchInfoComponent<LoadingComponentState<Matc
     }
   }
 
-  protected determineInitialState(initialLoadingValue: boolean, initialMatchData: MatchData): LoadingComponentState<MatchData>{
+  protected determineInitialLoadingComponentState(initialLoadingValue: boolean, initialMatchData: MatchData): LoadingComponentState<MatchData>{
     return {
       loading: initialLoadingValue,
       data: initialMatchData

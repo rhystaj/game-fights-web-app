@@ -11,7 +11,7 @@ import DataInterface from '../../backend_interface/lib/DataInterface';
 
 export default class JudgeMatchManager extends MatchManager{
 
-    protected determineInitialState(initialLoadingValue: boolean, initialMatchStage: MatchStage): LoadingComponentState<MatchStage>{
+    protected determineInitialLoadingComponentState(initialLoadingValue: boolean, initialMatchStage: MatchStage): LoadingComponentState<MatchStage>{
         return {
             loading: initialLoadingValue,
             data: initialMatchStage
