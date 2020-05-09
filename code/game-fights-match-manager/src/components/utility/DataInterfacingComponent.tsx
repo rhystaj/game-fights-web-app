@@ -27,7 +27,6 @@ export default abstract class DataInterfacingComponent<M, D,
 
         //Ensure that the data and component are up to date.
         this.getDataInterface().refresh();
-
     }
 
     /**

@@ -23,6 +23,8 @@ export default abstract class LoadingComponent<M, D, I extends DataInterface<D> 
         extends DataInterfacingComponent<M, D, I, P, S> {
 
     protected onDataChange(oldData: D, newData: D){
+        super.onDataChange(oldData, newData);
+        
         //When the data changes, that means it's no longer loading on the back end, so the loading
         //component can be updated to render the data.
         this.setState({ loading: false })

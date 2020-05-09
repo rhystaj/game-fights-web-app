@@ -35,7 +35,7 @@ export default class FighterInvitationSearchModal extends SearchModal<GameFights
     protected determineInitialComponentState(initialData: FighterData[]): FighterInvitationSearchModalState {
         return{
             data: initialData,
-            invitedFighters: []
+            invitedFighters: this.props.preInvitedFighters
         }
     }
 

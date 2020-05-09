@@ -4,12 +4,13 @@ import Body from './components/Body';
 import Header from './components/Header';
 
 import MockGameFightsDataInterfaceManager from './backend_interface/mock_interface/MockGameFightsDataInterfaceManager';
+import { UserMatchStatus, MatchStage } from './enums/statusEnums';
 
 function App() {
   
   //The interface the child components will use to retrieved their required data.
   //RIGHT NOW A MOCK VERSION IS BEING USED AND THIS WILL NEED TO CHANGE WHEN THE PROPER RESTFUL VERSION IS COMPLETED.
-  const dataInterfaceManager = new MockGameFightsDataInterfaceManager();
+  const dataInterfaceManager = new MockGameFightsDataInterfaceManager(UserMatchStatus.JUDGING, MatchStage.ANSWERS_OPENED);
 
   return (
       <div>

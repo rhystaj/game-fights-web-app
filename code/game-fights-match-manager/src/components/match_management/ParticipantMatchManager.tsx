@@ -10,10 +10,6 @@ import DataInterface from '../../backend_interface/lib/DataInterface';
 
 class ParticipantMatchManager extends MatchManager{
     
-    public getDataInterface(): import("../../backend_interface/lib/DataInterface").default<MatchStage> {
-        throw new Error("Method not implemented.");
-    }
-
     renderMatchInfo(dataInterface: DataInterface<MatchStage>, matchStage: MatchStage){
         return <ParticipantMatchInfo dataInterfaceManager={this.props.dataInterfaceManager} />
     }
