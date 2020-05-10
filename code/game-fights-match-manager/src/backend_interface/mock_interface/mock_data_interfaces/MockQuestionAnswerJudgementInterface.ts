@@ -1,17 +1,20 @@
 import QuestionAnswerJudgementsInterface from "../../game_fights_data_interface/data_interfaces/question_interfaces/QuestionAnswerJudgementsInterface";
-import { UniquelyIdentifiableEquator, QuestionAnswersJudgementEquator, AnswerSubmissionDataEquator, FighterDataEquator } from "../../../types/equators/UniquelyIndentifiableEquators";
+
 import UniquelyIdentifiableCollection from "../../../utility/UniquelyIdentifiableCollection";
-import { QuestionAnswersJudgementData, Question } from "../../../types/datatypes";
-import { AnswerJudgementDataEquator } from "../../../types/equators/DataEquators";
+
+import { ParticipantAnswerDataEquator } from "../../../types/equators/DataEquators";
+import { QuestionAnswersJudgementEquator, FighterDataEquator } from "../../../types/equators/UniquelyIndentifiableEquators";
 import { AnswerSubmissionState } from "../../../enums/statusEnums";
-import questions from "../test_data/questions";
+import { QuestionAnswersJudgementData, Question } from "../../../types/datatypes";
+
+import testFighterDatabase from "../test_data/testFighterDatabase";
 
 export default class MockQuestionAnswerJudgementsInterface extends QuestionAnswerJudgementsInterface{
     
     private judgements: UniquelyIdentifiableCollection<QuestionAnswersJudgementData>;
 
     private fighterDataEquator = new FighterDataEquator();
-    private answerJudgementDataEquator = new AnswerJudgementDataEquator(this.fighterDataEquator);
+    private answerJudgementDataEquator = new ParticipantAnswerDataEquator(this.fighterDataEquator);
     private questionAnswersJudgementEquator = new QuestionAnswersJudgementEquator(this.answerJudgementDataEquator);
 
     constructor(judgements: QuestionAnswersJudgementData[]){
@@ -24,11 +27,36 @@ export default class MockQuestionAnswerJudgementsInterface extends QuestionAnswe
     }
     
     public async requestQuestionDeletion(question: Question) {
-        this.judgements.removeElementWithId(question.id);
+        this.judgements = this.judgements.removeElementWithId(question.id);
+        this.refresh();
     }
 
     public async submitNewQuestion(question: string) {
-        throw new Error("Method not implemented.");
+        
+        if(question.localeCompare("FAIL") === 0)
+            throw Error();
+
+        const nextId = this.judgements.nextAvaliableId;
+        const newQuestion = {
+            id: nextId,
+            text: question,
+            answerJudgements: [
+                {
+                    participant: testFighterDatabase.retrieveElementWithId(10),
+                    answer: "",
+                    state: AnswerSubmissionState.NO_ANSWER
+                },
+                {
+                    participant: testFighterDatabase.retrieveElementWithId(13),
+                    answer: "",
+                    state: AnswerSubmissionState.NO_ANSWER
+                }
+            ]
+        }
+
+        this.judgements = this.judgements.add(newQuestion);
+        this.refresh();
+
     }
 
     public async submitAnswerJudgementStateUpdate(question: QuestionAnswersJudgementData, answerIndex: number, 
@@ -51,6 +79,8 @@ export default class MockQuestionAnswerJudgementsInterface extends QuestionAnswe
 
         this.judgements = this.judgements.removeElementWithId(oldQuestion.id)
                               .add(newQuestion);
+
+        this.refresh();
 
     }
     

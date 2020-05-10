@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SearchModal, { SearchModalProps } from '../../utility/SearchModal';
+import SearchModal, { SearchModalProps, SearchModalState } from '../../utility/SearchModal';
 
 import InvitationSearchResultsFighterList from './InvitationSearchResultsFighterList';
 
@@ -15,10 +15,10 @@ import SearchInterface from '../../../backend_interface/lib/SearchInterface';
 
 interface FighterInvitationSearchModalProps extends SearchModalProps<GameFightsDataInterfaceManager>{
     preInvitedFighters: FighterData[],
-    onConfirmInvites: (invites: FighterData[]) => void;
+    onConfirmInvites: (invites: FighterData[]) => Promise<void>;
 };
 
-interface FighterInvitationSearchModalState extends DataInterfacingComponentState<FighterData[]>{
+interface FighterInvitationSearchModalState extends SearchModalState<FighterData>{
     invitedFighters: FighterData[]
 }
 
@@ -32,9 +32,10 @@ export default class FighterInvitationSearchModal extends SearchModal<GameFights
         return this.props.dataInterfaceManager.fighterDataInvitationInterface;
     }
 
-    protected determineInitialComponentState(initialData: FighterData[]): FighterInvitationSearchModalState {
+    protected determineInitialSearchModalState(initialData: FighterData[], showingConfirmationError: boolean){
         return{
             data: initialData,
+            showingConfirmationError: showingConfirmationError,
             invitedFighters: this.props.preInvitedFighters
         }
     }
@@ -82,14 +83,15 @@ export default class FighterInvitationSearchModal extends SearchModal<GameFights
         );
     }
 
+    protected renderConfirmationError(){
+        return <p>An error occured while inviting the fighters.</p>
+    }
+
     protected getConfirmButtonText(): string {
         return "Confirm Invites";
     }
 
-    protected getOnConfirmClickAction(): (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void {
-        return (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-            this.props.onConfirmInvites(this.state.invitedFighters);
-        }
+    protected async confirm(){
+        await this.props.onConfirmInvites(this.state.invitedFighters);
     }
-
 }

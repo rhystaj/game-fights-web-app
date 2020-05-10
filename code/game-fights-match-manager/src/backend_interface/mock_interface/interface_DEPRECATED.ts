@@ -12,7 +12,7 @@ import { Question, AnswerSubmissionData, MatchData, FighterData, QuestionAnswers
 import UniquelyIdentifiableCollection from '../../utility/UniquelyIdentifiableCollection';
 import { AnswerSubmissionDataEquator, QuestionEquator, FighterDataEquator, QuestionAnswersJudgementEquator } from '../../types/equators/UniquelyIndentifiableEquators';
 import answerJudgements from './test_data/answerJudgements';
-import { AnswerJudgementDataEquator } from '../../types/equators/DataEquators';
+import { ParticipantAnswerDataEquator } from '../../types/equators/DataEquators';
 import testFighterDatabase from './test_data/testFighterDatabase';
 
 export default class MockGameFightsDataInterface extends GameFightsDataInterface{
@@ -20,7 +20,7 @@ export default class MockGameFightsDataInterface extends GameFightsDataInterface
     private answerSubmissionDataEquator = new AnswerSubmissionDataEquator();
     private questionEquator = new QuestionEquator();
     private fighterDataEquator = new FighterDataEquator();
-    private answerJudgementDataEquator = new AnswerJudgementDataEquator(this.fighterDataEquator);
+    private answerJudgementDataEquator = new ParticipantAnswerDataEquator(this.fighterDataEquator);
     private questionAnswersJudgementDataEquator = new QuestionAnswersJudgementEquator(this.answerJudgementDataEquator);
 
     private answerSubmissions = new UniquelyIdentifiableCollection(submissions, this.answerSubmissionDataEquator);

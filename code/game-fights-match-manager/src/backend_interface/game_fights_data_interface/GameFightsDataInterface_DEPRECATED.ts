@@ -1,4 +1,4 @@
-import { AnswerSubmissionData, MatchData, FighterData, Question, QuestionAnswersJudgementData, AnswerJudgementData } from '../../types/datatypes'
+import { AnswerSubmissionData, MatchData, FighterData, Question, QuestionAnswersJudgementData, ParticipantAnswerData } from '../../types/datatypes'
 import { UserMatchStatus, MatchStage, AnswerSubmissionState } from '../../enums/statusEnums';
 import { QueryCallback } from '../../types/functionTypes';
 

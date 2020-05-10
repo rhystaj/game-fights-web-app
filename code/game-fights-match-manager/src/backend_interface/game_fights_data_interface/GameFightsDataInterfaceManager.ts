@@ -8,6 +8,7 @@ import AnswerSubmissionDataInterface from "./data_interfaces/AnswerSubmissionDat
 
 import { UserMatchStatus, MatchStage } from "../../enums/statusEnums";
 import { Question, FighterData } from "../../types/datatypes";
+import MatchResultsDataInterface from "./data_interfaces/MatchResultsDataInterface";
 
 export abstract class GameFightsDataInterfaceManager{
 
@@ -23,6 +24,8 @@ export abstract class GameFightsDataInterfaceManager{
 
     public abstract get answerSubmissionsInterface(): AnswerSubmissionDataInterface;
 
-    public abstract get fighterDataInvitationInterface(): SearchInterface<FighterData>
+    public abstract get fighterDataInvitationInterface(): SearchInterface<FighterData>;
+
+    public abstract get matchResultsInterface(): MatchResultsDataInterface;
 
 }

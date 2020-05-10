@@ -1,8 +1,8 @@
-import { UniquelyIdentifiable, Question, QuestionAnswersJudgementData, FighterData, AnswerSubmissionData } from "../datatypes";
+import { UniquelyIdentifiable, Question, QuestionAnswersJudgementData, FighterData, AnswerSubmissionData, MatchResultData } from "../datatypes";
 import IEquator from "./IEquator";
 import { isUnassigned } from "../../utility/functions/qolFunctions";
 import UniquelyIdentifiableCollection from "../../utility/UniquelyIdentifiableCollection";
-import { AnswerJudgementDataEquator } from "./DataEquators";
+import { ParticipantAnswerDataEquator } from "./DataEquators";
 
 /**
  * [DES/PRE] Determines whether two UniquelyIdetifiable objects are equal.
@@ -35,11 +35,11 @@ export class QuestionEquator extends AbstractQuestionEquator<Question> { }
 
 export class QuestionAnswersJudgementEquator extends AbstractQuestionEquator<QuestionAnswersJudgementData>{
 
-    private readonly answerJudgementDataEquator: AnswerJudgementDataEquator;
+    private readonly participantAnswerDataEquator: ParticipantAnswerDataEquator;
 
-    constructor(answerJudgementDataEquator: AnswerJudgementDataEquator){
+    constructor(participantAnswerDataEquator: ParticipantAnswerDataEquator = new ParticipantAnswerDataEquator()){
         super();
-        this.answerJudgementDataEquator = answerJudgementDataEquator;
+        this.participantAnswerDataEquator = participantAnswerDataEquator;
     }
 
     public areEqual(a: QuestionAnswersJudgementData , b: QuestionAnswersJudgementData){
@@ -47,7 +47,7 @@ export class QuestionAnswersJudgementEquator extends AbstractQuestionEquator<Que
 
         if(a.answerJudgements.length != b.answerJudgements.length) return false;
         for(let i = 0; i < a.answerJudgements.length; i++){
-            if(!this.answerJudgementDataEquator.areEqual(a.answerJudgements[i], b.answerJudgements[i])){
+            if(!this.participantAnswerDataEquator.areEqual(a.answerJudgements[i], b.answerJudgements[i])){
                 return false;
             }
         }
@@ -66,6 +66,33 @@ export class AnswerSubmissionDataEquator extends UniquelyIdentifiableEquator<Ans
         if(a.answer.localeCompare(b.answer) !== 0) return false;
         if(a.state !== b.state) return false;
         if(a.validatedByUser !== b.validatedByUser) return false;
+
+        return true;
+    }
+
+}
+
+export class MatchResultsDataEquator extends UniquelyIdentifiableEquator<MatchResultData>{
+
+    private participantAnswerDataEquator: ParticipantAnswerDataEquator;
+
+    constructor(participantAnswerDataEquator: ParticipantAnswerDataEquator = new ParticipantAnswerDataEquator()){
+        super();
+        this.participantAnswerDataEquator = participantAnswerDataEquator;
+    }
+
+    public areEqual(a: MatchResultData, b: MatchResultData){
+        if(!super.areEqual(a, b)) return false;
+
+        if(a.question.localeCompare(b.question) !== 0) return false;
+        if(a.chosenAnswerIndex !== b.chosenAnswerIndex) return false;
+
+        if(a.answers.length !== b.answers.length) return false;
+        for(let i: number = 0; i < a.answers.length; i++){
+            if(!this.participantAnswerDataEquator.areEqual(a.answers[i], b.answers[i])){
+                return false;
+            }
+        }
 
         return true;
     }

@@ -18,6 +18,9 @@ import MockAnswerSubmissionDataInterface from "./mock_data_interfaces/MockAnswer
 import submissions from "./test_data/submissions";
 import MockQuestionAnswerJudgementsInterface from "./mock_data_interfaces/MockQuestionAnswerJudgementInterface";
 import answerJudgements from "./test_data/answerJudgements";
+import MatchResultsDataInterface from "../game_fights_data_interface/data_interfaces/MatchResultsDataInterface";
+import MockMatchResultsDataInterface from "./mock_data_interfaces/MockMatchResultsDataInterface";
+import matchResults from "./test_data/matchResultData";
 
 export default class MockGameFightsDataInterfaceManager extends GameFightsDataInterfaceManager{
     
@@ -29,6 +32,7 @@ export default class MockGameFightsDataInterfaceManager extends GameFightsDataIn
     private readonly _answerSubmissionInterface: MockAnswerSubmissionDataInterface;
     private readonly _questionAnswerJudgementsInterface: MockQuestionAnswerJudgementsInterface;
     private readonly _fighterDataInvitationInterface: MockFighterDataSearchInterface;
+    private readonly _matchResultsDataInterface: MockMatchResultsDataInterface;
 
     constructor(startingUserMatchStatus: UserMatchStatus, startingMatchStage: MatchStage){
         super();
@@ -41,6 +45,7 @@ export default class MockGameFightsDataInterfaceManager extends GameFightsDataIn
         this._answerSubmissionInterface = new MockAnswerSubmissionDataInterface(submissions);
         this._questionAnswerJudgementsInterface = new MockQuestionAnswerJudgementsInterface(answerJudgements);
         this._fighterDataInvitationInterface = new MockFighterDataSearchInterface(testFighterDatabase.asArray());
+        this._matchResultsDataInterface = new MockMatchResultsDataInterface(matchResults);
     }
 
     public get userMatchStatusInterface(): DataInterface<UserMatchStatus> {
@@ -69,6 +74,10 @@ export default class MockGameFightsDataInterfaceManager extends GameFightsDataIn
     
     public get fighterDataInvitationInterface(): SearchInterface<FighterData> {
         return this._fighterDataInvitationInterface;
+    }
+
+    public get matchResultsInterface(): MatchResultsDataInterface {
+        return this._matchResultsDataInterface;
     }
 
 }

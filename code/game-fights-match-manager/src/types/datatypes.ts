@@ -33,12 +33,18 @@ export interface AnswerSubmissionData extends UniquelyIdentifiable {
     validatedByUser: boolean
 }
 
-export interface AnswerJudgementData{
+export interface ParticipantAnswerData {
     participant: FighterData,
-    answer: string,
+    answer: string,  
     state: AnswerSubmissionState
 }
 
 export interface QuestionAnswersJudgementData extends Question{
-    answerJudgements: AnswerJudgementData[]
+    answerJudgements: ParticipantAnswerData[]
+}
+
+export interface MatchResultData extends UniquelyIdentifiable{
+    question: string,
+    answers: ParticipantAnswerData[],
+    chosenAnswerIndex: number | undefined
 }

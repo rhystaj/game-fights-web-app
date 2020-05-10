@@ -8,6 +8,7 @@ import { MatchStage } from '../../enums/statusEnums';
 import { LoadingComponentState } from '../utility/LoadingComponent';
 import AnswerJudgementManager from './answer_judgement/AnswerJudgementManager';
 import DataInterface from '../../backend_interface/lib/DataInterface';
+import MatchResultsManager from './match_results/MatchResultsManager';
 
 export default class JudgeMatchManager extends MatchManager{
 
@@ -30,6 +31,8 @@ export default class JudgeMatchManager extends MatchManager{
                 return (<QuestionsEditor dataInterfaceManager={this.props.dataInterfaceManager}/>)
             case MatchStage.ANSWERS_OPENED:
                 return (<AnswerJudgementManager dataInterfaceManager={this.props.dataInterfaceManager}/>)
+            case MatchStage.RECORDING_RESULTS:
+                return (<MatchResultsManager dataInterfaceManager={this.props.dataInterfaceManager} />)
             default:
                 return super.renderManagementComponent(dataInterface, stage);
 

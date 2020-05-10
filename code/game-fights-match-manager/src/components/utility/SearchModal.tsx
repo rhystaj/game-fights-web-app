@@ -8,11 +8,21 @@ export interface SearchModalProps<M> extends DataInterfacingComponentProps<M>{
     onCancel: () => void;
 }
 
+export interface SearchModalState<D> extends DataInterfacingComponentState<D[]>{
+    showingConfirmationError: boolean
+}
+
 export default abstract class SearchModal<M, D, I extends SearchInterface<D>, 
         P extends SearchModalProps<M>,
-        S extends DataInterfacingComponentState<D[]>> 
+        S extends SearchModalState<D>>
         extends DataInterfacingComponent<M, D[], I, P, S>{
 
+
+    protected determineInitialComponentState(initialData: D[]){
+        return this.determineInitialSearchModalState(initialData, false);
+    }
+
+    protected abstract determineInitialSearchModalState(initialData: D[], showingConfirmationError: boolean): S;
 
     private onCancelButtonClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         this.props.onCancel();
@@ -45,10 +55,28 @@ export default abstract class SearchModal<M, D, I extends SearchInterface<D>,
         return(
             <div>
                 <button onClick={this.onCancelButtonClick}>Cancel</button>
-                <button onClick={this.getOnConfirmClickAction()}>{this.getConfirmButtonText()}</button>
+                <button onClick={this.onConfirmActionClick}>{this.getConfirmButtonText()}</button>
             </div>
         )
         
+    }
+
+    /**
+     * [PRE] Render the message to be shown when an error occurs while confirming the modal data.
+     */
+    protected abstract renderConfirmationError(): JSX.Element;
+
+    /**
+     * [PRE] The action to be peformed when the confirm button is clicked.
+     */
+    private onConfirmActionClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        this.confirm()
+            .then(() => {
+                this.setState({ showingConfirmationError: false });
+            })
+            .catch(() => {
+                this.setState({ showingConfirmationError: true })
+            });
     }
 
     /**
@@ -57,9 +85,9 @@ export default abstract class SearchModal<M, D, I extends SearchInterface<D>,
     protected abstract getConfirmButtonText(): string;
 
     /**
-     * Get the action to be perfomred when the confirm button is clicked.
+     * [PRE] The action to perform when the changes made to the search modal have been confirmed.
      */
-    protected abstract getOnConfirmClickAction(): (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+    protected abstract confirm(): Promise<void>;
 
     /**
      * Called each time the string in the search box is changed.
@@ -74,6 +102,7 @@ export default abstract class SearchModal<M, D, I extends SearchInterface<D>,
                 {this.renderSearchArea()}
                 {this.renderSearchResults()}
                 {this.renderResultOptions()}
+                {this.state.showingConfirmationError ? this.renderConfirmationError() : <div />}
             </div>
         )
     }

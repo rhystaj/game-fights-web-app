@@ -1,0 +1,15 @@
+.unselectableAnswer{
+    background-color: gainsboro;
+}
+
+.unselectableAnswer p{
+    color: darkgray;
+}
+
+.unselectedAnswer{
+    background-color: azure;
+}
+
+.selectedAnswer {
+    background-color: aqua;
+}

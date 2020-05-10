@@ -51,15 +51,9 @@ export default class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoSta
         });
     }
 
-    onConfirmInvites = (invites: FighterData[]) => {
-
-        this.getDataInterface().submitMatchParticipants(invites)
-                               .then(() => {
-                                    this.setState({
-                                        showingInvitationModal: false
-                                    });
-                               });
-
+    onConfirmInvites = async (invites: FighterData[]) => {
+        await this.getDataInterface().submitMatchParticipants(invites);
+        this.setState({ showingInvitationModal: false });
     }
 
     renderTitle(title: string){
