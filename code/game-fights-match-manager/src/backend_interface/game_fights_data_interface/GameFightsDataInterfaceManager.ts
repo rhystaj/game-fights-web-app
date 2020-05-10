@@ -9,10 +9,14 @@ import AnswerSubmissionDataInterface from "./data_interfaces/AnswerSubmissionDat
 import { UserMatchStatus, MatchStage } from "../../enums/statusEnums";
 import { Question, FighterData } from "../../types/datatypes";
 import MatchResultsDataInterface from "./data_interfaces/MatchResultsDataInterface";
+import MatchInvitationinterface from "./data_interfaces/MatchInvitationInterface";
+import UserMatchStatusInterface from "./data_interfaces/UserMatchStatusInterface";
 
 export abstract class GameFightsDataInterfaceManager{
 
-    public abstract get userMatchStatusInterface(): DataInterface<UserMatchStatus>;
+    public abstract get userMatchStatusInterface(): UserMatchStatusInterface;
+
+    public abstract get matchInvitationInterface(): MatchInvitationinterface;
 
     public abstract get matchStageInterface(): DataInterface<MatchStage>;
 

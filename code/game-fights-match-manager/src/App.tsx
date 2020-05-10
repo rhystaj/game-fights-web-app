@@ -10,7 +10,7 @@ function App() {
   
   //The interface the child components will use to retrieved their required data.
   //RIGHT NOW A MOCK VERSION IS BEING USED AND THIS WILL NEED TO CHANGE WHEN THE PROPER RESTFUL VERSION IS COMPLETED.
-  const dataInterfaceManager = new MockGameFightsDataInterfaceManager(UserMatchStatus.JUDGING, MatchStage.RECORDING_RESULTS);
+  const dataInterfaceManager = new MockGameFightsDataInterfaceManager(UserMatchStatus.INVITED, MatchStage.DETERMINING_QUESTIONS);
 
   return (
       <div>

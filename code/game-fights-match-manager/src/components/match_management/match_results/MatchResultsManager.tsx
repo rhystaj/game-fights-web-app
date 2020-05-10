@@ -4,9 +4,10 @@ import LoadingComponent, { LoadingComponentState } from "../../utility/LoadingCo
 import { MatchResultData, ParticipantAnswerData } from "../../../types/datatypes";
 import MatchResultsDataInterface from "../../../backend_interface/game_fights_data_interface/data_interfaces/MatchResultsDataInterface";
 
-import '../../../style/MatchResultsScreen.css';
 import { GameFightsDataInterfaceManager } from '../../../backend_interface/game_fights_data_interface/GameFightsDataInterfaceManager';
 import { AnswerSubmissionState } from '../../../enums/statusEnums';
+
+import '../../../style/MatchResultsScreen.css';
 
 export default class MatchResultsManager extends LoadingComponent<GameFightsDataInterfaceManager, MatchResultData[], 
     MatchResultsDataInterface>{

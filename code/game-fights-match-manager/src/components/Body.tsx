@@ -37,10 +37,7 @@ export default class Body extends SimpleStateLoadingComponent<GameFightsDataInte
 
       case UserMatchStatus.INVITED:
         return (
-          <MatchInvitation
-            invitationSender='Rhys'
-            matchName='The coolest match ever!'
-          />
+          <MatchInvitation dataInterfaceManager={this.props.dataInterfaceManager}/>
         )
 
       case UserMatchStatus.PARTCIPATING:
