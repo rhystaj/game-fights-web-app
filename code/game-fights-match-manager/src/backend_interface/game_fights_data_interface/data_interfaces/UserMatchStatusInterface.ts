@@ -3,6 +3,10 @@ import { UserMatchStatus } from "../../../enums/statusEnums";
 
 export default abstract class UserMatchStatusInterface extends DataInterface<UserMatchStatus>{
 
-    public abstract setUserMatchStatus(newStatus: UserMatchStatus): Promise<void>
+    public abstract clear(): Promise<void>;
+
+    public abstract setAsParticipating(): Promise<void>;
+
+    public abstract setAsJudging(): Promise<void>;
 
 }

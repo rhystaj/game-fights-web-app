@@ -11,6 +11,7 @@ import '../style/Body.css'
 import SimpleStateLoadingComponent from './utility/SimpleStateLoadingComponent';
 import DataInterface from '../backend_interface/lib/DataInterface';
 import { GameFightsDataInterfaceManager } from '../backend_interface/game_fights_data_interface/GameFightsDataInterfaceManager';
+import UserMatchStatusInterface from '../backend_interface/game_fights_data_interface/data_interfaces/UserMatchStatusInterface'
 
 const INVALID_STATUS_MESSAGE = 'Error: Body was given an invalid state.'
 
@@ -19,9 +20,10 @@ const INVALID_STATUS_MESSAGE = 'Error: Body was given an invalid state.'
  * a match, and if they are judging it.
  * @param {*} props
  */
-export default class Body extends SimpleStateLoadingComponent<GameFightsDataInterfaceManager, UserMatchStatus> {
+export default class Body extends SimpleStateLoadingComponent<GameFightsDataInterfaceManager, UserMatchStatus,
+    UserMatchStatusInterface> {
   
-  public getDataInterface(): DataInterface<UserMatchStatus> {
+  public getDataInterface(): UserMatchStatusInterface{
     return this.props.dataInterfaceManager.userMatchStatusInterface;
   }
   
@@ -29,11 +31,15 @@ export default class Body extends SimpleStateLoadingComponent<GameFightsDataInte
     return UserMatchStatus.NONE;
   }
 
+  private onRunNewMatch = async () => {
+    this.getDataInterface().setAsJudging();
+  }
+
   renderLoaded(dataInterface: DataInterface<UserMatchStatus>, matchStatus: UserMatchStatus){    
     
     switch (matchStatus) {
       case UserMatchStatus.NONE:
-        return <RunNewMatch />
+        return <RunNewMatch onRunNewMatch={this.onRunNewMatch}/>
 
       case UserMatchStatus.INVITED:
         return (

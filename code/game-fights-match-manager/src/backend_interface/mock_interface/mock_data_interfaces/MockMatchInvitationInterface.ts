@@ -18,11 +18,11 @@ export default class MockMatchInvitiationInterface extends MatchInvitationInterf
     }
 
     public async acceptInvite() {
-        await this.matchStatusInterface.setUserMatchStatus(UserMatchStatus.PARTCIPATING);
+        await this.matchStatusInterface.setAsParticipating();
     }
     
     public async declineInvite() {
-        await this.matchStatusInterface.setUserMatchStatus(UserMatchStatus.NONE);
+        await this.matchStatusInterface.clear();
     }
     
     protected async loadData() {
