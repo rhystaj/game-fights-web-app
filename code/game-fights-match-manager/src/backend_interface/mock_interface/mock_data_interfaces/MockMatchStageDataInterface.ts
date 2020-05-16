@@ -14,7 +14,7 @@ export default class MockMatchStageDataInterface extends DataInterface<MatchStag
         return this.matchStage;
     }
 
-    public setMatchStage(newMatchStage: MatchStage): void{
+    public async setMatchStage(newMatchStage: MatchStage) {
         this.matchStage = newMatchStage;
         this.refresh();
     }

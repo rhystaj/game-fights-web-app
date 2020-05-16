@@ -27,6 +27,10 @@ export default class MatchResultsManager extends LoadingComponent<GameFightsData
         return [];
     }    
 
+    private onArchiveClick = () => {
+        this.getDataInterface().archiveMatch();
+    }
+
     private renderMatchResults(results: MatchResultData[]){
         const resultsArray = new Array<JSX.Element>(results.length);
         for(let i: number = 0; i < results.length; i++){
@@ -91,7 +95,7 @@ export default class MatchResultsManager extends LoadingComponent<GameFightsData
         return(
             <div>
                 {this.renderMatchResults(data)}
-                <button>Archive Match</button>
+                <button onClick={this.onArchiveClick}>Archive Match</button>
             </div>
         )
 
