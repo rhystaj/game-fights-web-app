@@ -11,6 +11,7 @@ import { Question, FighterData } from "../../types/datatypes";
 import MatchResultsDataInterface from "./data_interfaces/MatchResultsDataInterface";
 import MatchInvitationinterface from "./data_interfaces/MatchInvitationInterface";
 import UserMatchStatusInterface from "./data_interfaces/UserMatchStatusInterface";
+import QuestionListInterface from "./data_interfaces/question_interfaces/QuestionListInterface";
 
 export abstract class GameFightsDataInterfaceManager{
 
@@ -22,7 +23,7 @@ export abstract class GameFightsDataInterfaceManager{
 
     public abstract get matchDataInterface(): MatchDataInterface;
 
-    public abstract get questionsListInterface(): QuestionsInterface<Question>;
+    public abstract get questionsListInterface(): QuestionListInterface;
 
     public abstract get questionAnswerJudgementsListInterface(): QuestionAnswerJudgementsInterface;
 

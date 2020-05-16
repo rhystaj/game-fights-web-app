@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AbstractQuestionsEditor } from '../question_management/QuestionsEditor'
+import AbstractQuestionsEditor from '../question_management/AbstractQuestionsEditor'
 import { QuestionAnswersJudgementData } from "../../../types/datatypes";
 
 import { AnswerSubmissionState } from '../../../enums/statusEnums';
@@ -55,6 +55,10 @@ export default class AnswerJudgementManager extends AbstractQuestionsEditor<Ques
         this.getDataInterface().submitAnswerJudgementStateUpdate(question, answerIndex, answerStatus);
     }
 
+    private onFinaliseClick = () => {
+        this.getDataInterface().finaliseAnswerSubmissions();
+    }
+
     protected renderJudgementControls(question: QuestionAnswersJudgementData, answerIndex: number){
 
         switch(question.answerJudgements[answerIndex].state){
@@ -91,7 +95,7 @@ export default class AnswerJudgementManager extends AbstractQuestionsEditor<Ques
                 <h1>Questions</h1>
                 {super.renderLoaded(dataInterface, data)}
                 <button>Cancel Match</button>
-                <button>Finalise</button>
+                <button onClick={this.onFinaliseClick}>Finalise</button>
             </div>
         )
     }

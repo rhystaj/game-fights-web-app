@@ -3,14 +3,19 @@ import { Question } from "../../../types/datatypes";
 import UniquelyIdentifiableCollection from "../../../utility/UniquelyIdentifiableCollection";
 import { QuestionEquator } from "../../../types/equators/UniquelyIndentifiableEquators";
 import questions from "../test_data/questions";
+import QuestionListInterface from "../../game_fights_data_interface/data_interfaces/question_interfaces/QuestionListInterface";
+import MockMatchStageDataInterface from "./MockMatchStageDataInterface";
+import { MatchStage } from "../../../enums/statusEnums";
 
-export default class MockQuestionsListInterface extends QuestionsInterface<Question>{
+export default class MockQuestionsListInterface extends QuestionListInterface{
     
     private questions: UniquelyIdentifiableCollection<Question>;
+    private matchStageInterface: MockMatchStageDataInterface;
 
-    constructor(questions: Question[]){
+    constructor(questions: Question[], matchStageInterface: MockMatchStageDataInterface){
         super();
         this.questions = new UniquelyIdentifiableCollection<Question>(questions, new QuestionEquator());
+        this.matchStageInterface = matchStageInterface;
     }
 
     protected async loadData(){
@@ -39,6 +44,10 @@ export default class MockQuestionsListInterface extends QuestionsInterface<Quest
     public async requestQuestionDeletion(question: Question){
         this.questions = this.questions.removeElementWithId(question.id);
         this.refresh();
+    }
+
+    public async openAnswerSubmissions() {
+        this.matchStageInterface.setMatchStage(MatchStage.ANSWERS_OPENED);
     }
 
 }

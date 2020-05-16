@@ -4,22 +4,27 @@ import UniquelyIdentifiableCollection from "../../../utility/UniquelyIdentifiabl
 
 import { ParticipantAnswerDataEquator } from "../../../types/equators/DataEquators";
 import { QuestionAnswersJudgementEquator, FighterDataEquator } from "../../../types/equators/UniquelyIndentifiableEquators";
-import { AnswerSubmissionState } from "../../../enums/statusEnums";
+import { AnswerSubmissionState, MatchStage } from "../../../enums/statusEnums";
 import { QuestionAnswersJudgementData, Question } from "../../../types/datatypes";
 
 import testFighterDatabase from "../test_data/testFighterDatabase";
+import UserMatchStatusInterface from "../../game_fights_data_interface/data_interfaces/UserMatchStatusInterface";
+import MockUserMatchStatusInterface from "./MockUserMatchStatusInterface";
+import MockMatchStageDataInterface from "./MockMatchStageDataInterface";
 
 export default class MockQuestionAnswerJudgementsInterface extends QuestionAnswerJudgementsInterface{
     
     private judgements: UniquelyIdentifiableCollection<QuestionAnswersJudgementData>;
+    private matchStageInterface: MockMatchStageDataInterface;
 
     private fighterDataEquator = new FighterDataEquator();
     private answerJudgementDataEquator = new ParticipantAnswerDataEquator(this.fighterDataEquator);
     private questionAnswersJudgementEquator = new QuestionAnswersJudgementEquator(this.answerJudgementDataEquator);
 
-    constructor(judgements: QuestionAnswersJudgementData[]){
+    constructor(judgements: QuestionAnswersJudgementData[], matchStageInterface: MockMatchStageDataInterface){
         super();
         this.judgements = new UniquelyIdentifiableCollection(judgements, this.questionAnswersJudgementEquator);
+        this.matchStageInterface = matchStageInterface;
     }
 
     protected async loadData() {
@@ -84,6 +89,8 @@ export default class MockQuestionAnswerJudgementsInterface extends QuestionAnswe
 
     }
     
-    
+    public async finaliseAnswerSubmissions() {
+        await this.matchStageInterface.setMatchStage(MatchStage.RECORDING_RESULTS);
+    }
  
 }

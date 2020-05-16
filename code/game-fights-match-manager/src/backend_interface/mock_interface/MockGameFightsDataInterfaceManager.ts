@@ -23,14 +23,14 @@ import MockMatchResultsDataInterface from "./mock_data_interfaces/MockMatchResul
 import matchResults from "./test_data/matchResultData";
 import UserMatchStatusInterface from "../game_fights_data_interface/data_interfaces/UserMatchStatusInterface";
 import MockUserMatchStatusInterface from "./mock_data_interfaces/MockUserMatchStatusInterface";
-import MatchInvitationInterface from "../game_fights_data_interface/data_interfaces/MatchInvitationInterface";
 import MockMatchInvitiationInterface from "./mock_data_interfaces/MockMatchInvitationInterface";
+import MockMatchStageDataInterface from "./mock_data_interfaces/MockMatchStageDataInterface";
 
 export default class MockGameFightsDataInterfaceManager extends GameFightsDataInterfaceManager{
     
     private readonly _userMatchStatusInterface: MockUserMatchStatusInterface;
     private readonly _matchInvitationInterface: MockMatchInvitiationInterface;
-    private readonly _matchStageInterface: SimpleMockDataInterface<MatchStage>;
+    private readonly _matchStageInterface: MockMatchStageDataInterface;
     private readonly _matchDataInterface: MockMatchDataInterface;
     private readonly _questionsListInterface: MockQuestionsListInterface;
     private readonly _answerSubmissionInterface: MockAnswerSubmissionDataInterface;
@@ -43,11 +43,11 @@ export default class MockGameFightsDataInterfaceManager extends GameFightsDataIn
         
         this._userMatchStatusInterface = new MockUserMatchStatusInterface(startingUserMatchStatus);
         this._matchInvitationInterface = new MockMatchInvitiationInterface(soloMatchData, this._userMatchStatusInterface);
-        this._matchStageInterface = new SimpleMockDataInterface<MatchStage>(startingMatchStage);
+        this._matchStageInterface = new MockMatchStageDataInterface(startingMatchStage);
         this._matchDataInterface = new MockMatchDataInterface(soloMatchData);
-        this._questionsListInterface = new MockQuestionsListInterface(questions);
+        this._questionsListInterface = new MockQuestionsListInterface(questions, this._matchStageInterface);
         this._answerSubmissionInterface = new MockAnswerSubmissionDataInterface(submissions);
-        this._questionAnswerJudgementsInterface = new MockQuestionAnswerJudgementsInterface(answerJudgements);
+        this._questionAnswerJudgementsInterface = new MockQuestionAnswerJudgementsInterface(answerJudgements, this._matchStageInterface);
         this._fighterDataInvitationInterface = new MockFighterDataSearchInterface(testFighterDatabase.asArray());
         this._matchResultsDataInterface = new MockMatchResultsDataInterface(matchResults);
     }
@@ -68,7 +68,7 @@ export default class MockGameFightsDataInterfaceManager extends GameFightsDataIn
         return this._matchDataInterface;
     }
     
-    public get questionsListInterface(): QuestionsInterface<Question> {
+    public get questionsListInterface(): MockQuestionsListInterface {
         return this._questionsListInterface;
     }
     

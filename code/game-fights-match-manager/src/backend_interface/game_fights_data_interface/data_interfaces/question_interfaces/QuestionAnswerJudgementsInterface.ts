@@ -8,4 +8,10 @@ export default abstract class QuestionAnswerJudgementsInterface extends Question
     public abstract submitAnswerJudgementStateUpdate(question: QuestionAnswersJudgementData, answerIndex: number, 
         answerStatus: AnswerSubmissionState): Promise<void>;
 
+    /**
+     * [DES/PRE] Cut off any further submissions of answers and make any accepted answers the final answers for
+     * the questions.
+     */
+    public abstract finaliseAnswerSubmissions(): Promise<void>;
+
 }

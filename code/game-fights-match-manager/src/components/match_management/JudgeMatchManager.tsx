@@ -1,6 +1,6 @@
 import React from 'react'
 import MatchManager from './MatchManager';
-import QuestionsEditor from './question_management/QuestionsEditor';
+import QuestionListEditor from './question_management/QuestionListEditor'
 import JudgeMatchInfo from './match_info/JudgeMatchInfo';
 
 import { MatchStage } from '../../enums/statusEnums';
@@ -28,7 +28,7 @@ export default class JudgeMatchManager extends MatchManager{
         switch(stage){
 
             case MatchStage.DETERMINING_QUESTIONS:
-                return (<QuestionsEditor dataInterfaceManager={this.props.dataInterfaceManager}/>)
+                return (<QuestionListEditor dataInterfaceManager={this.props.dataInterfaceManager}/>)
             case MatchStage.ANSWERS_OPENED:
                 return (<AnswerJudgementManager dataInterfaceManager={this.props.dataInterfaceManager}/>)
             case MatchStage.RECORDING_RESULTS:

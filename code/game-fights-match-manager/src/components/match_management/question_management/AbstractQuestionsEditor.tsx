@@ -15,7 +15,7 @@ export interface QuestionsEditorState<Q> extends LoadingComponentState<Q[]>{
 /**
  * A component that allows you to add/remove items from the list of questions.
  */
-export abstract class AbstractQuestionsEditor<Q extends Question, I extends QuestionsInterface<Q>> extends QuestionsComponent<Q, I, QuestionsEditorState<Q>>{
+export default abstract class AbstractQuestionsEditor<Q extends Question, I extends QuestionsInterface<Q>> extends QuestionsComponent<Q, I, QuestionsEditorState<Q>>{
     
     protected determineNewStateFromData(data: Q[]): QuestionsEditorState<Q> {
         return{
@@ -104,14 +104,6 @@ export abstract class AbstractQuestionsEditor<Q extends Question, I extends Ques
                 </button>
             </div>
         )
-    }
-
-}
-
-export default class QuestionsEditor extends AbstractQuestionsEditor<Question, QuestionsInterface<Question>> {
-    
-    protected getDataInterface(): QuestionsInterface<Question> {
-        return this.props.dataInterfaceManager.questionsListInterface;
     }
 
 }
