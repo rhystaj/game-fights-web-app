@@ -8,7 +8,7 @@ import { MatchData, FighterData } from '../../../types/datatypes';
 
 import EnterableHeading from '../../utility/Enterable_Text/EnterableHeading';
 import EnterableDateText from '../../utility/Enterable_Text/EnterableDateText';
-import MatchDataInterface from '../../../backend_interface/game_fights_data_interface/data_interfaces/MatchDataInterface';
+import IMatchDataInterface from '../../../backend_interface/game_fights_data_interface/data_interfaces/IMatchDataInterface';
 
 interface JudgeMatchInfoState extends LoadingComponentState<MatchData>{
     showingInvitationModal: boolean;
@@ -96,7 +96,7 @@ export default class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoSta
         </div>
     }
 
-    renderLoaded(dataInterface: MatchDataInterface, data: MatchData){
+    renderLoaded(dataInterface: IMatchDataInterface, data: MatchData){
         return (
             <div>
                 {super.renderLoaded(dataInterface, data)}

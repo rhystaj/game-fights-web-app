@@ -2,7 +2,7 @@ import React from 'react';
 
 import LoadingComponent, { LoadingComponentState } from "../../utility/LoadingComponent";
 import { MatchResultData, ParticipantAnswerData } from "../../../types/datatypes";
-import MatchResultsDataInterface from "../../../backend_interface/game_fights_data_interface/data_interfaces/MatchResultsDataInterface";
+import IMatchResultsDataInterface from "../../../backend_interface/game_fights_data_interface/data_interfaces/IMatchResultsDataInterface";
 
 import { GameFightsDataInterfaceManager } from '../../../backend_interface/game_fights_data_interface/GameFightsDataInterfaceManager';
 import { AnswerSubmissionState } from '../../../enums/statusEnums';
@@ -10,9 +10,9 @@ import { AnswerSubmissionState } from '../../../enums/statusEnums';
 import '../../../style/MatchResultsScreen.css';
 
 export default class MatchResultsManager extends LoadingComponent<GameFightsDataInterfaceManager, MatchResultData[], 
-    MatchResultsDataInterface>{
+    IMatchResultsDataInterface>{
 
-    protected getDataInterface(): MatchResultsDataInterface {
+    protected getDataInterface(): IMatchResultsDataInterface {
         return this.props.dataInterfaceManager.matchResultsInterface;
     }
 
@@ -90,7 +90,7 @@ export default class MatchResultsManager extends LoadingComponent<GameFightsData
 
     }
 
-    protected renderLoaded(dataInterface: MatchResultsDataInterface, data: MatchResultData[]): JSX.Element {
+    protected renderLoaded(dataInterface: IMatchResultsDataInterface, data: MatchResultData[]): JSX.Element {
         
         return(
             <div>

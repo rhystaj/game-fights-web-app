@@ -1,7 +1,10 @@
-import UserMatchStatusInterface from "../../game_fights_data_interface/data_interfaces/UserMatchStatusInterface";
+import DataInterface from "../../lib/abstract_implementations/AbstractDataInterface";
+
+import IUserMatchStatusInterface from "../../game_fights_data_interface/data_interfaces/IUserMatchStatusInterface";
+
 import { UserMatchStatus } from "../../../enums/statusEnums";
 
-export default class MockUserMatchStatusInterface extends UserMatchStatusInterface{
+export default class MockUserMatchStatusInterface extends DataInterface<UserMatchStatus> implements IUserMatchStatusInterface{
     
     private matchStatus: UserMatchStatus;
 

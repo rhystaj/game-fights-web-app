@@ -1,12 +1,18 @@
-import MatchResultsDataInterface from "../../game_fights_data_interface/data_interfaces/MatchResultsDataInterface";
-import { MatchResultData } from "../../../types/datatypes";
-import UniquelyIdentifiableCollection from "../../../utility/UniquelyIdentifiableCollection";
-import { MatchResultsDataEquator } from "../../../types/equators/UniquelyIndentifiableEquators";
+import DataInterface from "../../lib/abstract_implementations/AbstractDataInterface";
+
+import IMatchResultsDataInterface from "../../game_fights_data_interface/data_interfaces/IMatchResultsDataInterface";
+
 import MockUserMatchStatusInterface from "./MockUserMatchStatusInterface";
 import MockMatchStageDataInterface from "./MockMatchStageDataInterface";
+
+import UniquelyIdentifiableCollection from "../../../utility/UniquelyIdentifiableCollection";
+
+import { MatchResultsDataEquator } from "../../../types/equators/UniquelyIndentifiableEquators";
+
+import { MatchResultData } from "../../../types/datatypes";
 import { MatchStage } from "../../../enums/statusEnums";
 
-export default class MockMatchResultsDataInterface extends MatchResultsDataInterface{
+export default class MockMatchResultsDataInterface extends DataInterface<MatchResultData[]> implements IMatchResultsDataInterface{
     
     private results: UniquelyIdentifiableCollection<MatchResultData>;
     private userMatchStatusInterface: MockUserMatchStatusInterface;

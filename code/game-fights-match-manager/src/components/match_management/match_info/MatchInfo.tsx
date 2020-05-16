@@ -5,7 +5,7 @@ import './../../../style/MatchInfo.css'
 
 import { MatchData, FighterData } from '../../../types/datatypes';
 import { FighterMatchStatus } from '../../../enums/statusEnums';
-import MatchDataInterface from '../../../backend_interface/game_fights_data_interface/data_interfaces/MatchDataInterface';
+import IMatchDataInterface from '../../../backend_interface/game_fights_data_interface/data_interfaces/IMatchDataInterface';
 import { GameFightsDataInterfaceManager } from '../../../backend_interface/game_fights_data_interface/GameFightsDataInterfaceManager';
 import { DataInterfacingComponentProps } from '../../utility/DataInterfacingComponent';
 
@@ -14,7 +14,7 @@ import { DataInterfacingComponentProps } from '../../utility/DataInterfacingComp
  * @param {*} props
  */
 export default abstract class MatchInfoComponent<S extends LoadingComponentState<MatchData>> extends 
-    LoadingComponent<GameFightsDataInterfaceManager, MatchData, MatchDataInterface, 
+    LoadingComponent<GameFightsDataInterfaceManager, MatchData, IMatchDataInterface, 
     DataInterfacingComponentProps<GameFightsDataInterfaceManager>, S> {
   
   protected getDataInterface(){
@@ -98,7 +98,7 @@ export default abstract class MatchInfoComponent<S extends LoadingComponentState
     );
   }
 
-  protected renderLoaded(dataInterface: MatchDataInterface, data: MatchData){
+  protected renderLoaded(dataInterface: IMatchDataInterface, data: MatchData){
     
     return (
         <div id='matchInfo'>

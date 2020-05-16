@@ -2,7 +2,7 @@ import React, { ChangeEvent } from 'react';
 
 import DataInterfacingComponent, { DataInterfacingComponentProps, DataInterfacingComponentState } from './DataInterfacingComponent';
 
-import SearchInterface from '../../backend_interface/lib/SearchInterface';
+import ISearchInterface from '../../backend_interface/lib/interfaces/ISearchInterface';
 
 export interface SearchModalProps<M> extends DataInterfacingComponentProps<M>{
     onCancel: () => void;
@@ -12,7 +12,7 @@ export interface SearchModalState<D> extends DataInterfacingComponentState<D[]>{
     showingConfirmationError: boolean
 }
 
-export default abstract class SearchModal<M, D, I extends SearchInterface<D>, 
+export default abstract class SearchModal<M, D, I extends ISearchInterface<D>, 
         P extends SearchModalProps<M>,
         S extends SearchModalState<D>>
         extends DataInterfacingComponent<M, D[], I, P, S>{

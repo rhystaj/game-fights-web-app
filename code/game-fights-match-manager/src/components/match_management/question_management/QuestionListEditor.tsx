@@ -1,12 +1,12 @@
 import React from 'react';
 
 import AbstractQuestionsEditor from "./AbstractQuestionsEditor";
-import QuestionListInterface from "../../../backend_interface/game_fights_data_interface/data_interfaces/question_interfaces/QuestionListInterface";
+import IQuestionListInterface from "../../../backend_interface/game_fights_data_interface/data_interfaces/question_interfaces/IQuestionListInterface";
 import { Question } from "../../../types/datatypes";
 
-export default class QuestionsEditor extends AbstractQuestionsEditor<Question, QuestionListInterface> {
+export default class QuestionsEditor extends AbstractQuestionsEditor<Question, IQuestionListInterface> {
     
-    protected getDataInterface(): QuestionListInterface {
+    protected getDataInterface(): IQuestionListInterface {
         return this.props.dataInterfaceManager.questionsListInterface;
     }
 
@@ -14,7 +14,7 @@ export default class QuestionsEditor extends AbstractQuestionsEditor<Question, Q
         this.getDataInterface().openAnswerSubmissions();
     }
 
-    protected renderLoaded(dataInterface: QuestionListInterface, data: Question[]){
+    protected renderLoaded(dataInterface: IQuestionListInterface, data: Question[]){
         return(
             <div>
                 {super.renderLoaded(dataInterface, data)}

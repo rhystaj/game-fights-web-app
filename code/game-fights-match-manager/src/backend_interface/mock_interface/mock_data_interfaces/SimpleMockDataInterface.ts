@@ -1,4 +1,4 @@
-import DataInterface from "../../lib/DataInterface";
+import DataInterface from "../../lib/abstract_implementations/AbstractDataInterface";
 
 export default class SimpleMockDataInterface<D> extends DataInterface<D>{
     

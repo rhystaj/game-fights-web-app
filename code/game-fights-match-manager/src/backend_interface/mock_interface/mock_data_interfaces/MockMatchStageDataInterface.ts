@@ -1,4 +1,4 @@
-import DataInterface from "../../lib/DataInterface";
+import DataInterface from "../../lib/abstract_implementations/AbstractDataInterface";
 import { MatchStage } from "../../../enums/statusEnums";
 
 export default class MockMatchStageDataInterface extends DataInterface<MatchStage>{

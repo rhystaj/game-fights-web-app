@@ -1,17 +1,17 @@
-import QuestionsInterface from "./QuestionsInterface"
+import IQuestionsInterface from "./IQuestionsInterface"
 import { QuestionAnswersJudgementData } from "../../../../types/datatypes";
 import { AnswerSubmissionState } from "../../../../enums/statusEnums";
 
 
-export default abstract class QuestionAnswerJudgementsInterface extends QuestionsInterface<QuestionAnswersJudgementData>{
+export default interface IQuestionAnswerJudgementsInterface extends IQuestionsInterface<QuestionAnswersJudgementData>{
 
-    public abstract submitAnswerJudgementStateUpdate(question: QuestionAnswersJudgementData, answerIndex: number, 
+    submitAnswerJudgementStateUpdate(question: QuestionAnswersJudgementData, answerIndex: number, 
         answerStatus: AnswerSubmissionState): Promise<void>;
 
     /**
      * [DES/PRE] Cut off any further submissions of answers and make any accepted answers the final answers for
      * the questions.
      */
-    public abstract finaliseAnswerSubmissions(): Promise<void>;
+    finaliseAnswerSubmissions(): Promise<void>;
 
 }

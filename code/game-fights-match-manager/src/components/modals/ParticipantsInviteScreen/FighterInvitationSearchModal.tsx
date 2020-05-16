@@ -11,7 +11,8 @@ import InvitedFighterList from './InvitedFighterList';
 import { FighterMatchStatus } from '../../../enums/statusEnums';
 import { GameFightsDataInterfaceManager } from '../../../backend_interface/game_fights_data_interface/GameFightsDataInterfaceManager';
 import { DataInterfacingComponentState } from '../../utility/DataInterfacingComponent';
-import SearchInterface from '../../../backend_interface/lib/SearchInterface';
+import SearchInterface from '../../../backend_interface/lib/abstract_implementations/AbstarctSearchInterface';
+import ISearchInterface from '../../../backend_interface/lib/interfaces/ISearchInterface';
 
 interface FighterInvitationSearchModalProps extends SearchModalProps<GameFightsDataInterfaceManager>{
     preInvitedFighters: FighterData[],
@@ -26,9 +27,9 @@ interface FighterInvitationSearchModalState extends SearchModalState<FighterData
  * [DES] A SearchModal that allows you to search for and invite fighters.
  */
 export default class FighterInvitationSearchModal extends SearchModal<GameFightsDataInterfaceManager, FighterData, 
-    SearchInterface<FighterData>, FighterInvitationSearchModalProps, FighterInvitationSearchModalState>{
+    ISearchInterface<FighterData>, FighterInvitationSearchModalProps, FighterInvitationSearchModalState>{
     
-    protected getDataInterface(): SearchInterface<FighterData> {
+    protected getDataInterface(): ISearchInterface<FighterData> {
         return this.props.dataInterfaceManager.fighterDataInvitationInterface;
     }
 

@@ -1,36 +1,35 @@
-import DataInterface from "../lib/DataInterface";
-import SearchInterface from "../lib/SearchInterface";
+import IDataInterface from "../lib/interfaces/IDataInterface";
+import ISearchInterface from "../lib/interfaces/ISearchInterface";
 
-import MatchDataInterface from "./data_interfaces/MatchDataInterface";
-import QuestionsInterface from "./data_interfaces/question_interfaces/QuestionsInterface";
-import QuestionAnswerJudgementsInterface from "./data_interfaces/question_interfaces/QuestionAnswerJudgementsInterface";
-import AnswerSubmissionDataInterface from "./data_interfaces/AnswerSubmissionDataInterface";
+import IUserMatchStatusInterface from "./data_interfaces/IUserMatchStatusInterface";
+import IMatchDataInterface from "./data_interfaces/IMatchDataInterface";
+import IQuestionAnswerJudgementsInterface from "./data_interfaces/question_interfaces/IQuestionAnswerJudgementsInterface";
+import IAnswerSubmissionDataInterface from "./data_interfaces/IAnswerSubmissionDataInterface";
+import IMatchResultsDataInterface from "./data_interfaces/IMatchResultsDataInterface";
+import IMatchInvitationInterface from "./data_interfaces/IMatchInvitationInterface";
+import IQuestionListInterface from "./data_interfaces/question_interfaces/IQuestionListInterface";
 
-import { UserMatchStatus, MatchStage } from "../../enums/statusEnums";
-import { Question, FighterData } from "../../types/datatypes";
-import MatchResultsDataInterface from "./data_interfaces/MatchResultsDataInterface";
-import MatchInvitationinterface from "./data_interfaces/MatchInvitationInterface";
-import UserMatchStatusInterface from "./data_interfaces/UserMatchStatusInterface";
-import QuestionListInterface from "./data_interfaces/question_interfaces/QuestionListInterface";
+import { MatchStage } from "../../enums/statusEnums";
+import { FighterData } from "../../types/datatypes";
 
 export abstract class GameFightsDataInterfaceManager{
 
-    public abstract get userMatchStatusInterface(): UserMatchStatusInterface;
+    public abstract get userMatchStatusInterface(): IUserMatchStatusInterface;
 
-    public abstract get matchInvitationInterface(): MatchInvitationinterface;
+    public abstract get matchInvitationInterface(): IMatchInvitationInterface;
 
-    public abstract get matchStageInterface(): DataInterface<MatchStage>;
+    public abstract get matchStageInterface(): IDataInterface<MatchStage>;
 
-    public abstract get matchDataInterface(): MatchDataInterface;
+    public abstract get matchDataInterface(): IMatchDataInterface;
 
-    public abstract get questionsListInterface(): QuestionListInterface;
+    public abstract get questionsListInterface(): IQuestionListInterface;
 
-    public abstract get questionAnswerJudgementsListInterface(): QuestionAnswerJudgementsInterface;
+    public abstract get questionAnswerJudgementsListInterface(): IQuestionAnswerJudgementsInterface;
 
-    public abstract get answerSubmissionsInterface(): AnswerSubmissionDataInterface;
+    public abstract get answerSubmissionsInterface(): IAnswerSubmissionDataInterface;
 
-    public abstract get fighterDataInvitationInterface(): SearchInterface<FighterData>;
+    public abstract get fighterDataInvitationInterface(): ISearchInterface<FighterData>;
 
-    public abstract get matchResultsInterface(): MatchResultsDataInterface;
+    public abstract get matchResultsInterface(): IMatchResultsDataInterface;
 
 }

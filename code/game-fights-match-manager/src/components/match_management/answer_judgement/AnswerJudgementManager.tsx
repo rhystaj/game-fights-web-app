@@ -4,11 +4,11 @@ import AbstractQuestionsEditor from '../question_management/AbstractQuestionsEdi
 import { QuestionAnswersJudgementData } from "../../../types/datatypes";
 
 import { AnswerSubmissionState } from '../../../enums/statusEnums';
-import QuestionAnswerJudgementsInterface from '../../../backend_interface/game_fights_data_interface/data_interfaces/question_interfaces/QuestionAnswerJudgementsInterface';
+import IQuestionAnswerJudgementsInterface from '../../../backend_interface/game_fights_data_interface/data_interfaces/question_interfaces/IQuestionAnswerJudgementsInterface';
 
-export default class AnswerJudgementManager extends AbstractQuestionsEditor<QuestionAnswersJudgementData, QuestionAnswerJudgementsInterface>{
+export default class AnswerJudgementManager extends AbstractQuestionsEditor<QuestionAnswersJudgementData, IQuestionAnswerJudgementsInterface>{
     
-    protected getDataInterface(): QuestionAnswerJudgementsInterface {
+    protected getDataInterface(): IQuestionAnswerJudgementsInterface {
         return this.props.dataInterfaceManager.questionAnswerJudgementsListInterface;
     }
 
@@ -89,7 +89,7 @@ export default class AnswerJudgementManager extends AbstractQuestionsEditor<Ques
 
     }
 
-    protected renderLoaded(dataInterface: QuestionAnswerJudgementsInterface, data: QuestionAnswersJudgementData[]): JSX.Element {
+    protected renderLoaded(dataInterface: IQuestionAnswerJudgementsInterface, data: QuestionAnswersJudgementData[]): JSX.Element {
         return (
             <div>
                 <h1>Questions</h1>

@@ -5,7 +5,7 @@ import TextEntry from '../../utility/Entry/TextEntry';
 import { LoadingComponentState } from '../../utility/LoadingComponent';
 
 import { Question } from '../../../types/datatypes';
-import QuestionsInterface from '../../../backend_interface/game_fights_data_interface/data_interfaces/question_interfaces/QuestionsInterface';
+import IQuestionsInterface from '../../../backend_interface/game_fights_data_interface/data_interfaces/question_interfaces/IQuestionsInterface';
 
 export interface QuestionsEditorState<Q> extends LoadingComponentState<Q[]>{
     addingQuestion: boolean;
@@ -15,7 +15,7 @@ export interface QuestionsEditorState<Q> extends LoadingComponentState<Q[]>{
 /**
  * A component that allows you to add/remove items from the list of questions.
  */
-export default abstract class AbstractQuestionsEditor<Q extends Question, I extends QuestionsInterface<Q>> extends QuestionsComponent<Q, I, QuestionsEditorState<Q>>{
+export default abstract class AbstractQuestionsEditor<Q extends Question, I extends IQuestionsInterface<Q>> extends QuestionsComponent<Q, I, QuestionsEditorState<Q>>{
     
     protected determineNewStateFromData(data: Q[]): QuestionsEditorState<Q> {
         return{
@@ -79,7 +79,7 @@ export default abstract class AbstractQuestionsEditor<Q extends Question, I exte
         )
     }
 
-    protected renderLoaded(dataInterface: QuestionsInterface<Q>, questions: Q[]){
+    protected renderLoaded(dataInterface: IQuestionsInterface<Q>, questions: Q[]){
         return(
             <div>
                 {super.renderLoaded(dataInterface, questions) /* Render the questions as normal.*/}

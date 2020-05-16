@@ -6,7 +6,7 @@ import QuestionsViewer from './question_management/QuestionViewer'
 
 import { MatchStage } from '../../enums/statusEnums';
 
-import DataInterface from '../../backend_interface/lib/DataInterface';
+import DataInterface from '../../backend_interface/lib/abstract_implementations/AbstractDataInterface';
 
 class ParticipantMatchManager extends MatchManager{
     

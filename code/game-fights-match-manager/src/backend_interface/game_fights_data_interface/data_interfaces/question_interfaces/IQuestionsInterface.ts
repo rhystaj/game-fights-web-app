@@ -1,18 +1,19 @@
-import { Question } from "../../../../types/datatypes";
-import DataInterface from "../../../lib/DataInterface";
+import IDataInterface from "../../../lib/interfaces/IDataInterface";
 
-export default abstract class QuestionsInterface<Q> extends DataInterface<Q[]>{
+import { Question } from "../../../../types/datatypes";
+
+export default interface IQuestionsInterface<Q> extends IDataInterface<Q[]>{
 
     /**
      * Submit a question to be added to the list of questions in the match.
      * @param question 
      */
-    public abstract submitNewQuestion(question: string): Promise<void>;
+    submitNewQuestion(question: string): Promise<void>;
 
     /**
      * Request that a question be removed from the match's list of questions.
      * @param question 
      */
-    public abstract requestQuestionDeletion(question: Question): Promise<void>;
+    requestQuestionDeletion(question: Question): Promise<void>;
 
 }

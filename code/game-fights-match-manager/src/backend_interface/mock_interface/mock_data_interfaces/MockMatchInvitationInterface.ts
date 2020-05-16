@@ -1,11 +1,12 @@
-import MatchInvitationInterface from "../../game_fights_data_interface/data_interfaces/MatchInvitationInterface"
-import soloMatchData from "../test_data/matchData";
-import { MatchData } from "../../../types/datatypes";
-import MockUserMatchStatusInterface from "./MockUserMatchStatusInterface";
-import UserMatchStatusInterface from "../../game_fights_data_interface/data_interfaces/UserMatchStatusInterface";
-import { UserMatchStatus } from "../../../enums/statusEnums";
+import DataInterface from "../../lib/abstract_implementations/AbstractDataInterface";
 
-export default class MockMatchInvitiationInterface extends MatchInvitationInterface{
+import IMatchInvitationInterface from "../../game_fights_data_interface/data_interfaces/IMatchInvitationInterface";
+
+import MockUserMatchStatusInterface from "./MockUserMatchStatusInterface";
+
+import { MatchData } from "../../../types/datatypes";
+
+export default class MockMatchInvitiationInterface extends DataInterface<MatchData> implements IMatchInvitationInterface{
     
     private matchData: MatchData;
     private readonly matchStatusInterface: MockUserMatchStatusInterface;

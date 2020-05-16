@@ -1,5 +1,6 @@
 import { Component } from "react";
-import DataInterface from "../../backend_interface/lib/DataInterface";
+
+import IDataInterface from "../../backend_interface/lib/interfaces/IDataInterface";
 
 export interface DataInterfacingComponentProps<M>{
     dataInterfaceManager: M
@@ -10,7 +11,7 @@ export interface DataInterfacingComponentState<D>{
 }
 
 export default abstract class DataInterfacingComponent<M, D, 
-        I extends DataInterface<D> = DataInterface<D>,
+        I extends IDataInterface<D> = IDataInterface<D>,
         P extends DataInterfacingComponentProps<M> = DataInterfacingComponentProps<M>,
         S extends DataInterfacingComponentState<D> = DataInterfacingComponentState<D>> extends Component<P, S>{
 

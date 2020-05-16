@@ -2,16 +2,16 @@ import React from 'react'
 import LoadingComponent from '../utility/LoadingComponent'
 import { GameFightsDataInterfaceManager } from '../../backend_interface/game_fights_data_interface/GameFightsDataInterfaceManager'
 import { MatchData } from '../../types/datatypes'
-import MatchInvitationinterface from '../../backend_interface/game_fights_data_interface/data_interfaces/MatchInvitationInterface'
+import IMatchInvitationInterface from '../../backend_interface/game_fights_data_interface/data_interfaces/IMatchInvitationInterface'
 import { UserMatchStatus, FighterMatchStatus } from '../../enums/statusEnums'
 
 /**
  * Is shown when a match has been created that the user has been invitied to. They can accept or decline the information.
  */
 export default class MatchInvitation extends LoadingComponent<GameFightsDataInterfaceManager, MatchData,
-    MatchInvitationinterface> {
+    IMatchInvitationInterface> {
   
-    protected getDataInterface(): MatchInvitationinterface {
+    protected getDataInterface(): IMatchInvitationInterface {
       return this.props.dataInterfaceManager.matchInvitationInterface;
     }
   
@@ -48,7 +48,7 @@ export default class MatchInvitation extends LoadingComponent<GameFightsDataInte
     this.getDataInterface().declineInvite();
   }
 
-  protected renderLoaded(dataInterface: MatchInvitationinterface, data: MatchData): JSX.Element {
+  protected renderLoaded(dataInterface: IMatchInvitationInterface, data: MatchData): JSX.Element {
     return (
       <div>
         <p>

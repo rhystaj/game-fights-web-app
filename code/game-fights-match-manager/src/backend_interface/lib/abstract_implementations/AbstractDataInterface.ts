@@ -1,4 +1,6 @@
-export default abstract class DataInterface<D>{
+import IDataInterface from "../interfaces/IDataInterface";
+
+export default abstract class DataInterface<D> implements IDataInterface<D>{
 
     private _dataChangeEvent: (newData: D) => void;
     protected get dataChangeEvent(){
@@ -34,10 +36,9 @@ export default abstract class DataInterface<D>{
     /**
      * Try to reload the data.
      */
-    public refresh(){
-        this.loadData()
-            .then((data) => this._dataChangeEvent(data))
-            .catch((err) => this.dataErrorEvent(err))
+    public async refresh(){
+        const data = await this.loadData()
+        this._dataChangeEvent(data);
     }
 
     protected abstract loadData() : Promise<D>;

@@ -1,9 +1,10 @@
 import React from 'react';
 
-import Loading from './Loading'
+import IDataInterface from '../../backend_interface/lib/interfaces/IDataInterface';
 
-import DataInterface from '../../backend_interface/lib/DataInterface';
+import Loading from './Loading'
 import DataInterfacingComponent, { DataInterfacingComponentProps, DataInterfacingComponentState } from './DataInterfacingComponent';
+
 
 export interface LoadingComponentState<D> extends DataInterfacingComponentState<D>{
     loading: boolean;
@@ -17,7 +18,7 @@ export interface LoadingComponentState<D> extends DataInterfacingComponentState<
  * @type P The type of object used to store the component's props.
  * @type S The type of object used to store the component's state.
  */
-export default abstract class LoadingComponent<M, D, I extends DataInterface<D> = DataInterface<D>, 
+export default abstract class LoadingComponent<M, D, I extends IDataInterface<D> = IDataInterface<D>, 
         P extends DataInterfacingComponentProps<M> = DataInterfacingComponentProps<M>, 
         S extends LoadingComponentState<D> = LoadingComponentState<D>> 
         extends DataInterfacingComponent<M, D, I, P, S> {

@@ -1,13 +1,16 @@
-import QuestionsInterface from "../../game_fights_data_interface/data_interfaces/question_interfaces/QuestionsInterface";
-import { Question } from "../../../types/datatypes";
-import UniquelyIdentifiableCollection from "../../../utility/UniquelyIdentifiableCollection";
-import { QuestionEquator } from "../../../types/equators/UniquelyIndentifiableEquators";
-import questions from "../test_data/questions";
-import QuestionListInterface from "../../game_fights_data_interface/data_interfaces/question_interfaces/QuestionListInterface";
+import DataInterface from "../../lib/abstract_implementations/AbstractDataInterface";
+
+import IQuestionListInterface from "../../game_fights_data_interface/data_interfaces/question_interfaces/IQuestionListInterface";
+
 import MockMatchStageDataInterface from "./MockMatchStageDataInterface";
+
+import UniquelyIdentifiableCollection from "../../../utility/UniquelyIdentifiableCollection";
+
+import { Question } from "../../../types/datatypes";
+import { QuestionEquator } from "../../../types/equators/UniquelyIndentifiableEquators";
 import { MatchStage } from "../../../enums/statusEnums";
 
-export default class MockQuestionsListInterface extends QuestionListInterface{
+export default class MockQuestionsListInterface extends DataInterface<Question[]> implements IQuestionListInterface{
     
     private questions: UniquelyIdentifiableCollection<Question>;
     private matchStageInterface: MockMatchStageDataInterface;

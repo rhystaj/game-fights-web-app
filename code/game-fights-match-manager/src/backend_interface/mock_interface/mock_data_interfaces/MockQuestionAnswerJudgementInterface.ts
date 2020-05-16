@@ -1,4 +1,8 @@
-import QuestionAnswerJudgementsInterface from "../../game_fights_data_interface/data_interfaces/question_interfaces/QuestionAnswerJudgementsInterface";
+import DataInterface from "../../lib/abstract_implementations/AbstractDataInterface";
+
+import IQuestionAnswerJudgementsInterface from "../../game_fights_data_interface/data_interfaces/question_interfaces/IQuestionAnswerJudgementsInterface";
+
+import MockMatchStageDataInterface from "./MockMatchStageDataInterface";
 
 import UniquelyIdentifiableCollection from "../../../utility/UniquelyIdentifiableCollection";
 
@@ -8,11 +12,9 @@ import { AnswerSubmissionState, MatchStage } from "../../../enums/statusEnums";
 import { QuestionAnswersJudgementData, Question } from "../../../types/datatypes";
 
 import testFighterDatabase from "../test_data/testFighterDatabase";
-import UserMatchStatusInterface from "../../game_fights_data_interface/data_interfaces/UserMatchStatusInterface";
-import MockUserMatchStatusInterface from "./MockUserMatchStatusInterface";
-import MockMatchStageDataInterface from "./MockMatchStageDataInterface";
 
-export default class MockQuestionAnswerJudgementsInterface extends QuestionAnswerJudgementsInterface{
+export default class MockQuestionAnswerJudgementsInterface extends DataInterface<QuestionAnswersJudgementData[]>
+                                                           implements IQuestionAnswerJudgementsInterface{
     
     private judgements: UniquelyIdentifiableCollection<QuestionAnswersJudgementData>;
     private matchStageInterface: MockMatchStageDataInterface;

@@ -1,8 +1,11 @@
-import MatchDataInterface from "../../game_fights_data_interface/data_interfaces/MatchDataInterface";
+import DataInterface from "../../lib/abstract_implementations/AbstractDataInterface";
+
+import IMatchDataInterface from "../../game_fights_data_interface/data_interfaces/IMatchDataInterface";
+
 import { MatchData, FighterData } from "../../../types/datatypes";
 import { FAILURE_FIGHTER_ID } from "../test_data/testFighterDatabase";
 
-export default class MockMatchDataInterface extends MatchDataInterface{
+export default class MockMatchDataInterface extends DataInterface<MatchData> implements IMatchDataInterface{
     
     private matchData: MatchData;
 

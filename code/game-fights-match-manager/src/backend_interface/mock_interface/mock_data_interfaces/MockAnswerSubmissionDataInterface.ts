@@ -1,10 +1,12 @@
-import AnswerSubmissionDataInterface from "../../game_fights_data_interface/data_interfaces/AnswerSubmissionDataInterface";
+import IAnswerSubmissionDataInterface from "../../game_fights_data_interface/data_interfaces/IAnswerSubmissionDataInterface";
 import UniquelyIdentifiableCollection from "../../../utility/UniquelyIdentifiableCollection";
 import { AnswerSubmissionData } from "../../../types/datatypes";
 import { AnswerSubmissionDataEquator } from "../../../types/equators/UniquelyIndentifiableEquators";
 import { AnswerSubmissionState } from "../../../enums/statusEnums";
+import DataInterface from "../../lib/abstract_implementations/AbstractDataInterface";
 
-export default class MockAnswerSubmissionDataInterface extends AnswerSubmissionDataInterface{
+export default class MockAnswerSubmissionDataInterface extends DataInterface<AnswerSubmissionData[]> 
+                                                       implements IAnswerSubmissionDataInterface{
     
     private answerSubmissions: UniquelyIdentifiableCollection<AnswerSubmissionData>;
 

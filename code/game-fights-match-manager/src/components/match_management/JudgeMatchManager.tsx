@@ -7,7 +7,7 @@ import { MatchStage } from '../../enums/statusEnums';
 
 import { LoadingComponentState } from '../utility/LoadingComponent';
 import AnswerJudgementManager from './answer_judgement/AnswerJudgementManager';
-import DataInterface from '../../backend_interface/lib/DataInterface';
+import DataInterface from '../../backend_interface/lib/abstract_implementations/AbstractDataInterface';
 import MatchResultsManager from './match_results/MatchResultsManager';
 
 export default class JudgeMatchManager extends MatchManager{

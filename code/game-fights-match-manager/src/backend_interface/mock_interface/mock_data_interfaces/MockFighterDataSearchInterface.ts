@@ -1,4 +1,4 @@
-import SearchInterface from "../../lib/SearchInterface";
+import SearchInterface from "../../lib/abstract_implementations/AbstarctSearchInterface";
 import { FighterData } from "../../../types/datatypes";
 
 export default class MockFighterDataSearchInterface extends SearchInterface<FighterData> {

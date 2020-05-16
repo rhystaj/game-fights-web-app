@@ -9,9 +9,9 @@ import { UserMatchStatus } from './../enums/statusEnums';
 
 import '../style/Body.css'
 import SimpleStateLoadingComponent from './utility/SimpleStateLoadingComponent';
-import DataInterface from '../backend_interface/lib/DataInterface';
+import DataInterface from '../backend_interface/lib/abstract_implementations/AbstractDataInterface';
 import { GameFightsDataInterfaceManager } from '../backend_interface/game_fights_data_interface/GameFightsDataInterfaceManager';
-import UserMatchStatusInterface from '../backend_interface/game_fights_data_interface/data_interfaces/UserMatchStatusInterface'
+import IUserMatchStatusInterface from '../backend_interface/game_fights_data_interface/data_interfaces/IUserMatchStatusInterface'
 
 const INVALID_STATUS_MESSAGE = 'Error: Body was given an invalid state.'
 
@@ -21,9 +21,9 @@ const INVALID_STATUS_MESSAGE = 'Error: Body was given an invalid state.'
  * @param {*} props
  */
 export default class Body extends SimpleStateLoadingComponent<GameFightsDataInterfaceManager, UserMatchStatus,
-    UserMatchStatusInterface> {
+    IUserMatchStatusInterface> {
   
-  public getDataInterface(): UserMatchStatusInterface{
+  public getDataInterface(): IUserMatchStatusInterface{
     return this.props.dataInterfaceManager.userMatchStatusInterface;
   }
   
@@ -35,7 +35,7 @@ export default class Body extends SimpleStateLoadingComponent<GameFightsDataInte
     this.getDataInterface().setAsJudging();
   }
 
-  renderLoaded(dataInterface: DataInterface<UserMatchStatus>, matchStatus: UserMatchStatus){    
+  renderLoaded(dataInterface: IUserMatchStatusInterface, matchStatus: UserMatchStatus){    
     
     switch (matchStatus) {
       case UserMatchStatus.NONE:
