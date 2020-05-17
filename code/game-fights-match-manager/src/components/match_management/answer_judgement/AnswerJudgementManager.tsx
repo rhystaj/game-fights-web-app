@@ -5,6 +5,7 @@ import { QuestionAnswersJudgementData } from "../../../types/datatypes";
 
 import { AnswerSubmissionState } from '../../../enums/statusEnums';
 import IQuestionAnswerJudgementsInterface from '../../../backend_interface/game_fights_data_interface/data_interfaces/question_interfaces/IQuestionAnswerJudgementsInterface';
+import QuestionAnswerJudgementProgressingControls from '../../match_progressing_controls/QuestionAnswerJudgementProgressingControls';
 
 export default class AnswerJudgementManager extends AbstractQuestionsEditor<QuestionAnswersJudgementData, IQuestionAnswerJudgementsInterface>{
     
@@ -55,10 +56,6 @@ export default class AnswerJudgementManager extends AbstractQuestionsEditor<Ques
         this.getDataInterface().submitAnswerJudgementStateUpdate(question, answerIndex, answerStatus);
     }
 
-    private onFinaliseClick = () => {
-        this.getDataInterface().finaliseAnswerSubmissions();
-    }
-
     protected renderJudgementControls(question: QuestionAnswersJudgementData, answerIndex: number){
 
         switch(question.answerJudgements[answerIndex].state){
@@ -94,8 +91,7 @@ export default class AnswerJudgementManager extends AbstractQuestionsEditor<Ques
             <div>
                 <h1>Questions</h1>
                 {super.renderLoaded(dataInterface, data)}
-                <button>Cancel Match</button>
-                <button onClick={this.onFinaliseClick}>Finalise</button>
+                <QuestionAnswerJudgementProgressingControls dataInterface={dataInterface} />
             </div>
         )
     }

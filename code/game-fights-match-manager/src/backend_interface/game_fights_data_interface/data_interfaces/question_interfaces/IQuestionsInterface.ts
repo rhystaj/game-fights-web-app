@@ -1,8 +1,9 @@
 import IDataInterface from "../../../lib/interfaces/IDataInterface";
 
 import { Question } from "../../../../types/datatypes";
+import IMatchProgressingDataInterface from "../IMatchProgessingDataInterface";
 
-export default interface IQuestionsInterface<Q> extends IDataInterface<Q[]>{
+export default interface IQuestionsInterface<Q> extends IMatchProgressingDataInterface<Q[]>{
 
     /**
      * Submit a question to be added to the list of questions in the match.

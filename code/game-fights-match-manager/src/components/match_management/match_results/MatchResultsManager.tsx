@@ -8,6 +8,7 @@ import { GameFightsDataInterfaceManager } from '../../../backend_interface/game_
 import { AnswerSubmissionState } from '../../../enums/statusEnums';
 
 import '../../../style/MatchResultsScreen.css';
+import MatchResultProgressingControls from '../../match_progressing_controls/MatchResultsProgressingControls';
 
 export default class MatchResultsManager extends LoadingComponent<GameFightsDataInterfaceManager, MatchResultData[], 
     IMatchResultsDataInterface>{
@@ -26,10 +27,6 @@ export default class MatchResultsManager extends LoadingComponent<GameFightsData
     protected determineInitalData(): MatchResultData[] {
         return [];
     }    
-
-    private onArchiveClick = () => {
-        this.getDataInterface().archiveMatch();
-    }
 
     private renderMatchResults(results: MatchResultData[]){
         const resultsArray = new Array<JSX.Element>(results.length);
@@ -95,7 +92,7 @@ export default class MatchResultsManager extends LoadingComponent<GameFightsData
         return(
             <div>
                 {this.renderMatchResults(data)}
-                <button onClick={this.onArchiveClick}>Archive Match</button>
+                <MatchResultProgressingControls dataInterface={dataInterface} />
             </div>
         )
 

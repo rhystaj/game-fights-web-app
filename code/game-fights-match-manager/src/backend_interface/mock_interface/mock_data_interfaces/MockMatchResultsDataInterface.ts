@@ -26,6 +26,7 @@ export default class MockMatchResultsDataInterface extends DataInterface<MatchRe
         this.userMatchStatusInterface = userMatchStatusInterface;
         this.matchStageInterface = matchStageInterface;
     }
+    
 
     protected async loadData() {
         return this.results.asArray()
@@ -48,7 +49,12 @@ export default class MockMatchResultsDataInterface extends DataInterface<MatchRe
 
     }
 
-    public async archiveMatch() {
+    public async progressMatch() {
+        await this.matchStageInterface.setMatchStage(MatchStage.DETERMINING_QUESTIONS);
+        await this.userMatchStatusInterface.clear();
+    }
+    
+    public async cancelMatch() {
         await this.matchStageInterface.setMatchStage(MatchStage.DETERMINING_QUESTIONS);
         await this.userMatchStatusInterface.clear();
     }

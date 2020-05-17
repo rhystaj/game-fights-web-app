@@ -12,20 +12,24 @@ import { AnswerSubmissionState, MatchStage } from "../../../enums/statusEnums";
 import { QuestionAnswersJudgementData, Question } from "../../../types/datatypes";
 
 import testFighterDatabase from "../test_data/testFighterDatabase";
+import MockUserMatchStatusInterface from "./MockUserMatchStatusInterface";
 
 export default class MockQuestionAnswerJudgementsInterface extends DataInterface<QuestionAnswersJudgementData[]>
                                                            implements IQuestionAnswerJudgementsInterface{
     
     private judgements: UniquelyIdentifiableCollection<QuestionAnswersJudgementData>;
+    private userMatchStatusInterface: MockUserMatchStatusInterface;
     private matchStageInterface: MockMatchStageDataInterface;
 
     private fighterDataEquator = new FighterDataEquator();
     private answerJudgementDataEquator = new ParticipantAnswerDataEquator(this.fighterDataEquator);
     private questionAnswersJudgementEquator = new QuestionAnswersJudgementEquator(this.answerJudgementDataEquator);
 
-    constructor(judgements: QuestionAnswersJudgementData[], matchStageInterface: MockMatchStageDataInterface){
+    constructor(judgements: QuestionAnswersJudgementData[], userMatchStatusInterface: MockUserMatchStatusInterface, 
+            matchStageInterface: MockMatchStageDataInterface){
         super();
         this.judgements = new UniquelyIdentifiableCollection(judgements, this.questionAnswersJudgementEquator);
+        this.userMatchStatusInterface = userMatchStatusInterface;
         this.matchStageInterface = matchStageInterface;
     }
 
@@ -91,8 +95,13 @@ export default class MockQuestionAnswerJudgementsInterface extends DataInterface
 
     }
     
-    public async finaliseAnswerSubmissions() {
+    public async progressMatch() {
         await this.matchStageInterface.setMatchStage(MatchStage.RECORDING_RESULTS);
     }
- 
+    
+    public async cancelMatch() {
+        await this.matchStageInterface.setMatchStage(MatchStage.DETERMINING_QUESTIONS);
+        await this.userMatchStatusInterface.clear();
+    }
+    
 }

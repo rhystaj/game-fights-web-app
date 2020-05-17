@@ -9,18 +9,23 @@ import UniquelyIdentifiableCollection from "../../../utility/UniquelyIdentifiabl
 import { Question } from "../../../types/datatypes";
 import { QuestionEquator } from "../../../types/equators/UniquelyIndentifiableEquators";
 import { MatchStage } from "../../../enums/statusEnums";
+import IUserMatchStatusInterface from "../../game_fights_data_interface/data_interfaces/IUserMatchStatusInterface";
+import MockUserMatchStatusInterface from "./MockUserMatchStatusInterface";
 
 export default class MockQuestionsListInterface extends DataInterface<Question[]> implements IQuestionListInterface{
     
     private questions: UniquelyIdentifiableCollection<Question>;
+    private userMatchStatusInterface: MockUserMatchStatusInterface;
     private matchStageInterface: MockMatchStageDataInterface;
 
-    constructor(questions: Question[], matchStageInterface: MockMatchStageDataInterface){
+    constructor(questions: Question[], userMatchStatusInterface: MockUserMatchStatusInterface,
+            matchStageInterface: MockMatchStageDataInterface){
         super();
         this.questions = new UniquelyIdentifiableCollection<Question>(questions, new QuestionEquator());
+        this.userMatchStatusInterface = userMatchStatusInterface;
         this.matchStageInterface = matchStageInterface;
     }
-
+    
     protected async loadData(){
         
         //Simulate latency.
@@ -49,8 +54,13 @@ export default class MockQuestionsListInterface extends DataInterface<Question[]
         this.refresh();
     }
 
-    public async openAnswerSubmissions() {
+    public async progressMatch() {
         this.matchStageInterface.setMatchStage(MatchStage.ANSWERS_OPENED);
+    }
+
+    public async cancelMatch() {
+        await this.matchStageInterface.setMatchStage(MatchStage.DETERMINING_QUESTIONS);
+        await this.userMatchStatusInterface.clear();
     }
 
 }
