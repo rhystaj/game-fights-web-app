@@ -1,8 +1,6 @@
 import React from 'react'
 import LoadingComponent, { LoadingComponentState } from '../../utility/LoadingComponent'
 
-import './../../../style/MatchInfo.css'
-
 import { MatchData, FighterData } from '../../../types/datatypes';
 import { FighterMatchStatus } from '../../../enums/statusEnums';
 import IMatchDataInterface from '../../../backend_interface/game_fights_data_interface/data_interfaces/IMatchDataInterface';

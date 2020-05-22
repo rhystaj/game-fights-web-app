@@ -1,5 +1,4 @@
 import React from 'react'
-import '../style/Header.css'
 
 /**
  * The header navigation bar. Displays the logo, links to fighter profiles and previous matches, and notifications.

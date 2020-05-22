@@ -7,9 +7,8 @@ import JudgeMatchManager from './match_management/JudgeMatchManager'
 
 import { UserMatchStatus } from './../enums/statusEnums';
 
-import '../style/Body.css'
 import SimpleStateLoadingComponent from './utility/SimpleStateLoadingComponent';
-import DataInterface from '../backend_interface/lib/abstract_implementations/AbstractDataInterface';
+
 import { GameFightsDataInterfaceManager } from '../backend_interface/game_fights_data_interface/GameFightsDataInterfaceManager';
 import IUserMatchStatusInterface from '../backend_interface/game_fights_data_interface/data_interfaces/IUserMatchStatusInterface'
 

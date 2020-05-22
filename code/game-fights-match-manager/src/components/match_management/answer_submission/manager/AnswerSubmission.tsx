@@ -4,8 +4,6 @@ import AnswerSubmissionOptions, { AnswerSubmissionOptionSelection } from './Answ
 
 import { AnswerSubmissionState as AnswerSubmissionStatus } from '../../../../enums/statusEnums'
 
-import './../../../../style/QuestionSubmission.css'
-
 import { AnswerSubmissionData } from '../../../../types/datatypes';
 
 import SubmissionOptionAction from '../../../../actions/SubmissionOptionActions/SubmissionOptionAction';

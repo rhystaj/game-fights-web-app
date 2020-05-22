@@ -7,7 +7,6 @@ import IMatchResultsDataInterface from "../../../backend_interface/game_fights_d
 import { GameFightsDataInterfaceManager } from '../../../backend_interface/game_fights_data_interface/GameFightsDataInterfaceManager';
 import { AnswerSubmissionState } from '../../../enums/statusEnums';
 
-import '../../../style/MatchResultsScreen.css';
 import MatchResultProgressingControls from '../../match_progressing_controls/MatchResultsProgressingControls';
 
 export default class MatchResultsManager extends LoadingComponent<GameFightsDataInterfaceManager, MatchResultData[], 

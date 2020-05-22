@@ -4,8 +4,6 @@ import { LoadingComponentState } from '../../utility/LoadingComponent';
 
 import { MatchData } from '../../../types/datatypes';
 
-import './../../../style/MatchInfo.css'
-
 /**
  * Shows the name, participants info, and dates of a match.
  */
