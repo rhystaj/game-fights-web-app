@@ -1,0 +1,44 @@
+@import '../util';
+
+$headerHeight: 150px;
+
+$logoHeight: 100px;
+$notificationsIconHeight: 50px;
+
+.header{
+
+    display: block;
+    height: $headerHeight;
+
+    img{
+        margin: 0 1em;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    ul {
+
+        //Flexbox
+        display: inline-flex;
+        justify-content: space-between;
+        
+        
+        list-style: none;
+        margin: 1em;
+        vertical-align: middle;
+        width: 15em;
+
+    }
+
+    .logo{
+        height: $logoHeight;
+        padding: marginToCentreChild($headerHeight, $logoHeight) 0;
+    }
+
+    .notificationsIcon{
+        float: right;
+        height: $notificationsIconHeight;
+        padding: marginToCentreChild($headerHeight, $notificationsIconHeight) 0;
+    }
+
+}

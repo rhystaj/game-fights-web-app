@@ -1,1 +1,52 @@
-/* No CSS *//*# sourceMappingURL=main.css.map */
+body {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+/*
+    Works out the margin required to be applied to a child element for it to be centred within its parent, given the size
+    of the parent and the child.
+*/
+.header {
+  display: block;
+  height: 150px;
+}
+
+.header img {
+  margin: 0 1em;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.header ul {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  list-style: none;
+  margin: 1em;
+  vertical-align: middle;
+  width: 15em;
+}
+
+.header .logo {
+  height: 100px;
+  padding: 25px 0;
+}
+
+.header .notificationsIcon {
+  float: right;
+  height: 50px;
+  padding: 50px 0;
+}
+
+div {
+  border: 1px dashed gray;
+}
+/*# sourceMappingURL=main.css.map */

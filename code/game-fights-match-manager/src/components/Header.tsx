@@ -1,5 +1,7 @@
 import React from 'react'
 
+import '../style/main.css';
+
 /**
  * The header navigation bar. Displays the logo, links to fighter profiles and previous matches, and notifications.
  *
@@ -11,15 +13,16 @@ import React from 'react'
  */
 const Header = (props: {logoSrc: string, notificationsIconSrc: string}) => {
   return (
-    <div className='Header'>
-      <img className='HeaderChild' src={props.logoSrc} alt='Game Fights Logo' />
-      <p className='HeaderChild'>Fighter Profiles</p>
-      <p className='HeaderChild'>Match History</p>
+    <div className='header'>
+      <img className='logo' src={props.logoSrc} alt='Game Fights Logo' />
+      <ul>
+        <li>Fighter Profiles</li>
+        <li>Match History</li>
+      </ul>
       <img
-        id='notificationsIcon'
-        className='HeaderChild'
+        className='notificationsIcon'
         src={props.notificationsIconSrc}
-        alt='NotificationsIcon'
+        alt='Notifications Icon'
       />
     </div>
   )
