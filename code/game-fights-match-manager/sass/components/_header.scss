@@ -1,9 +1,5 @@
 @import '../util';
-
-$headerHeight: 150px;
-
-$logoHeight: 100px;
-$notificationsIconHeight: 50px;
+@import '../values/dimensions';
 
 .header{
 
@@ -32,13 +28,13 @@ $notificationsIconHeight: 50px;
 
     .logo{
         height: $logoHeight;
-        padding: marginToCentreChild($headerHeight, $logoHeight) 0;
+        margin: marginToCentreChild($headerHeight, $logoHeight) 1em;
     }
 
     .notificationsIcon{
         float: right;
         height: $notificationsIconHeight;
-        padding: marginToCentreChild($headerHeight, $notificationsIconHeight) 0;
+        margin: marginToCentreChild($headerHeight, $notificationsIconHeight) 1em;
     }
 
 }
