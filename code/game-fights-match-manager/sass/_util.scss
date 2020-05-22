@@ -1,0 +1,7 @@
+/*
+    Works out the margin required to be applied to a child element for it to be centred within its parent, given the size
+    of the parent and the child.
+*/
+@function marginToCentreChild($parentSize, $childSize){
+    @return $parentSize/2 - $childSize/2;
+}
