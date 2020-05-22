@@ -13,7 +13,7 @@ const onRunNewMatchClick = (props: RunNewMatchProps) => {
  */
 const RunNewMatch = (props: RunNewMatchProps) => {
   return (
-    <div>
+    <div className="runNewMatch">
       <p>You currently have no matches in progess.</p>
       <button onClick={() => {onRunNewMatchClick(props)}}>Run Match</button>
     </div>
