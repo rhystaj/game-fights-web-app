@@ -8,3 +8,7 @@ $headerHeight: 150px;
 
 $logoHeight: 100px;
 $notificationsIconHeight: 50px;
+
+
+//Body
+$bodyHeight: calc(100vh - #{$headerHeight} - 21px);

@@ -8,7 +8,7 @@
 
 
     width: 100%;
-    height: calc(100vh - #{$headerHeight} - 21px);
+    height: $bodyHeight;
 
     padding-top: 2em;
 

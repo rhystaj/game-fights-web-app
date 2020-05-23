@@ -1,0 +1,27 @@
+@import '../values/dimensions';
+
+.matchInvitation{
+
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: 3em $generalButtonHeight;
+
+
+    height: $bodyHeight;
+    width: 100%;
+
+
+
+    p{
+        width: 100%;
+        text-align: center;
+        
+        grid-column: 1 / span 2;
+    }
+
+    .acceptButton{
+        grid-column-start: 1;
+        justify-self: end;
+    }
+
+}
