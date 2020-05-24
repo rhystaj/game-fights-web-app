@@ -18,6 +18,11 @@ export default abstract class SearchModal<M, D, I extends ISearchInterface<D>,
         extends DataInterfacingComponent<M, D[], I, P, S>{
 
 
+    /**
+     * The class that describes what type of search modal the search modal is.
+     */
+    protected abstract get searchModalTypeClass(): string;
+
     protected determineInitialComponentState(initialData: D[]){
         return this.determineInitialSearchModalState(initialData, false);
     }
@@ -98,7 +103,7 @@ export default abstract class SearchModal<M, D, I extends ISearchInterface<D>,
 
     render(){
         return (
-            <div>
+            <div className={"searchModal " + this.searchModalTypeClass} >
                 {this.renderSearchArea()}
                 {this.renderSearchResults()}
                 {this.renderResultOptions()}

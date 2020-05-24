@@ -192,4 +192,17 @@ ul {
   display: inline;
   border-bottom: solid 1px black;
 }
+
+.searchModal {
+  padding: 1em;
+  border: solid 5px;
+  background-color: whitesmoke;
+  position: fixed;
+  left: 0;
+  top: 0;
+  margin: 10% calc(50% - 1000px/2);
+  -webkit-box-shadow: 10px 10px 10px 0px grey;
+          box-shadow: 10px 10px 10px 0px grey;
+  width: 1000px;
+}
 /*# sourceMappingURL=main.css.map */

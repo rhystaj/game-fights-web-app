@@ -29,6 +29,10 @@ interface FighterInvitationSearchModalState extends SearchModalState<FighterData
 export default class FighterInvitationSearchModal extends SearchModal<GameFightsDataInterfaceManager, FighterData, 
     ISearchInterface<FighterData>, FighterInvitationSearchModalProps, FighterInvitationSearchModalState>{
     
+    protected get searchModalTypeClass(){
+        return "fighterInvitiation";
+    }
+
     protected getDataInterface(): ISearchInterface<FighterData> {
         return this.props.dataInterfaceManager.fighterDataInvitationInterface;
     }

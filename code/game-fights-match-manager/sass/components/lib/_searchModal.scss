@@ -1,0 +1,24 @@
+$modalWidth: 1000px;
+$modalMargin: calc(50% - #{$modalWidth}/2);
+
+.searchModal{
+
+    padding: 1em;
+
+    border: solid 5px;
+    background-color: whitesmoke;
+
+    position: fixed;
+
+    left: 0;
+    top: 0;
+
+    margin: 10% $modalMargin;
+
+    box-shadow: 10px 10px 10px 0px grey;
+
+    width: $modalWidth;
+
+    
+
+}
