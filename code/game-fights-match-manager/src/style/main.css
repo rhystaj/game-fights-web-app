@@ -170,6 +170,24 @@ ul {
   margin-right: 2em;
 }
 
+.matchInfo.judge .manageInvitesButton {
+  margin-top: 1em;
+  height: 2em;
+  vertical-align: top;
+}
+
+.matchInfo.judge .userDisplay {
+  margin-bottom: 0;
+}
+
+.matchInfo.judge .userDisplay div {
+  display: block;
+}
+
+.matchInfo.judge .userDisplay .pendingInvite {
+  opacity: 50%;
+}
+
 .enterableText p, .enterableText h1, .enterableText h2, .enterableText h3, .enterableText h4, .enterableText h5, .enterableText h6 {
   display: inline;
   border-bottom: solid 1px black;

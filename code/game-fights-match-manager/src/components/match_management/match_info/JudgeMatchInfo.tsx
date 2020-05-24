@@ -90,16 +90,9 @@ export default class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoSta
         return (
             <div>
                 {super.renderParticipantsInfo(participants)}
-                <button onClick={this.onManageInvitesClick}>Manage Invites</button>
+                <button className="manageInvitesButton" onClick={this.onManageInvitesClick}>Manage Participants</button>
             </div>
         )
-    }
-
-    renderParticipant(participant: FighterData){
-        return <div key={participant.id}>
-            {super.renderParticipant(participant)}
-            <button>-</button>
-        </div>
     }
 
     renderLoaded(dataInterface: IMatchDataInterface, data: MatchData){
