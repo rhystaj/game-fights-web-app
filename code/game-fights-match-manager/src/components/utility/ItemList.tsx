@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { whenUnassigned } from '../../utility/functions/qolFunctions';
 
 export interface ItemListProps<T>{
+    itemListTypeName: string,
     items: T[]
 }
 
@@ -24,7 +25,11 @@ export default class ItemList<T, P extends ItemListProps<T>> extends Component<P
     }
     
     render(){
-        return whenUnassigned(this.props.items, []).map((item: T) => this.renderItem(item));
+        return (
+            <div className={"itemList " + this.props.itemListTypeName}>
+                {whenUnassigned(this.props.items, []).map((item: T) => this.renderItem(item))}
+            </div>
+        );
     }
 
 }
