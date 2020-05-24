@@ -60,20 +60,22 @@ export default class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoSta
         this.setState({ showingInvitationModal: false });
     }
 
-    renderTitle(title: string){
+    renderTitle(title: string, matchTitleClassName: string){
         
             return(
                 <EnterableHeading
-                    initialValue={this.state.data.title}
+                    className={matchTitleClassName}
+                    initialValue={title}
                     onSubmitValue={this.onConfirmTitle}
                 />
             )
         
     }
 
-    renderDate(date: Date){
+    renderDate(date: Date, dateTextClassName: string){
 
         return<EnterableDateText
+            className={dateTextClassName}
             initialValue={date}
             onSubmitValue={async () => { }}
         />

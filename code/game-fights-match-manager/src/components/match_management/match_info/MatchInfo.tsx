@@ -17,6 +17,10 @@ export default abstract class MatchInfoComponent<S extends LoadingComponentState
     LoadingComponent<GameFightsDataInterfaceManager, MatchData, IMatchDataInterface, 
     DataInterfacingComponentProps<GameFightsDataInterfaceManager>, S> {
   
+  private static readonly MATCH_TITLE_CLASS_NAME = 'matchTitle';
+  private static readonly DATE_TITLE_CLASS_NAME = 'dateTitle';
+  private static readonly DATE_TEXT_CLASS_NAME = 'dateText'
+
   /**
    * The class that describes what type of match info this is.
    */
@@ -39,31 +43,31 @@ export default abstract class MatchInfoComponent<S extends LoadingComponentState
     }
   }
 
-  protected renderTitle(title: string){
-    return <h1>{title}</h1>
+  protected renderTitle(title: string, matchTitleClassName: string){
+    return <h1 className={matchTitleClassName}>{title}</h1>
   }
 
   protected renderDates(){
     return (
       <div className='matchDatesDisplay'>
-        <p className="dateTitle">
+        <p className={MatchInfoComponent.DATE_TITLE_CLASS_NAME}>
           <b>Match Date</b>
         </p>
-        {this.renderDate(this.state.data.dates.match)}
-        <p>
+        {this.renderDate(this.state.data.dates.match, MatchInfoComponent.DATE_TEXT_CLASS_NAME)}
+        <p className={MatchInfoComponent.DATE_TITLE_CLASS_NAME}>
           <b>Answers Open</b>
         </p>
-        {this.renderDate(this.state.data.dates.open)}
-        <p>
+        {this.renderDate(this.state.data.dates.open, MatchInfoComponent.DATE_TEXT_CLASS_NAME)}
+        <p className={MatchInfoComponent.DATE_TITLE_CLASS_NAME}>
           <b>Answers Close</b>
         </p>
-        {this.renderDate(this.state.data.dates.close)}
+        {this.renderDate(this.state.data.dates.close,MatchInfoComponent.DATE_TEXT_CLASS_NAME)}
       </div>
     )
   }
 
-  protected renderDate(date: Date | undefined){
-    return <p className="dateText">{date?.toDateString()}</p>
+  protected renderDate(date: Date | undefined, dateTextClassName: string){
+    return <p className={dateTextClassName}>{date?.toDateString()}</p>
   }
 
   /** Render elements displaying information about the judge. */
@@ -108,7 +112,7 @@ export default abstract class MatchInfoComponent<S extends LoadingComponentState
     return (
         <div className={'matchInfo ' + this.matchInfoTypeClass}>
             
-           {this.renderTitle(data.title)}
+           {this.renderTitle(data.title, MatchInfoComponent.MATCH_TITLE_CLASS_NAME)}
             
             <div className="userDisplay">
               {this.renderJudgeInfo(data.judge as FighterData)}
