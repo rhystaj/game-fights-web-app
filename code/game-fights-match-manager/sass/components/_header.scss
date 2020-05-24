@@ -1,13 +1,16 @@
 @import '../util';
 @import '../values/dimensions';
+@import '../mixins/components';
 
 .header{
+    
+    @include sectionDivision;
+
+    box-sizing: content-box;
 
     display: block;
-    height: $headerHeight;
 
     img{
-        margin: 0 1em;
         display: inline-block;
         vertical-align: middle;
     }
@@ -28,13 +31,11 @@
 
     .logo{
         height: $logoHeight;
-        margin: marginToCentreChild($headerHeight, $logoHeight) 1em;
     }
 
     .notificationsIcon{
         float: right;
         height: $notificationsIconHeight;
-        margin: marginToCentreChild($headerHeight, $notificationsIconHeight) 1em;
     }
 
 }

@@ -5,3 +5,21 @@
 @function marginToCentreChild($parentSize, $childSize){
     @return $parentSize/2 - $childSize/2;
 }
+
+/*
+    Separates children of a particular type with margins bewteen them.
+*/
+@mixin marginBetweenChildrenOfType($childType, $margin, $vertical) {
+    
+    #{$childType}:not(:last-of-type){
+       
+        @if($vertical){
+            margin-bottom: $margin;
+        }
+        @else{
+            margin-right: $margin;
+        }
+        
+    }
+
+}
