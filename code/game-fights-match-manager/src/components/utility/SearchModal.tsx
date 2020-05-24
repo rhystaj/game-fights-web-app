@@ -51,7 +51,7 @@ export default abstract class SearchModal<M, D, I extends ISearchInterface<D>,
     /**
      * [DES/PRE] Render an area where the results of the search will be displayed.
      */
-    protected abstract renderSearchResults(): JSX.Element;
+    protected abstract renderSearchResults(): JSX.Element | JSX.Element[];
 
     /**
      * [DES/PRE] Render options to describe what to be done with the results of the search.
@@ -104,10 +104,12 @@ export default abstract class SearchModal<M, D, I extends ISearchInterface<D>,
     render(){
         return (
             <div className={"searchModal " + this.searchModalTypeClass} >
-                {this.renderSearchArea()}
-                {this.renderSearchResults()}
-                {this.renderResultOptions()}
-                {this.state.showingConfirmationError ? this.renderConfirmationError() : <div />}
+                <div className="searchModalContent">
+                    {this.renderSearchArea()}
+                    {this.renderSearchResults()}
+                    {this.renderResultOptions()}
+                    {this.state.showingConfirmationError ? this.renderConfirmationError() : <div />}
+                </div>
             </div>
         )
     }
