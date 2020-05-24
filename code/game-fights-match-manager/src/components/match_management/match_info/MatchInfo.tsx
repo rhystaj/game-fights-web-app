@@ -7,6 +7,8 @@ import IMatchDataInterface from '../../../backend_interface/game_fights_data_int
 import { GameFightsDataInterfaceManager } from '../../../backend_interface/game_fights_data_interface/GameFightsDataInterfaceManager';
 import { DataInterfacingComponentProps } from '../../utility/DataInterfacingComponent';
 
+import '../../../style/main.css'
+
 /**
  * [DES/PRE] Shows the name, participants info, and dates of a match.
  * @param {*} props
@@ -38,8 +40,8 @@ export default abstract class MatchInfoComponent<S extends LoadingComponentState
 
   protected renderDates(){
     return (
-      <div id='dates'>
-        <p>
+      <div className='matchDatesDisplay'>
+        <p className="dateTitle">
           <b>Match Date</b>
         </p>
         {this.renderDate(this.state.data.dates.match)}
@@ -56,13 +58,13 @@ export default abstract class MatchInfoComponent<S extends LoadingComponentState
   }
 
   protected renderDate(date: Date | undefined){
-    return <p>{date?.toDateString()}</p>
+    return <p className="dateText">{date?.toDateString()}</p>
   }
 
   /** Render elements displaying information about the judge. */
   protected renderJudgeInfo(judgeData: FighterData){
     return(
-      <div className='userDisplay'>
+      <div>
         <img src={judgeData.profileImageURL} alt='Judge' />
         <p>Judge</p>
       </div>
@@ -71,7 +73,7 @@ export default abstract class MatchInfoComponent<S extends LoadingComponentState
 
   protected renderParticipantsInfo(participants: FighterData[]){
     return(
-      <div className='userDisplay'>
+      <div>
         {
           /** Render the invited fighters that have not declined thier invites. */
           participants.filter(participant => participant.status !== FighterMatchStatus.DECLINED).map(this.renderParticipant)
@@ -99,15 +101,16 @@ export default abstract class MatchInfoComponent<S extends LoadingComponentState
   protected renderLoaded(dataInterface: IMatchDataInterface, data: MatchData){
     
     return (
-        <div id='matchInfo'>
+        <div className='matchInfo'>
             
            {this.renderTitle(data.title)}
             
-            {this.renderDates()}
-            
-            {this.renderJudgeInfo(data.judge as FighterData)}
+            <div className="userDisplay">
+              {this.renderJudgeInfo(data.judge as FighterData)}
+              {this.renderParticipantsInfo(data.invitedFighters)}
+            </div>
 
-            {this.renderParticipantsInfo(data.invitedFighters)}
+            {this.renderDates()}
 
         </div>
     );

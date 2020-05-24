@@ -1,0 +1,45 @@
+@import '../util';
+@import '../mixins/components';
+
+.matchInfo{
+
+    @include sectionDivision;
+
+    display: grid;
+    grid-template-columns: auto 11em;
+    grid-template-rows: auto auto;
+
+    h1 {
+
+        grid-column: 1 / span 2;
+        grid-row: 1;
+
+    }
+
+    .matchDatesDisplay{
+
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        text-align: right;
+
+        @include marginBetweenChildrenOfType('.dateText', 1em, true)
+
+    }
+
+    .userDisplay{
+        
+        grid-column: 1;
+        grid-row: 2;
+
+        margin: 1em 0;
+
+        div{
+            display: inline-block;
+        }
+
+        @include marginBetweenChildrenOfType('img', 1em, false);
+        @include marginBetweenChildrenOfType('div', 2em, false);
+
+    }
+
+}
