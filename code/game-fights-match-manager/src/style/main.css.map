@@ -13,7 +13,7 @@
         "../../sass/values/_dimensions.scss",
         "../../sass/components/_matchInvitation.scss",
         "../../sass/values/_dimensions.scss",
-        "../../sass/components/_matchInfo.scss",
+        "../../sass/components/match_info/_matchInfo.scss",
         "../../sass/_util.scss",
         "../../sass/mixins/_components.scss"
     ],
