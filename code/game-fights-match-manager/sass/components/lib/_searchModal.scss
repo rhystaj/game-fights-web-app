@@ -14,9 +14,9 @@ $modalMargin: calc(50% - #{$modalWidth}/2);
     width: 100%;
     height: 100vh;
 
-    .searchModalContent{
+    background-color: rgba(black, 0.6);
 
-        box-shadow: 10px 10px 10px 0px grey;
+    .searchModalContent {
 
         border: solid 5px;
         background-color: whitesmoke;
