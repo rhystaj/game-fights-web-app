@@ -17,6 +17,7 @@ export default abstract class MatchInfoComponent<S extends LoadingComponentState
     LoadingComponent<GameFightsDataInterfaceManager, MatchData, IMatchDataInterface, 
     DataInterfacingComponentProps<GameFightsDataInterfaceManager>, S> {
   
+  private static readonly USER_DISPLAY_CLASS_NAME = 'userDisplay';
   private static readonly MATCH_TITLE_CLASS_NAME = 'matchTitle';
   private static readonly DATE_TITLE_CLASS_NAME = 'dateTitle';
   private static readonly DATE_TEXT_CLASS_NAME = 'dateText'
@@ -70,12 +71,10 @@ export default abstract class MatchInfoComponent<S extends LoadingComponentState
     return <p className={dateTextClassName}>{date?.toDateString()}</p>
   }
 
-  /** Render elements displaying information about the judge. */
-  protected renderJudgeInfo(judgeData: FighterData){
+  renderUserDisplay(data: MatchData, userDisplayClassName: string){
     return(
-      <div>
-        <img src={judgeData.profileImageURL} alt='Judge' />
-        <p>Judge</p>
+      <div className={userDisplayClassName}>
+        {this.renderParticipantsInfo(data.invitedFighters)}
       </div>
     )
   }
@@ -111,16 +110,9 @@ export default abstract class MatchInfoComponent<S extends LoadingComponentState
     
     return (
         <div className={'matchInfo ' + this.matchInfoTypeClass}>
-            
-           {this.renderTitle(data.title, MatchInfoComponent.MATCH_TITLE_CLASS_NAME)}
-            
-            <div className="userDisplay">
-              {this.renderJudgeInfo(data.judge as FighterData)}
-              {this.renderParticipantsInfo(data.invitedFighters)}
-            </div>
-
+            {this.renderTitle(data.title, MatchInfoComponent.MATCH_TITLE_CLASS_NAME)}
+            {this.renderUserDisplay(data, MatchInfoComponent.USER_DISPLAY_CLASS_NAME)}
             {this.renderDates()}
-
         </div>
     );
   }
