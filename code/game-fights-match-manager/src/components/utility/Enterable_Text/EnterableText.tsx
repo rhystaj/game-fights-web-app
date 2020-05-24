@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import Entry from "../Entry/Entry";
+
+import '../../../style/main.css'
 
 type EnterableTextProps<D> = {
     className: string,
@@ -65,16 +66,18 @@ export default abstract class EnterableText<D> extends Component<EnterableTextPr
 
     render(){
         
+        const enterableTextClassName = "enterableText";
+
         if(!this.state.editing){
             return(
-                <div className={this.props.className} onClick={() => this.setState({editing: true})}>
+                <div className={enterableTextClassName + " " + this.props.className} onClick={() => this.setState({editing: true})}>
                     {this.renderText(this.convertValueToString(this.state.currentConfirmedValue))}
                 </div>
             )
         }
         else{
             return(
-                <div className={this.props.className}>
+                <div className={enterableTextClassName + " editing " + this.props.className}>
                     {this.renderEntry(this.onConfirmEntry, this.onCancelEntry)}
                     {this.state.displayingSubmissionError ? this.renderSubmissionError() : <div />}
                 </div>

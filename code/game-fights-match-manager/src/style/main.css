@@ -169,4 +169,9 @@ ul {
 .matchInfo .userDisplay div:not(:last-of-type) {
   margin-right: 2em;
 }
+
+.enterableText p, .enterableText h1, .enterableText h2, .enterableText h3, .enterableText h4, .enterableText h5, .enterableText h6 {
+  display: inline;
+  border-bottom: solid 1px black;
+}
 /*# sourceMappingURL=main.css.map */
