@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Entry from "../Entry/Entry";
 
 type EnterableTextProps<D> = {
+    className: string,
     initialValue: D,
     onSubmitValue: (value: D) => Promise<void>
 }
@@ -66,14 +67,14 @@ export default abstract class EnterableText<D> extends Component<EnterableTextPr
         
         if(!this.state.editing){
             return(
-                <div onClick={() => this.setState({editing: true})}>
+                <div className={this.props.className} onClick={() => this.setState({editing: true})}>
                     {this.renderText(this.convertValueToString(this.state.currentConfirmedValue))}
                 </div>
             )
         }
         else{
             return(
-                <div>
+                <div className={this.props.className}>
                     {this.renderEntry(this.onConfirmEntry, this.onCancelEntry)}
                     {this.state.displayingSubmissionError ? this.renderSubmissionError() : <div />}
                 </div>
