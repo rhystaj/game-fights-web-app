@@ -17,6 +17,11 @@ export default abstract class MatchInfoComponent<S extends LoadingComponentState
     LoadingComponent<GameFightsDataInterfaceManager, MatchData, IMatchDataInterface, 
     DataInterfacingComponentProps<GameFightsDataInterfaceManager>, S> {
   
+  /**
+   * The class that describes what type of match info this is.
+   */
+  protected abstract get matchInfoTypeClass() : string;
+  
   protected getDataInterface(){
     return this.props.dataInterfaceManager.matchDataInterface;
   }
@@ -101,7 +106,7 @@ export default abstract class MatchInfoComponent<S extends LoadingComponentState
   protected renderLoaded(dataInterface: IMatchDataInterface, data: MatchData){
     
     return (
-        <div className='matchInfo'>
+        <div className={'matchInfo ' + this.matchInfoTypeClass}>
             
            {this.renderTitle(data.title)}
             

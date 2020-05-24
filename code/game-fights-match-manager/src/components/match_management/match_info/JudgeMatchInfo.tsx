@@ -16,6 +16,10 @@ interface JudgeMatchInfoState extends LoadingComponentState<MatchData>{
 
 export default class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoState>{
     
+    protected get matchInfoTypeClass(){
+        return "judge";
+    }
+
     protected determineInitialLoadingComponentState(initialLoadingValue: boolean, initialData: MatchData): JudgeMatchInfoState {
         return {
             loading: initialLoadingValue,

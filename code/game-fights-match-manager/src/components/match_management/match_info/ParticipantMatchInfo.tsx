@@ -9,6 +9,10 @@ import { MatchData } from '../../../types/datatypes';
  */
 class ParticipantMatchInfo extends MatchInfoComponent<LoadingComponentState<MatchData>> {
   
+  protected get matchInfoTypeClass(){
+    return "participant";
+  }
+
   protected determineNewStateFromData(data: MatchData): LoadingComponentState<MatchData> {
     return {
       loading: this.state.loading,
