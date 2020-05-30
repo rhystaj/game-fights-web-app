@@ -58,9 +58,9 @@ export default abstract class SearchModal<M, D, I extends ISearchInterface<D>,
      */
     protected renderResultOptions(): JSX.Element {
         return(
-            <div>
-                <button onClick={this.onCancelButtonClick}>Cancel</button>
-                <button onClick={this.onConfirmActionClick}>{this.getConfirmButtonText()}</button>
+            <div className="searchResultOptionButtons">
+                <button className="cancelSearch" onClick={this.onCancelButtonClick}>Cancel</button>
+                <button className="confirmSearch" onClick={this.onConfirmActionClick}>{this.getConfirmButtonText()}</button>
             </div>
         )
         
