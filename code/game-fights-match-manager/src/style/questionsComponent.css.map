@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "ACAA;;EAEE;ADAF,AAAA,mBAAmB,CAAA;ECEf,aAAa,EAAE,eAAe;EAC9B,OAAO,EAAE,GAAG;EDCZ,gBAAgB,EAAE,aAAa;CAElC",
+    "sources": [
+        "../../sass/components/question_management/questionsComponent.scss",
+        "../../sass/mixins/_components.scss"
+    ],
+    "names": [],
+    "file": "questionsComponent.css"
+}

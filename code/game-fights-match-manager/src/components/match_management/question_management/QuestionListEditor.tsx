@@ -7,6 +7,10 @@ import QuestionListProgressingControls from '../../match_progressing_controls/Qu
 
 export default class QuestionsEditor extends AbstractQuestionsEditor<Question, IQuestionListInterface> {
     
+    protected get questionComponentTypeClass(){
+        return "questionsEditor";
+    }
+
     protected getDataInterface(): IQuestionListInterface {
         return this.props.dataInterfaceManager.questionsListInterface;
     }

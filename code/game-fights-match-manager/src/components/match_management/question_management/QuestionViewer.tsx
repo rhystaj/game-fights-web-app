@@ -14,6 +14,10 @@ type QuestionsViewerState = LoadingComponentState<Question[]>;
  */
 class QuestionsViewer extends QuestionsComponent<Question, IQuestionsInterface<Question>, QuestionsViewerState>{
     
+    protected get questionComponentTypeClass(){
+        return "questionsViewer";
+    }
+
     protected getDataInterface(): IQuestionsInterface<Question> {
         return this.props.dataInterfaceManager.questionsListInterface;
     }  

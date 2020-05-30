@@ -9,6 +9,10 @@ import QuestionAnswerJudgementProgressingControls from '../../match_progressing_
 
 export default class AnswerJudgementManager extends AbstractQuestionsEditor<QuestionAnswersJudgementData, IQuestionAnswerJudgementsInterface>{
     
+    protected get questionComponentTypeClass(){
+        return "answerJudgementManager";
+    }
+
     protected getDataInterface(): IQuestionAnswerJudgementsInterface {
         return this.props.dataInterfaceManager.questionAnswerJudgementsListInterface;
     }

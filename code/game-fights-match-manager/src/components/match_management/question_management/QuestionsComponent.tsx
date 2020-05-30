@@ -10,6 +10,8 @@ import { Question } from '../../../types/datatypes';
 
 import { DataInterfacingComponentProps } from '../../utility/DataInterfacingComponent';
 
+import '../../../style/main.css';
+
 //Some type aliases to hopefully make type references more digestable.
 type QuestionComponentState<Q> = LoadingComponentState<Q[]>;
 type QuestionComponentProps = DataInterfacingComponentProps<GameFightsDataInterfaceManager>;
@@ -18,6 +20,11 @@ type QuestionComponentProps = DataInterfacingComponentProps<GameFightsDataInterf
 export default abstract class Questions<Q extends Question, I extends IDataInterface<Q[]>, S extends QuestionComponentState<Q>> extends 
     LoadingComponent<GameFightsDataInterfaceManager, Q[], I, QuestionComponentProps, S>{
     
+    /**
+     * The class that denotes what kind of questions component this is.
+     */
+    protected abstract get questionComponentTypeClass(): string;
+
     protected determineInitalData(): Q[] {
         return []
     }
@@ -39,7 +46,7 @@ export default abstract class Questions<Q extends Question, I extends IDataInter
 
     protected renderLoaded(dataInterface: IDataInterface<Q[]>, questions: Q[]){
         return(
-            <div>
+            <div className={"questionsComponent " + this.questionComponentTypeClass}>
                 {this.renderQuestionList(questions)}
             </div>
         ) 

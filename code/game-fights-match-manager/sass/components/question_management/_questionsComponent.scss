@@ -1,0 +1,11 @@
+@import '../../util';
+@import '../../mixins/components';
+
+.questionsComponent{
+
+    @include sectionDivision;
+    @include marginBetweenChildrenOfType("p", 1em, true);
+
+    font-size: 1.5em;
+
+}

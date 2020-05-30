@@ -295,4 +295,24 @@ ul {
 .searchModal.fighterInvitation > .searchModalContent .searchResultOptionButtons button {
   height: 100%;
 }
+
+/*
+    Works out the margin required to be applied to a child element for it to be centred within its parent, given the size
+    of the parent and the child.
+*/
+/*
+    Separates children of a particular type with margins bewteen them.
+*/
+/*
+    The way in which major sections are divided.
+*/
+.questionsComponent {
+  border-bottom: 1px solid black;
+  padding: 1em;
+  font-size: 1.5em;
+}
+
+.questionsComponent p:not(:last-of-type) {
+  margin-bottom: 1em;
+}
 /*# sourceMappingURL=main.css.map */
