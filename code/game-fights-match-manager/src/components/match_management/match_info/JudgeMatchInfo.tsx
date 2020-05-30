@@ -62,13 +62,13 @@ export default class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoSta
 
     renderTitle(title: string, matchTitleClassName: string){
         
-            return(
-                <EnterableHeading
-                    className={matchTitleClassName}
-                    initialValue={title}
-                    onSubmitValue={this.onConfirmTitle}
-                />
-            )
+        return(
+            <EnterableHeading
+                className={matchTitleClassName}
+                initialValue={title}
+                onSubmitValue={this.onConfirmTitle}
+            />
+        )
         
     }
 
@@ -95,21 +95,30 @@ export default class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoSta
         )
     }
 
+    protected renderModal(data: MatchData, showingModal: boolean){
+
+        if(showingModal){
+            return(
+                <FighterInvitationSearchModal 
+                    dataInterfaceManager={this.props.dataInterfaceManager}
+                    preInvitedFighters={data.invitedFighters}
+                    onCancel={() => { this.setState({ showingInvitationModal: false }) }}
+                    onConfirmInvites={this.onConfirmInvites}
+                />
+            );
+        }
+        else{
+            return (<div/>);
+        }
+        
+    }
+
     renderLoaded(dataInterface: IMatchDataInterface, data: MatchData){
-        return (
-            <div>
-                {super.renderLoaded(dataInterface, data)}
-                {this.state.showingInvitationModal ?
-                    (<FighterInvitationSearchModal 
-                        dataInterfaceManager={this.props.dataInterfaceManager}
-                        preInvitedFighters={data.invitedFighters}
-                        onCancel={() => { this.setState({ showingInvitationModal: false }) }}
-                        onConfirmInvites={this.onConfirmInvites}
-                    />)
-                    :
-                    (<div/>)}
-            </div>
-        )
+        
+        const inheritedElements = super.renderLoaded(dataInterface, data) as JSX.Element[];
+        
+        return inheritedElements.concat(this.renderModal(data, this.state.showingInvitationModal));
+        
     }
 
 }

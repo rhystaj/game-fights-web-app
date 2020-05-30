@@ -18,7 +18,7 @@ export default abstract class SearchModal<M, D, I extends ISearchInterface<D>,
         extends DataInterfacingComponent<M, D[], I, P, S>{
 
     protected determineComponentClassString(){
-        return this.searchModalTypeClass;
+        return "searchModal " + this.searchModalTypeClass;
     }
 
     /**

@@ -8,6 +8,7 @@ import { GameFightsDataInterfaceManager } from '../../../backend_interface/game_
 import { DataInterfacingComponentProps } from '../../utility/DataInterfacingComponent';
 
 import '../../../style/main.css'
+import { ComponentContents } from '../../../types/customCompositeTypes';
 
 /**
  * [DES/PRE] Shows the name, participants info, and dates of a match.
@@ -22,11 +23,17 @@ export default abstract class MatchInfoComponent<S extends LoadingComponentState
   private static readonly DATE_TITLE_CLASS_NAME = 'dateTitle';
   private static readonly DATE_TEXT_CLASS_NAME = 'dateText'
 
+  
+
   /**
    * The class that describes what type of match info this is.
    */
   protected abstract get matchInfoTypeClass() : string;
   
+  protected determineComponentClassString(){
+    return super.determineComponentClassString() + " matchInfo " + this.matchInfoTypeClass;
+  }
+
   protected getDataInterface(){
     return this.props.dataInterfaceManager.matchDataInterface;
   }
@@ -106,15 +113,14 @@ export default abstract class MatchInfoComponent<S extends LoadingComponentState
     );
   }
 
-  protected renderLoaded(dataInterface: IMatchDataInterface, data: MatchData){
+  protected renderLoaded(dataInterface: IMatchDataInterface, data: MatchData): ComponentContents{
     
-    return (
-        <div className={'matchInfo ' + this.matchInfoTypeClass}>
-            {this.renderTitle(data.title, MatchInfoComponent.MATCH_TITLE_CLASS_NAME)}
-            {this.renderUserDisplay(data, MatchInfoComponent.USER_DISPLAY_CLASS_NAME)}
-            {this.renderDates()}
-        </div>
-    );
+    return [
+      this.renderTitle(data.title, MatchInfoComponent.MATCH_TITLE_CLASS_NAME),
+      this.renderUserDisplay(data, MatchInfoComponent.USER_DISPLAY_CLASS_NAME),
+      this.renderDates()
+    ];
+
   }
   
 }
