@@ -6,6 +6,7 @@ import { LoadingComponentState } from '../../utility/LoadingComponent';
 
 import { Question } from '../../../types/datatypes';
 import IQuestionsInterface from '../../../backend_interface/game_fights_data_interface/data_interfaces/question_interfaces/IQuestionsInterface';
+import { ComponentContents } from '../../../types/customCompositeTypes';
 
 export interface QuestionsEditorState<Q> extends LoadingComponentState<Q[]>{
     addingQuestion: boolean;
@@ -79,7 +80,7 @@ export default abstract class AbstractQuestionsEditor<Q extends Question, I exte
         )
     }
 
-    protected renderLoaded(dataInterface: IQuestionsInterface<Q>, questions: Q[]){
+    protected renderLoaded(dataInterface: IQuestionsInterface<Q>, questions: Q[]): ComponentContents{
         return(
             <div>
                 {super.renderLoaded(dataInterface, questions) /* Render the questions as normal.*/}
