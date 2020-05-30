@@ -1,4 +1,4 @@
-import { Component } from "react";
+import OEComponent from '../utility/OEComponent';
 
 import IDataInterface from "../../backend_interface/lib/interfaces/IDataInterface";
 
@@ -13,7 +13,7 @@ export interface DataInterfacingComponentState<D>{
 export default abstract class DataInterfacingComponent<M, D, 
         I extends IDataInterface<D> = IDataInterface<D>,
         P extends DataInterfacingComponentProps<M> = DataInterfacingComponentProps<M>,
-        S extends DataInterfacingComponentState<D> = DataInterfacingComponentState<D>> extends Component<P, S>{
+        S extends DataInterfacingComponentState<D> = DataInterfacingComponentState<D>> extends OEComponent<P, S>{
 
     public constructor(props: P){
         super(props);

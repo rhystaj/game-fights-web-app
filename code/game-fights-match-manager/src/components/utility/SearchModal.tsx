@@ -17,6 +17,9 @@ export default abstract class SearchModal<M, D, I extends ISearchInterface<D>,
         S extends SearchModalState<D>>
         extends DataInterfacingComponent<M, D[], I, P, S>{
 
+    protected determineComponentClassString(){
+        return this.searchModalTypeClass;
+    }
 
     /**
      * The class that describes what type of search modal the search modal is.
@@ -101,15 +104,13 @@ export default abstract class SearchModal<M, D, I extends ISearchInterface<D>,
         this.getDataInterface().searchDataByString(e.target.value);
     }
 
-    render(){
+    renderComponentContents(){
         return (
-            <div className={"searchModal " + this.searchModalTypeClass} >
-                <div className="searchModalContent">
-                    {this.renderSearchArea()}
-                    {this.renderSearchResults()}
-                    {this.renderResultOptions()}
-                    {this.state.showingConfirmationError ? this.renderConfirmationError() : <div />}
-                </div>
+            <div className="searchModalContent">
+                {this.renderSearchArea()}
+                {this.renderSearchResults()}
+                {this.renderResultOptions()}
+                {this.state.showingConfirmationError ? this.renderConfirmationError() : <div />}
             </div>
         )
     }

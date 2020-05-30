@@ -5,6 +5,7 @@ import IDataInterface from '../../backend_interface/lib/interfaces/IDataInterfac
 import Loading from './Loading'
 import DataInterfacingComponent, { DataInterfacingComponentProps, DataInterfacingComponentState } from './DataInterfacingComponent';
 
+import '../../style/main.css';
 
 export interface LoadingComponentState<D> extends DataInterfacingComponentState<D>{
     loading: boolean;
@@ -22,6 +23,10 @@ export default abstract class LoadingComponent<M, D, I extends IDataInterface<D>
         P extends DataInterfacingComponentProps<M> = DataInterfacingComponentProps<M>, 
         S extends LoadingComponentState<D> = LoadingComponentState<D>> 
         extends DataInterfacingComponent<M, D, I, P, S> {
+
+    protected determineComponentClassString(){
+        return "loadingComponent " + (this.state.loading ? "loading" : "loaded");
+    }
 
     protected onDataChange(oldData: D, newData: D){
         super.onDataChange(oldData, newData);
@@ -42,14 +47,10 @@ export default abstract class LoadingComponent<M, D, I extends IDataInterface<D>
      * @param data [DES] The data that will be used to determine how the component is displayed. 
      *             [PRE] The data that is contained within the state.
      */
-    protected abstract renderLoaded(dataInterface: I, data: D): JSX.Element;
+    protected abstract renderLoaded(dataInterface: I, data: D): JSX.Element | JSX.Element[];
 
-    public render(){
-        if(this.state.loading){
-            return <Loading />
-        } 
-        else {
-            return this.renderLoaded(this.getDataInterface(), this.state.data);
-        }
+    public renderComponentContents(){
+        return this.state.loading ? <Loading/> : this.renderLoaded(this.getDataInterface(), this.state.data);
     }
+
 }
