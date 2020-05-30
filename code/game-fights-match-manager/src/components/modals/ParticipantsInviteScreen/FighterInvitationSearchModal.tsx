@@ -10,9 +10,9 @@ import { whenUnassigned } from '../../../utility/functions/qolFunctions'
 import InvitedFighterList from './InvitedFighterList';
 import { FighterMatchStatus } from '../../../enums/statusEnums';
 import { GameFightsDataInterfaceManager } from '../../../backend_interface/game_fights_data_interface/GameFightsDataInterfaceManager';
-import { DataInterfacingComponentState } from '../../utility/DataInterfacingComponent';
-import SearchInterface from '../../../backend_interface/lib/abstract_implementations/AbstarctSearchInterface';
 import ISearchInterface from '../../../backend_interface/lib/interfaces/ISearchInterface';
+
+import '../../../style/main.css'
 
 interface FighterInvitationSearchModalProps extends SearchModalProps<GameFightsDataInterfaceManager>{
     preInvitedFighters: FighterData[],
@@ -30,7 +30,7 @@ export default class FighterInvitationSearchModal extends SearchModal<GameFights
     ISearchInterface<FighterData>, FighterInvitationSearchModalProps, FighterInvitationSearchModalState>{
     
     protected get searchModalTypeClass(){
-        return "fighterInvitiation";
+        return "fighterInvitation";
     }
 
     protected getDataInterface(): ISearchInterface<FighterData> {
@@ -75,16 +75,18 @@ export default class FighterInvitationSearchModal extends SearchModal<GameFights
 
     renderSearchResults = () => {
         return (
-            <div>
+            [
                 <InvitationSearchResultsFighterList 
+                    itemListTypeName="fighterInvitationSearchResults"
                     items={this.state === null ? [] : this.state.data.filter(this.invitedFightersFilter)} 
                     onInviteFighter={this.onInviteFighter}    
-                />
-                <InvitedFighterList 
+                />,
+                <InvitedFighterList
+                    itemListTypeName="invitedFighters"
                     items={this.state === null ? [] : this.state.invitedFighters}
                     onUninviteFighter={this.onUninviteFighter}
                 />
-            </div>
+            ]
         );
     }
 

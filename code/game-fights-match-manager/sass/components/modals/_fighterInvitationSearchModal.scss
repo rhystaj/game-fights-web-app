@@ -1,0 +1,70 @@
+$fighterImageSize: 50px;
+
+.searchModal.fighterInvitation > .searchModalContent{
+
+    display: grid;
+    grid-template-columns: 300px 300px;
+    grid-template-rows: 1.3em 400px 2em;
+
+    column-gap: 1em;
+
+    .modalSearchBox{
+        grid-column: 1;
+        grid-row: 1;
+
+        height: 100%;
+        width: 100%;
+    }
+
+    .itemList{
+        background-color: white;
+        overflow-y: auto;
+        padding: 1em;
+    }
+
+    .fighterInvitationSearchResults{
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .invitedFighters{
+        grid-column: 2;
+        grid-row: 1 / span 2;
+    }
+
+    .fighterListItem{
+
+        display: grid;
+        grid-template-columns: $fighterImageSize auto 5em;
+        grid-template-rows: $fighterImageSize;
+
+        column-gap: 1em;
+
+        margin-bottom: 1em;
+
+        * {
+            align-self: center;
+        }
+
+        img {
+            height: $fighterImageSize;
+            width: $fighterImageSize
+        }
+
+        button{
+            height: 2em;
+            width: 100%;
+        }
+
+    }
+
+    .searchResultOptionButtons{
+        grid-column: 2;
+
+        button{
+            height: 100%;
+        }
+
+    }
+
+}
