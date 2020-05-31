@@ -75,36 +75,56 @@ export default abstract class AbstractQuestionsEditor<Q extends Question, I exte
         return (
             <div className={questionElementClassName} key={question.id}>
                 <p>{question.text}</p>
-                <button onClick={this.onDeleteQuestion(question)}>-</button>
+                <button 
+                    className="deleteQuestionButton"
+                    onClick={this.onDeleteQuestion(question)}
+                >
+                    -
+                </button>
             </div>
         )
     }
 
+    protected renderQuestionEntry(){
+        
+        return (
+            <TextEntry 
+                initialValue=""
+                onConfirmEntry={this.confirmQuestionEntry}
+                onCancelEntry={this.cancelQuestionEntry}
+            /> 
+        );
+
+    }
+
+    protected renderQuestionSubmissionError(){
+        return <p style={{color: "red"}}>There was an error submitting the question.</p>;
+    }
+
+    protected renderAddQuestionButton(){
+        
+        return (
+            
+            <button 
+                className="addQuestionButton"
+                onClick={this.addQuestion}
+                disabled={this.state.addingQuestion}>
+                    {this.state.showingQuestionSubmissionError ? "Try Again" : "Add Question"}
+            </button>
+            
+        );
+
+    }
+
     protected renderLoaded(dataInterface: IQuestionsInterface<Q>, questions: Q[]): ComponentContents{
-        return(
-            <div>
-                {super.renderLoaded(dataInterface, questions) /* Render the questions as normal.*/}
-                {this.state.addingQuestion ? 
-                    <TextEntry 
-                        initialValue=""
-                        onConfirmEntry={this.confirmQuestionEntry}
-                        onCancelEntry={this.cancelQuestionEntry}
-                    /> 
-                    : 
-                    null}
-                
-                {this.state.showingQuestionSubmissionError ? 
-                    <p style={{color: "red"}}>There was an error submitting the question.</p>
-                    : null    
-                }
-                
-                <button 
-                    onClick={this.addQuestion}
-                    disabled={this.state.addingQuestion}>
-                        {this.state.showingQuestionSubmissionError ? "Try Again" : "Add Question"}
-                </button>
-            </div>
-        )
+        
+        return [
+            ...super.renderLoaded(dataInterface, questions) as JSX.Element[], /* Render the questions as normal.*/
+            (this.state.addingQuestion ? this.renderQuestionEntry() : null),
+            (this.state.showingQuestionSubmissionError ? this.renderQuestionSubmissionError() : null),    
+            this.renderAddQuestionButton()    
+        ];
+
     }
 
 }

@@ -1,1 +1,1 @@
-export type ComponentContents = JSX.Element | JSX.Element[] 
+export type ComponentContents = JSX.Element | (JSX.Element | null)[] 

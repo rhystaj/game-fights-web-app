@@ -1,0 +1,32 @@
+.questionsComponent.questionListEditor{
+
+    display: flex;
+    flex-direction: column;
+
+    .question{
+
+        p{
+            display: inline-block;
+        }
+
+        .deleteQuestionButton{
+            
+            width: 2em;
+            height: 1.5em;
+            margin-left: 1em;
+
+            vertical-align: middle;
+
+            position: relative;
+            top: -0.1em
+        }
+
+    }
+
+    .addQuestionButton{
+
+        align-self: center;
+
+    }
+
+}

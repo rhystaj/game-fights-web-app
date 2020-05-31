@@ -6,6 +6,7 @@ import Loading from './Loading'
 import DataInterfacingComponent, { DataInterfacingComponentProps, DataInterfacingComponentState } from './DataInterfacingComponent';
 
 import '../../style/main.css';
+import { ComponentContents } from '../../types/customCompositeTypes';
 
 export interface LoadingComponentState<D> extends DataInterfacingComponentState<D>{
     loading: boolean;
@@ -47,7 +48,7 @@ export default abstract class LoadingComponent<M, D, I extends IDataInterface<D>
      * @param data [DES] The data that will be used to determine how the component is displayed. 
      *             [PRE] The data that is contained within the state.
      */
-    protected abstract renderLoaded(dataInterface: I, data: D): JSX.Element | JSX.Element[];
+    protected abstract renderLoaded(dataInterface: I, data: D): ComponentContents
 
     public renderComponentContents(){
         return this.state.loading ? <Loading/> : this.renderLoaded(this.getDataInterface(), this.state.data);
