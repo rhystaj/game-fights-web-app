@@ -10,7 +10,7 @@ import '../../../style/main.css'
 
 export default class QuestionsEditor extends AbstractQuestionsEditor<Question, IQuestionListInterface> {
     
-    protected get questionComponentTypeClass(){
+    protected get questionsEditorTypeClass(){
         return "questionListEditor";
     }
 

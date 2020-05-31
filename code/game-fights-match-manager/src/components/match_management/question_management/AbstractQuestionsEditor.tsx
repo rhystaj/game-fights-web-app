@@ -18,6 +18,12 @@ export interface QuestionsEditorState<Q> extends LoadingComponentState<Q[]>{
  */
 export default abstract class AbstractQuestionsEditor<Q extends Question, I extends IQuestionsInterface<Q>> extends QuestionsComponent<Q, I, QuestionsEditorState<Q>>{
     
+    protected get questionComponentTypeClass(){
+        return "questionsEditor " + this.questionsEditorTypeClass;
+    }
+
+    protected abstract get questionsEditorTypeClass(): string;
+
     protected determineNewStateFromData(data: Q[]): QuestionsEditorState<Q> {
         return{
             loading: this.state.loading,
