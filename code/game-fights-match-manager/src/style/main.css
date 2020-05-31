@@ -353,4 +353,8 @@ ul {
       -ms-flex-pack: justify;
           justify-content: space-between;
 }
+
+.matchProgressingControls.questionListProgressingControls .proceedMatchButton {
+  width: 15em;
+}
 /*# sourceMappingURL=main.css.map */
