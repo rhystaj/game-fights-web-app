@@ -5,6 +5,10 @@ import IQuestionListInterface from "../../backend_interface/game_fights_data_int
 
 export default class QuestionListProgressingControls extends MatchProgressingControls<Question[], IQuestionListInterface>{
     
+    protected get controlsTypeClassName(){
+        return "questionListProgressingControls";
+    }
+
     protected get proceedButtonText(): string {
         return "Open Answer Submission";
     }

@@ -5,6 +5,10 @@ import IQuestionAnswerJudgementsInterface from "../../backend_interface/game_fig
 export default class QuestionAnswerJudgementProgressingControls extends MatchProgressingControls<QuestionAnswersJudgementData[],
         IQuestionAnswerJudgementsInterface>{
     
+    protected get controlsTypeClassName(){
+        return "QuestionAnswerJudgementProgressingControls";
+    }
+
     protected get proceedButtonText(): string {
         return "Finalise Answers";
     }

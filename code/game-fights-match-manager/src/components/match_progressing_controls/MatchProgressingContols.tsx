@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import OEComponent from '../utility/OEComponent';
 
 import IMatchProgressingDataInterface from "../../backend_interface/game_fights_data_interface/data_interfaces/IMatchProgessingDataInterface";
 
@@ -7,8 +8,17 @@ export interface MatchProgressingControlsProps<D, I extends IMatchProgressingDat
 }
 
 export default abstract class MatchProgressingControls<D, I extends IMatchProgressingDataInterface<D>> extends 
-        Component<MatchProgressingControlsProps<D, I>>{
+        OEComponent<MatchProgressingControlsProps<D, I>>{
 
+    protected determineComponentClassString(){
+        return "matchProgressingControls " + this.controlsTypeClassName;
+    }
+
+    /**
+     * The class name for the type of MatchProgressingControl this component is.
+     */
+    protected abstract get controlsTypeClassName(): string;
+    
     protected abstract get proceedButtonText(): string;
 
     private onProceedClick = () => {
@@ -19,15 +29,13 @@ export default abstract class MatchProgressingControls<D, I extends IMatchProgre
         this.props.dataInterface.cancelMatch();
     }
 
-    public render(){
+    public renderComponentContents(){
         
-        return(
-            <div>
-                <button onClick={() => this.onCancelClick()}>Cancel Match</button>
-                <button onClick={() => this.onProceedClick()}>{this.proceedButtonText}</button>
-            </div>
-        )
-    
+        return[
+            <button className="cancelMatchButton" onClick={() => this.onCancelClick()}>Cancel Match</button>,
+            <button className="proceedMatchButton" onClick={() => this.onProceedClick()}>{this.proceedButtonText}</button>
+        ]
+        
     }
 
 }
