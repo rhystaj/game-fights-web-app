@@ -5,7 +5,7 @@ import { ComponentContents } from '../../types/customCompositeTypes';
 /**
  * A generic react component with additional functionality.
  */
-export default abstract class OEComponent<P, S> extends Component<P, S>{
+export default abstract class OEComponent<P = {}, S = {}> extends Component<P, S>{
 
     /**
      * The string that defines the classes that the element inherits from.
