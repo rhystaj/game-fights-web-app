@@ -345,6 +345,58 @@ ul {
       align-self: center;
 }
 
+/*
+    Works out the margin required to be applied to a child element for it to be centred within its parent, given the size
+    of the parent and the child.
+*/
+/*
+    Separates children of a particular type with margins bewteen them.
+*/
+.questionsComponent.questionsEditor.answerJudgementManager .question:not(:last-of-type) {
+  margin-bottom: 2em;
+}
+
+.questionsComponent.questionsEditor.answerJudgementManager h1 {
+  margin-bottom: 0.4em;
+}
+
+.questionsComponent.questionsEditor.answerJudgementManager .question .answerJudgement:not(:last-of-type) {
+  margin-bottom: 1em;
+}
+
+.questionsComponent.questionsEditor.answerJudgementManager .question .questionDescription {
+  margin-bottom: 0.5em;
+}
+
+.questionsComponent.questionsEditor.answerJudgementManager .question .answerJudgement {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 100px auto 15em;
+      grid-template-columns: 100px auto 15em;
+  -webkit-column-gap: 1rem;
+          column-gap: 1rem;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.questionsComponent.questionsEditor.answerJudgementManager .question .answerJudgement .answerJudgementText {
+  place-self: center end;
+  font-style: italic;
+}
+
+.questionsComponent.questionsEditor.answerJudgementManager .question .answerJudgement .answerJudgementOptions {
+  place-self: center end;
+}
+
+.questionsComponent.questionsEditor.answerJudgementManager .question .answerJudgement .answerJudgementOptions button:not(:last-of-type) {
+  margin-right: 0.5em;
+}
+
+.questionsComponent.questionsEditor.answerJudgementManager .question .answerJudgement .answerJudgementOptions button {
+  width: 7em;
+}
+
 .matchProgressingControls {
   display: -webkit-box;
   display: -ms-flexbox;

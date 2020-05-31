@@ -6,10 +6,11 @@ import { QuestionAnswersJudgementData } from "../../../types/datatypes";
 import { AnswerSubmissionState } from '../../../enums/statusEnums';
 import IQuestionAnswerJudgementsInterface from '../../../backend_interface/game_fights_data_interface/data_interfaces/question_interfaces/IQuestionAnswerJudgementsInterface';
 import QuestionAnswerJudgementProgressingControls from '../../match_progressing_controls/QuestionAnswerJudgementProgressingControls';
+import { ComponentContents } from '../../../types/customCompositeTypes';
 
 export default class AnswerJudgementManager extends AbstractQuestionsEditor<QuestionAnswersJudgementData, IQuestionAnswerJudgementsInterface>{
     
-    protected get questionComponentTypeClass(){
+    protected get questionsEditorTypeClass(){
         return "answerJudgementManager";
     }
 
@@ -24,8 +25,8 @@ export default class AnswerJudgementManager extends AbstractQuestionsEditor<Ques
     protected renderQuestion(question: QuestionAnswersJudgementData, questionElementClassName: string){
 
         return(
-            <div>
-                {super.renderQuestion(question, questionElementClassName)}
+            <div className={questionElementClassName}>
+                {super.renderQuestion(question, "questionDescription")}
                 {this.renderJudgementsList(question)}
             </div>
         )
@@ -48,7 +49,7 @@ export default class AnswerJudgementManager extends AbstractQuestionsEditor<Ques
         const judgement = question.answerJudgements[answerIndex];
 
         return(
-            <div>
+            <div className="answerJudgement">
                 <img src={judgement.participant.profileImageURL} />
                 <p>{judgement.state === AnswerSubmissionState.NO_ANSWER ? "(No Answer)" : judgement.answer}</p>
                 {this.renderJudgementControls(question, answerIndex)}
@@ -65,14 +66,14 @@ export default class AnswerJudgementManager extends AbstractQuestionsEditor<Ques
         switch(question.answerJudgements[answerIndex].state){
 
             case AnswerSubmissionState.ACCEPTED:
-                return <p>Accepted</p>
+                return <p className="answerJudgementText answerAcceptedText">Accepted</p>
 
             case AnswerSubmissionState.DECLINED:
-                return <p>Declined</p>
+                return <p className="answerJudgementText answerDeclinedText">Declined</p>
 
             case AnswerSubmissionState.PENDING_JUDGE_APPROVAL:
                 return(
-                    <div>
+                    <div className="answerJudgementOptions">
                         <button 
                             onClick={this.onUpdateAnswerStatus(question, answerIndex, AnswerSubmissionState.ACCEPTED)}
                         >
@@ -90,14 +91,13 @@ export default class AnswerJudgementManager extends AbstractQuestionsEditor<Ques
 
     }
 
-    protected renderLoaded(dataInterface: IQuestionAnswerJudgementsInterface, data: QuestionAnswersJudgementData[]): JSX.Element {
-        return (
-            <div>
-                <h1>Questions</h1>
-                {super.renderLoaded(dataInterface, data)}
+    protected renderLoaded(dataInterface: IQuestionAnswerJudgementsInterface, data: QuestionAnswersJudgementData[]): ComponentContents {
+        
+        return [    
+                <h1>Questions</h1>,
+                ...(super.renderLoaded(dataInterface, data) as JSX.Element[]),
                 <QuestionAnswerJudgementProgressingControls dataInterface={dataInterface} />
-            </div>
-        )
+        ]
+    
     }
-
 }

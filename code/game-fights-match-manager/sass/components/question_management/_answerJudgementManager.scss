@@ -1,0 +1,47 @@
+@import '../../util';
+
+.questionsComponent.questionsEditor.answerJudgementManager{
+
+    @include marginBetweenChildrenOfType(".question", 2em, true)
+
+    h1{
+        margin-bottom: 0.4em;
+    }
+
+    .question{
+
+        @include marginBetweenChildrenOfType(".answerJudgement", 1em, true);
+
+        .questionDescription{
+            margin-bottom: 0.5em;
+        }
+
+        .answerJudgement{
+
+            display: grid;
+            grid-template-columns: 100px auto 15em;
+            column-gap: 1rem;
+            align-items: center;
+    
+            .answerJudgementText{
+                place-self: center end;
+                font-style: italic;
+            }
+    
+            .answerJudgementOptions{
+    
+                @include marginBetweenChildrenOfType("button", 0.5em, false);
+    
+                place-self: center end;
+    
+                button{
+                    width: 7em;
+                }
+    
+            }
+    
+        }
+
+    }
+
+}
