@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { LoadingComponentState } from '../../utility/LoadingComponent';
 import QuestionsComponent from './QuestionsComponent'
 
@@ -44,6 +46,10 @@ class QuestionsViewer extends QuestionsComponent<Question, IQuestionsInterface<Q
         this.setState({
             data: questions
         });
+    }
+
+    protected renderQuestion(question: Question, questionElementClassName: string){
+        return <p  className={questionElementClassName} key={question.id}>{question.text}</p>;
     }
 
 }

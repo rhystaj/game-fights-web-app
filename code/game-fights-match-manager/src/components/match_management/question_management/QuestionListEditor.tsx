@@ -6,10 +6,12 @@ import { Question } from "../../../types/datatypes";
 import QuestionListProgressingControls from '../../match_progressing_controls/QuestionListProgressingControls';
 import { ComponentContents } from '../../../types/customCompositeTypes';
 
+import '../../../style/main.css'
+
 export default class QuestionsEditor extends AbstractQuestionsEditor<Question, IQuestionListInterface> {
     
     protected get questionComponentTypeClass(){
-        return "questionsEditor";
+        return "questionListEditor";
     }
 
     protected getDataInterface(): IQuestionListInterface {

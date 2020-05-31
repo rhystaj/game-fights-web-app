@@ -4,7 +4,7 @@
 .questionsComponent{
 
     @include sectionDivision;
-    @include marginBetweenChildrenOfType("p", 1em, true);
+    @include marginBetweenChildrenOfType(".question", 1em, true);
 
     font-size: 1.5em;
 

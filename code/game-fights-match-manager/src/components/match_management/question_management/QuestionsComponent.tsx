@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { GameFightsDataInterfaceManager } from '../../../backend_interface/game_fights_data_interface/GameFightsDataInterfaceManager';
 
 import IDataInterface from '../../../backend_interface/lib/interfaces/IDataInterface';
@@ -33,15 +31,13 @@ export default abstract class Questions<Q extends Question, I extends IDataInter
         return []
     }
 
-    protected renderQuestion(question: Q){
-        return <p key={question.id}>{question.text}</p>;
-    }
+    protected abstract renderQuestion(question: Q, questionElementClassName: string): JSX.Element;
 
     private renderQuestionList(questions: Q[]){
 
         const questionElements = new Array(questions.length);
         for(let i = 0; i < questionElements.length; i++){
-            questionElements[i] = this.renderQuestion(questions[i])
+            questionElements[i] = this.renderQuestion(questions[i], "question")
         }
 
         return questionElements;

@@ -70,11 +70,11 @@ export default abstract class AbstractQuestionsEditor<Q extends Question, I exte
         this.getDataInterface().requestQuestionDeletion(question);
     }
 
-    protected renderQuestion(question: Q){
+    protected renderQuestion(question: Q, questionElementClassName: string){
         //Render a delete button alongside each question.
         return (
-            <div key={question.id}>
-                {super.renderQuestion(question)}
+            <div className={questionElementClassName} key={question.id}>
+                <p>{question.text}</p>
                 <button onClick={this.onDeleteQuestion(question)}>-</button>
             </div>
         )

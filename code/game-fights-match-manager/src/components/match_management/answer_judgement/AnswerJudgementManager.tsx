@@ -21,11 +21,11 @@ export default class AnswerJudgementManager extends AbstractQuestionsEditor<Ques
         return [];
     }
 
-    protected renderQuestion(question: QuestionAnswersJudgementData){
+    protected renderQuestion(question: QuestionAnswersJudgementData, questionElementClassName: string){
 
         return(
             <div>
-                {super.renderQuestion(question)}
+                {super.renderQuestion(question, questionElementClassName)}
                 {this.renderJudgementsList(question)}
             </div>
         )
