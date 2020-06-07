@@ -399,6 +399,55 @@ ul {
   width: 7em;
 }
 
+.answerSubmissionManager {
+  border-bottom: 1px solid black;
+  padding: 1rem;
+}
+
+.answerSubmissionManager .submission:not(:last-of-type) {
+  margin-bottom: 2em;
+}
+
+.answerSubmissionManager h2 {
+  margin-bottom: 1em;
+}
+
+.answerSubmissionManager .submission {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: auto auto auto;
+      grid-template-rows: auto auto auto;
+  -ms-grid-columns: auto 22em;
+      grid-template-columns: auto 22em;
+  row-gap: 1rem;
+  padding-top: 1em;
+}
+
+.answerSubmissionManager .submission .answerSubmissionOptions {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 3;
+  grid-row: 1 / span 3;
+  -ms-grid-column: 2;
+  grid-column: 2;
+  place-self: center stretch;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.answerSubmissionManager .submission .answerSubmissionOptions .submissionOption {
+  display: inline-block;
+  height: 2rem;
+  width: 7rem;
+}
+
+.answerSubmissionManager .forfietButton {
+  margin-top: 3em;
+}
+
 .matchProgressingControls {
   display: -webkit-box;
   display: -ms-flexbox;

@@ -16,6 +16,10 @@ import IAnswerSubmissionDataInterface from '../../../../backend_interface/game_f
 export default class AnswerSubmissionManager extends 
   SimpleStateLoadingComponent<GameFightsDataInterfaceManager, AnswerSubmissionData[], IAnswerSubmissionDataInterface>{
   
+  protected determineComponentClassString(){
+    return super.determineComponentClassString() + " answerSubmissionManager";
+  }
+
   protected getDataInterface(): IAnswerSubmissionDataInterface{
     return this.props.dataInterfaceManager.answerSubmissionsInterface;
   }
@@ -39,7 +43,7 @@ export default class AnswerSubmissionManager extends
             onSubmissionOptionAction={this.onSubmissionOptionAction}
           />
         ))}
-        <button>Forfiet</button>
+        <button className="forfietButton">Forfiet</button>
       </div>
     )
   }
