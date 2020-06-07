@@ -2,7 +2,7 @@
 
 .questionsComponent.questionsEditor.answerJudgementManager{
 
-    @include marginBetweenChildrenOfType(".question", 2em, true)
+    @include marginBetweenChildrenOfType(".question", 2em, true);
 
     h1{
         margin-bottom: 0.4em;
