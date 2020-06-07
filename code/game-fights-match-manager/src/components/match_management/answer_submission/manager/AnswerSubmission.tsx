@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
+import OEComponent from '../../../utility/OEComponent';
 
 import AnswerSubmissionOptions, { AnswerSubmissionOptionSelection } from './AnswerSubmissionOptions'
 
@@ -25,7 +26,7 @@ export interface AnswerSubmissionState{
  * Shows the submission of an answer to a question and it's related details such as status.
  * @param props The properties of the submission to display.
  */
-export default class AnswerSubmission extends Component<AnswerSubmissionProps, AnswerSubmissionState> {
+export default class AnswerSubmission extends OEComponent<AnswerSubmissionProps, AnswerSubmissionState> {
   
   constructor(props: AnswerSubmissionProps){
     super(props);
@@ -33,6 +34,10 @@ export default class AnswerSubmission extends Component<AnswerSubmissionProps, A
       editingAnswer: false,
       showingAnswerSubmissionError: false 
     };
+  }
+
+  protected determineComponentClassString(): string {
+    return "submission";
   }
   
   /**
@@ -98,32 +103,26 @@ export default class AnswerSubmission extends Component<AnswerSubmissionProps, A
 
   }
 
-  render(){
-    return (
-      <div id='submission'>
-        <div id='submissionInfo'>
+  protected renderComponentContents(){
+    
+    return [
           
-          <h3>{this.props.submission.question}</h3>
-          
-          {this.renderAnswer(this.props.submission.answer)}
+      (<h3>{this.props.submission.question}</h3>),
+      
+      this.renderAnswer(this.props.submission.answer),
+      
+      (<p>
+        {this.determineStatusText(this.props.submission.state, this.props.submission.validatedByUser)}
+      </p>),
 
-          {this.state.showingAnswerSubmissionError ? (<p>There was an error submitting your answer.</p>) : (<div/ >)}
-          
-          <p>
-            {this.determineStatusText(this.props.submission.state, this.props.submission.validatedByUser)}
-          </p>
-
-        </div>
-        <div id='submissionOptions'>
-          <AnswerSubmissionOptions
-            state={this.props.submission.state}
-            validatedByUser={this.props.submission.validatedByUser}
-            onOptionSelection={this.onOptionSelection}
-            enabled={!this.state.editingAnswer}
-          />
-        </div>
-      </div>
-    )
+      <AnswerSubmissionOptions
+        state={this.props.submission.state}
+        validatedByUser={this.props.submission.validatedByUser}
+        onOptionSelection={this.onOptionSelection}
+        enabled={!this.state.editingAnswer}
+      />
+        
+    ]
   }
   
   

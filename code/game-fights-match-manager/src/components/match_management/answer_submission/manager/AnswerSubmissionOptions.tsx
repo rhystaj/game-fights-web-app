@@ -1,6 +1,8 @@
 import React from 'react'
+
 import { AnswerSubmissionState } from '../../../../enums/statusEnums'
-import SubmissionOptionAction from '../../../../actions/SubmissionOptionActions/SubmissionOptionAction';
+
+import OEComponent from '../../../utility/OEComponent';
 import UpdateAnswerSubmissionOptionAction from '../../../../actions/SubmissionOptionActions/UpdateAnswerSubmissionOptionAction';
 
 interface AnswerSubmissionOptionsProps{
@@ -11,46 +13,48 @@ interface AnswerSubmissionOptionsProps{
 }
 
 export enum AnswerSubmissionOptionSelection{
+  None,
   UpdateAnswer
 }
 
-const AnswerSubmissionOptions = (props: AnswerSubmissionOptionsProps) => {
-  return (
-    <div id='container'>
-      {// Show add answer button if no answer has been submitted.
-        props.state === AnswerSubmissionState.NO_ANSWER ? (
-          <button 
-            disabled = {!props.enabled}
-            onClick={() => {props.onOptionSelection(AnswerSubmissionOptionSelection.UpdateAnswer)}}
-          >
-            Add Answer
-          </button>
-        ) : (
-          <div />
-        )}
+export default class AnswerSubmissionOptions extends OEComponent<AnswerSubmissionOptionsProps> {
+  
+  protected determineComponentClassString(): string {
+    return "answerSubmissionOptions";
+  }
+  
+  protected renderOption(optionText: string, renderButton: boolean, optionSelection: AnswerSubmissionOptionSelection){
 
-      {// Show Validate buttion if the answer requires validation and the user is not the one that submitted it.
-        props.state === AnswerSubmissionState.AWAITING_VALIDATION &&
-      !props.validatedByUser ? (
-        <button disabled={!props.enabled}>Validate</button>
-          ) : (
-            <div />
-          )}
+    const SUBMISSION_OPTION_CLASS_NAME = "submissionOption";
 
-      {// Show the Change Answer button if the submission is showing an answer that has not been accepted.
-        props.state !== AnswerSubmissionState.NO_ANSWER &&
-      props.state !== AnswerSubmissionState.ACCEPTED ? (
-        <button 
-          disabled={!props.enabled}
-          onClick={() => {props.onOptionSelection(AnswerSubmissionOptionSelection.UpdateAnswer)}}
+    if(renderButton){
+      return (
+        <button className={SUBMISSION_OPTION_CLASS_NAME + " displaying"}
+          disabled = {!this.props.enabled}
+          onClick={() => {this.props.onOptionSelection(optionSelection)}}
         >
-          Change Answer
+          {optionText}
         </button>
-          ) : (
-            <div />
-          )}
-    </div>
-  )
-}
+      )
+    }
+    else return <div className={SUBMISSION_OPTION_CLASS_NAME + " hidden"} />
 
-export default AnswerSubmissionOptions;
+  }
+
+  protected renderComponentContents(){
+
+    const renderAddAnswerOption = this.props.state === AnswerSubmissionState.NO_ANSWER;
+    const renderValidateOption = AnswerSubmissionState.AWAITING_VALIDATION && !this.props.validatedByUser;
+    const renderChangeAnswerOption = this.props.state !== AnswerSubmissionState.NO_ANSWER &&
+        this.props.state !== AnswerSubmissionState.ACCEPTED;
+
+    return [
+      this.renderOption("Add Answer", renderAddAnswerOption, AnswerSubmissionOptionSelection.UpdateAnswer),
+      this.renderOption("Validate", renderValidateOption, AnswerSubmissionOptionSelection.None),
+      this.renderOption("Change Answer", renderChangeAnswerOption, AnswerSubmissionOptionSelection.UpdateAnswer)
+    ]
+
+  }
+  
+  
+}
