@@ -412,6 +412,10 @@ ul {
   margin-bottom: 1em;
 }
 
+.answerSubmissionManager .statusText {
+  font-style: italic;
+}
+
 .answerSubmissionManager .submission {
   display: -ms-grid;
   display: grid;

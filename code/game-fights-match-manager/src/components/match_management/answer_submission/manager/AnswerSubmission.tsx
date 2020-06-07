@@ -111,7 +111,7 @@ export default class AnswerSubmission extends OEComponent<AnswerSubmissionProps,
       
       this.renderAnswer(this.props.submission.answer),
       
-      (<p>
+      (<p className="statusText">
         {this.determineStatusText(this.props.submission.state, this.props.submission.validatedByUser)}
       </p>),
 
