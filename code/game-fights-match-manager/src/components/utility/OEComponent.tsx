@@ -13,6 +13,13 @@ export default abstract class OEComponent<P = {}, S = {}> extends Component<P, S
     protected abstract determineComponentClassString(): string;
 
     /**
+     * The behaviour that is to be performed when the component is clicked.
+     */
+    protected determineOnClickBehaviour(){
+        return () => { }
+    }
+
+    /**
      * Render the elements that make up the contents of this component.
      */
     protected abstract renderComponentContents(): ComponentContents;
@@ -20,7 +27,10 @@ export default abstract class OEComponent<P = {}, S = {}> extends Component<P, S
     public render(){
 
         return(
-            <div className={"OEComponent " + this.determineComponentClassString()}>
+            <div 
+                className={"OEComponent " + this.determineComponentClassString()}
+                onClick={this.determineOnClickBehaviour()}
+            >
                 {this.renderComponentContents()}
             </div>
         )
