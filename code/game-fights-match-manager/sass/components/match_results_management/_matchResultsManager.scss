@@ -1,0 +1,51 @@
+.matchResultsManager{
+
+    @include sectionDivision;
+    @include marginBetweenChildrenOfType(".matchResult", 3em, true);
+
+    .matchResult{
+
+        h2{
+            margin-bottom: 0.5em;
+        }
+
+        .matchAnswer{
+
+            display: flex;
+            align-items: center;
+
+            padding: 1em;
+    
+            img{
+    
+                margin-right: 0.5em;
+    
+                height: 75px;
+                width: 75px;
+            }
+
+            &.unselectable{
+
+                background-color:lightgray;
+
+                p{
+                    color: grey;
+                }
+
+            }
+
+            &.unselected:hover{
+                background-color: lightcyan;
+            }
+
+            &.selected{
+                background-color: lightblue
+            }
+
+        }
+
+    }
+
+    
+
+}

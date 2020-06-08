@@ -8,9 +8,14 @@ import { GameFightsDataInterfaceManager } from '../../../backend_interface/game_
 import { AnswerSubmissionState } from '../../../enums/statusEnums';
 
 import MatchResultProgressingControls from '../../match_progressing_controls/MatchResultsProgressingControls';
+import { ComponentContents } from '../../../types/customCompositeTypes';
 
 export default class MatchResultsManager extends LoadingComponent<GameFightsDataInterfaceManager, MatchResultData[], 
     IMatchResultsDataInterface>{
+
+    protected determineComponentClassString(){
+        return super.determineComponentClassString() + " matchResultsManager";
+    }
 
     protected getDataInterface(): IMatchResultsDataInterface {
         return this.props.dataInterfaceManager.matchResultsInterface;
@@ -38,8 +43,8 @@ export default class MatchResultsManager extends LoadingComponent<GameFightsData
 
     protected renderMatchResult(result: MatchResultData){
         return(
-            <div>
-                <h1>{result.question}</h1>
+            <div className="matchResult">
+                <h2>{result.question}</h2>
                 {this.renderAnswers(result.answers, result.chosenAnswerIndex, (index) => {
                     this.getDataInterface().specifyQuestionResult(result, index);
                 })}
@@ -54,7 +59,7 @@ export default class MatchResultsManager extends LoadingComponent<GameFightsData
         for(let i: number = 0; i < answers.length; i++){
             if(answers[i].state === AnswerSubmissionState.ACCEPTED){
                 //The answer was accepted, so it should therefore be rendered as selectable.
-                const answerDisplayClassName = i == chosenAnswerIndex ? "selectedAnswer" : "unselectedAnswer";
+                const answerDisplayClassName = i == chosenAnswerIndex ? "matchAnswer selected" : "matchAnswer unselected";
                 answerElements[i] = this.renderSelectableAnswer(i, answers[i], answerDisplayClassName, onAnswerSelected);
             }
             else{
@@ -67,7 +72,7 @@ export default class MatchResultsManager extends LoadingComponent<GameFightsData
 
     protected renderUnselectableAnswer(answer: ParticipantAnswerData){
         return (
-            <div className={"unselectableAnswer"}>
+            <div className={"matchAnswer unselectable"}>
                 <img src={answer.participant.profileImageURL} />
                 <p>(No Answer Given)</p>
             </div>
@@ -86,15 +91,13 @@ export default class MatchResultsManager extends LoadingComponent<GameFightsData
 
     }
 
-    protected renderLoaded(dataInterface: IMatchResultsDataInterface, data: MatchResultData[]): JSX.Element {
+    protected renderLoaded(dataInterface: IMatchResultsDataInterface, data: MatchResultData[]): ComponentContents{
         
-        return(
-            <div>
-                {this.renderMatchResults(data)}
-                <MatchResultProgressingControls dataInterface={dataInterface} />
-            </div>
-        )
-
+        return [
+            ...this.renderMatchResults(data),
+            (<MatchResultProgressingControls dataInterface={dataInterface} />)
+        ]
+            
     }
 
 }
