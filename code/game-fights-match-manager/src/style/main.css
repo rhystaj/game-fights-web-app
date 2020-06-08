@@ -124,8 +124,8 @@ ul {
   padding: 1rem;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: auto 11em;
-      grid-template-columns: auto 11em;
+  -ms-grid-columns: auto 15em;
+      grid-template-columns: auto 15em;
   -ms-grid-rows: auto auto;
       grid-template-rows: auto auto;
 }
@@ -203,6 +203,10 @@ ul {
 
 .entry button {
   width: 1em;
+}
+
+.entry.dateEntry .dateEntryArea {
+  display: inline-block;
 }
 
 .enterableText p, .enterableText h1, .enterableText h2, .enterableText h3, .enterableText h4, .enterableText h5, .enterableText h6 {

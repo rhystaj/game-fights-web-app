@@ -92,7 +92,7 @@ export default class DateEntry extends Entry<Date>{
         const thisYear = new Date(Date.now()).getFullYear();
 
         return(
-            <div>
+            <div className="dateEntryArea">
                 {this.renderNumberDropdown(this.ValueBeingEntered.getDate(), 1, 31, 
                     (e: ChangeEvent<HTMLSelectElement>) => { this.setEnteredDayOfMonth(e.target.value) }) }
                 {this.renderNumberDropdown(this.ValueBeingEntered.getMonth(), 1, 12,
