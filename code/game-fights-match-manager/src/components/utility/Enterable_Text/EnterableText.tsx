@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 
 import '../../../style/main.css'
+import OEComponent from "../OEComponent";
 
 type EnterableTextProps<D> = {
     className: string,
@@ -14,7 +15,7 @@ type EnterableTextState<D> = {
     displayingSubmissionError: boolean
 }
 
-export default abstract class EnterableText<D> extends Component<EnterableTextProps<D>, EnterableTextState<D>>{
+export default abstract class EnterableText<D> extends OEComponent<EnterableTextProps<D>, EnterableTextState<D>>{
 
     constructor(props: EnterableTextProps<D>){
         super(props);
@@ -24,6 +25,14 @@ export default abstract class EnterableText<D> extends Component<EnterableTextPr
             currentConfirmedValue: this.props.initialValue,
             displayingSubmissionError: false
         }
+    }
+
+    determineComponentClassString(){
+        return "enterableText " + (this.state.editing ? "editing " : "") + this.props.className;
+    }
+
+    protected determineOnClickBehaviour(){
+        return this.state.editing ? super.determineOnClickBehaviour() : () => this.setState({editing: true})
     }
 
     protected abstract convertValueToString(value: D): string;
@@ -64,24 +73,16 @@ export default abstract class EnterableText<D> extends Component<EnterableTextPr
         return(<p>There was an error submitting the data.</p>);
     }
 
-    render(){
-        
-        const enterableTextClassName = "enterableText";
+    renderComponentContents(){
 
         if(!this.state.editing){
-            return(
-                <div className={enterableTextClassName + " " + this.props.className} onClick={() => this.setState({editing: true})}>
-                    {this.renderText(this.convertValueToString(this.state.currentConfirmedValue))}
-                </div>
-            )
+            return this.renderText(this.convertValueToString(this.state.currentConfirmedValue))
         }
         else{
-            return(
-                <div className={enterableTextClassName + " editing " + this.props.className}>
-                    {this.renderEntry(this.onConfirmEntry, this.onCancelEntry)}
-                    {this.state.displayingSubmissionError ? this.renderSubmissionError() : <div />}
-                </div>
-            )
+            return[
+                this.renderEntry(this.onConfirmEntry, this.onCancelEntry),
+                (this.state.displayingSubmissionError ? this.renderSubmissionError() : null)
+            ]
         }
 
     }
