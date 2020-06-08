@@ -509,4 +509,8 @@ ul {
 .matchProgressingControls.questionListProgressingControls .proceedMatchButton {
   width: 15em;
 }
+
+.matchProgressingControls.matchResultProgressingControls .proceedMatchButton {
+  width: 15em;
+}
 /*# sourceMappingURL=main.css.map */
