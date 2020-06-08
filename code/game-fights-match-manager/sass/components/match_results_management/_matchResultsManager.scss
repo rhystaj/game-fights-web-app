@@ -3,6 +3,10 @@
     @include sectionDivision;
     @include marginBetweenChildrenOfType(".matchResult", 3em, true);
 
+    h1{
+        margin-bottom: 1em;
+    }
+
     .matchResult{
 
         h2{
@@ -30,6 +34,7 @@
 
                 p{
                     color: grey;
+                    font-style: italic;
                 }
 
             }

@@ -461,6 +461,10 @@ ul {
   margin-bottom: 3em;
 }
 
+.matchResultsManager h1 {
+  margin-bottom: 1em;
+}
+
 .matchResultsManager .matchResult h2 {
   margin-bottom: 0.5em;
 }
@@ -487,6 +491,7 @@ ul {
 
 .matchResultsManager .matchResult .matchAnswer.unselectable p {
   color: grey;
+  font-style: italic;
 }
 
 .matchResultsManager .matchResult .matchAnswer.unselected:hover {

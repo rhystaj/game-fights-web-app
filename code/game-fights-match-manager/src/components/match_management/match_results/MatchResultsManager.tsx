@@ -94,6 +94,7 @@ export default class MatchResultsManager extends LoadingComponent<GameFightsData
     protected renderLoaded(dataInterface: IMatchResultsDataInterface, data: MatchResultData[]): ComponentContents{
         
         return [
+            <h1>Results</h1>,
             ...this.renderMatchResults(data),
             (<MatchResultProgressingControls dataInterface={dataInterface} />)
         ]
