@@ -311,10 +311,13 @@ ul {
 .questionsComponent {
   border-bottom: 1px solid black;
   padding: 1rem;
-  font-size: 1.5em;
 }
 
 .questionsComponent .question:not(:last-of-type) {
+  margin-bottom: 1em;
+}
+
+.questionsComponent h1 {
   margin-bottom: 1em;
 }
 

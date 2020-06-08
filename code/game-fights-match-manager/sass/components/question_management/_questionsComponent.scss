@@ -6,6 +6,8 @@
     @include sectionDivision;
     @include marginBetweenChildrenOfType(".question", 1em, true);
 
-    font-size: 1.5em;
+    h1{
+        margin-bottom: 1em;
+    }
 
 }
