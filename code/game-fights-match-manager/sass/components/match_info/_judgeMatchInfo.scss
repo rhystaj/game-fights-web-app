@@ -1,5 +1,11 @@
 .matchInfo.judge{
     
+    .enterableText.matchTitle.editing .textEntry{
+        input, button{
+            font-size: 2em;
+        }
+    }
+
     .manageInvitesButton{
         margin-top: 1em;
         height: 2em;
