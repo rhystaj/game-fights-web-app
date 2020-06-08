@@ -171,6 +171,10 @@ ul {
   margin-right: 2em;
 }
 
+.matchInfo.judge .enterableText.matchTitle.editing .textEntry input, .matchInfo.judge .enterableText.matchTitle.editing .textEntry button {
+  font-size: 2em;
+}
+
 .matchInfo.judge .manageInvitesButton {
   margin-top: 1em;
   height: 2em;
@@ -187,6 +191,18 @@ ul {
 
 .matchInfo.judge .userDisplay .pendingInvite {
   opacity: 50%;
+}
+
+.entry input, .entry button {
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  height: 1em;
+  padding: 0.1em;
+  vertical-align: middle;
+}
+
+.entry button {
+  width: 1em;
 }
 
 .enterableText p, .enterableText h1, .enterableText h2, .enterableText h3, .enterableText h4, .enterableText h5, .enterableText h6 {

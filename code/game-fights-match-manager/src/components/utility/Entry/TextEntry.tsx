@@ -6,6 +6,10 @@ import Entry from './Entry';
  * [DES/PRE] A component in which you can enter text and either confirm or cancel your progress.
  */
 export default class TextEntry extends Entry<string> {
+    
+    protected get entryTypeClassName(): string {
+        return "textEntry";
+    }
 
     renderEntryArea(){
         return(

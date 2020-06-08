@@ -6,6 +6,10 @@ import Entry from "./Entry";
 
 export default class DateEntry extends Entry<Date>{
     
+    protected get entryTypeClassName(): string {
+        return "dateEntry";
+    }
+    
     /**
      * Render a dropdown that lists numbers between the given max and min.
      * @param min 
