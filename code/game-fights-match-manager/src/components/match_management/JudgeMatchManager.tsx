@@ -29,12 +29,15 @@ export default class JudgeMatchManager extends MatchManager{
 
             case MatchStage.DETERMINING_QUESTIONS:
                 return (<QuestionListEditor dataInterfaceManager={this.props.dataInterfaceManager}/>)
+            
             case MatchStage.ANSWERS_OPENED:
                 return (<AnswerJudgementManager dataInterfaceManager={this.props.dataInterfaceManager}/>)
+            
             case MatchStage.RECORDING_RESULTS:
                 return (<MatchResultsManager dataInterfaceManager={this.props.dataInterfaceManager} />)
+            
             default:
-                return super.renderManagementComponent(dataInterface, stage);
+                throw Error("A component has not been assigned to stage " + stage + " in the JudgeMatchManager.");
 
         }
         

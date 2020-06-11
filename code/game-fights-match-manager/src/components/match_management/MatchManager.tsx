@@ -6,15 +6,13 @@ import IDataInterface from '../../backend_interface/lib/interfaces/IDataInterfac
 
 import SimpleStateLoadingComponent from '../utility/SimpleStateLoadingComponent';
 
-import AnswerSubmissionManager from './answer_submission/manager/AnswerSubmissionManager'
-
 import { MatchStage } from '../../enums/statusEnums';
 import ParticipantMatchInfo from './match_info/ParticipantMatchInfo'
 
 /**
  * Contains child components that enable you to view and edit data regarding a specific match (whichever the signed in user is engaged in).
  */
-export default class MatchManager extends SimpleStateLoadingComponent<GameFightsDataInterfaceManager, MatchStage>{
+export default abstract class MatchManager extends SimpleStateLoadingComponent<GameFightsDataInterfaceManager, MatchStage>{
  
   public getDataInterface(): IDataInterface<MatchStage> {
     return this.props.dataInterfaceManager.matchStageInterface;
@@ -29,10 +27,7 @@ export default class MatchManager extends SimpleStateLoadingComponent<GameFights
     return (<ParticipantMatchInfo dataInterfaceManager={this.props.dataInterfaceManager} />);
   }
 
-  protected renderManagementComponent(dataInterface: IDataInterface<MatchStage>, stage: MatchStage){
-    //To be overridden in child components if needed.
-    return (<AnswerSubmissionManager dataInterfaceManager={this.props.dataInterfaceManager} />);
-  }
+  protected abstract renderManagementComponent(dataInterface: IDataInterface<MatchStage>, stage: MatchStage): JSX.Element;
 
   protected renderLoaded(dataInterface: IDataInterface<MatchStage>, matchStage: MatchStage) {
     return (
