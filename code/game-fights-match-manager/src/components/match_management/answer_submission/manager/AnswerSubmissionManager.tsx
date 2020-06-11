@@ -1,6 +1,6 @@
 import React from 'react'
 
-import AnswerSubmission from './AnswerSubmission'
+import EditableAnswerSubmission from './EditableAnswerSubmission'
 
 import { AnswerSubmissionData } from '../../../../types/datatypes';
 
@@ -19,7 +19,7 @@ export default class AnswerSubmissionManager extends AnswerSubmissionComponent {
 
   protected renderAnswerSubmission(answerSubmission: AnswerSubmissionData): JSX.Element {
     return (
-      <AnswerSubmission
+      <EditableAnswerSubmission
         key={answerSubmission.id}
         submission={answerSubmission}
         onSubmissionOptionAction={this.onSubmissionOptionAction}

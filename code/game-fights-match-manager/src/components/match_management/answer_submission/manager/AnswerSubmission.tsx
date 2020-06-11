@@ -12,7 +12,7 @@ export interface AnswerSubmissionProps{
  * Shows the submission of an answer to a question and it's related details such as status.
  * @param props The properties of the submission to display.
  */
-export default class AnswerSubmission<P extends AnswerSubmissionProps, S = {}> extends OEComponent<P, S> {
+export default class AnswerSubmission<P extends AnswerSubmissionProps = AnswerSubmissionProps, S = {}> extends OEComponent<P, S> {
   
   protected determineComponentClassString(): string {
     return "submission";
