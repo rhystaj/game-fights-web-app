@@ -10,15 +10,14 @@ import { AnswerSubmissionData } from '../../../../types/datatypes';
 import SubmissionOptionAction from '../../../../actions/SubmissionOptionActions/SubmissionOptionAction';
 import TextEntry from '../../../utility/Entry/TextEntry';
 import UpdateAnswerSubmissionOptionAction from '../../../../actions/SubmissionOptionActions/UpdateAnswerSubmissionOptionAction';
-import AnswerSubmission from './AnswerSubmission';
+import AnswerSubmission, { AnswerSubmissionProps } from './AnswerSubmission';
 
 
-export interface AnswerSubmissionProps{
-  submission: AnswerSubmissionData
+export interface EditableAnswerSubmissionProps extends AnswerSubmissionProps{
   onSubmissionOptionAction: (action: SubmissionOptionAction) => Promise<void>
 }
 
-export interface AnswerSubmissionState{
+export interface EditableAnswerSubmissionState{
   editingAnswer: boolean,
   showingAnswerSubmissionError: boolean
 }
@@ -27,9 +26,10 @@ export interface AnswerSubmissionState{
  * Shows the submission of an answer to a question and it's related details such as status.
  * @param props The properties of the submission to display.
  */
-export default class EditableAnswerSubmission extends AnswerSubmission {
+export default class EditableAnswerSubmission extends AnswerSubmission<EditableAnswerSubmissionProps,
+    EditableAnswerSubmissionState> {
   
-  constructor(props: AnswerSubmissionProps){
+  constructor(props: EditableAnswerSubmissionProps){
     super(props);
     this.state = { 
       editingAnswer: false,
