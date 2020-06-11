@@ -3,7 +3,6 @@ import OEComponent from '../../../utility/OEComponent';
 
 import { AnswerSubmissionData } from '../../../../types/datatypes';
 
-
 export interface AnswerSubmissionProps{
   submission: AnswerSubmissionData
 }
@@ -19,7 +18,7 @@ export default class AnswerSubmission<P extends AnswerSubmissionProps = AnswerSu
   }
   
   protected renderAnswer(answer: string){
-    return <p>{answer}</p>
+    return <p>{answer ? answer : '-'}</p>
   }
 
   protected renderComponentContents(){

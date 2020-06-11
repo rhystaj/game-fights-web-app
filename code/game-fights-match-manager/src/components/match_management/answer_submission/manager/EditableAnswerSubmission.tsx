@@ -97,7 +97,7 @@ export default class EditableAnswerSubmission extends AnswerSubmission<EditableA
       />
     }
     else{
-      return <p>{answer ? answer : '-'}</p>
+      return super.renderAnswer(answer);
     }
 
   }
