@@ -124,8 +124,8 @@ ul {
   padding: 1rem;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: auto 15em;
-      grid-template-columns: auto 15em;
+  -ms-grid-columns: auto 11em;
+      grid-template-columns: auto 11em;
   -ms-grid-rows: auto auto;
       grid-template-rows: auto auto;
 }
@@ -422,24 +422,28 @@ ul {
   width: 7em;
 }
 
-.answerSubmissionManager {
+.answerSubmissionComponent {
   border-bottom: 1px solid black;
   padding: 1rem;
 }
 
-.answerSubmissionManager .submission:not(:last-of-type) {
+.answerSubmissionComponent .submission:not(:last-of-type) {
   margin-bottom: 2em;
 }
 
-.answerSubmissionManager h2 {
+.answerSubmissionComponent h2 {
   margin-bottom: 1em;
 }
 
-.answerSubmissionManager .statusText {
+.answerSubmissionComponent .forfietButton {
+  margin-top: 3em;
+}
+
+.answerSubmissionComponent.answerSubmissionManager .statusText {
   font-style: italic;
 }
 
-.answerSubmissionManager .submission {
+.answerSubmissionComponent.answerSubmissionManager .submission {
   display: -ms-grid;
   display: grid;
   -ms-grid-rows: auto auto auto;
@@ -450,7 +454,7 @@ ul {
   padding-top: 1em;
 }
 
-.answerSubmissionManager .submission .answerSubmissionOptions {
+.answerSubmissionComponent.answerSubmissionManager .submission .answerSubmissionOptions {
   -ms-grid-row: 1;
   -ms-grid-row-span: 3;
   grid-row: 1 / span 3;
@@ -465,13 +469,13 @@ ul {
           justify-content: space-between;
 }
 
-.answerSubmissionManager .submission .answerSubmissionOptions .submissionOption {
+.answerSubmissionComponent.answerSubmissionManager .submission .answerSubmissionOptions .submissionOption {
   display: inline-block;
   height: 2rem;
   width: 7rem;
 }
 
-.answerSubmissionManager .forfietButton {
+.answerSubmissionComponent.answerSubmissionManager .forfietButton {
   margin-top: 3em;
 }
 

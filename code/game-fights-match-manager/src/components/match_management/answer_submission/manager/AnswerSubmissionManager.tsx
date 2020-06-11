@@ -13,6 +13,10 @@ import AnswerSubmissionComponent from './AnswerSubmissionComponent';
  */
 export default class AnswerSubmissionManager extends AnswerSubmissionComponent {
   
+  protected determineComponentClassString(){
+    return super.determineComponentClassString() + " answerSubmissionManager";
+  }
+
   private onSubmissionOptionAction = async (action: SubmissionOptionAction) => {
     await action.execute(this.getDataInterface());
   }

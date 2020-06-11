@@ -14,7 +14,7 @@ export default abstract class AnswerSubmissionComponent extends
   SimpleStateLoadingComponent<GameFightsDataInterfaceManager, AnswerSubmissionData[], IAnswerSubmissionDataInterface>{
   
   protected determineComponentClassString(){
-    return super.determineComponentClassString() + " answerSubmissionManager";
+    return super.determineComponentClassString() + " answerSubmissionComponent";
   }
 
   protected getDataInterface(): IAnswerSubmissionDataInterface{

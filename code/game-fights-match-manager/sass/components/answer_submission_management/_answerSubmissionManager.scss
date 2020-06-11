@@ -1,11 +1,4 @@
-.answerSubmissionManager{
-
-    @include sectionDivision;
-    @include marginBetweenChildrenOfType(".submission", 2em, true);
-
-    h2{
-        margin-bottom: 1em;
-    }
+.answerSubmissionComponent.answerSubmissionManager{
 
     .statusText{
         font-style: italic;

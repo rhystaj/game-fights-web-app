@@ -1,0 +1,14 @@
+.answerSubmissionComponent{
+
+    @include sectionDivision;
+    @include marginBetweenChildrenOfType(".submission", 2em, true);
+
+    h2{
+        margin-bottom: 1em;
+    }
+
+    .forfietButton{
+        margin-top: 3em;
+    }
+
+}
