@@ -1,17 +1,15 @@
 import React from 'react'
-import OEComponent from '../../../utility/OEComponent';
 
 import AnswerSubmissionOptions, { AnswerSubmissionOptionSelection } from './AnswerSubmissionOptions'
 
+import TextEntry from '../../../utility/Entry/TextEntry';
+
 import { AnswerSubmissionState as AnswerSubmissionStatus } from '../../../../enums/statusEnums'
 
-import { AnswerSubmissionData } from '../../../../types/datatypes';
-
 import SubmissionOptionAction from '../../../../actions/SubmissionOptionActions/SubmissionOptionAction';
-import TextEntry from '../../../utility/Entry/TextEntry';
 import UpdateAnswerSubmissionOptionAction from '../../../../actions/SubmissionOptionActions/UpdateAnswerSubmissionOptionAction';
-import AnswerSubmission, { AnswerSubmissionProps } from './AnswerSubmission';
 
+import AnswerSubmission, { AnswerSubmissionProps } from './AnswerSubmission';
 
 export interface EditableAnswerSubmissionProps extends AnswerSubmissionProps{
   onSubmissionOptionAction: (action: SubmissionOptionAction) => Promise<void>
