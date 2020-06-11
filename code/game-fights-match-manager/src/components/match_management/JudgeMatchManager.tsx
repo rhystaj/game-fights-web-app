@@ -37,7 +37,7 @@ export default class JudgeMatchManager extends MatchManager{
                 return (<MatchResultsManager dataInterfaceManager={this.props.dataInterfaceManager} />)
             
             default:
-                throw Error("A component has not been assigned to stage " + stage + " in the JudgeMatchManager.");
+                throw Error("A component has not been assigned to stage " + MatchStage[stage] + " in the JudgeMatchManager.");
 
         }
         

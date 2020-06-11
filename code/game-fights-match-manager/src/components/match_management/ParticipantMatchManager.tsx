@@ -3,11 +3,13 @@ import MatchManager from './MatchManager';
 
 import ParticipantMatchInfo from './match_info/ParticipantMatchInfo';
 import QuestionsViewer from './question_management/QuestionViewer'
+import AnswerSubmissionManager from './answer_submission/manager/AnswerSubmissionManager';
+import AnswerSubmissionViewer from './answer_submission/manager/AnswerSubmissionViewer';
 
 import { MatchStage } from '../../enums/statusEnums';
 
 import DataInterface from '../../backend_interface/lib/abstract_implementations/AbstractDataInterface';
-import AnswerSubmissionManager from './answer_submission/manager/AnswerSubmissionManager';
+
 
 class ParticipantMatchManager extends MatchManager{
     
@@ -25,8 +27,11 @@ class ParticipantMatchManager extends MatchManager{
             case MatchStage.ANSWERS_OPENED:
                 return <AnswerSubmissionManager dataInterfaceManager={this.props.dataInterfaceManager} />
 
+            case MatchStage.RECORDING_RESULTS:
+                    return <AnswerSubmissionViewer dataInterfaceManager={this.props.dataInterfaceManager} />
+
             default:
-                throw Error("A component has not been assinged to state " + stage + " in the ParticipantMatchManager.");
+                throw Error("A component has not been assinged to stage " + MatchStage[stage] + " in the ParticipantMatchManager.");
 
         }
         
