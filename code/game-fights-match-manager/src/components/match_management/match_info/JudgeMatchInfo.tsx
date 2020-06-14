@@ -30,11 +30,8 @@ export default class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoSta
 
     onConfirmTitle = async (title: string) => {
           
-        await this.getDataInterface().submitMatchTitle(title);
+        const newData = await this.getDataInterface().submitMatchTitle(title);
         
-        let newData: MatchData = this.state.data;
-        newData.title = title;
-    
         this.setState({
             data: newData,
         });
