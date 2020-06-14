@@ -40,7 +40,7 @@ export default class MockAnswerSubmissionDataInterface extends DataInterface<Ans
 
         await new Promise(res => setTimeout(() => res(), 3000));
         
-        this.refresh();
+        return this.answerSubmissions.asArray();
 
     }
 

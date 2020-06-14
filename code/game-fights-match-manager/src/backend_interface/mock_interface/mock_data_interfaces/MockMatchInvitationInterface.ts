@@ -20,10 +20,12 @@ export default class MockMatchInvitiationInterface extends DataInterface<MatchDa
 
     public async acceptInvite() {
         await this.matchStatusInterface.setAsParticipating();
+        return this.matchData;
     }
     
     public async declineInvite() {
         await this.matchStatusInterface.clear();
+        return this.matchData;
     }
     
     protected async loadData() {

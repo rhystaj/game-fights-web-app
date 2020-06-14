@@ -45,7 +45,7 @@ export default class MockMatchResultsDataInterface extends DataInterface<MatchRe
         this.results = this.results.removeElementWithId(oldResultData.id)
                                    .add(newResultData);
 
-        this.refresh();
+        return this.results.asArray();
 
     }
 

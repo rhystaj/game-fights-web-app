@@ -1,6 +1,7 @@
 import InterfaceAction from '../../utility/InterfaceAction'
 import { AnswerSubmissionData } from '../../types/datatypes';
 import IAnswerSubmissionDataInterface from '../../backend_interface/game_fights_data_interface/data_interfaces/IAnswerSubmissionDataInterface';
+import AnswerSubmission from '../../components/match_management/answer_submission/manager/AnswerSubmission';
 
 /**
  * An interface action to be performed on an answer submission.
@@ -17,6 +18,6 @@ export default abstract class SubmissionOptionAction implements
         this._submission = submission;
     }
 
-    public abstract execute(i: IAnswerSubmissionDataInterface): Promise<void>;
+    public abstract execute(i: IAnswerSubmissionDataInterface): Promise<AnswerSubmissionData[]>;
 
 }

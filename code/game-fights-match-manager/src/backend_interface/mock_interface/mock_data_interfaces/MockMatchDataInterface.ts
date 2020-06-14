@@ -14,8 +14,11 @@ export default class MockMatchDataInterface extends DataInterface<MatchData> imp
         this.matchData = data;
     }
 
-    public async submitMatchTitle(title: string): Promise<void> {
+    public async submitMatchTitle(title: string) {
+        
         this.matchData.title = title;
+        return this.matchData;
+
     }
     
     public async submitMatchParticipants(invites: FighterData[]){
@@ -24,6 +27,7 @@ export default class MockMatchDataInterface extends DataInterface<MatchData> imp
             throw Error();
 
         this.matchData.invitedFighters = invites;
+        return this.matchData;
         
     }
     

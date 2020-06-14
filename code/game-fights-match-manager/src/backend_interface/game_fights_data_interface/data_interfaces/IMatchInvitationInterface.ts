@@ -4,8 +4,8 @@ import { MatchData } from "../../../types/datatypes";
 
 export default interface IMatchInvitationInterface extends IDataInterface<MatchData>{
 
-    acceptInvite(): Promise<void>
+    acceptInvite(): Promise<MatchData>
 
-    declineInvite(): Promise<void>
+    declineInvite(): Promise<MatchData>
 
 }

@@ -91,7 +91,7 @@ export default class MockQuestionAnswerJudgementsInterface extends DataInterface
         this.judgements = this.judgements.removeElementWithId(oldQuestion.id)
                               .add(newQuestion);
 
-        this.refresh();
+    return this.judgements.asArray();
 
     }
     

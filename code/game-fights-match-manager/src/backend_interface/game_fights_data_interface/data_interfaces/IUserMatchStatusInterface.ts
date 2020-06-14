@@ -4,10 +4,10 @@ import { UserMatchStatus } from "../../../enums/statusEnums";
 
 export default interface IUserMatchStatusInterface extends IDataInterface<UserMatchStatus>{
 
-    clear(): Promise<void>;
+    clear(): Promise<UserMatchStatus>;
 
-    setAsParticipating(): Promise<void>;
+    setAsParticipating(): Promise<UserMatchStatus>;
 
-    setAsJudging(): Promise<void>;
+    setAsJudging(): Promise<UserMatchStatus>;
 
 }
