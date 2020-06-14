@@ -9,7 +9,7 @@ export default class EnterableDateText extends EnterableText<Date>{
         return value.toDateString();
     }
     
-    protected renderEntry(onConfirmEntry: (value: Date) => void, onCancelEntry: () => void): JSX.Element {
+    protected renderEntry(onConfirmEntry: (value: Date) => Promise<void>, onCancelEntry: () => void): JSX.Element {
         return <DateEntry
             initialValue={this.state.currentConfirmedValue}
             onConfirmEntry={onConfirmEntry}

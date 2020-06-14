@@ -10,7 +10,7 @@ export default class EnterableStringText extends EnterableText<string>{
         return value; //Value is already a string, nothing needs to be done.
     }
     
-    protected renderEntry(onConfirmEntry: (value: string) => void, onCancelEntry: () => void){
+    protected renderEntry(onConfirmEntry: (value: string) => Promise<void>, onCancelEntry: () => void){
         
         return (<TextEntry
             initialValue={this.props.initialValue}

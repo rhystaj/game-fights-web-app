@@ -41,20 +41,23 @@ export default abstract class EnterableText<D> extends OEComponent<EnterableText
         return <p>{text}</p>
     }
 
-    private onConfirmEntry = (value: D) => {
-        this.props.onSubmitValue(value)
-                  .then(() => {
-                        this.setState({
-                            editing: false,
-                            currentConfirmedValue: value,
-                            displayingSubmissionError: false
-                        });
-                  })
-                  .catch(() => {
-                        this.setState({
-                            displayingSubmissionError: true
-                        });
-                  })
+    private onConfirmEntry = async (value: D) => {
+        
+        try{
+
+            await this.props.onSubmitValue(value);
+
+            this.setState({
+                editing: false,
+                currentConfirmedValue: value,
+                displayingSubmissionError: false
+            });
+
+        }
+        catch{
+            this.setState({ displayingSubmissionError: true });
+        }
+
     } 
 
     private onCancelEntry = () => {
@@ -64,7 +67,7 @@ export default abstract class EnterableText<D> extends OEComponent<EnterableText
     /**
      * Render the EntryConponent used to enter the data.
      */
-    protected abstract renderEntry(onConfirmEntry: (value: D) => void, onCancelEntry: () => void): JSX.Element;
+    protected abstract renderEntry(onConfirmEntry: (value: D) => Promise<void>, onCancelEntry: () => void): JSX.Element;
 
     /**
      * Render an error to be shown if the entered data is failed to be submitted.

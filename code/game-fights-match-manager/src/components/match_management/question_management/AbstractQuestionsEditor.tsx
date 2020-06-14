@@ -23,22 +23,14 @@ export default abstract class AbstractQuestionsEditor<Q extends Question, I exte
     }
 
     protected abstract get questionsEditorTypeClass(): string;
-
-    protected determineNewStateFromData(data: Q[]): QuestionsEditorState<Q> {
-        return{
-            loading: this.state.loading,
-            data: data,
-            addingQuestion: this.state.addingQuestion,
-            showingQuestionSubmissionError: this.state.showingQuestionSubmissionError
-        }
-    }
     
     protected determineInitialLoadingComponentState(initialloadingValue: boolean, initialQuestionCollection: Q[]){
         return{
             loading: initialloadingValue,
             data: initialQuestionCollection,
             addingQuestion: false,
-            showingQuestionSubmissionError: false
+            showingQuestionSubmissionError: false,
+            tempQuestions: []
         }
     }
 
@@ -50,26 +42,22 @@ export default abstract class AbstractQuestionsEditor<Q extends Question, I exte
         this.setState({ addingQuestion: false });
     }
 
-    confirmQuestionEntry = (newQuestion: string) => {
-        this.getDataInterface().submitNewQuestion(newQuestion)
-            .then(this.onSuccessfulSubmission)
-            .catch(this.onSubmissionFailure);
-    }
-
-    private onSuccessfulSubmission = () => {
+    confirmQuestionEntry = async (newQuestion: string) => {
         
-        this.setState({
-            addingQuestion: false,
-            showingQuestionSubmissionError: false,
-        });
-            
-    }
+        try{
+            const newQuestions = await this.getDataInterface().submitNewQuestion(newQuestion);
+            this.setState({ 
+                data: newQuestions,
+                showingQuestionSubmissionError: false
+            })
+        }
+        catch(e){
+            this.setState({ showingQuestionSubmissionError: true })
+        }
+        finally{
+            this.setState({ addingQuestion: false })
+        }
 
-    onSubmissionFailure = () => {
-        this.setState({
-            addingQuestion: false,
-            showingQuestionSubmissionError: true
-        });
     }
 
     onDeleteQuestion = (question: Q) => () => {
@@ -108,18 +96,14 @@ export default abstract class AbstractQuestionsEditor<Q extends Question, I exte
     }
 
     protected renderAddQuestionButton(){
-        
         return (
-            
             <button 
                 className="addQuestionButton"
                 onClick={this.addQuestion}
                 disabled={this.state.addingQuestion}>
                     {this.state.showingQuestionSubmissionError ? "Try Again" : "Add Question"}
             </button>
-            
         );
-
     }
 
     protected renderLoaded(dataInterface: IQuestionsInterface<Q>, questions: Q[]): ComponentContents{

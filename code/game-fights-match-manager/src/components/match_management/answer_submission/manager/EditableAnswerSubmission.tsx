@@ -16,8 +16,7 @@ export interface EditableAnswerSubmissionProps extends AnswerSubmissionProps{
 }
 
 export interface EditableAnswerSubmissionState{
-  editingAnswer: boolean,
-  showingAnswerSubmissionError: boolean
+  editingAnswer: boolean
 }
 
 /**
@@ -29,10 +28,7 @@ export default class EditableAnswerSubmission extends AnswerSubmission<EditableA
   
   constructor(props: EditableAnswerSubmissionProps){
     super(props);
-    this.state = { 
-      editingAnswer: false,
-      showingAnswerSubmissionError: false 
-    };
+    this.state = { editingAnswer: false };
   }
 
   protected determineComponentClassString(): string {
@@ -76,15 +72,9 @@ export default class EditableAnswerSubmission extends AnswerSubmission<EditableA
     })
   }
 
-  private onConfirmAnswerEntry = (answer: string) => {
-    this.props.onSubmissionOptionAction(new UpdateAnswerSubmissionOptionAction(this.props.submission, answer))
-        .then(() => { 
-            this.setState({ 
-              editingAnswer: false,
-              showingAnswerSubmissionError: false 
-            }) 
-        })
-        .catch(() => { this.setState({ showingAnswerSubmissionError: true }) }); 
+  private onConfirmAnswerEntry = async (answer: string) => {
+    this.props.onSubmissionOptionAction(new UpdateAnswerSubmissionOptionAction(this.props.submission, answer));
+    this.setState({ editingAnswer: false });
   }
 
   protected renderAnswer(answer: string){
