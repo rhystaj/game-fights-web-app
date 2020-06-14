@@ -9,6 +9,7 @@ import { MatchData, FighterData } from '../../../types/datatypes';
 import EnterableHeading from '../../utility/Enterable_Text/EnterableHeading';
 import EnterableDateText from '../../utility/Enterable_Text/EnterableDateText';
 import IMatchDataInterface from '../../../backend_interface/game_fights_data_interface/data_interfaces/IMatchDataInterface';
+import { DateType } from '../../../enums/referenceEnums';
 
 interface JudgeMatchInfoState extends LoadingComponentState<MatchData>{
     showingInvitationModal: boolean;
@@ -38,6 +39,16 @@ export default class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoSta
         
     }
 
+    onConfirmDate = (type: DateType) => async (date: Date) => {
+
+        const newData = await this.getDataInterface().submitMatchDate(type, date);
+
+        this.setState({
+            data: newData
+        })
+
+    }
+
     onManageInvitesClick = () => {
         this.setState({
             showingInvitationModal: true
@@ -61,12 +72,12 @@ export default class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoSta
         
     }
 
-    renderDate(date: Date, dateTextClassName: string){
+    renderDate(type: DateType, date: Date, dateTextClassName: string){
 
-        return<EnterableDateText
+        return <EnterableDateText
             className={dateTextClassName}
             initialValue={date}
-            onSubmitValue={async () => { }}
+            onSubmitValue={this.onConfirmDate(type)}
         />
 
     }

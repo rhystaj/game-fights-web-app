@@ -1,6 +1,7 @@
 import IDataInterface from "../../lib/interfaces/IDataInterface";
 
 import { MatchData, FighterData } from "../../../types/datatypes";
+import { DateType } from "../../../enums/referenceEnums";
 
 export default interface IMatchDataInterface extends IDataInterface<MatchData>{
 
@@ -10,6 +11,13 @@ export default interface IMatchDataInterface extends IDataInterface<MatchData>{
      */
     submitMatchTitle(title: string): Promise<MatchData>; 
     
+    /**
+     * Submit a new value for a date in the match data.
+     * @param type The date in the match data that will be changed.
+     * @param date The value the date will be changed to.
+     */
+    submitMatchDate(type: DateType, date: Date): Promise<MatchData>;
+
     /**
      * Submit the list of participants that have been invited to participate in the match.
      * @param invites 

@@ -9,6 +9,7 @@ import { DataInterfacingComponentProps } from '../../utility/DataInterfacingComp
 
 import '../../../style/main.css'
 import { ComponentContents } from '../../../types/customCompositeTypes';
+import { DateType } from '../../../enums/referenceEnums';
 
 /**
  * [DES/PRE] Shows the name, participants info, and dates of a match.
@@ -58,23 +59,30 @@ export default abstract class MatchInfoComponent<S extends LoadingComponentState
   protected renderDates(){
     return (
       <div className='matchDatesDisplay'>
+        
+        {/* The date of the match*/}
         <p className={MatchInfoComponent.DATE_TITLE_CLASS_NAME}>
           <b>Match Date</b>
         </p>
-        {this.renderDate(this.state.data.dates.match, MatchInfoComponent.DATE_TEXT_CLASS_NAME)}
+        {this.renderDate(DateType.Match, this.state.data.dates.match, MatchInfoComponent.DATE_TEXT_CLASS_NAME)}
+        
+        {/* The date the participants are able to submit answers. */}
         <p className={MatchInfoComponent.DATE_TITLE_CLASS_NAME}>
           <b>Answers Open</b>
         </p>
-        {this.renderDate(this.state.data.dates.open, MatchInfoComponent.DATE_TEXT_CLASS_NAME)}
+        {this.renderDate(DateType.AnswersOpen, this.state.data.dates.open, MatchInfoComponent.DATE_TEXT_CLASS_NAME)}
+        
+        {/* The date after which users can no longer submit answers. */}
         <p className={MatchInfoComponent.DATE_TITLE_CLASS_NAME}>
           <b>Answers Close</b>
         </p>
-        {this.renderDate(this.state.data.dates.close,MatchInfoComponent.DATE_TEXT_CLASS_NAME)}
+        {this.renderDate(DateType.AnswersClose, this.state.data.dates.close, MatchInfoComponent.DATE_TEXT_CLASS_NAME)}
+
       </div>
     )
   }
 
-  protected renderDate(date: Date | undefined, dateTextClassName: string){
+  protected renderDate(type: DateType, date: Date | undefined, dateTextClassName: string){
     return <p className={dateTextClassName}>{date?.toDateString()}</p>
   }
 
