@@ -9,7 +9,7 @@ import UniquelyIdentifiableCollection from "../../../utility/UniquelyIdentifiabl
 import { Question } from "../../../types/datatypes";
 import { QuestionEquator } from "../../../types/equators/UniquelyIndentifiableEquators";
 import { MatchStage } from "../../../enums/statusEnums";
-import IUserMatchStatusInterface from "../../game_fights_data_interface/data_interfaces/IUserMatchStatusInterface";
+
 import MockUserMatchStatusInterface from "./MockUserMatchStatusInterface";
 
 export default class MockQuestionsListInterface extends DataInterface<Question[]> implements IQuestionListInterface{
@@ -36,7 +36,9 @@ export default class MockQuestionsListInterface extends DataInterface<Question[]
     }
 
     public async submitNewQuestion(question: string){
-        
+
+        await new Promise(res => setTimeout(() => res(), 3000));
+
         if(question.localeCompare("FAIL") === 0)
             throw Error();
         
@@ -46,12 +48,12 @@ export default class MockQuestionsListInterface extends DataInterface<Question[]
             text: question
         })
 
-        this.refresh();
+        return this.questions.asArray();
     }
     
     public async requestQuestionDeletion(question: Question){
         this.questions = this.questions.removeElementWithId(question.id);
-        this.refresh();
+        return this.questions.asArray();
     }
 
     public async progressMatch() {

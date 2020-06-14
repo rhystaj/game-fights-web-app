@@ -39,7 +39,7 @@ export default class MockQuestionAnswerJudgementsInterface extends DataInterface
     
     public async requestQuestionDeletion(question: Question) {
         this.judgements = this.judgements.removeElementWithId(question.id);
-        this.refresh();
+        return this.judgements.asArray();
     }
 
     public async submitNewQuestion(question: string) {
@@ -66,7 +66,7 @@ export default class MockQuestionAnswerJudgementsInterface extends DataInterface
         }
 
         this.judgements = this.judgements.add(newQuestion);
-        this.refresh();
+        return this.judgements.asArray();
 
     }
 
