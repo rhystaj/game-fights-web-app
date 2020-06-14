@@ -205,6 +205,14 @@ ul {
   width: 1em;
 }
 
+.entry .submissionAnimation {
+  display: inline-block;
+  height: 1em;
+  width: 1em;
+  position: relative;
+  top: 0.19em;
+}
+
 .entry.dateEntry .dateEntryArea {
   display: inline-block;
 }
