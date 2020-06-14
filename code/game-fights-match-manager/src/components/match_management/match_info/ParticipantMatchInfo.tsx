@@ -15,13 +15,6 @@ class ParticipantMatchInfo extends MatchInfoComponent<LoadingComponentState<Matc
     return "participant";
   }
 
-  protected determineNewStateFromData(data: MatchData): LoadingComponentState<MatchData> {
-    return {
-      loading: this.state.loading,
-      data: data
-    }
-  }
-
   protected determineInitialLoadingComponentState(initialLoadingValue: boolean, initialMatchData: MatchData): LoadingComponentState<MatchData>{
     return {
       loading: initialLoadingValue,

@@ -27,14 +27,6 @@ export default class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoSta
             showingInvitationModal: false
         }
     }
-    
-    protected determineNewStateFromData(data: MatchData): JudgeMatchInfoState {
-        return {
-            loading: this.state.loading,
-            data: data,
-            showingInvitationModal: this.state.showingInvitationModal
-        }
-    }
 
     onConfirmTitle = async (title: string) => {
           

@@ -18,12 +18,5 @@ export default abstract class SimpleStateLoadingComponent<M, D,
             data: initialData
         }
     }
-    
-    protected determineNewStateFromData(data: D): LoadingComponentState<D> {
-        return{
-            loading: this.state.loading,
-            data: data
-        }
-    }
-    
+
 } 
