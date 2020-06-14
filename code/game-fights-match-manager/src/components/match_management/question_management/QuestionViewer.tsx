@@ -31,13 +31,6 @@ class QuestionsViewer extends QuestionsComponent<Question, IQuestionsInterface<Q
         }
     }
 
-    protected determineNewStateFromData(data: Question[]): QuestionsViewerState {
-        return{
-            loading: this.state.loading,
-            data: data
-        }
-    }
-
     onQuestionUpdate = (questions: Question[]) => {
         this.updateQuestionDisplay(questions);
     }
