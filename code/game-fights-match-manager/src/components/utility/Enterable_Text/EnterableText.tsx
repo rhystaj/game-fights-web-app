@@ -61,11 +61,11 @@ export default abstract class EnterableText<D> extends OEComponent<EnterableText
     } 
 
     private onCancelEntry = () => {
-        this.setState({editing: false})
+        this.setState({ editing: false });
     }
 
     /**
-     * Render the EntryConponent used to enter the data.
+     * Render the EntryComponent used to enter the data.
      */
     protected abstract renderEntry(onConfirmEntry: (value: D) => Promise<void>, onCancelEntry: () => void): JSX.Element;
 

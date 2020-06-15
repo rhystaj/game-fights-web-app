@@ -7,6 +7,7 @@ import QuestionListProgressingControls from '../../match_progressing_controls/Qu
 import { ComponentContents } from '../../../types/customCompositeTypes';
 
 import '../../../style/main.css'
+import DeletableListedQuestion from './DeletableListedQuestion';
 
 export default class QuestionsEditor extends AbstractQuestionsEditor<Question, IQuestionListInterface> {
     
@@ -16,6 +17,17 @@ export default class QuestionsEditor extends AbstractQuestionsEditor<Question, I
 
     protected getDataInterface(): IQuestionListInterface {
         return this.props.dataInterfaceManager.questionsListInterface;
+    }
+
+    protected renderQuestion(question: Question, questionElementClassName: string){
+        return (
+            <DeletableListedQuestion
+                question={question}
+                dataInterface={this.getDataInterface()}
+                onQuestionDeleted={(newData) => this.setState({ data: newData })}
+            />
+        )
+
     }
 
     protected renderLoaded(dataInterface: IQuestionListInterface, data: Question[]): ComponentContents {

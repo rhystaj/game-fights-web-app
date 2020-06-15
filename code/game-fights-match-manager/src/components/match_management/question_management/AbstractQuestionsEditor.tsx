@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 
 import QuestionsComponent from './QuestionsComponent';
 import TextEntry from '../../utility/Entry/TextEntry';
@@ -60,7 +60,7 @@ export default abstract class AbstractQuestionsEditor<Q extends Question, I exte
 
     }
 
-    onDeleteQuestion = (question: Q) => () => {
+    onDeleteQuestion = (question: Q) => (e: MouseEvent<HTMLButtonElement>) => {
         this.getDataInterface().requestQuestionDeletion(question);
     }
 

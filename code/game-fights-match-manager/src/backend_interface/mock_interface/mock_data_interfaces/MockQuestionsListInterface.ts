@@ -52,8 +52,12 @@ export default class MockQuestionsListInterface extends DataInterface<Question[]
     }
     
     public async requestQuestionDeletion(question: Question){
+        
+        await new Promise((resolve) => { setTimeout(() => { resolve() }, 3000)});
+        
         this.questions = this.questions.removeElementWithId(question.id);
         return this.questions.asArray();
+
     }
 
     public async progressMatch() {
