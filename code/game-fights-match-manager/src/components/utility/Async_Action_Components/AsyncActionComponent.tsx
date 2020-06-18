@@ -10,13 +10,14 @@ export interface AsyncActionComponentState{
     pending: boolean;
 }
 
-export default abstract class AsyncActionComponent<P> extends OEComponent<P, AsyncActionComponentState> {  
-
-    readonly state = { pending: false }
+export default abstract class AsyncActionComponent<P, S extends AsyncActionComponentState = AsyncActionComponentState> 
+                        extends OEComponent<P, S> {  
 
     protected determineComponentClassString(): string {
-        return this.state.pending ? "pending" : "";
+        return "asyncActionComponent " + this.determineAsyncActionClassString() + " " + (this.state.pending ? "pending" : "");
     }
+
+    protected abstract determineAsyncActionClassString(): string;
 
     private onAsyncAction = () => {
         

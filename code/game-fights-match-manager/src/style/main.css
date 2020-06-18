@@ -205,14 +205,6 @@ ul {
   width: 1em;
 }
 
-.entry .submissionAnimation {
-  display: inline-block;
-  height: 1em;
-  width: 1em;
-  position: relative;
-  top: 0.19em;
-}
-
 .entry.dateEntry .dateEntryArea {
   display: inline-block;
 }
@@ -246,6 +238,14 @@ ul {
   height: -moz-fit-content;
   height: fit-content;
   padding: 1em;
+}
+
+.asyncActionComponent .controlsPendingAnimation {
+  display: inline-block;
+  height: 1em;
+  width: 1em;
+  position: relative;
+  top: 0.19em;
 }
 
 .searchModal.fighterInvitation > .searchModalContent {

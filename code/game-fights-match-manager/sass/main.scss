@@ -1,7 +1,6 @@
 @import './base';
 
 
-//Component Styles
 @import './components/header';
 
 @import './components/runNewMatch';
@@ -14,6 +13,7 @@
 @import './components/lib/dateEntry';
 @import './components/lib/enterableText';
 @import './components/lib/searchModal';
+@import './components/lib/asyncActionComponent';
 
 @import './components//modals/fighterInvitationSearchModal';
 

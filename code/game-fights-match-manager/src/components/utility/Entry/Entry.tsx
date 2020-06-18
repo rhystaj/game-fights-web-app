@@ -1,9 +1,9 @@
 import React from 'react';
-import OEComponent from '../OEComponent';
+
+import AsyncActionComponent, { AsyncActionComponentState } from '../Async_Action_Components/AsyncActionComponent';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
-import UseAnimations from 'react-useanimations';
 
 type EntryProps<D> = {
     initialValue: D,
@@ -11,17 +11,16 @@ type EntryProps<D> = {
     onCancelEntry: () => void
 }
 
-type EntryState<D> = {
-    valueBeingEntered: D,
-    submittingEntry: boolean
+interface EntryState<D> extends AsyncActionComponentState {
+    valueBeingEntered: D
 }
 
 /**
  * [DES/PRE] A component in which you can enter data and either confirm or cancel your progress.
  */
-export default abstract class Entry<D> extends OEComponent<EntryProps<D>, EntryState<D>>{
+export default abstract class Entry<D> extends AsyncActionComponent<EntryProps<D>, EntryState<D>>{
     
-    protected determineComponentClassString(){
+    protected determineAsyncActionClassString(){
         return "entry " + this.entryTypeClassName;
     }
 
@@ -35,25 +34,16 @@ export default abstract class Entry<D> extends OEComponent<EntryProps<D>, EntryS
         this.setState({ valueBeingEntered: value })
     }
 
-    constructor(props: EntryProps<D>){
-        super(props);
-    }
-
     protected determineInitialComponentState(){
         return { 
             valueBeingEntered: this.props.initialValue,
-            submittingEntry: false
+            pending: false
          };
     }
 
-    private onConfirmEntryClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        this.setState({ submittingEntry: true });
-        this.props.onConfirmEntry(this.state.valueBeingEntered)
-                  .then(() => { console.log("Answer Submitted") })
-                  .finally(() => { 
-                      this.setState({ submittingEntry : false });
-                    });
-    }
+    protected async performAsyncAction(){
+        await this.props.onConfirmEntry(this.state.valueBeingEntered);
+    }   
 
     private onCancelEntryClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         this.props.onCancelEntry();
@@ -64,9 +54,9 @@ export default abstract class Entry<D> extends OEComponent<EntryProps<D>, EntryS
      */
     protected abstract renderEntryArea(): JSX.Element;
 
-    protected renderOptionButtons(){
+    protected renderActionControls(onAsyncAction: () => void){
         return[
-            (<button onClick={this.onConfirmEntryClick}>
+            (<button onClick={onAsyncAction}>
                 <FontAwesomeIcon icon={faCheck} />
             </button>),
             (<button onClick={this.onCancelEntryClick}>
@@ -75,14 +65,10 @@ export default abstract class Entry<D> extends OEComponent<EntryProps<D>, EntryS
         ]
     }
 
-    protected renderSubmissionMessage(){
-        return <UseAnimations animationKey="loading" className="submissionAnimation"/>
-    }
-
     renderComponentContents(){
         return [
             this.renderEntryArea(),
-            ...(this.state.submittingEntry ? [this.renderSubmissionMessage()] : this.renderOptionButtons())
+            ...(super.renderComponentContents() as JSX.Element[])
         ]
     }
     

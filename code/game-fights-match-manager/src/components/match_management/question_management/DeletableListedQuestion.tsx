@@ -15,8 +15,8 @@ interface DeletableListedQuestionProps<Q extends Question> {
 
 export default class DeletableListedQuestion<Q extends Question> extends AsyncActionComponent<DeletableListedQuestionProps<Q>>{
     
-    protected determineComponentClassString(){
-        return  this.determineQuestionClassString() + " deletable " + super.determineComponentClassString();
+    protected determineAsyncActionClassString(): string {
+        return  this.determineQuestionClassString() + " deletable";
     }
 
     protected determineQuestionClassString(){
