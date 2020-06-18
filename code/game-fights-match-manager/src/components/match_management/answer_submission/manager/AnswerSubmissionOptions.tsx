@@ -3,7 +3,6 @@ import React from 'react'
 import { AnswerSubmissionState } from '../../../../enums/statusEnums'
 
 import OEComponent from '../../../utility/OEComponent';
-import UpdateAnswerSubmissionOptionAction from '../../../../actions/SubmissionOptionActions/UpdateAnswerSubmissionOptionAction';
 
 interface AnswerSubmissionOptionsProps{
   state: AnswerSubmissionState,
@@ -23,6 +22,10 @@ export default class AnswerSubmissionOptions extends OEComponent<AnswerSubmissio
     return "answerSubmissionOptions";
   }
   
+  protected determineInitialComponentState(){
+    return {}
+  }
+
   protected renderOption(optionText: string, renderButton: boolean, optionSelection: AnswerSubmissionOptionSelection){
 
     const SUBMISSION_OPTION_CLASS_NAME = "submissionOption";

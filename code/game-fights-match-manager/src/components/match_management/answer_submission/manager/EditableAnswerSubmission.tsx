@@ -9,7 +9,7 @@ import { AnswerSubmissionState as AnswerSubmissionStatus } from '../../../../enu
 import SubmissionOptionAction from '../../../../actions/SubmissionOptionActions/SubmissionOptionAction';
 import UpdateAnswerSubmissionOptionAction from '../../../../actions/SubmissionOptionActions/UpdateAnswerSubmissionOptionAction';
 
-import AnswerSubmission, { AnswerSubmissionProps } from './AnswerSubmission';
+import AbstractAnswerSubmission, { AnswerSubmissionProps } from './AbstractAnswerSubmission';
 
 export interface EditableAnswerSubmissionProps extends AnswerSubmissionProps{
   onSubmissionOptionAction: (action: SubmissionOptionAction) => Promise<void>
@@ -23,18 +23,21 @@ export interface EditableAnswerSubmissionState{
  * Shows the submission of an answer to a question and it's related details such as status.
  * @param props The properties of the submission to display.
  */
-export default class EditableAnswerSubmission extends AnswerSubmission<EditableAnswerSubmissionProps,
+export default class EditableAnswerSubmission extends AbstractAnswerSubmission<EditableAnswerSubmissionProps,
     EditableAnswerSubmissionState> {
   
   constructor(props: EditableAnswerSubmissionProps){
     super(props);
-    this.state = { editingAnswer: false };
   }
 
   protected determineComponentClassString(): string {
     return super.determineComponentClassString() + " editable";
   }
   
+  protected determineInitialComponentState(){
+    return { editingAnswer: true }
+  }
+
   /**
  * Determine the test to be displayed to communicate the status of the submission.
  * @param {The state the submission is in - no answer, awaiting validation, pending judge approval, accepted or declined} state
@@ -77,7 +80,7 @@ export default class EditableAnswerSubmission extends AnswerSubmission<EditableA
     this.setState({ editingAnswer: false });
   }
 
-  protected renderAnswer(answer: string){
+  protected renderAnswer(answer: string): JSX.Element {
 
     if(this.state.editingAnswer){
       return <TextEntry
@@ -87,7 +90,7 @@ export default class EditableAnswerSubmission extends AnswerSubmission<EditableA
       />
     }
     else{
-      return super.renderAnswer(answer);
+      return this.renderAnswer(answer);
     }
 
   }

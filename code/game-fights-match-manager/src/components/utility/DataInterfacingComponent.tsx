@@ -23,11 +23,9 @@ export default abstract class DataInterfacingComponent<M, D,
             this.onDataChange(this.state.data, newData); 
         })
 
-        const initialData = this.determineInitalData();
-        this.state = this.determineInitialComponentState(initialData);
-
         //Ensure that the data and component are up to date.
         this.getDataInterface().refresh();
+
     }
 
     /**
@@ -50,9 +48,15 @@ export default abstract class DataInterfacingComponent<M, D,
 
     /**
      * [DES/PRE] Determines the state the component will start with.
-     * @param initialLoadingValue The loading the value that it has been determined the state will start with.
      * @param initialData The data that it has been determined the state will start with.
      */
-    protected abstract determineInitialComponentState(initialData: D): S;
+    protected abstract determineInitialDataInterfacingComponentState(initialData: D): S;
+
+    protected determineInitialComponentState(){
+        
+        const initialData = this.determineInitalData();
+        return this.determineInitialDataInterfacingComponentState(initialData);
+
+    }
 
 }

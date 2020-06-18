@@ -26,7 +26,7 @@ export default abstract class SearchModal<M, D, I extends ISearchInterface<D>,
      */
     protected abstract get searchModalTypeClass(): string;
 
-    protected determineInitialComponentState(initialData: D[]){
+    protected determineInitialDataInterfacingComponentState(initialData: D[]){
         return this.determineInitialSearchModalState(initialData, false);
     }
 

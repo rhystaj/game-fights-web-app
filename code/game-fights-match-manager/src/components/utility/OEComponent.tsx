@@ -7,10 +7,20 @@ import { ComponentContents } from '../../types/customCompositeTypes';
  */
 export default abstract class OEComponent<P = {}, S = {}> extends Component<P, S>{
 
+    constructor(props: P){
+        super(props);
+        this.state = this.determineInitialDataInterfacingComponentState();
+    }
+
     /**
      * The string that defines the classes that the element inherits from.
      */
     protected abstract determineComponentClassString(): string;
+
+    /**
+     * [PRE] Determine the state the component will have when it is initialised.
+     */
+    protected abstract determineInitialComponentState() : S;
 
     /**
      * The behaviour that is to be performed when the component is clicked.

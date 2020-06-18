@@ -37,7 +37,7 @@ export default abstract class LoadingComponent<M, D, I extends IDataInterface<D>
         this.setState({ loading: false })
     }
 
-    protected determineInitialComponentState(data: D){
+    protected determineInitialDataInterfacingComponentState(data: D){
         return this.determineInitialLoadingComponentState(true, data);
     }
 
