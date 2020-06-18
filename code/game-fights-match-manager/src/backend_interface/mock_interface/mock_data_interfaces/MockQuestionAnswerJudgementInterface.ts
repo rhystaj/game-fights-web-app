@@ -14,7 +14,7 @@ import { JudgeableQuestionData, Question } from "../../../types/datatypes";
 import testFighterDatabase from "../test_data/testFighterDatabase";
 import MockUserMatchStatusInterface from "./MockUserMatchStatusInterface";
 
-export default class MockQuestionAnswerJudgementsInterface extends DataInterface<JudgeableQuestionData[]>
+export default class MockJudgeableQuestionsInterface extends DataInterface<JudgeableQuestionData[]>
                                                            implements IJudgeableQuestionsInterface{
     
     private judgements: UniquelyIdentifiableCollection<JudgeableQuestionData>;
@@ -38,6 +38,7 @@ export default class MockQuestionAnswerJudgementsInterface extends DataInterface
     }
     
     public async requestQuestionDeletion(question: Question) {
+        await new Promise((resolve) => { setTimeout(() => { resolve() }, 3000)});
         this.judgements = this.judgements.removeElementWithId(question.id);
         return this.judgements.asArray();
     }

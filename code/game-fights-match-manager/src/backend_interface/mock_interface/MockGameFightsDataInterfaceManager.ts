@@ -17,7 +17,7 @@ import MockMatchDataInterface from "./mock_data_interfaces/MockMatchDataInterfac
 import MockQuestionsListInterface from "./mock_data_interfaces/MockQuestionsListInterface";
 import MockFighterDataSearchInterface from "./mock_data_interfaces/MockFighterDataSearchInterface";
 import MockAnswerSubmissionDataInterface from "./mock_data_interfaces/MockAnswerSubmissionDataInterface";
-import MockQuestionAnswerJudgementsInterface from "./mock_data_interfaces/MockQuestionAnswerJudgementInterface";
+import MockJudgeableQuestionsInterface from "./mock_data_interfaces/MockQuestionAnswerJudgementInterface";
 import MockMatchResultsDataInterface from "./mock_data_interfaces/MockMatchResultsDataInterface";
 import MockUserMatchStatusInterface from "./mock_data_interfaces/MockUserMatchStatusInterface";
 import MockMatchInvitiationInterface from "./mock_data_interfaces/MockMatchInvitationInterface";
@@ -40,7 +40,7 @@ export default class MockGameFightsDataInterfaceManager extends GameFightsDataIn
     private readonly _matchDataInterface: MockMatchDataInterface;
     private readonly _questionsListInterface: MockQuestionsListInterface;
     private readonly _answerSubmissionInterface: MockAnswerSubmissionDataInterface;
-    private readonly _questionAnswerJudgementsInterface: MockQuestionAnswerJudgementsInterface;
+    private readonly _questionAnswerJudgementsInterface: MockJudgeableQuestionsInterface;
     private readonly _fighterDataInvitationInterface: MockFighterDataSearchInterface;
     private readonly _matchResultsDataInterface: MockMatchResultsDataInterface;
 
@@ -54,7 +54,7 @@ export default class MockGameFightsDataInterfaceManager extends GameFightsDataIn
         this._questionsListInterface = new MockQuestionsListInterface(questions, this._userMatchStatusInterface, 
             this._matchStageInterface);
         this._answerSubmissionInterface = new MockAnswerSubmissionDataInterface(submissions);
-        this._questionAnswerJudgementsInterface = new MockQuestionAnswerJudgementsInterface(answerJudgements, 
+        this._questionAnswerJudgementsInterface = new MockJudgeableQuestionsInterface(answerJudgements, 
             this._userMatchStatusInterface, this._matchStageInterface);
         this._fighterDataInvitationInterface = new MockFighterDataSearchInterface(testFighterDatabase.asArray());
         this._matchResultsDataInterface = new MockMatchResultsDataInterface(matchResults, this._userMatchStatusInterface,

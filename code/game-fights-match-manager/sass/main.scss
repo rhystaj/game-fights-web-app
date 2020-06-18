@@ -20,7 +20,8 @@
 @import './components/question_management/questionsComponent';
 @import './components/question_management/questionsEditor';
 @import './components/question_management/answerJudgementManager';
-@import './components/question_management/deleteableListedQuestion'; 
+@import './components/question_management/deleteableListedQuestion';
+@import './components/question_management/judgeableDeletableListedQuestion'; 
 
 @import './components/answer_submission_management/answerSubmissionComponent';
 @import './components/answer_submission_management/answerSubmissionManager';

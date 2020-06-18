@@ -41,7 +41,7 @@ export default class DeletableListedQuestion<Q extends Question> extends AsyncAc
 
     protected renderComponentContents(){
         return [
-            <p>{this.props.question.text}</p>,
+            <p className="questionText">{this.props.question.text}</p>,
             ...(super.renderComponentContents() as JSX.Element[])
         ]
     }
