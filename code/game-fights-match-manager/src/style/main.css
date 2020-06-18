@@ -359,19 +359,6 @@ ul {
           flex-direction: column;
 }
 
-.questionsComponent.questionsEditor .question p {
-  display: inline-block;
-}
-
-.questionsComponent.questionsEditor .question .deleteQuestionButton {
-  width: 2em;
-  height: 1.5em;
-  margin-left: 1em;
-  vertical-align: middle;
-  position: relative;
-  top: -0.1em;
-}
-
 .questionsComponent.questionsEditor .addQuestionButton {
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
@@ -428,6 +415,24 @@ ul {
 
 .questionsComponent.questionsEditor.answerJudgementManager .question .answerJudgement .answerJudgementOptions button {
   width: 7em;
+}
+
+.deletableListedQuestion p {
+  display: inline-block;
+  opacity: 100%;
+}
+
+.deletableListedQuestion .deleteQuestionButton {
+  width: 2em;
+  height: 1.5em;
+  margin-left: 1em;
+  vertical-align: middle;
+  position: relative;
+  top: -0.1em;
+}
+
+.deletableListedQuestion.pending p {
+  opacity: 25%;
 }
 
 .answerSubmissionComponent {

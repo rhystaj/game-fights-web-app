@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAEI,wBAFoB,CAEpB,CAAC,CAAA;EACG,OAAO,EAAE,YAAY;CACxB;;AAJL,AAMI,wBANoB,CAMpB,qBAAqB,CAAA;EAEjB,KAAK,EAAE,GAAG;EACV,MAAM,EAAE,KAAK;EACb,WAAW,EAAE,GAAG;EAEhB,cAAc,EAAE,MAAM;EAEtB,QAAQ,EAAE,QAAQ;EAClB,GAAG,EAAE,MACT;CAAC",
+    "sources": [
+        "../../sass/components/question_management/deleteableListedQuestion.scss"
+    ],
+    "names": [],
+    "file": "deleteableListedQuestion.css"
+}
