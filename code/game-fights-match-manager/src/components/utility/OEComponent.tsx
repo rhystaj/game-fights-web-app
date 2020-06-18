@@ -9,7 +9,7 @@ export default abstract class OEComponent<P = {}, S = {}> extends Component<P, S
 
     constructor(props: P){
         super(props);
-        this.state = this.determineInitialDataInterfacingComponentState();
+        this.state = this.determineInitialComponentState();
     }
 
     /**

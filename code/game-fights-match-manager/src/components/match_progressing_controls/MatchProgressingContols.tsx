@@ -14,6 +14,10 @@ export default abstract class MatchProgressingControls<D, I extends IMatchProgre
         return "matchProgressingControls " + this.controlsTypeClassName;
     }
 
+    protected determineInitialComponentState(){
+        return {}
+    }
+
     /**
      * The class name for the type of MatchProgressingControl this component is.
      */

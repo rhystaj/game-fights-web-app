@@ -2,7 +2,7 @@ import React from 'react';
 
 import IQuestionsInterface from '../../../backend_interface/game_fights_data_interface/data_interfaces/question_interfaces/IQuestionsInterface';
 
-import AsyncActionComponent from "../../utility/Async_Action_Components/AsyncActionComponent";
+import AsyncActionComponent, { AsyncActionComponentState } from "../../utility/Async_Action_Components/AsyncActionComponent";
 
 import { ComponentContents } from '../../../types/customCompositeTypes';
 import { Question } from '../../../types/datatypes';
@@ -21,6 +21,10 @@ export default class DeletableListedQuestion<Q extends Question> extends AsyncAc
 
     protected determineQuestionClassString(){
         return "question";
+    }
+
+    protected determineInitialComponentState(): AsyncActionComponentState {
+        return { pending: false }
     }
 
     protected async performAsyncAction() {

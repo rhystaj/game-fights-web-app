@@ -19,16 +19,18 @@ export default abstract class EnterableText<D> extends OEComponent<EnterableText
 
     constructor(props: EnterableTextProps<D>){
         super(props);
-
-        this.state = {
-            editing: false,
-            currentConfirmedValue: this.props.initialValue,
-            displayingSubmissionError: false
-        }
     }
 
     determineComponentClassString(){
         return "enterableText " + (this.state.editing ? "editing " : "") + this.props.className;
+    }
+
+    determineInitialComponentState(){
+        return {
+            editing: false,
+            currentConfirmedValue: this.props.initialValue,
+            displayingSubmissionError: false
+        }
     }
 
     protected determineOnClickBehaviour(){

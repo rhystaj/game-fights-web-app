@@ -37,7 +37,10 @@ export default abstract class Entry<D> extends OEComponent<EntryProps<D>, EntryS
 
     constructor(props: EntryProps<D>){
         super(props);
-        this.state = { 
+    }
+
+    protected determineInitialComponentState(){
+        return { 
             valueBeingEntered: this.props.initialValue,
             submittingEntry: false
          };
