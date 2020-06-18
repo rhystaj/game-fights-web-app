@@ -39,7 +39,7 @@ export interface ParticipantAnswerData {
     state: AnswerSubmissionState
 }
 
-export interface QuestionAnswersJudgementData extends Question{
+export interface JudgeableQuestionData extends Question{
     answerJudgements: ParticipantAnswerData[]
 }
 

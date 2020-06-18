@@ -1,28 +1,28 @@
 import React from 'react';
 
 import AbstractQuestionsEditor from '../question_management/AbstractQuestionsEditor'
-import { QuestionAnswersJudgementData } from "../../../types/datatypes";
+import { JudgeableQuestionData } from "../../../types/datatypes";
 
 import { AnswerSubmissionState } from '../../../enums/statusEnums';
-import IQuestionAnswerJudgementsInterface from '../../../backend_interface/game_fights_data_interface/data_interfaces/question_interfaces/IQuestionAnswerJudgementsInterface';
+import IJudgeableQuestionsInterface from '../../../backend_interface/game_fights_data_interface/data_interfaces/question_interfaces/IQuestionAnswerJudgementsInterface';
 import QuestionAnswerJudgementProgressingControls from '../../match_progressing_controls/QuestionAnswerJudgementProgressingControls';
 import { ComponentContents } from '../../../types/customCompositeTypes';
 
-export default class AnswerJudgementManager extends AbstractQuestionsEditor<QuestionAnswersJudgementData, IQuestionAnswerJudgementsInterface>{
+export default class AnswerJudgementManager extends AbstractQuestionsEditor<JudgeableQuestionData, IJudgeableQuestionsInterface>{
     
     protected get questionsEditorTypeClass(){
         return "answerJudgementManager";
     }
 
-    protected getDataInterface(): IQuestionAnswerJudgementsInterface {
+    protected getDataInterface(): IJudgeableQuestionsInterface {
         return this.props.dataInterfaceManager.questionAnswerJudgementsListInterface;
     }
 
-    protected determineInitalData(): QuestionAnswersJudgementData[] {
+    protected determineInitalData(): JudgeableQuestionData[] {
         return [];
     }
 
-    protected renderQuestion(question: QuestionAnswersJudgementData, questionElementClassName: string){
+    protected renderQuestion(question: JudgeableQuestionData, questionElementClassName: string){
 
         return(
             <div className={questionElementClassName}>
@@ -33,7 +33,7 @@ export default class AnswerJudgementManager extends AbstractQuestionsEditor<Ques
 
     }
 
-    private renderJudgementsList(question: QuestionAnswersJudgementData){
+    private renderJudgementsList(question: JudgeableQuestionData){
 
         const judgementElements = new Array(question.answerJudgements.length);
         for(let i = 0; i < judgementElements.length; i++){
@@ -44,7 +44,7 @@ export default class AnswerJudgementManager extends AbstractQuestionsEditor<Ques
 
     }
 
-    protected renderAnswerJudgement(question: QuestionAnswersJudgementData, answerIndex: number){
+    protected renderAnswerJudgement(question: JudgeableQuestionData, answerIndex: number){
         
         const judgement = question.answerJudgements[answerIndex];
 
@@ -57,11 +57,11 @@ export default class AnswerJudgementManager extends AbstractQuestionsEditor<Ques
         )
     }
 
-    private onUpdateAnswerStatus = (question: QuestionAnswersJudgementData, answerIndex: number, answerStatus: AnswerSubmissionState) => () => {
+    private onUpdateAnswerStatus = (question: JudgeableQuestionData, answerIndex: number, answerStatus: AnswerSubmissionState) => () => {
         this.getDataInterface().submitAnswerJudgementStateUpdate(question, answerIndex, answerStatus);
     }
 
-    protected renderJudgementControls(question: QuestionAnswersJudgementData, answerIndex: number){
+    protected renderJudgementControls(question: JudgeableQuestionData, answerIndex: number){
 
         switch(question.answerJudgements[answerIndex].state){
 
@@ -91,7 +91,7 @@ export default class AnswerJudgementManager extends AbstractQuestionsEditor<Ques
 
     }
 
-    protected renderLoaded(dataInterface: IQuestionAnswerJudgementsInterface, data: QuestionAnswersJudgementData[]): ComponentContents {
+    protected renderLoaded(dataInterface: IJudgeableQuestionsInterface, data: JudgeableQuestionData[]): ComponentContents {
         
         return [    
                 <h1>Questions</h1>,

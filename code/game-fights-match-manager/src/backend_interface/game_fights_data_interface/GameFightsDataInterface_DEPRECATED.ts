@@ -1,4 +1,4 @@
-import { AnswerSubmissionData, MatchData, FighterData, Question, QuestionAnswersJudgementData, ParticipantAnswerData } from '../../types/datatypes'
+import { AnswerSubmissionData, MatchData, FighterData, Question, JudgeableQuestionData, ParticipantAnswerData } from '../../types/datatypes'
 import { UserMatchStatus, MatchStage, AnswerSubmissionState } from '../../enums/statusEnums';
 import { QueryCallback } from '../../types/functionTypes';
 
@@ -15,7 +15,7 @@ type GameFightsDataEvents = {
     onExternalAnswerSubmissionStateChange: (submissions: AnswerSubmissionData[]) => void
 
     //Called when a participant makes a change to thier anwer submission.
-    onParticipantAnswerSubmissionChange: (questionsAnswersJudgements: QuestionAnswersJudgementData[]) => void;
+    onParticipantAnswerSubmissionChange: (questionsAnswersJudgements: JudgeableQuestionData[]) => void;
 
 }
 
@@ -28,7 +28,7 @@ export default abstract class GameFightsDataInterface{
     public events: GameFightsDataEvents = {  
         onQuestionUpdate: (questions: Question[]) => { },
         onExternalAnswerSubmissionStateChange: (submissions: AnswerSubmissionData[]) => { },
-        onParticipantAnswerSubmissionChange: (questionAnswersJudgements: QuestionAnswersJudgementData[]) => { }
+        onParticipantAnswerSubmissionChange: (questionAnswersJudgements: JudgeableQuestionData[]) => { }
     }
 
     /**
@@ -74,7 +74,7 @@ export default abstract class GameFightsDataInterface{
      * 
      * @param queryCallback Retrieve and respond to information regarding the judgement of answers to questions.
      */
-    public abstract queryAnswerJudgements(queryCallback: QueryCallback<QuestionAnswersJudgementData[]>): void;
+    public abstract queryAnswerJudgements(queryCallback: QueryCallback<JudgeableQuestionData[]>): void;
 
     /**
      * [DES/PRE] Specify a question that is to be added to the managed data.
@@ -94,13 +94,13 @@ export default abstract class GameFightsDataInterface{
      * Specify a question that is to be added to questions that can be answered by participants as soon as it is submitted.
      * @param question 
      */
-    public abstract submitImmediatelyAnswerableQuestion(question: string): Promise<QuestionAnswersJudgementData[]>;
+    public abstract submitImmediatelyAnswerableQuestion(question: string): Promise<JudgeableQuestionData[]>;
 
     /**
      * Specift that a question that can be answered by participants should be deleted.
      * @param question The question to be deleted.
      */
-    public abstract requestAnswerableQuestionDeletion(question: QuestionAnswersJudgementData): Promise<QuestionAnswersJudgementData[]>;
+    public abstract requestAnswerableQuestionDeletion(question: JudgeableQuestionData): Promise<JudgeableQuestionData[]>;
 
     /**
      * [DES/PRE] Specify which participants are taking part in a match.
@@ -132,7 +132,7 @@ export default abstract class GameFightsDataInterface{
     * @param answerIndex The index of the answer judgement thats state will be changed.
     * @param updateState The new value of the answer judgment.
     */
-    public abstract submitAnswerJudgementStateUpdate(questionsAnswersJudgement: QuestionAnswersJudgementData, 
-        answerIndex: number, updateState: AnswerSubmissionState): Promise<QuestionAnswersJudgementData[]>;
+    public abstract submitAnswerJudgementStateUpdate(questionsAnswersJudgement: JudgeableQuestionData, 
+        answerIndex: number, updateState: AnswerSubmissionState): Promise<JudgeableQuestionData[]>;
     
 }

@@ -1,6 +1,6 @@
 import DataInterface from "../../lib/abstract_implementations/AbstractDataInterface";
 
-import IQuestionAnswerJudgementsInterface from "../../game_fights_data_interface/data_interfaces/question_interfaces/IQuestionAnswerJudgementsInterface";
+import IJudgeableQuestionsInterface from "../../game_fights_data_interface/data_interfaces/question_interfaces/IQuestionAnswerJudgementsInterface";
 
 import MockMatchStageDataInterface from "./MockMatchStageDataInterface";
 
@@ -9,15 +9,15 @@ import UniquelyIdentifiableCollection from "../../../utility/UniquelyIdentifiabl
 import { ParticipantAnswerDataEquator } from "../../../types/equators/DataEquators";
 import { QuestionAnswersJudgementEquator, FighterDataEquator } from "../../../types/equators/UniquelyIndentifiableEquators";
 import { AnswerSubmissionState, MatchStage } from "../../../enums/statusEnums";
-import { QuestionAnswersJudgementData, Question } from "../../../types/datatypes";
+import { JudgeableQuestionData, Question } from "../../../types/datatypes";
 
 import testFighterDatabase from "../test_data/testFighterDatabase";
 import MockUserMatchStatusInterface from "./MockUserMatchStatusInterface";
 
-export default class MockQuestionAnswerJudgementsInterface extends DataInterface<QuestionAnswersJudgementData[]>
-                                                           implements IQuestionAnswerJudgementsInterface{
+export default class MockQuestionAnswerJudgementsInterface extends DataInterface<JudgeableQuestionData[]>
+                                                           implements IJudgeableQuestionsInterface{
     
-    private judgements: UniquelyIdentifiableCollection<QuestionAnswersJudgementData>;
+    private judgements: UniquelyIdentifiableCollection<JudgeableQuestionData>;
     private userMatchStatusInterface: MockUserMatchStatusInterface;
     private matchStageInterface: MockMatchStageDataInterface;
 
@@ -25,7 +25,7 @@ export default class MockQuestionAnswerJudgementsInterface extends DataInterface
     private answerJudgementDataEquator = new ParticipantAnswerDataEquator(this.fighterDataEquator);
     private questionAnswersJudgementEquator = new QuestionAnswersJudgementEquator(this.answerJudgementDataEquator);
 
-    constructor(judgements: QuestionAnswersJudgementData[], userMatchStatusInterface: MockUserMatchStatusInterface, 
+    constructor(judgements: JudgeableQuestionData[], userMatchStatusInterface: MockUserMatchStatusInterface, 
             matchStageInterface: MockMatchStageDataInterface){
         super();
         this.judgements = new UniquelyIdentifiableCollection(judgements, this.questionAnswersJudgementEquator);
@@ -70,7 +70,7 @@ export default class MockQuestionAnswerJudgementsInterface extends DataInterface
 
     }
 
-    public async submitAnswerJudgementStateUpdate(question: QuestionAnswersJudgementData, answerIndex: number, 
+    public async submitAnswerJudgementStateUpdate(question: JudgeableQuestionData, answerIndex: number, 
             answerStatus: AnswerSubmissionState) {
         
         const oldQuestion = this.judgements.retrieveElementWithId(question.id);

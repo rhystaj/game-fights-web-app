@@ -1,4 +1,4 @@
-import { UniquelyIdentifiable, Question, QuestionAnswersJudgementData, FighterData, AnswerSubmissionData, MatchResultData } from "../datatypes";
+import { UniquelyIdentifiable, Question, JudgeableQuestionData, FighterData, AnswerSubmissionData, MatchResultData } from "../datatypes";
 import IEquator from "./IEquator";
 import { isUnassigned } from "../../utility/functions/qolFunctions";
 import UniquelyIdentifiableCollection from "../../utility/UniquelyIdentifiableCollection";
@@ -33,7 +33,7 @@ export abstract class AbstractQuestionEquator<Q extends Question> extends Unique
 
 export class QuestionEquator extends AbstractQuestionEquator<Question> { }
 
-export class QuestionAnswersJudgementEquator extends AbstractQuestionEquator<QuestionAnswersJudgementData>{
+export class QuestionAnswersJudgementEquator extends AbstractQuestionEquator<JudgeableQuestionData>{
 
     private readonly participantAnswerDataEquator: ParticipantAnswerDataEquator;
 
@@ -42,7 +42,7 @@ export class QuestionAnswersJudgementEquator extends AbstractQuestionEquator<Que
         this.participantAnswerDataEquator = participantAnswerDataEquator;
     }
 
-    public areEqual(a: QuestionAnswersJudgementData , b: QuestionAnswersJudgementData){
+    public areEqual(a: JudgeableQuestionData , b: JudgeableQuestionData){
         if(!super.areEqual(a, b)) return false;
 
         if(a.answerJudgements.length != b.answerJudgements.length) return false;

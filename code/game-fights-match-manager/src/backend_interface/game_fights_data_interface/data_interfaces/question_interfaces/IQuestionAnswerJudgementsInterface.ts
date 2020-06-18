@@ -1,13 +1,11 @@
 import IQuestionsInterface from "./IQuestionsInterface"
 
-import { QuestionAnswersJudgementData } from "../../../../types/datatypes";
+import { JudgeableQuestionData } from "../../../../types/datatypes";
 import { AnswerSubmissionState } from "../../../../enums/statusEnums";
 
+export default interface IJudgeableQuestionsInterface extends IQuestionsInterface<JudgeableQuestionData>{
 
-
-export default interface IQuestionAnswerJudgementsInterface extends IQuestionsInterface<QuestionAnswersJudgementData>{
-
-    submitAnswerJudgementStateUpdate(question: QuestionAnswersJudgementData, answerIndex: number, 
-        answerStatus: AnswerSubmissionState): Promise<QuestionAnswersJudgementData[]>;
+    submitAnswerJudgementStateUpdate(question: JudgeableQuestionData, answerIndex: number, 
+        answerStatus: AnswerSubmissionState): Promise<JudgeableQuestionData[]>;
 
 }

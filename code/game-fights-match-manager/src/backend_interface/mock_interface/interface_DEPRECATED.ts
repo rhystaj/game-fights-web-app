@@ -8,7 +8,7 @@ import { QueryCallback } from '../../types/functionTypes';
 import GameFightsDataInterface from '../game_fights_data_interface/GameFightsDataInterface_DEPRECATED';
 
 import { UserMatchStatus, MatchStage, AnswerSubmissionState } from '../../enums/statusEnums';
-import { Question, AnswerSubmissionData, MatchData, FighterData, QuestionAnswersJudgementData } from '../../types/datatypes';
+import { Question, AnswerSubmissionData, MatchData, FighterData, JudgeableQuestionData } from '../../types/datatypes';
 import UniquelyIdentifiableCollection from '../../utility/UniquelyIdentifiableCollection';
 import { AnswerSubmissionDataEquator, QuestionEquator, FighterDataEquator, QuestionAnswersJudgementEquator } from '../../types/equators/UniquelyIndentifiableEquators';
 import answerJudgements from './test_data/answerJudgements';
@@ -81,7 +81,7 @@ export default class MockGameFightsDataInterface extends GameFightsDataInterface
         };
     }
 
-    public queryAnswerJudgements(queryCallback: QueryCallback<QuestionAnswersJudgementData[]>){
+    public queryAnswerJudgements(queryCallback: QueryCallback<JudgeableQuestionData[]>){
         setTimeout(() => queryCallback(answerJudgements), 1000)
     }
 
@@ -146,7 +146,7 @@ export default class MockGameFightsDataInterface extends GameFightsDataInterface
 
     }
 
-    public async requestAnswerableQuestionDeletion(question: QuestionAnswersJudgementData){
+    public async requestAnswerableQuestionDeletion(question: JudgeableQuestionData){
         this.questionAnswersJudgements = this.questionAnswersJudgements.removeElementWithId(question.id);
         return this.questionAnswersJudgements.asArray();
     }
@@ -174,7 +174,7 @@ export default class MockGameFightsDataInterface extends GameFightsDataInterface
 
     }
 
-    public async submitAnswerJudgementStateUpdate(questionsAnswersJudgement: QuestionAnswersJudgementData, 
+    public async submitAnswerJudgementStateUpdate(questionsAnswersJudgement: JudgeableQuestionData, 
             answerIndex: number, updateState: AnswerSubmissionState){
 
         const questionsAnswersJudgementInDatabase = this.questionAnswersJudgements.retrieveElementWithId(questionsAnswersJudgement.id);

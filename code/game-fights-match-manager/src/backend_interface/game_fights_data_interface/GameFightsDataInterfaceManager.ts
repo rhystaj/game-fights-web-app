@@ -3,7 +3,7 @@ import ISearchInterface from "../lib/interfaces/ISearchInterface";
 
 import IUserMatchStatusInterface from "./data_interfaces/IUserMatchStatusInterface";
 import IMatchDataInterface from "./data_interfaces/IMatchDataInterface";
-import IQuestionAnswerJudgementsInterface from "./data_interfaces/question_interfaces/IQuestionAnswerJudgementsInterface";
+import IJudgeableQuestionsInterface from "./data_interfaces/question_interfaces/IQuestionAnswerJudgementsInterface";
 import IAnswerSubmissionDataInterface from "./data_interfaces/IAnswerSubmissionDataInterface";
 import IMatchResultsDataInterface from "./data_interfaces/IMatchResultsDataInterface";
 import IMatchInvitationInterface from "./data_interfaces/IMatchInvitationInterface";
@@ -24,7 +24,7 @@ export abstract class GameFightsDataInterfaceManager{
 
     public abstract get questionsListInterface(): IQuestionListInterface;
 
-    public abstract get questionAnswerJudgementsListInterface(): IQuestionAnswerJudgementsInterface;
+    public abstract get questionAnswerJudgementsListInterface(): IJudgeableQuestionsInterface;
 
     public abstract get answerSubmissionsInterface(): IAnswerSubmissionDataInterface;
 

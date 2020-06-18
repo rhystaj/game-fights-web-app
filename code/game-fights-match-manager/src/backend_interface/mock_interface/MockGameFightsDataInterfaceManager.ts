@@ -6,7 +6,7 @@ import ISearchInterface from "../lib/interfaces/ISearchInterface";
 import { UserMatchStatus, MatchStage } from "../../enums/statusEnums";
 
 import IMatchDataInterface from "../game_fights_data_interface/data_interfaces/IMatchDataInterface";
-import IQuestionAnswerJudgementsInterface from "../game_fights_data_interface/data_interfaces/question_interfaces/IQuestionAnswerJudgementsInterface";
+import IJudgeableQuestionsInterface from "../game_fights_data_interface/data_interfaces/question_interfaces/IQuestionAnswerJudgementsInterface";
 import IAnswerSubmissionDataInterface from "../game_fights_data_interface/data_interfaces/IAnswerSubmissionDataInterface";
 import IMatchInvitationInterface from "../game_fights_data_interface/data_interfaces/IMatchInvitationInterface";
 import IMatchResultsDataInterface from "../game_fights_data_interface/data_interfaces/IMatchResultsDataInterface";
@@ -81,7 +81,7 @@ export default class MockGameFightsDataInterfaceManager extends GameFightsDataIn
         return this._questionsListInterface;
     }
     
-    public get questionAnswerJudgementsListInterface(): IQuestionAnswerJudgementsInterface {
+    public get questionAnswerJudgementsListInterface(): IJudgeableQuestionsInterface {
         return this._questionAnswerJudgementsInterface;
     }
     
