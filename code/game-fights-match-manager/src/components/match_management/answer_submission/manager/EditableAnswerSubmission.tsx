@@ -35,7 +35,7 @@ export default class EditableAnswerSubmission extends AbstractAnswerSubmission<E
   }
   
   protected determineInitialComponentState(){
-    return { editingAnswer: true }
+    return { editingAnswer: false }
   }
 
   /**
@@ -76,8 +76,10 @@ export default class EditableAnswerSubmission extends AbstractAnswerSubmission<E
   }
 
   private onConfirmAnswerEntry = async (answer: string) => {
-    this.props.onSubmissionOptionAction(new UpdateAnswerSubmissionOptionAction(this.props.submission, answer));
-    this.setState({ editingAnswer: false });
+    await this.props.onSubmissionOptionAction(new UpdateAnswerSubmissionOptionAction(this.props.submission, answer));
+    this.setState({ 
+      editingAnswer: false 
+    });
   }
 
   protected renderAnswer(answer: string): JSX.Element {
@@ -90,7 +92,7 @@ export default class EditableAnswerSubmission extends AbstractAnswerSubmission<E
       />
     }
     else{
-      return this.renderAnswer(answer);
+      return super.renderAnswer(answer);
     }
 
   }

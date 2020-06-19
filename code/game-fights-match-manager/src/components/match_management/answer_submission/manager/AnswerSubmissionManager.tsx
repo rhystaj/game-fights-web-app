@@ -18,7 +18,8 @@ export default class AnswerSubmissionManager extends AnswerSubmissionComponent {
   }
 
   private onSubmissionOptionAction = async (action: SubmissionOptionAction) => {
-    await action.execute(this.getDataInterface());
+    const newData = await action.execute(this.getDataInterface());
+    this.setState({ data: newData })
   }
 
   protected renderAnswerSubmission(answerSubmission: AnswerSubmissionData): JSX.Element {

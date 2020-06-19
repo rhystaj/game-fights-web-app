@@ -50,6 +50,8 @@ export default class MockMatchDataInterface extends DataInterface<MatchData> imp
 
     public async submitMatchParticipants(invites: FighterData[]){
         
+        await new Promise((resolve) => { setTimeout(() => { resolve() }, 3000) });
+
         if(invites.filter(i => i.id === FAILURE_FIGHTER_ID).length > 0)
             throw Error();
 

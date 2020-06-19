@@ -1,0 +1,8 @@
+.confirmationCancelButtons{
+
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: $generalButtonWidth $generalButtonWidth;
+    place-items: center;
+
+}

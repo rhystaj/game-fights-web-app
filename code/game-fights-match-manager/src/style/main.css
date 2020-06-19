@@ -248,6 +248,16 @@ ul {
   top: 0.19em;
 }
 
+.confirmationCancelButtons {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: auto;
+      grid-template-rows: auto;
+  -ms-grid-columns: 150px 150px;
+      grid-template-columns: 150px 150px;
+  place-items: center;
+}
+
 .searchModal.fighterInvitation > .searchModalContent {
   display: -ms-grid;
   display: grid;
@@ -317,12 +327,12 @@ ul {
   width: 100%;
 }
 
-.searchModal.fighterInvitation > .searchModalContent .searchResultOptionButtons {
+.searchModal.fighterInvitation > .searchModalContent .confirmationCancelButtons {
   -ms-grid-column: 2;
   grid-column: 2;
 }
 
-.searchModal.fighterInvitation > .searchModalContent .searchResultOptionButtons button {
+.searchModal.fighterInvitation > .searchModalContent .confirmationCancelButtons button {
   height: 100%;
 }
 

@@ -3,6 +3,7 @@ import React, { ChangeEvent } from 'react';
 import DataInterfacingComponent, { DataInterfacingComponentProps, DataInterfacingComponentState } from './DataInterfacingComponent';
 
 import ISearchInterface from '../../backend_interface/lib/interfaces/ISearchInterface';
+import ConfirmationCancelButtons from './Async_Action_Components/ConfirmationCancelButtons';
 
 export interface SearchModalProps<M> extends DataInterfacingComponentProps<M>{
     onCancel: () => void;
@@ -32,7 +33,7 @@ export default abstract class SearchModal<M, D, I extends ISearchInterface<D>,
 
     protected abstract determineInitialSearchModalState(initialData: D[], showingConfirmationError: boolean): S;
 
-    private onCancelButtonClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    private onCancel = () => {
         this.props.onCancel();
     }
 
@@ -61,10 +62,11 @@ export default abstract class SearchModal<M, D, I extends ISearchInterface<D>,
      */
     protected renderResultOptions(): JSX.Element {
         return(
-            <div className="searchResultOptionButtons">
-                <button className="cancelSearch" onClick={this.onCancelButtonClick}>Cancel</button>
-                <button className="confirmSearch" onClick={this.onConfirmActionClick}>{this.getConfirmButtonText()}</button>
-            </div>
+            <ConfirmationCancelButtons 
+                confirmationButtonText={this.getConfirmButtonText()}
+                onConfirm={this.onConfirmAction}
+                onCancel={this.onCancel}
+            />
         )
         
     }
@@ -77,14 +79,16 @@ export default abstract class SearchModal<M, D, I extends ISearchInterface<D>,
     /**
      * [PRE] The action to be peformed when the confirm button is clicked.
      */
-    private onConfirmActionClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        this.confirm()
-            .then(() => {
-                this.setState({ showingConfirmationError: false });
-            })
-            .catch(() => {
-                this.setState({ showingConfirmationError: true })
-            });
+    private onConfirmAction = async () => {
+        
+        try{
+            await this.confirm();    
+            this.setState({ showingConfirmationError: false });
+        }
+        catch{
+            this.setState({ showingConfirmationError: true });
+        }
+        
     }
 
     /**
