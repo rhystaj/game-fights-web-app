@@ -1,14 +1,30 @@
 import React from 'react';
 
-import DeletableListedQuestion from "../question_management/DeletableListedQuestion";
+import { AbstractDeletableListedQuestion, DeletableListedQuestionProps } from "../question_management/DeletableListedQuestion";
 
 import { JudgeableQuestionData } from "../../../types/datatypes";
 import { AnswerSubmissionState } from '../../../enums/statusEnums';
+import { AsyncActionComponentState } from '../../utility/Async_Action_Components/AsyncActionComponent';
 
-export default class JudgeableDeleteableListedQuestion extends DeletableListedQuestion<JudgeableQuestionData>{
+import UseAnimation from 'react-useanimations';
+import AnswerJudgementOptions from './AnswerJudgementOptions';
+
+interface JudgeableDeleteableListedQuestionProps extends DeletableListedQuestionProps<JudgeableQuestionData>{
+    onUpdateAnswerStatus: (question: JudgeableQuestionData, answerIndex: number, answerStatus: AnswerSubmissionState) => Promise<void>;
+}
+
+export default class JudgeableDeleteableListedQuestion extends 
+        AbstractDeletableListedQuestion<JudgeableQuestionData, JudgeableDeleteableListedQuestionProps>{
 
     protected determineAsyncActionClassString(){
         return super.determineAsyncActionClassString() + " judgeable";
+    }
+
+    protected determineInitialComponentState(){
+        return {
+            pending: false, //The 'pending' flag inherited from AsyncActionComponent, it this case it means pending deletion.
+            pendingStatusChange: false
+        }
     }
 
     private renderJudgementsList(question: JudgeableQuestionData){
@@ -34,14 +50,9 @@ export default class JudgeableDeleteableListedQuestion extends DeletableListedQu
             <div className="answerJudgement">
                 <img src={judgement.participant.profileImageURL} />
                 <p>{judgement.state === AnswerSubmissionState.NO_ANSWER ? "(No Answer)" : judgement.answer}</p>
-                {this.renderJudgementControls(question, answerIndex)}
+                { this.renderJudgementControls(question, answerIndex) }
             </div>
         )
-    }
-
-    
-    private onUpdateAnswerStatus = (question: JudgeableQuestionData, answerIndex: number, answerStatus: AnswerSubmissionState) => () => {
-        //this.getDataInterface().submitAnswerJudgementStateUpdate(question, answerIndex, answerStatus);
     }
 
     protected renderJudgementControls(question: JudgeableQuestionData, answerIndex: number){
@@ -56,19 +67,12 @@ export default class JudgeableDeleteableListedQuestion extends DeletableListedQu
 
             case AnswerSubmissionState.PENDING_JUDGE_APPROVAL:
                 return(
-                    <div className="answerJudgementOptions">
-                        <button 
-                            onClick={this.onUpdateAnswerStatus(question, answerIndex, AnswerSubmissionState.ACCEPTED)}
-                        >
-                            Accept
-                        </button>
-                        <button 
-                            onClick={this.onUpdateAnswerStatus(question, answerIndex, AnswerSubmissionState.DECLINED)}
-                        >
-                            Decline
-                        </button>
-                    </div>
-                )
+                    <AnswerJudgementOptions
+                        question={question}
+                        answerIndex={answerIndex}
+                        onSubmitAnswerJudgement={this.props.onUpdateAnswerStatus}
+                    />
+                );
 
         }
 
