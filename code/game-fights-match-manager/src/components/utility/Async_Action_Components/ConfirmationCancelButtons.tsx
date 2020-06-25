@@ -20,7 +20,7 @@ export default class ConfirmationCancelButtons extends AsyncActionComponent<Conf
         return { pending: false }
     }
     
-    protected async performAsyncAction() {
+    protected async performConfirmationAsync() {
         await this.props.onConfirm();
     }
 
@@ -31,10 +31,10 @@ export default class ConfirmationCancelButtons extends AsyncActionComponent<Conf
         ]
     }
 
-    protected renderActionControls(onAsyncAction: () => void): ComponentContents {
+    protected renderActionControls(onAsyncAction:(asyncAction: () => Promise<void>) => () => void): ComponentContents {
         return [
             <button className="cancelButton" onClick={this.props.onCancel}>Cancel</button>,
-            <button className="confirmButton" onClick={onAsyncAction}>{this.props.confirmationButtonText}</button>
+            <button className="confirmButton" onClick={onAsyncAction(this.performConfirmationAsync)}>{this.props.confirmationButtonText}</button>
         ]
     }
 

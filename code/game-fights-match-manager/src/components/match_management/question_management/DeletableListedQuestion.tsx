@@ -7,32 +7,31 @@ import AsyncActionComponent, { AsyncActionComponentState } from "../../utility/A
 import { ComponentContents } from '../../../types/customCompositeTypes';
 import { Question } from '../../../types/datatypes';
 
-interface DeletableListedQuestionProps<Q extends Question> {
+export interface DeletableListedQuestionProps<Q extends Question> {
     question: Q,
     dataInterface: IQuestionsInterface<Q>,
     onQuestionDeleted: (newQuestionsData: Q[]) => void;
 }
 
-export default class DeletableListedQuestion<Q extends Question> extends AsyncActionComponent<DeletableListedQuestionProps<Q>>{
+export abstract class AbstractDeletableListedQuestion<Q extends Question, 
+        P extends DeletableListedQuestionProps<Q> = DeletableListedQuestionProps<Q>,
+        S extends AsyncActionComponentState = AsyncActionComponentState> 
+        extends AsyncActionComponent<P, S>{
     
     protected determineAsyncActionClassString(): string {
         return "question deletableListedQuestion";
     }
 
-    protected determineInitialComponentState(): AsyncActionComponentState {
-        return { pending: false }
-    }
-
-    protected async performAsyncAction() {
+    protected async deleteQuestionAsync() {
         const newData = await this.props.dataInterface.requestQuestionDeletion(this.props.question);
         this.props.onQuestionDeleted(newData);
     }
 
-    protected renderActionControls(onAsyncAction: () => void): ComponentContents {
+    protected renderActionControls(onAsyncAction:(asyncAction: () => Promise<void>) => () => void): ComponentContents {
         return [
             <button 
                 className="deleteQuestionButton"
-                onClick={onAsyncAction}
+                onClick={onAsyncAction(this.deleteQuestionAsync)}
             >
                 -
             </button>
@@ -44,6 +43,14 @@ export default class DeletableListedQuestion<Q extends Question> extends AsyncAc
             <p className="questionText">{this.props.question.text}</p>,
             ...(super.renderComponentContents() as JSX.Element[])
         ]
+    }
+
+}
+
+export default class DeletableListedQuestion<Q extends Question> extends AbstractDeletableListedQuestion<Q>{
+
+    protected determineInitialComponentState(): AsyncActionComponentState {
+        return { pending: false }
     }
 
 }

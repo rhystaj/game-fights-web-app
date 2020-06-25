@@ -19,26 +19,16 @@ export default abstract class AsyncActionComponent<P, S extends AsyncActionCompo
 
     protected abstract determineAsyncActionClassString(): string;
 
-    private onAsyncAction = () => {
-        
+    private onAsyncAction = (asyncAction: () => Promise<void>) => () => {
         this.setState({ pending: true });
-
-        this.performAsyncAction()
-            .finally(() => this.setState({ pending: false }));
-        
+        asyncAction().finally(() => this.setState({ pending: false }));
     }
-
-    /**
-     * [PRE] Preform the async action that will cause the component to go into a pending status while it is
-     * being performed.
-     */
-    protected abstract performAsyncAction() : Promise<void>;
     
     /**
      * [PRE] Render the controls that can be used to perform the async action.
      * @param onAsyncAction The event that calls the async action.
      */
-    protected abstract renderActionControls(onAsyncAction: () => void): ComponentContents;
+    protected abstract renderActionControls(onAsyncAction: (asyncAction: () => Promise<void>) => () => void): ComponentContents;
 
     /**
      * [PRE] Render the controls as they should be when the component is waiting for the async action to be

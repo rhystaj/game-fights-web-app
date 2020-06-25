@@ -41,7 +41,7 @@ export default abstract class Entry<D> extends AsyncActionComponent<EntryProps<D
          };
     }
 
-    protected async performAsyncAction(){
+    protected async confirmEntryAsync(){
         await this.props.onConfirmEntry(this.state.valueBeingEntered);
     }   
 
@@ -54,9 +54,9 @@ export default abstract class Entry<D> extends AsyncActionComponent<EntryProps<D
      */
     protected abstract renderEntryArea(): JSX.Element;
 
-    protected renderActionControls(onAsyncAction: () => void){
+    protected renderActionControls(onAsyncAction:(asyncAction: () => Promise<void>) => () => void){
         return[
-            (<button onClick={onAsyncAction}>
+            (<button onClick={onAsyncAction(this.confirmEntryAsync)}>
                 <FontAwesomeIcon icon={faCheck} />
             </button>),
             (<button onClick={this.onCancelEntryClick}>

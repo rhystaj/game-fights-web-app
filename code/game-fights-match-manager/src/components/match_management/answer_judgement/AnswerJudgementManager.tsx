@@ -23,13 +23,21 @@ export default class AnswerJudgementManager extends AbstractQuestionsEditor<Judg
         return [];
     }
 
+    private onUpdateAnswerStatus = async (question: JudgeableQuestionData, answerIndex: number, answerStatus: AnswerSubmissionState) => {
+        const newData = await this.getDataInterface().submitAnswerJudgementStateUpdate(question, answerIndex, answerStatus);
+        this.setState({ data: newData });
+    }
+
     protected renderQuestion(question: JudgeableQuestionData, questionElementClassName: string){
 
-        return <JudgeableDeleteableListedQuestion 
+        return (
+            <JudgeableDeleteableListedQuestion 
                 question={question}
                 dataInterface={this.getDataInterface()}
                 onQuestionDeleted={(newData) => this.setState({ data: newData })}
-        />
+                onUpdateAnswerStatus={this.onUpdateAnswerStatus}
+            />
+        );
 
     }
 
