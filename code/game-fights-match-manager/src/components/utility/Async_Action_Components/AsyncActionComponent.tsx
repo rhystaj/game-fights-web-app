@@ -23,6 +23,10 @@ export default abstract class AsyncActionComponent<P, S extends AsyncActionCompo
         this.setState({ pending: true });
         asyncAction().finally(() => this.setState({ pending: false }));
     }
+
+    protected get asyncActionEvent(){
+        return this.onAsyncAction;
+    }
     
     /**
      * [PRE] Render the controls that can be used to perform the async action.

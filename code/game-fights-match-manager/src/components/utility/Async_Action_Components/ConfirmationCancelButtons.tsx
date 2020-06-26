@@ -20,7 +20,7 @@ export default class ConfirmationCancelButtons extends AsyncActionComponent<Conf
         return { pending: false }
     }
     
-    protected async performConfirmationAsync() {
+    protected performConfirmationAsync = async () => {
         await this.props.onConfirm();
     }
 

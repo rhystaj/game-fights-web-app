@@ -5,6 +5,8 @@ import AsyncActionComponent, { AsyncActionComponentState } from '../Async_Action
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
 
+export type AsyncActionEvent = (asyncAction: () => Promise<void>) => () => void; 
+
 type EntryProps<D> = {
     initialValue: D,
     onConfirmEntry: (value: D) => Promise<void>,
@@ -41,9 +43,13 @@ export default abstract class Entry<D> extends AsyncActionComponent<EntryProps<D
          };
     }
 
-    protected async confirmEntryAsync(){
+    private confirmEntryAsync = async () => {
         await this.props.onConfirmEntry(this.state.valueBeingEntered);
-    }   
+    }  
+    
+    protected confirmEntry(onAsyncAction: AsyncActionEvent){
+        onAsyncAction(this.confirmEntryAsync)();
+    }
 
     private onCancelEntryClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         this.props.onCancelEntry();
@@ -52,9 +58,9 @@ export default abstract class Entry<D> extends AsyncActionComponent<EntryProps<D
     /**
      * Render the component(s) used to enter the data.
      */
-    protected abstract renderEntryArea(): JSX.Element;
+    protected abstract renderEntryArea(onAsyncAction: AsyncActionEvent): JSX.Element;
 
-    protected renderActionControls(onAsyncAction:(asyncAction: () => Promise<void>) => () => void){
+    protected renderActionControls(onAsyncAction: AsyncActionEvent){
         return[
             (<button onClick={onAsyncAction(this.confirmEntryAsync)}>
                 <FontAwesomeIcon icon={faCheck} />
@@ -67,7 +73,7 @@ export default abstract class Entry<D> extends AsyncActionComponent<EntryProps<D
 
     renderComponentContents(){
         return [
-            this.renderEntryArea(),
+            this.renderEntryArea(this.asyncActionEvent),
             ...(super.renderComponentContents() as JSX.Element[])
         ]
     }
