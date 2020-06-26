@@ -124,8 +124,8 @@ ul {
   padding: 1rem;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: auto 11em;
-      grid-template-columns: auto 11em;
+  -ms-grid-columns: auto 12em;
+      grid-template-columns: auto 12em;
   -ms-grid-rows: auto auto;
       grid-template-rows: auto auto;
 }
