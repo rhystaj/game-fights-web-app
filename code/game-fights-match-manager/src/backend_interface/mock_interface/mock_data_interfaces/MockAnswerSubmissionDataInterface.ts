@@ -4,20 +4,19 @@ import { AnswerSubmissionData } from "../../../types/datatypes";
 import { AnswerSubmissionDataEquator } from "../../../types/equators/UniquelyIndentifiableEquators";
 import { AnswerSubmissionState } from "../../../enums/statusEnums";
 import DataInterface from "../../lib/abstract_implementations/AbstractDataInterface";
+import AbstractMockMatchDataInterface from "./AbstractMockMatchDataInterface";
+import MockUserMatchStatusInterface from "./MockUserMatchStatusInterface";
+import MockMatchStageDataInterface from "./MockMatchStageDataInterface";
 
-export default class MockAnswerSubmissionDataInterface extends DataInterface<AnswerSubmissionData[]> 
+export default class MockAnswerSubmissionDataInterface extends AbstractMockMatchDataInterface<AnswerSubmissionData[]> 
                                                        implements IAnswerSubmissionDataInterface{
     
     private answerSubmissions: UniquelyIdentifiableCollection<AnswerSubmissionData>;
 
-    constructor(answerSubmissions: AnswerSubmissionData[]){
-        super();
+    constructor(answerSubmissions: AnswerSubmissionData[], userMatchStatusInterface: MockUserMatchStatusInterface,
+                matchStageInterface: MockMatchStageDataInterface){
+        super(userMatchStatusInterface, matchStageInterface);
         this.answerSubmissions = new UniquelyIdentifiableCollection(answerSubmissions, new AnswerSubmissionDataEquator());
-
-        // setTimeout(() => {
-        //     this.submitAnswerUpdate(this.answerSubmissions.retrieveElementWithId(4), "Uh... I don't know, maybe?");
-        // }, 10000)
-
     }
 
     protected async loadData() {

@@ -6,7 +6,7 @@ import { MatchData, FighterData } from "../../../types/datatypes";
 import { FAILURE_FIGHTER_ID } from "../test_data/testFighterDatabase";
 import { DateType } from "../../../enums/referenceEnums";
 
-export default class MockMatchDataInterface extends DataInterface<MatchData> implements IMatchDataInterface{
+export default class MockMatchInfoDataInterface extends DataInterface<MatchData> implements IMatchDataInterface{
     
     private matchData: MatchData;
 
@@ -17,7 +17,7 @@ export default class MockMatchDataInterface extends DataInterface<MatchData> imp
 
     public async submitMatchTitle(title: string) {
         
-        await new Promise((resolve) => { setTimeout(() => { resolve() }, 3000) });
+        await new Promise((resolve) => { setTimeout(() => { resolve() }, 60000) });
 
         this.matchData.title = title;
         return this.matchData;

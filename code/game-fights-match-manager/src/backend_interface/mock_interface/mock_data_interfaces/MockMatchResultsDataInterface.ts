@@ -11,20 +11,18 @@ import { MatchResultsDataEquator } from "../../../types/equators/UniquelyIndenti
 
 import { MatchResultData } from "../../../types/datatypes";
 import { MatchStage } from "../../../enums/statusEnums";
+import AbstractMockMatchDataInterface from "./AbstractMockMatchDataInterface";
 
-export default class MockMatchResultsDataInterface extends DataInterface<MatchResultData[]> implements IMatchResultsDataInterface{
+export default class MockMatchResultsDataInterface extends AbstractMockMatchDataInterface<MatchResultData[]> 
+                                                   implements IMatchResultsDataInterface{
     
     private results: UniquelyIdentifiableCollection<MatchResultData>;
-    private userMatchStatusInterface: MockUserMatchStatusInterface;
-    private matchStageInterface: MockMatchStageDataInterface;
 
     constructor(results: MatchResultData[], userMatchStatusInterface: MockUserMatchStatusInterface, 
             matchStageInterface: MockMatchStageDataInterface){
-        super();
+        super(userMatchStatusInterface, matchStageInterface);
 
         this.results = new UniquelyIdentifiableCollection<MatchResultData>(results, new MatchResultsDataEquator());
-        this.userMatchStatusInterface = userMatchStatusInterface;
-        this.matchStageInterface = matchStageInterface;
     }
     
 
@@ -50,11 +48,6 @@ export default class MockMatchResultsDataInterface extends DataInterface<MatchRe
     }
 
     public async progressMatch() {
-        await this.matchStageInterface.setMatchStage(MatchStage.DETERMINING_QUESTIONS);
-        await this.userMatchStatusInterface.clear();
-    }
-    
-    public async cancelMatch() {
         await this.matchStageInterface.setMatchStage(MatchStage.DETERMINING_QUESTIONS);
         await this.userMatchStatusInterface.clear();
     }

@@ -13,13 +13,12 @@ import { JudgeableQuestionData, Question } from "../../../types/datatypes";
 
 import testFighterDatabase from "../test_data/testFighterDatabase";
 import MockUserMatchStatusInterface from "./MockUserMatchStatusInterface";
+import AbstractMockMatchDataInterface from "./AbstractMockMatchDataInterface";
 
-export default class MockJudgeableQuestionsInterface extends DataInterface<JudgeableQuestionData[]>
+export default class MockJudgeableQuestionsInterface extends AbstractMockMatchDataInterface<JudgeableQuestionData[]>
                                                            implements IJudgeableQuestionsInterface{
     
     private judgements: UniquelyIdentifiableCollection<JudgeableQuestionData>;
-    private userMatchStatusInterface: MockUserMatchStatusInterface;
-    private matchStageInterface: MockMatchStageDataInterface;
 
     private fighterDataEquator = new FighterDataEquator();
     private answerJudgementDataEquator = new ParticipantAnswerDataEquator(this.fighterDataEquator);
@@ -27,10 +26,8 @@ export default class MockJudgeableQuestionsInterface extends DataInterface<Judge
 
     constructor(judgements: JudgeableQuestionData[], userMatchStatusInterface: MockUserMatchStatusInterface, 
             matchStageInterface: MockMatchStageDataInterface){
-        super();
+        super(userMatchStatusInterface, matchStageInterface);
         this.judgements = new UniquelyIdentifiableCollection(judgements, this.questionAnswersJudgementEquator);
-        this.userMatchStatusInterface = userMatchStatusInterface;
-        this.matchStageInterface = matchStageInterface;
     }
 
     protected async loadData() {
@@ -74,6 +71,8 @@ export default class MockJudgeableQuestionsInterface extends DataInterface<Judge
     public async submitAnswerJudgementStateUpdate(question: JudgeableQuestionData, answerIndex: number, 
             answerStatus: AnswerSubmissionState) {
         
+        await new Promise((resolve) => { setTimeout(() => { resolve() }, 3000)});
+
         const oldQuestion = this.judgements.retrieveElementWithId(question.id);
         const oldJudgement = oldQuestion.answerJudgements[answerIndex];
 
@@ -98,11 +97,6 @@ export default class MockJudgeableQuestionsInterface extends DataInterface<Judge
     
     public async progressMatch() {
         await this.matchStageInterface.setMatchStage(MatchStage.RECORDING_RESULTS);
-    }
-    
-    public async cancelMatch() {
-        await this.matchStageInterface.setMatchStage(MatchStage.DETERMINING_QUESTIONS);
-        await this.userMatchStatusInterface.clear();
     }
     
 }

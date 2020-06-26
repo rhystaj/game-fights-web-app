@@ -11,19 +11,16 @@ import { QuestionEquator } from "../../../types/equators/UniquelyIndentifiableEq
 import { MatchStage } from "../../../enums/statusEnums";
 
 import MockUserMatchStatusInterface from "./MockUserMatchStatusInterface";
+import AbstractMockMatchDataInterface from "./AbstractMockMatchDataInterface";
 
-export default class MockQuestionsListInterface extends DataInterface<Question[]> implements IQuestionListInterface{
+export default class MockQuestionsListInterface extends AbstractMockMatchDataInterface<Question[]> implements IQuestionListInterface{
     
     private questions: UniquelyIdentifiableCollection<Question>;
-    private userMatchStatusInterface: MockUserMatchStatusInterface;
-    private matchStageInterface: MockMatchStageDataInterface;
 
     constructor(questions: Question[], userMatchStatusInterface: MockUserMatchStatusInterface,
             matchStageInterface: MockMatchStageDataInterface){
-        super();
+        super(userMatchStatusInterface, matchStageInterface);
         this.questions = new UniquelyIdentifiableCollection<Question>(questions, new QuestionEquator());
-        this.userMatchStatusInterface = userMatchStatusInterface;
-        this.matchStageInterface = matchStageInterface;
     }
     
     protected async loadData(){
@@ -62,11 +59,6 @@ export default class MockQuestionsListInterface extends DataInterface<Question[]
 
     public async progressMatch() {
         this.matchStageInterface.setMatchStage(MatchStage.ANSWERS_OPENED);
-    }
-
-    public async cancelMatch() {
-        await this.matchStageInterface.setMatchStage(MatchStage.DETERMINING_QUESTIONS);
-        await this.userMatchStatusInterface.clear();
     }
 
 }
