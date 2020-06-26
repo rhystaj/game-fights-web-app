@@ -374,9 +374,16 @@ ul {
 }
 
 .questionsComponent.questionsEditor .addQuestionButton {
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+}
+
+.questionsComponent.questionsEditor .textEntry {
+  margin-bottom: 0.5em;
+}
+
+.questionsComponent.questionsEditor .questionListProgressingControls {
+  margin-top: 2em;
 }
 
 /*

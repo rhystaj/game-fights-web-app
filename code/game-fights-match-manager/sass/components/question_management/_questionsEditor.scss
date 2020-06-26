@@ -4,7 +4,15 @@
     flex-direction: column;
 
     .addQuestionButton{
-        align-self: center;
+        align-self: flex-start;
+    }
+
+    .textEntry{
+        margin-bottom: 0.5em;
+    }
+
+    .questionListProgressingControls{
+        margin-top: 2em;
     }
 
 }
