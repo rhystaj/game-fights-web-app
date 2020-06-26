@@ -171,10 +171,6 @@ ul {
   margin-right: 2em;
 }
 
-.matchInfo.judge .enterableText.matchTitle.editing .textEntry input, .matchInfo.judge .enterableText.matchTitle.editing .textEntry button {
-  font-size: 2em;
-}
-
 .matchInfo.judge .manageInvitesButton {
   margin-top: 1em;
   height: 2em;
@@ -214,6 +210,15 @@ ul {
   border-bottom: solid 1px black;
 }
 
+.enterableText.heading input, .enterableText.heading button {
+  font-size: 2em;
+}
+
+.enterableText.heading .controlsPendingAnimation {
+  width: 4em;
+  height: 4em;
+}
+
 .searchModal {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -242,10 +247,9 @@ ul {
 
 .asyncActionComponent .controlsPendingAnimation {
   display: inline-block;
-  height: 1em;
-  width: 1em;
-  position: relative;
-  top: 0.19em;
+  height: 2em;
+  width: 2em;
+  vertical-align: middle;
 }
 
 .confirmationCancelButtons {

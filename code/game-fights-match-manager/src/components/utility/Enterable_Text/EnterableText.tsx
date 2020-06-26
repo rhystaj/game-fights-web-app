@@ -22,7 +22,12 @@ export default abstract class EnterableText<D> extends OEComponent<EnterableText
     }
 
     determineComponentClassString(){
-        return "enterableText " + (this.state.editing ? "editing " : "") + this.props.className;
+        return "enterableText " + this.determineTextTypeClassString() + " " + (this.state.editing ? "editing " : "") + 
+                this.props.className;
+    }
+
+    protected determineTextTypeClassString(){
+        return ""; //For decendents to distinguish them selves. Not required for this component.
     }
 
     determineInitialComponentState(){

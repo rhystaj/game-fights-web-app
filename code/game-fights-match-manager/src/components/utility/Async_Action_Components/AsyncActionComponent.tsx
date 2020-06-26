@@ -2,9 +2,9 @@ import React from 'react';
 
 import OEComponent from "../OEComponent";
 
-import UseAnimation from 'react-useanimations';
-
 import { ComponentContents } from "../../../types/customCompositeTypes";
+
+import pendingAnimation from '../../../media/gifs/Pulse-1s-200px.gif';
 
 export interface AsyncActionComponentState{
     pending: boolean;
@@ -39,7 +39,7 @@ export default abstract class AsyncActionComponent<P, S extends AsyncActionCompo
      * performed.
      */
     protected renderActionControlsPending(): ComponentContents{
-        return [ <UseAnimation animationKey="loading" className="controlsPendingAnimation" /> ]
+        return [ <img src={pendingAnimation} className="controlsPendingAnimation" /> ]
     }
 
     protected renderComponentContents(){
