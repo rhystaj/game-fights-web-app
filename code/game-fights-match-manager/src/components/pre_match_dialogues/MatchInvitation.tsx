@@ -6,6 +6,7 @@ import IMatchInvitationInterface from '../../backend_interface/game_fights_data_
 import { FighterMatchStatus } from '../../enums/statusEnums'
 
 import '../../style/main.css'
+import { ComponentContents } from '../../types/customCompositeTypes'
 
 /**
  * Is shown when a match has been created that the user has been invitied to. They can accept or decline the information.
@@ -50,16 +51,16 @@ export default class MatchInvitation extends LoadingComponent<GameFightsDataInte
     this.getDataInterface().declineInvite();
   }
 
-  protected renderLoaded(dataInterface: IMatchInvitationInterface, data: MatchData): JSX.Element {
-    return (
-      <div className="matchInvitation">
+  protected renderLoaded(dataInterface: IMatchInvitationInterface, data: MatchData): ComponentContents {
+    return [
+      (<div className="matchInvitation">
         <p>
           {this.state.data.judge?.name} would like to invite you to {this.state.data.title}.
         </p>
         <button className='acceptButton' onClick={this.onAcceptButtonClick}>Accept</button>
         <button className='declineButton' onClick={this.onDeclineButtonClick}>Decline</button>
-      </div>
-    )
+      </div>)
+    ]
   }
  
 }

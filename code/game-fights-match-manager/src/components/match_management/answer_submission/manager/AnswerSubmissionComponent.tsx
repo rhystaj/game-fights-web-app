@@ -32,13 +32,11 @@ export default abstract class AnswerSubmissionComponent extends
   protected abstract renderAnswerSubmission(answerSubmission: AnswerSubmissionData): JSX.Element;
 
   renderLoaded(dataInterface: IAnswerSubmissionDataInterface, submissions: AnswerSubmissionData[]){
-    return (
-      <div>
-        <h2>My Questions</h2>
-        {submissions.map(submission => (this.renderAnswerSubmission(submission)))}
+    return [
+        <h2>My Questions</h2>,
+        ...submissions.map(submission => (this.renderAnswerSubmission(submission))),
         <button className="forfietButton">Forfiet</button>
-      </div>
-    )
+    ]
   }
 
 }

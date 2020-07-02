@@ -109,14 +109,14 @@ export default abstract class SearchModal<M, D, I extends ISearchInterface<D>,
     }
 
     renderComponentContents(){
-        return (
+        return [
             <div className="searchModalContent">
                 {this.renderSearchArea()}
                 {this.renderSearchResults()}
                 {this.renderResultOptions()}
                 {this.state.showingConfirmationError ? this.renderConfirmationError() : <div />}
             </div>
-        )
+        ]
     }
 
 }

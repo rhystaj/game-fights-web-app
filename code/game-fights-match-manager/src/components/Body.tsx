@@ -38,21 +38,21 @@ export default class Body extends SimpleStateLoadingComponent<GameFightsDataInte
     
     switch (matchStatus) {
       case UserMatchStatus.NONE:
-        return <RunNewMatch onRunNewMatch={this.onRunNewMatch}/>
+        return [ <RunNewMatch onRunNewMatch={this.onRunNewMatch}/> ];
 
       case UserMatchStatus.INVITED:
-        return (
+        return [
           <MatchInvitation dataInterfaceManager={this.props.dataInterfaceManager}/>
-        )
+        ]
 
       case UserMatchStatus.PARTCIPATING:
-        return (<ParticipantMatchManager dataInterfaceManager={this.props.dataInterfaceManager} />);
+      return [ <ParticipantMatchManager dataInterfaceManager={this.props.dataInterfaceManager} /> ];
 
       case UserMatchStatus.JUDGING:
-        return (<JudgeMatchManager dataInterfaceManager={this.props.dataInterfaceManager} />)
+      return [ <JudgeMatchManager dataInterfaceManager={this.props.dataInterfaceManager} /> ];
 
       default:
-        return <p>{INVALID_STATUS_MESSAGE}</p>
+      return [ <p>{INVALID_STATUS_MESSAGE}</p> ];
   }
 }
 }

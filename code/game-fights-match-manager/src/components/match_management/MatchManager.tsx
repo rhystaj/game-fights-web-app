@@ -30,11 +30,9 @@ export default abstract class MatchManager extends SimpleStateLoadingComponent<G
   protected abstract renderManagementComponent(dataInterface: IDataInterface<MatchStage>, stage: MatchStage): JSX.Element;
 
   protected renderLoaded(dataInterface: IDataInterface<MatchStage>, matchStage: MatchStage) {
-    return (
-      <div>
-        {this.renderMatchInfo(dataInterface, matchStage)}
-        {this.renderManagementComponent(dataInterface, matchStage)}
-      </div>
-    )
+    return [
+        this.renderMatchInfo(dataInterface, matchStage),
+        this.renderManagementComponent(dataInterface, matchStage)
+    ]
   }
 }

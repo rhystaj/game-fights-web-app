@@ -51,7 +51,7 @@ export default abstract class LoadingComponent<M, D, I extends IDataInterface<D>
     protected abstract renderLoaded(dataInterface: I, data: D): ComponentContents
 
     public renderComponentContents(){
-        return this.state.loading ? <Loading/> : this.renderLoaded(this.getDataInterface(), this.state.data);
+        return this.state.loading ? [ <Loading/> ] : this.renderLoaded(this.getDataInterface(), this.state.data);
     }
 
 }

@@ -86,7 +86,7 @@ export default abstract class EnterableText<D> extends OEComponent<EnterableText
     renderComponentContents(){
 
         if(!this.state.editing){
-            return this.renderText(this.convertValueToString(this.state.currentConfirmedValue))
+            return [ this.renderText(this.convertValueToString(this.state.currentConfirmedValue)) ]
         }
         else{
             return[

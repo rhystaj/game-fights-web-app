@@ -32,7 +32,7 @@ export default class QuestionsEditor extends AbstractQuestionsEditor<Question, I
 
     protected renderLoaded(dataInterface: IQuestionListInterface, data: Question[]): ComponentContents {
         return[
-            super.renderLoaded(dataInterface, data) as JSX.Element,
+            ...super.renderLoaded(dataInterface, data),
             (<QuestionListProgressingControls dataInterface={dataInterface} />)
         ]
     }
