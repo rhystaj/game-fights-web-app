@@ -1,7 +1,7 @@
 import React from 'react';
-import OEComponent from '../utility/OEComponent';
+import OEComponent from '../../utility/OEComponent';
 
-import IMatchProgressingDataInterface from "../../backend_interface/game_fights_data_interface/data_interfaces/IMatchProgessingDataInterface";
+import IMatchProgressingDataInterface from "../../../backend_interface/game_fights_data_interface/data_interfaces/IMatchProgessingDataInterface";
 
 export interface MatchProgressingControlsProps<D, I extends IMatchProgressingDataInterface<D>>{
     dataInterface: I
