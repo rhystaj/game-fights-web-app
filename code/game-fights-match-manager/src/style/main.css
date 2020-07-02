@@ -109,6 +109,11 @@ ul {
       justify-self: end;
 }
 
+.matchManager .matchStageControls {
+  border-bottom: 1px solid black;
+  padding: 1rem;
+}
+
 /*
     Works out the margin required to be applied to a child element for it to be centred within its parent, given the size
     of the parent and the child.
@@ -565,22 +570,5 @@ ul {
 
 .matchResultsManager .matchResult .matchAnswer.selected {
   background-color: lightblue;
-}
-
-.matchProgressingControls {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
-
-.matchProgressingControls.questionListProgressingControls .proceedMatchButton {
-  width: 15em;
-}
-
-.matchProgressingControls.matchResultProgressingControls .proceedMatchButton {
-  width: 15em;
 }
 /*# sourceMappingURL=main.css.map */

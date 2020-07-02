@@ -31,7 +31,11 @@ export default class Body extends SimpleStateLoadingComponent<GameFightsDataInte
   }
 
   private onRunNewMatch = async () => {
-    this.getDataInterface().setAsJudging();
+    await this.getDataInterface().setAsJudging();
+  }
+
+  private onCancelMatch = async () => {
+    await this.getDataInterface().clear();
   }
 
   renderLoaded(dataInterface: IUserMatchStatusInterface, matchStatus: UserMatchStatus){    
@@ -46,10 +50,16 @@ export default class Body extends SimpleStateLoadingComponent<GameFightsDataInte
         ]
 
       case UserMatchStatus.PARTCIPATING:
-      return [ <ParticipantMatchManager dataInterfaceManager={this.props.dataInterfaceManager} /> ];
+      return [ <ParticipantMatchManager 
+                  dataInterfaceManager={this.props.dataInterfaceManager}
+                  onCancelMatch={this.onCancelMatch}
+                /> ];
 
       case UserMatchStatus.JUDGING:
-      return [ <JudgeMatchManager dataInterfaceManager={this.props.dataInterfaceManager} /> ];
+      return [ <JudgeMatchManager 
+                  dataInterfaceManager={this.props.dataInterfaceManager} 
+                  onCancelMatch={this.onCancelMatch}
+              /> ];
 
       default:
       return [ <p>{INVALID_STATUS_MESSAGE}</p> ];

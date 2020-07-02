@@ -13,6 +13,10 @@ import DataInterface from '../../backend_interface/lib/abstract_implementations/
 
 class ParticipantMatchManager extends MatchManager{
     
+    protected get cancelButtonText(): string {
+        return "Forfiet";
+    }
+    
     renderMatchInfo(dataInterface: DataInterface<MatchStage>, matchStage: MatchStage){
         return <ParticipantMatchInfo dataInterfaceManager={this.props.dataInterfaceManager} />
     }

@@ -4,7 +4,6 @@ import { LoadingComponentState } from '../../utility/LoadingComponent';
 import QuestionsComponent from './QuestionsComponent'
 
 import { Question } from '../../../types/datatypes';
-import { QueryCallback } from '../../../types/functionTypes';
 import IQuestionsInterface from '../../../backend_interface/game_fights_data_interface/data_interfaces/question_interfaces/IQuestionsInterface';
 
 //Some type aliases to make declarations more digestable.

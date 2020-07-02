@@ -35,7 +35,6 @@ export default abstract class AnswerSubmissionComponent extends
     return [
         <h2>My Questions</h2>,
         ...submissions.map(submission => (this.renderAnswerSubmission(submission))),
-        <button className="forfietButton">Forfiet</button>
     ]
   }
 

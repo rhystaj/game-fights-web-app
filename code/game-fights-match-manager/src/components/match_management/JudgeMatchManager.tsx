@@ -11,12 +11,9 @@ import DataInterface from '../../backend_interface/lib/abstract_implementations/
 import MatchResultsManager from './match_results/MatchResultsManager';
 
 export default class JudgeMatchManager extends MatchManager{
-
-    protected determineInitialLoadingComponentState(initialLoadingValue: boolean, initialMatchStage: MatchStage): LoadingComponentState<MatchStage>{
-        return {
-            loading: initialLoadingValue,
-            data: initialMatchStage
-        }
+    
+    protected get cancelButtonText(): string {
+        return "Cancel Match";
     }
 
     renderMatchInfo(dataInterface: DataInterface<MatchStage>, stage: MatchStage){

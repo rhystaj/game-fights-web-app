@@ -5,7 +5,7 @@ import { JudgeableQuestionData } from "../../../types/datatypes";
 
 import { AnswerSubmissionState } from '../../../enums/statusEnums';
 import IJudgeableQuestionsInterface from '../../../backend_interface/game_fights_data_interface/data_interfaces/question_interfaces/IQuestionAnswerJudgementsInterface';
-import QuestionAnswerJudgementProgressingControls from '../../match_stage_controls/match_progressing_controls/QuestionAnswerJudgementProgressingControls';
+
 import { ComponentContents } from '../../../types/customCompositeTypes';
 import JudgeableDeleteableListedQuestion from './JudgeableDeleteableListedQuestion';
 
@@ -46,7 +46,6 @@ export default class AnswerJudgementManager extends AbstractQuestionsEditor<Judg
         return [    
                 <h1>Questions</h1>,
                 ...(super.renderLoaded(dataInterface, data) as JSX.Element[]),
-                <QuestionAnswerJudgementProgressingControls dataInterface={dataInterface} />
         ]
     
     }

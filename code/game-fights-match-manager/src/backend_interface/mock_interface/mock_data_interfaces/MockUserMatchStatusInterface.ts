@@ -19,17 +19,17 @@ export default class MockUserMatchStatusInterface extends DataInterface<UserMatc
 
     public async clear(){
         this.matchStatus = UserMatchStatus.NONE;
-        return this.matchStatus;
+        await this.refresh();
     }
     
     public async setAsParticipating() {
         this.matchStatus = UserMatchStatus.PARTCIPATING;
-        return this.matchStatus;
+        await this.refresh();
     }
     
     public async setAsJudging() {
         this.matchStatus = UserMatchStatus.JUDGING;
-        return this.matchStatus;
+        await this.refresh();
     }
     
 }
