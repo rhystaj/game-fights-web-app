@@ -2,16 +2,16 @@ import DataInterface from "../../lib/abstract_implementations/AbstractDataInterf
 
 import IMatchInvitationInterface from "../../game_fights_data_interface/data_interfaces/IMatchInvitationInterface";
 
-import MockUserMatchStatusInterface from "./MockUserMatchStatusInterface";
+import MockMatchStatusInterface from "../../mock_interface/mock_data_interfaces/MockMatchStatusDataInterface"
 
 import { MatchData } from "../../../types/datatypes";
 
 export default class MockMatchInvitiationInterface extends DataInterface<MatchData> implements IMatchInvitationInterface{
     
     private matchData: MatchData;
-    private readonly matchStatusInterface: MockUserMatchStatusInterface;
+    private readonly matchStatusInterface: MockMatchStatusInterface;
 
-    constructor(matchData: MatchData, userMatchStatusInterface: MockUserMatchStatusInterface){
+    constructor(matchData: MatchData, userMatchStatusInterface: MockMatchStatusInterface){
         super();
 
         this.matchData = matchData;
@@ -24,7 +24,7 @@ export default class MockMatchInvitiationInterface extends DataInterface<MatchDa
     }
     
     public async declineInvite() {
-        await this.matchStatusInterface.clearStatus();
+        await this.matchStatusInterface.clearUserStatus();
         return this.matchData;
     }
     

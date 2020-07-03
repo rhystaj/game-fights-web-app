@@ -2,8 +2,6 @@ import DataInterface from "../../lib/abstract_implementations/AbstractDataInterf
 
 import IJudgeableQuestionsInterface from "../../game_fights_data_interface/data_interfaces/question_interfaces/IQuestionAnswerJudgementsInterface";
 
-import MockMatchStageDataInterface from "./MockMatchStageDataInterface";
-
 import UniquelyIdentifiableCollection from "../../../utility/UniquelyIdentifiableCollection";
 
 import { ParticipantAnswerDataEquator } from "../../../types/equators/DataEquators";
@@ -12,11 +10,8 @@ import { AnswerSubmissionState, MatchStage } from "../../../enums/statusEnums";
 import { JudgeableQuestionData, Question } from "../../../types/datatypes";
 
 import testFighterDatabase from "../test_data/testFighterDatabase";
-import MockUserMatchStatusInterface from "./MockUserMatchStatusInterface";
-import AbstractMockMatchDataInterface from "./AbstractMockMatchDataInterface";
 
-export default class MockJudgeableQuestionsInterface extends AbstractMockMatchDataInterface<JudgeableQuestionData[]>
-                                                           implements IJudgeableQuestionsInterface{
+export default class MockJudgeableQuestionsInterface extends DataInterface<JudgeableQuestionData[]> implements IJudgeableQuestionsInterface{
     
     private judgements: UniquelyIdentifiableCollection<JudgeableQuestionData>;
 
@@ -24,9 +19,8 @@ export default class MockJudgeableQuestionsInterface extends AbstractMockMatchDa
     private answerJudgementDataEquator = new ParticipantAnswerDataEquator(this.fighterDataEquator);
     private questionAnswersJudgementEquator = new QuestionAnswersJudgementEquator(this.answerJudgementDataEquator);
 
-    constructor(judgements: JudgeableQuestionData[], userMatchStatusInterface: MockUserMatchStatusInterface, 
-            matchStageInterface: MockMatchStageDataInterface){
-        super(userMatchStatusInterface, matchStageInterface);
+    constructor(judgements: JudgeableQuestionData[]){
+        super();
         this.judgements = new UniquelyIdentifiableCollection(judgements, this.questionAnswersJudgementEquator);
     }
 
@@ -93,10 +87,6 @@ export default class MockJudgeableQuestionsInterface extends AbstractMockMatchDa
 
     return this.judgements.asArray();
 
-    }
-    
-    public async progressMatch() {
-        await this.matchStageInterface.setMatchStage(MatchStage.RECORDING_RESULTS);
     }
     
 }

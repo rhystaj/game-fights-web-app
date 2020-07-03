@@ -1,21 +1,21 @@
+import DataInterface from "../../lib/abstract_implementations/AbstractDataInterface";
+
 import IAnswerSubmissionDataInterface from "../../game_fights_data_interface/data_interfaces/IAnswerSubmissionDataInterface";
+
 import UniquelyIdentifiableCollection from "../../../utility/UniquelyIdentifiableCollection";
+
 import { AnswerSubmissionData } from "../../../types/datatypes";
 import { AnswerSubmissionDataEquator } from "../../../types/equators/UniquelyIndentifiableEquators";
 import { AnswerSubmissionState } from "../../../enums/statusEnums";
-import DataInterface from "../../lib/abstract_implementations/AbstractDataInterface";
-import AbstractMockMatchDataInterface from "./AbstractMockMatchDataInterface";
-import MockUserMatchStatusInterface from "./MockUserMatchStatusInterface";
-import MockMatchStageDataInterface from "./MockMatchStageDataInterface";
 
-export default class MockAnswerSubmissionDataInterface extends AbstractMockMatchDataInterface<AnswerSubmissionData[]> 
+
+export default class MockAnswerSubmissionDataInterface extends DataInterface<AnswerSubmissionData[]> 
                                                        implements IAnswerSubmissionDataInterface{
     
     private answerSubmissions: UniquelyIdentifiableCollection<AnswerSubmissionData>;
 
-    constructor(answerSubmissions: AnswerSubmissionData[], userMatchStatusInterface: MockUserMatchStatusInterface,
-                matchStageInterface: MockMatchStageDataInterface){
-        super(userMatchStatusInterface, matchStageInterface);
+    constructor(answerSubmissions: AnswerSubmissionData[]){
+        super();
         this.answerSubmissions = new UniquelyIdentifiableCollection(answerSubmissions, new AnswerSubmissionDataEquator());
     }
 

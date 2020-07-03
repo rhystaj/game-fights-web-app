@@ -11,17 +11,15 @@ import IAnswerSubmissionDataInterface from "../game_fights_data_interface/data_i
 import IMatchInvitationInterface from "../game_fights_data_interface/data_interfaces/IMatchInvitationInterface";
 import IMatchResultsDataInterface from "../game_fights_data_interface/data_interfaces/IMatchResultsDataInterface";
 import IQuestionListInterface from "../game_fights_data_interface/data_interfaces/question_interfaces/IQuestionListInterface";
-import IUserMatchStatusInterface from "../game_fights_data_interface/data_interfaces/IUserMatchStatusInterface";
 
+import MockMatchStatusDataInterface from "./mock_data_interfaces/MockMatchStatusDataInterface";
 import MockMatchInfoDataInterface from "./mock_data_interfaces/MockMatchDataInfoInterface";
 import MockQuestionsListInterface from "./mock_data_interfaces/MockQuestionsListInterface";
 import MockFighterDataSearchInterface from "./mock_data_interfaces/MockFighterDataSearchInterface";
 import MockAnswerSubmissionDataInterface from "./mock_data_interfaces/MockAnswerSubmissionDataInterface";
 import MockJudgeableQuestionsInterface from "./mock_data_interfaces/MockQuestionAnswerJudgementInterface";
 import MockMatchResultsDataInterface from "./mock_data_interfaces/MockMatchResultsDataInterface";
-import MockUserMatchStatusInterface from "./mock_data_interfaces/MockUserMatchStatusInterface";
 import MockMatchInvitiationInterface from "./mock_data_interfaces/MockMatchInvitationInterface";
-import MockMatchStageDataInterface from "./mock_data_interfaces/MockMatchStageDataInterface";
 
 import { FighterData } from "../../types/datatypes";
 
@@ -31,12 +29,12 @@ import testFighterDatabase from "./test_data/testFighterDatabase";
 import submissions from "./test_data/submissions";
 import answerJudgements from "./test_data/answerJudgements";
 import matchResults from "./test_data/matchResultData";
+import IMatchStatusDataInterface from "../game_fights_data_interface/data_interfaces/IMatchStatusDatainterface";
 
 export default class MockGameFightsDataInterfaceManager extends GameFightsDataInterfaceManager{
     
-    private readonly _userMatchStatusInterface: MockUserMatchStatusInterface;
+    private readonly _matchStatusInterface: MockMatchStatusDataInterface;
     private readonly _matchInvitationInterface: MockMatchInvitiationInterface;
-    private readonly _matchStageInterface: MockMatchStageDataInterface;
     private readonly _matchDataInterface: MockMatchInfoDataInterface;
     private readonly _questionsListInterface: MockQuestionsListInterface;
     private readonly _answerSubmissionInterface: MockAnswerSubmissionDataInterface;
@@ -47,31 +45,23 @@ export default class MockGameFightsDataInterfaceManager extends GameFightsDataIn
     constructor(startingUserMatchStatus: UserMatchStatus, startingMatchStage: MatchStage){
         super();
         
-        this._matchStageInterface = new MockMatchStageDataInterface(startingMatchStage);
-        this._userMatchStatusInterface = new MockUserMatchStatusInterface(startingUserMatchStatus, this._matchStageInterface);
-        this._matchInvitationInterface = new MockMatchInvitiationInterface(soloMatchData, this._userMatchStatusInterface);
+        this._matchStatusInterface = new MockMatchStatusDataInterface(startingUserMatchStatus, startingMatchStage);
+        this._matchInvitationInterface = new MockMatchInvitiationInterface(soloMatchData, this._matchStatusInterface);
         this._matchDataInterface = new MockMatchInfoDataInterface(soloMatchData);
-        this._questionsListInterface = new MockQuestionsListInterface(questions, this._userMatchStatusInterface, 
-            this._matchStageInterface);
-        this._answerSubmissionInterface = new MockAnswerSubmissionDataInterface(submissions, this._userMatchStatusInterface,
-                this._matchStageInterface);
-        this._questionAnswerJudgementsInterface = new MockJudgeableQuestionsInterface(answerJudgements, 
-            this._userMatchStatusInterface, this._matchStageInterface);
+        this._questionsListInterface = new MockQuestionsListInterface(questions);
+        this._answerSubmissionInterface = new MockAnswerSubmissionDataInterface(submissions);
+        this._questionAnswerJudgementsInterface = new MockJudgeableQuestionsInterface(answerJudgements);
         this._fighterDataInvitationInterface = new MockFighterDataSearchInterface(testFighterDatabase.asArray());
-        this._matchResultsDataInterface = new MockMatchResultsDataInterface(matchResults, this._userMatchStatusInterface,
-                this._matchStageInterface);
+        this._matchResultsDataInterface = new MockMatchResultsDataInterface(matchResults);
     }
 
-    public get userMatchStatusInterface(): IUserMatchStatusInterface {
-        return this._userMatchStatusInterface;
-    }
     
+    public get matchStatusInterface() : IMatchStatusDataInterface{
+        return this._matchStatusInterface;
+    } 
+
     public get matchInvitationInterface(): IMatchInvitationInterface {
         return this._matchInvitationInterface;
-    }
-
-    public get matchStageInterface(): IDataInterface<MatchStage> {
-        return this._matchStageInterface;
     }
     
     public get matchDataInterface(): IMatchDataInterface {

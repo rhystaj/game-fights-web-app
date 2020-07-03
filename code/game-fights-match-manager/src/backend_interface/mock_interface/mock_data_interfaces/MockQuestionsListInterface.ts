@@ -2,24 +2,17 @@ import DataInterface from "../../lib/abstract_implementations/AbstractDataInterf
 
 import IQuestionListInterface from "../../game_fights_data_interface/data_interfaces/question_interfaces/IQuestionListInterface";
 
-import MockMatchStageDataInterface from "./MockMatchStageDataInterface";
-
 import UniquelyIdentifiableCollection from "../../../utility/UniquelyIdentifiableCollection";
 
 import { Question } from "../../../types/datatypes";
 import { QuestionEquator } from "../../../types/equators/UniquelyIndentifiableEquators";
-import { MatchStage } from "../../../enums/statusEnums";
 
-import MockUserMatchStatusInterface from "./MockUserMatchStatusInterface";
-import AbstractMockMatchDataInterface from "./AbstractMockMatchDataInterface";
-
-export default class MockQuestionsListInterface extends AbstractMockMatchDataInterface<Question[]> implements IQuestionListInterface{
+export default class MockQuestionsListInterface extends DataInterface<Question[]> implements IQuestionListInterface{
     
     private questions: UniquelyIdentifiableCollection<Question>;
 
-    constructor(questions: Question[], userMatchStatusInterface: MockUserMatchStatusInterface,
-            matchStageInterface: MockMatchStageDataInterface){
-        super(userMatchStatusInterface, matchStageInterface);
+    constructor(questions: Question[]){
+        super();
         this.questions = new UniquelyIdentifiableCollection<Question>(questions, new QuestionEquator());
     }
     
@@ -55,10 +48,6 @@ export default class MockQuestionsListInterface extends AbstractMockMatchDataInt
         this.questions = this.questions.removeElementWithId(question.id);
         return this.questions.asArray();
 
-    }
-
-    public async progressMatch() {
-        this.matchStageInterface.setMatchStage(MatchStage.ANSWERS_OPENED);
     }
 
 }

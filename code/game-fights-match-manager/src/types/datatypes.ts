@@ -1,5 +1,9 @@
-import { AnswerSubmissionState, FighterMatchStatus } from "../enums/statusEnums";
+import { AnswerSubmissionState, FighterMatchStatus, UserMatchStatus, MatchStage } from "../enums/statusEnums";
 
+export interface MatchStatusData{
+    userMatchStatus: UserMatchStatus,
+    matchStage: MatchStage
+}
 
 export interface UniquelyIdentifiable { 
     id: number 
