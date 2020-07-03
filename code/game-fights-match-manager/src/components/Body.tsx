@@ -46,7 +46,8 @@ export default class Body extends SimpleStateLoadingComponent<GameFightsDataInte
   }
 
   private onProgressMatch = async () => {
-    await this.getDataInterface().progressMatchStage();
+    const newData = await this.getDataInterface().progressMatchStage();
+    this.setState({ data: newData });
   }
 
   renderLoaded(dataInterface: IMatchStatusDataInterface, matchStatus: MatchStatusData){    

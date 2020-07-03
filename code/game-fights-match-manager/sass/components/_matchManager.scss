@@ -1,7 +1,12 @@
 .matchManager{
 
     .matchStageControls{
+        
         @include sectionDivision;
+
+        display: flex;
+        justify-content: space-between;
+
     }
 
 }

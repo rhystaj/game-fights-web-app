@@ -19,6 +19,10 @@ export default class JudgeMatchManager extends MatchManager<JudgeMatchManagerPro
         return "Cancel Match";
     }
 
+    private onProgressMatchClick = () => {
+        this.props.onProgressMatch();
+    }
+
     renderMatchInfo(){
         return <JudgeMatchInfo dataInterfaceManager={this.props.dataInterfaceManager} />
     }
@@ -42,6 +46,13 @@ export default class JudgeMatchManager extends MatchManager<JudgeMatchManagerPro
 
         }
         
+    }
+
+    renderMatchStageControls(){
+        return [
+            ...super.renderMatchStageControls(),
+            <button onClick={this.onProgressMatchClick}>Progress</button>
+        ]
     }
 
 }
