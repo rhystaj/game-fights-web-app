@@ -36,7 +36,8 @@ export default class Body extends SimpleStateLoadingComponent<GameFightsDataInte
   }
 
   private onRunNewMatch = async () => {
-    await this.getDataInterface().judgeMatch();
+    const newData = await this.getDataInterface().judgeMatch();
+    this.setState({ data: newData });
   }
 
   private onCancelMatch = async () => {
