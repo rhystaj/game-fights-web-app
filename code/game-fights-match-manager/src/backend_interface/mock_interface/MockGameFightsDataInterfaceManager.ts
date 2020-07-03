@@ -47,9 +47,9 @@ export default class MockGameFightsDataInterfaceManager extends GameFightsDataIn
     constructor(startingUserMatchStatus: UserMatchStatus, startingMatchStage: MatchStage){
         super();
         
-        this._userMatchStatusInterface = new MockUserMatchStatusInterface(startingUserMatchStatus);
-        this._matchInvitationInterface = new MockMatchInvitiationInterface(soloMatchData, this._userMatchStatusInterface);
         this._matchStageInterface = new MockMatchStageDataInterface(startingMatchStage);
+        this._userMatchStatusInterface = new MockUserMatchStatusInterface(startingUserMatchStatus, this._matchStageInterface);
+        this._matchInvitationInterface = new MockMatchInvitiationInterface(soloMatchData, this._userMatchStatusInterface);
         this._matchDataInterface = new MockMatchInfoDataInterface(soloMatchData);
         this._questionsListInterface = new MockQuestionsListInterface(questions, this._userMatchStatusInterface, 
             this._matchStageInterface);

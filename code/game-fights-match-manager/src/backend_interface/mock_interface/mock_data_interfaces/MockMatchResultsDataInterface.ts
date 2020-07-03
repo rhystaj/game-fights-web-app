@@ -49,7 +49,7 @@ export default class MockMatchResultsDataInterface extends AbstractMockMatchData
 
     public async progressMatch() {
         await this.matchStageInterface.setMatchStage(MatchStage.DETERMINING_QUESTIONS);
-        await this.userMatchStatusInterface.clear();
+        await this.userMatchStatusInterface.clearStatus();
     }
 
 }

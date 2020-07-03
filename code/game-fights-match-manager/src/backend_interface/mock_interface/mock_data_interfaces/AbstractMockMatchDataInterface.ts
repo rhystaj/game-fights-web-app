@@ -26,7 +26,7 @@ export default abstract class AbstractMockMatchDataInterface<D> extends DataInte
 
     async cancelMatch() {
         await this._matchStageInterface.setMatchStage(MatchStage.DETERMINING_QUESTIONS);
-        await this._userMatchStatusInterface.clear();
+        await this._userMatchStatusInterface.clearStatus();
     }
 
 }

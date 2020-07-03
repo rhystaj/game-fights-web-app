@@ -31,11 +31,11 @@ export default class Body extends SimpleStateLoadingComponent<GameFightsDataInte
   }
 
   private onRunNewMatch = async () => {
-    await this.getDataInterface().setAsJudging();
+    await this.getDataInterface().judgeMatch();
   }
 
   private onCancelMatch = async () => {
-    await this.getDataInterface().clear();
+    await this.getDataInterface().clearStatus();
   }
 
   renderLoaded(dataInterface: IUserMatchStatusInterface, matchStatus: UserMatchStatus){    
