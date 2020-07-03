@@ -1,28 +1,31 @@
 import React from 'react'
-import MatchManager from './MatchManager';
-import QuestionListEditor from './question_management/QuestionListEditor'
+import MatchManager, { MatchManagerProps } from './MatchManager';
+
 import JudgeMatchInfo from './match_info/JudgeMatchInfo';
+
+import QuestionListEditor from './question_management/QuestionListEditor'
+import AnswerJudgementManager from './answer_judgement/AnswerJudgementManager';
+import MatchResultsManager from './match_results/MatchResultsManager';
 
 import { MatchStage } from '../../enums/statusEnums';
 
-import { LoadingComponentState } from '../utility/LoadingComponent';
-import AnswerJudgementManager from './answer_judgement/AnswerJudgementManager';
-import DataInterface from '../../backend_interface/lib/abstract_implementations/AbstractDataInterface';
-import MatchResultsManager from './match_results/MatchResultsManager';
+export interface JudgeMatchManagerProps extends MatchManagerProps{
+    onProgressMatch: () => Promise<void>;
+}
 
-export default class JudgeMatchManager extends MatchManager{
+export default class JudgeMatchManager extends MatchManager<JudgeMatchManagerProps>{
     
     protected get cancelButtonText(): string {
         return "Cancel Match";
     }
 
-    renderMatchInfo(dataInterface: DataInterface<MatchStage>, stage: MatchStage){
+    renderMatchInfo(){
         return <JudgeMatchInfo dataInterfaceManager={this.props.dataInterfaceManager} />
     }
 
-    renderManagementComponent(dataInterface: DataInterface<MatchStage>, stage: MatchStage){
+    renderManagementComponent(){
         
-        switch(stage){
+        switch(this.props.matchStage){
 
             case MatchStage.DETERMINING_QUESTIONS:
                 return (<QuestionListEditor dataInterfaceManager={this.props.dataInterfaceManager}/>)
@@ -34,7 +37,8 @@ export default class JudgeMatchManager extends MatchManager{
                 return (<MatchResultsManager dataInterfaceManager={this.props.dataInterfaceManager} />)
             
             default:
-                throw Error("A component has not been assigned to stage " + MatchStage[stage] + " in the JudgeMatchManager.");
+                throw Error("A component has not been assigned to stage " + MatchStage[this.props.matchStage] + 
+                        " in the JudgeMatchManager.");
 
         }
         

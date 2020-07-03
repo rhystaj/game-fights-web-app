@@ -1,5 +1,5 @@
 import React from 'react';
-import MatchManager from './MatchManager';
+import MatchManager, { MatchManagerProps } from './MatchManager';
 
 import ParticipantMatchInfo from './match_info/ParticipantMatchInfo';
 import QuestionsViewer from './question_management/QuestionViewer'
@@ -10,20 +10,15 @@ import { MatchStage } from '../../enums/statusEnums';
 
 import DataInterface from '../../backend_interface/lib/abstract_implementations/AbstractDataInterface';
 
-
 class ParticipantMatchManager extends MatchManager{
     
     protected get cancelButtonText(): string {
         return "Forfiet";
     }
-    
-    renderMatchInfo(dataInterface: DataInterface<MatchStage>, matchStage: MatchStage){
-        return <ParticipantMatchInfo dataInterfaceManager={this.props.dataInterfaceManager} />
-    }
 
-    renderManagementComponent(dataInterface: DataInterface<MatchStage>, stage: MatchStage){
+    renderManagementComponent(){
         
-        switch(stage){
+        switch(this.props.matchStage){
 
             case MatchStage.DETERMINING_QUESTIONS:
                 return <QuestionsViewer dataInterfaceManager={this.props.dataInterfaceManager} />
@@ -35,7 +30,8 @@ class ParticipantMatchManager extends MatchManager{
                     return <AnswerSubmissionViewer dataInterfaceManager={this.props.dataInterfaceManager} />
 
             default:
-                throw Error("A component has not been assinged to stage " + MatchStage[stage] + " in the ParticipantMatchManager.");
+                throw Error("A component has not been assinged to stage " + MatchStage[this.props.matchStage] + 
+                        " in the ParticipantMatchManager.");
 
         }
         

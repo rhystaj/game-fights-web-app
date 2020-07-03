@@ -5,12 +5,14 @@ import MatchInvitation from './pre_match_dialogues/MatchInvitation'
 import ParticipantMatchManager from './match_management/ParticipantMatchManager'
 import JudgeMatchManager from './match_management/JudgeMatchManager'
 
-import { UserMatchStatus } from './../enums/statusEnums';
+import { UserMatchStatus, MatchStage } from './../enums/statusEnums';
 
 import SimpleStateLoadingComponent from './utility/SimpleStateLoadingComponent';
 
 import { GameFightsDataInterfaceManager } from '../backend_interface/game_fights_data_interface/GameFightsDataInterfaceManager';
-import IUserMatchStatusInterface from '../backend_interface/game_fights_data_interface/data_interfaces/IUserMatchStatusInterface'
+
+import { MatchStatusData } from '../types/datatypes'
+import IMatchStatusDataInterface from '../backend_interface/game_fights_data_interface/data_interfaces/IMatchStatusDatainterface'
 
 const INVALID_STATUS_MESSAGE = 'Error: Body was given an invalid state.'
 
@@ -19,15 +21,18 @@ const INVALID_STATUS_MESSAGE = 'Error: Body was given an invalid state.'
  * a match, and if they are judging it.
  * @param {*} props
  */
-export default class Body extends SimpleStateLoadingComponent<GameFightsDataInterfaceManager, UserMatchStatus,
-    IUserMatchStatusInterface> {
+export default class Body extends SimpleStateLoadingComponent<GameFightsDataInterfaceManager, MatchStatusData,
+    IMatchStatusDataInterface> {
   
-  public getDataInterface(): IUserMatchStatusInterface{
-    return this.props.dataInterfaceManager.userMatchStatusInterface;
+  public getDataInterface(): IMatchStatusDataInterface{
+    return this.props.dataInterfaceManager.matchStatusInterface;
   }
   
-  protected determineInitalData(): UserMatchStatus {
-    return UserMatchStatus.NONE;
+  protected determineInitalData(): MatchStatusData {
+    return {
+      userMatchStatus: UserMatchStatus.NONE,
+      matchStage: MatchStage.DETERMINING_QUESTIONS 
+    }
   }
 
   private onRunNewMatch = async () => {
@@ -35,12 +40,17 @@ export default class Body extends SimpleStateLoadingComponent<GameFightsDataInte
   }
 
   private onCancelMatch = async () => {
-    await this.getDataInterface().clearStatus();
+    const newData = await this.getDataInterface().clearUserStatus();
+    this.setState({ data: newData });
   }
 
-  renderLoaded(dataInterface: IUserMatchStatusInterface, matchStatus: UserMatchStatus){    
+  private onProgressMatch = async () => {
+    await this.getDataInterface().progressMatchStage();
+  }
+
+  renderLoaded(dataInterface: IMatchStatusDataInterface, matchStatus: MatchStatusData){    
     
-    switch (matchStatus) {
+    switch (matchStatus.userMatchStatus) {
       case UserMatchStatus.NONE:
         return [ <RunNewMatch onRunNewMatch={this.onRunNewMatch}/> ];
 
@@ -51,14 +61,17 @@ export default class Body extends SimpleStateLoadingComponent<GameFightsDataInte
 
       case UserMatchStatus.PARTCIPATING:
       return [ <ParticipantMatchManager 
+                  matchStage={this.state.data.matchStage}
                   dataInterfaceManager={this.props.dataInterfaceManager}
                   onCancelMatch={this.onCancelMatch}
                 /> ];
 
       case UserMatchStatus.JUDGING:
       return [ <JudgeMatchManager 
+                  matchStage={this.state.data.matchStage}
                   dataInterfaceManager={this.props.dataInterfaceManager} 
                   onCancelMatch={this.onCancelMatch}
+                  onProgressMatch={this.onProgressMatch}
               /> ];
 
       default:
