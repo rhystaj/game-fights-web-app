@@ -47,11 +47,13 @@ export default class MockJudgeableQuestionsInterface extends DataInterface<Judge
                 {
                     participant: testFighterDatabase.retrieveElementWithId(10),
                     answer: "",
+                    timeSubmitted: new Date(Date.now()),
                     state: AnswerSubmissionState.NO_ANSWER
                 },
                 {
                     participant: testFighterDatabase.retrieveElementWithId(13),
                     answer: "",
+                    timeSubmitted: new Date(Date.now()),
                     state: AnswerSubmissionState.NO_ANSWER
                 }
             ]
@@ -78,6 +80,7 @@ export default class MockJudgeableQuestionsInterface extends DataInterface<Judge
         const newJudgement = {
             participant: oldJudgement.participant,
             answer: oldJudgement.answer,
+            timeSubmitted: oldJudgement.timeSubmitted,
             state: answerStatus
         }
         newQuestion.answerJudgements[answerIndex] = newJudgement; 
