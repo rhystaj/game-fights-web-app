@@ -44,8 +44,9 @@ export default class MatchResultsManager extends LoadingComponent<GameFightsData
         return(
             <div className="matchResult">
                 <h2>{result.question}</h2>
-                {this.renderAnswers(result.answers, result.chosenAnswerIndex, (index) => {
-                    this.getDataInterface().specifyQuestionResult(result, index);
+                {this.renderAnswers(result.answers, result.chosenAnswerIndex, async (index) => {
+                    const newData = await this.getDataInterface().specifyQuestionResult(result, index);
+                    this.setState({ data: newData });
                 })}
             </div>
         )
