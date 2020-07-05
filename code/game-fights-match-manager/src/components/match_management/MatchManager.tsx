@@ -38,7 +38,9 @@ export default abstract class MatchManager<P extends MatchManagerProps = MatchMa
   protected abstract renderManagementComponent(): JSX.Element;
 
   private onCancelClick = () => {
-    this.props.onCancelMatch();
+    if(window.confirm("All progress will be deleted. Are you sure you want to cancel this match?")){
+      this.props.onCancelMatch();
+    }
   }
 
   protected renderMatchStageControls(): ComponentContents{

@@ -20,7 +20,44 @@ export default class JudgeMatchManager extends MatchManager<JudgeMatchManagerPro
     }
 
     private onProgressMatchClick = () => {
-        this.props.onProgressMatch();
+        
+        let confirmationMessage: string;
+        switch(this.props.matchStage){
+
+            case MatchStage.DETERMINING_QUESTIONS:
+                confirmationMessage = 
+                    "Participants will be able to submit answers to the submitted questions.\n" + 
+                    "You will still be able to add and remove questions as required.\n" +
+                    "\n" +
+                    "Are you sure you want to continue?"
+                break;
+
+            case MatchStage.ANSWERS_OPENED:
+                confirmationMessage = 
+                    "Paritipants will no longer be able to submit answers to questions and you will no longer be able " +
+                    "to add or remove questions.\n" +
+                    "This can not be undone.\n" +
+                    "\n" +
+                    "Are you sure you want to continue?";
+                break;
+            
+            case MatchStage.RECORDING_RESULTS:
+                confirmationMessage =
+                    "This will end the match and the entered results will be archived.\n" +
+                    "This can not be undone.\n" +
+                    "\n" +
+                    "Are you sure you want to continue?"
+                break;
+
+            default:
+                confirmationMessage = "Are you sure you want to continue?"; 
+
+        }
+
+        if(window.confirm(confirmationMessage)){
+            this.props.onProgressMatch();
+        }
+        
     }
 
     /**
