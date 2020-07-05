@@ -22,7 +22,7 @@ export abstract class AbstractDeletableListedQuestion<Q extends Question,
         return "question deletableListedQuestion";
     }
 
-    protected async deleteQuestionAsync() {
+    private deleteQuestionAsync = async () => {
         const newData = await this.props.dataInterface.requestQuestionDeletion(this.props.question);
         this.props.onQuestionDeleted(newData);
     }
