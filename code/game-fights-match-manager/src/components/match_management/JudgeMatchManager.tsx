@@ -23,6 +23,29 @@ export default class JudgeMatchManager extends MatchManager<JudgeMatchManagerPro
         this.props.onProgressMatch();
     }
 
+    /**
+     * Determine the text that should be shown on the button that progresses the match.
+     */
+    protected determineProgressButtonText(): string { 
+
+        switch(this.props.matchStage){
+
+            case MatchStage.DETERMINING_QUESTIONS:
+                return "Open Answer Submission";
+
+            case MatchStage.ANSWERS_OPENED:
+                return "Close Answer Submission";
+
+            case MatchStage.RECORDING_RESULTS:
+                return "Finish Match and Archive Results";
+
+            default:
+                return "Progress Match";
+
+        }
+
+    }
+
     renderMatchInfo(){
         return <JudgeMatchInfo dataInterfaceManager={this.props.dataInterfaceManager} />
     }
@@ -51,7 +74,12 @@ export default class JudgeMatchManager extends MatchManager<JudgeMatchManagerPro
     renderMatchStageControls(){
         return [
             ...super.renderMatchStageControls(),
-            <button onClick={this.onProgressMatchClick}>Progress</button>
+            <button 
+                className="progressMatchButton"
+                onClick={this.onProgressMatchClick}
+            >
+                {this.determineProgressButtonText()}
+            </button>
         ]
     }
 
