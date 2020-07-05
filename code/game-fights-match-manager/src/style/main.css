@@ -442,6 +442,11 @@ ul {
   margin-bottom: 0.5em;
 }
 
+.deletableListedQuestion.judgeable .submissionTimeText {
+  color: lightgray;
+  margin-left: 1em;
+}
+
 .deletableListedQuestion.judgeable .answerJudgement {
   display: -ms-grid;
   display: grid;

@@ -4,9 +4,7 @@ import { AbstractDeletableListedQuestion, DeletableListedQuestionProps } from ".
 
 import { JudgeableQuestionData } from "../../../types/datatypes";
 import { AnswerSubmissionState } from '../../../enums/statusEnums';
-import { AsyncActionComponentState } from '../../utility/Async_Action_Components/AsyncActionComponent';
 
-import UseAnimation from 'react-useanimations';
 import AnswerJudgementOptions from './AnswerJudgementOptions';
 
 interface JudgeableDeleteableListedQuestionProps extends DeletableListedQuestionProps<JudgeableQuestionData>{
@@ -49,7 +47,16 @@ export default class JudgeableDeleteableListedQuestion extends
         return(
             <div className="answerJudgement">
                 <img src={judgement.participant.profileImageURL} />
-                <p>{judgement.state === AnswerSubmissionState.NO_ANSWER ? "(No Answer)" : judgement.answer}</p>
+                <p>
+                    {judgement.state === AnswerSubmissionState.NO_ANSWER ? 
+                        "(No Answer)"
+                        : 
+                        [
+                            judgement.answer,
+                            <span className="submissionTimeText">{judgement.timeSubmitted.toLocaleString()}</span>
+                        ]
+                    }
+                </p>
                 { this.renderJudgementControls(question, answerIndex) }
             </div>
         )

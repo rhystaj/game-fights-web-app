@@ -39,7 +39,8 @@ export interface AnswerSubmissionData extends UniquelyIdentifiable {
 
 export interface ParticipantAnswerData {
     participant: FighterData,
-    answer: string,  
+    answer: string,
+    timeSubmitted: Date,  
     state: AnswerSubmissionState
 }
 
