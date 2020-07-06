@@ -389,6 +389,7 @@ ul {
 }
 
 .questionsComponent.questionsEditor .addQuestionButton {
+  margin-top: 1em;
   -ms-flex-item-align: start;
       align-self: flex-start;
 }
@@ -414,6 +415,10 @@ ul {
 
 .questionsComponent.questionsEditor.answerJudgementManager h1 {
   margin-bottom: 0.4em;
+}
+
+.questionsComponent.questionsEditor.answerJudgementManager .addQuestionButton {
+  margin-top: 3em;
 }
 
 .deletableListedQuestion p {
