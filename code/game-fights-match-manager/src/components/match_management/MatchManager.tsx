@@ -20,7 +20,15 @@ export interface MatchManagerProps {
  */
 export default abstract class MatchManager<P extends MatchManagerProps = MatchManagerProps> extends OEComponent<P>{
  
+  /**
+   * The text to show on the button that cancel the match.
+   */
   protected abstract get cancelButtonText(): string;
+
+  /**
+   * The text shown in the confirmtion dialogue when the user specifies they want to cancel the match.
+   */
+  protected abstract get cancelConfirmationMessage(): string;
  
   determineComponentClassString(){
     return "matchManager";
@@ -38,7 +46,7 @@ export default abstract class MatchManager<P extends MatchManagerProps = MatchMa
   protected abstract renderManagementComponent(): JSX.Element;
 
   private onCancelClick = () => {
-    if(window.confirm("All progress will be deleted. Are you sure you want to cancel this match?")){
+    if(window.confirm(this.cancelConfirmationMessage)){
       this.props.onCancelMatch();
     }
   }

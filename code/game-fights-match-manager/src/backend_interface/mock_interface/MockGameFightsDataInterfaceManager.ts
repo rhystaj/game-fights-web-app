@@ -19,9 +19,8 @@ import MockFighterDataSearchInterface from "./mock_data_interfaces/MockFighterDa
 import MockAnswerSubmissionDataInterface from "./mock_data_interfaces/MockAnswerSubmissionDataInterface";
 import MockJudgeableQuestionsInterface from "./mock_data_interfaces/MockQuestionAnswerJudgementInterface";
 import MockMatchResultsDataInterface from "./mock_data_interfaces/MockMatchResultsDataInterface";
-import MockMatchInvitiationInterface from "./mock_data_interfaces/MockMatchInvitationInterface";
 
-import { FighterData } from "../../types/datatypes";
+import { FighterData, MatchData } from "../../types/datatypes";
 
 import soloMatchData from "./test_data/matchData";
 import questions from "./test_data/questions";
@@ -30,11 +29,13 @@ import submissions from "./test_data/submissions";
 import answerJudgements from "./test_data/answerJudgements";
 import matchResults from "./test_data/matchResultData";
 import IMatchStatusDataInterface from "../game_fights_data_interface/data_interfaces/IMatchStatusDatainterface";
+import DataInterface from "../lib/abstract_implementations/AbstractDataInterface";
+import SimpleMockDataInterface from "./mock_data_interfaces/SimpleMockDataInterface";
 
 export default class MockGameFightsDataInterfaceManager extends GameFightsDataInterfaceManager{
     
     private readonly _matchStatusInterface: MockMatchStatusDataInterface;
-    private readonly _matchInvitationInterface: MockMatchInvitiationInterface;
+    private readonly _matchInvitationInterface: DataInterface<MatchData>;
     private readonly _matchDataInterface: MockMatchInfoDataInterface;
     private readonly _questionsListInterface: MockQuestionsListInterface;
     private readonly _answerSubmissionInterface: MockAnswerSubmissionDataInterface;
@@ -46,7 +47,7 @@ export default class MockGameFightsDataInterfaceManager extends GameFightsDataIn
         super();
         
         this._matchStatusInterface = new MockMatchStatusDataInterface(startingUserMatchStatus, startingMatchStage);
-        this._matchInvitationInterface = new MockMatchInvitiationInterface(soloMatchData, this._matchStatusInterface);
+        this._matchInvitationInterface = new SimpleMockDataInterface<MatchData>(soloMatchData);
         this._matchDataInterface = new MockMatchInfoDataInterface(soloMatchData);
         this._questionsListInterface = new MockQuestionsListInterface(questions);
         this._answerSubmissionInterface = new MockAnswerSubmissionDataInterface(submissions);
@@ -60,7 +61,7 @@ export default class MockGameFightsDataInterfaceManager extends GameFightsDataIn
         return this._matchStatusInterface;
     } 
 
-    public get matchInvitationInterface(): IMatchInvitationInterface {
+    public get matchInvitationInterface(): IDataInterface<MatchData> {
         return this._matchInvitationInterface;
     }
     

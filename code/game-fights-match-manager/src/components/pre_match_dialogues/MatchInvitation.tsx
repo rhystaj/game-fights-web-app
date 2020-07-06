@@ -7,14 +7,21 @@ import { FighterMatchStatus } from '../../enums/statusEnums'
 
 import '../../style/main.css'
 import { ComponentContents } from '../../types/customCompositeTypes'
+import { DataInterfacingComponentProps } from '../utility/DataInterfacingComponent'
+import IDataInterface from '../../backend_interface/lib/interfaces/IDataInterface'
+
+export interface MatchInvitationProps extends DataInterfacingComponentProps<GameFightsDataInterfaceManager>{
+  onAcceptInvite: () => Promise<void>,
+  onDeclineInvite: () => Promise<void>
+}
 
 /**
  * Is shown when a match has been created that the user has been invitied to. They can accept or decline the information.
  */
 export default class MatchInvitation extends LoadingComponent<GameFightsDataInterfaceManager, MatchData,
-    IMatchInvitationInterface> {
+    IDataInterface<MatchData>, MatchInvitationProps> {
   
-    protected getDataInterface(): IMatchInvitationInterface {
+    protected getDataInterface(): IDataInterface<MatchData> {
       return this.props.dataInterfaceManager.matchInvitationInterface;
     }
   
@@ -44,11 +51,11 @@ export default class MatchInvitation extends LoadingComponent<GameFightsDataInte
   }
 
   private onAcceptButtonClick = () => {
-    this.getDataInterface().acceptInvite();
+    this.props.onAcceptInvite();
   }
 
   private onDeclineButtonClick = () => {
-    this.getDataInterface().declineInvite();
+    this.props.onDeclineInvite();
   }
 
   protected renderLoaded(dataInterface: IMatchInvitationInterface, data: MatchData): ComponentContents {

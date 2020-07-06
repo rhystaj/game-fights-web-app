@@ -1,19 +1,22 @@
 import React from 'react';
-import MatchManager, { MatchManagerProps } from './MatchManager';
+import MatchManager from './MatchManager';
 
-import ParticipantMatchInfo from './match_info/ParticipantMatchInfo';
 import QuestionsViewer from './question_management/QuestionViewer'
 import AnswerSubmissionManager from './answer_submission/manager/AnswerSubmissionManager';
 import AnswerSubmissionViewer from './answer_submission/manager/AnswerSubmissionViewer';
 
 import { MatchStage } from '../../enums/statusEnums';
 
-import DataInterface from '../../backend_interface/lib/abstract_implementations/AbstractDataInterface';
-
 class ParticipantMatchManager extends MatchManager{
     
     protected get cancelButtonText(): string {
         return "Forfiet";
+    }
+
+    protected get cancelConfirmationMessage(): string {
+        return "You will be removed from the list of participants and will no longer be able to participate in this match?\n" +
+        "\n" +
+        "Are you sure you want to continue?"
     }
 
     renderManagementComponent(){

@@ -50,6 +50,16 @@ export default class Body extends SimpleStateLoadingComponent<GameFightsDataInte
     this.setState({ data: newData });
   }
 
+  private onAcceptInvite = async () => {
+    const newData = await this.getDataInterface().participateInMatch();
+    this.setState({ data: newData });
+  }
+
+  private onDeclineInvite = async () => {
+    const newData = await this.getDataInterface().clearUserStatus();
+    this.setState({ data: newData });
+  }
+
   renderLoaded(dataInterface: IMatchStatusDataInterface, matchStatus: MatchStatusData){    
     
     switch (matchStatus.userMatchStatus) {
@@ -58,7 +68,11 @@ export default class Body extends SimpleStateLoadingComponent<GameFightsDataInte
 
       case UserMatchStatus.INVITED:
         return [
-          <MatchInvitation dataInterfaceManager={this.props.dataInterfaceManager}/>
+          <MatchInvitation 
+            dataInterfaceManager={this.props.dataInterfaceManager}
+            onAcceptInvite={this.onAcceptInvite}
+            onDeclineInvite={this.onDeclineInvite}
+          />
         ]
 
       case UserMatchStatus.PARTCIPATING:

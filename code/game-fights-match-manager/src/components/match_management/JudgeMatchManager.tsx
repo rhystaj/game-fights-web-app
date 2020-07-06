@@ -14,9 +14,13 @@ export interface JudgeMatchManagerProps extends MatchManagerProps{
 }
 
 export default class JudgeMatchManager extends MatchManager<JudgeMatchManagerProps>{
-    
+
     protected get cancelButtonText(): string {
         return "Cancel Match";
+    }
+
+    protected get cancelConfirmationMessage(): string {
+        return "All progress will be deleted. Are you sure you want to cancel this match?"
     }
 
     private onProgressMatchClick = () => {
