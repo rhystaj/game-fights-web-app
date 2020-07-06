@@ -204,6 +204,10 @@ ul {
   opacity: 50%;
 }
 
+.entry input {
+  font-size: 1em;
+}
+
 .entry input, .entry button {
   -webkit-box-sizing: content-box;
           box-sizing: content-box;
