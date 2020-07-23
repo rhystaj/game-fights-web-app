@@ -2,7 +2,7 @@ import React from 'react';
 
 import EnterableText from "./EnterableText";
 
-import TextEntry from '../Entry/TextEntry'
+import SingleLineTextEntry from '../Entry/Text Entry/SingleLineTextEntry';
 
 export default class EnterableStringText extends EnterableText<string>{
     
@@ -12,7 +12,7 @@ export default class EnterableStringText extends EnterableText<string>{
     
     protected renderEntry(onConfirmEntry: (value: string) => Promise<void>, onCancelEntry: () => void){
         
-        return (<TextEntry
+        return (<SingleLineTextEntry
             initialValue={this.props.initialValue}
             onConfirmEntry={onConfirmEntry}
             onCancelEntry={onCancelEntry}/>

@@ -6,7 +6,7 @@ import Entry from "./Entry";
 
 export default class DateEntry extends Entry<Date>{
     
-    protected get entryTypeClassName(): string {
+    protected get EntryTypeClassName(): string {
         return "dateEntry";
     }
     

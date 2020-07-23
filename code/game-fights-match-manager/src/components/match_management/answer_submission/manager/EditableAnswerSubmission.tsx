@@ -2,14 +2,13 @@ import React from 'react'
 
 import AnswerSubmissionOptions, { AnswerSubmissionOptionSelection } from './AnswerSubmissionOptions'
 
-import TextEntry from '../../../utility/Entry/TextEntry';
-
 import { AnswerSubmissionState as AnswerSubmissionStatus } from '../../../../enums/statusEnums'
 
 import SubmissionOptionAction from '../../../../actions/SubmissionOptionActions/SubmissionOptionAction';
 import UpdateAnswerSubmissionOptionAction from '../../../../actions/SubmissionOptionActions/UpdateAnswerSubmissionOptionAction';
 
 import AbstractAnswerSubmission, { AnswerSubmissionProps } from './AbstractAnswerSubmission';
+import SingleLineTextEntry from '../../../utility/Entry/Text Entry/SingleLineTextEntry';
 
 export interface EditableAnswerSubmissionProps extends AnswerSubmissionProps{
   onSubmissionOptionAction: (action: SubmissionOptionAction) => Promise<void>
@@ -85,7 +84,7 @@ export default class EditableAnswerSubmission extends AbstractAnswerSubmission<E
   protected renderAnswer(answer: string): JSX.Element {
 
     if(this.state.editingAnswer){
-      return <TextEntry
+      return <SingleLineTextEntry
         initialValue={answer}
         onConfirmEntry={this.onConfirmAnswerEntry}
         onCancelEntry={() => {this.setState({ editingAnswer: false })}}

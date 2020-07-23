@@ -1,12 +1,13 @@
 import React, { MouseEvent } from 'react';
 
 import QuestionsComponent from './QuestionsComponent';
-import TextEntry from '../../utility/Entry/TextEntry';
+import SingleLineTextEntry from '../../utility/Entry/Text Entry/SingleLineTextEntry';
 import { LoadingComponentState } from '../../utility/LoadingComponent';
 
 import { Question } from '../../../types/datatypes';
 import IQuestionsInterface from '../../../backend_interface/game_fights_data_interface/data_interfaces/question_interfaces/IQuestionsInterface';
 import { ComponentContents } from '../../../types/customCompositeTypes';
+
 
 export interface QuestionsEditorState<Q> extends LoadingComponentState<Q[]>{
     addingQuestion: boolean;
@@ -82,7 +83,7 @@ export default abstract class AbstractQuestionsEditor<Q extends Question, I exte
     protected renderQuestionEntry(){
         
         return (
-            <TextEntry 
+            <SingleLineTextEntry 
                 initialValue=""
                 onConfirmEntry={this.confirmQuestionEntry}
                 onCancelEntry={this.cancelQuestionEntry}

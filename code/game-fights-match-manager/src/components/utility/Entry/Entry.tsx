@@ -23,10 +23,10 @@ interface EntryState<D> extends AsyncActionComponentState {
 export default abstract class Entry<D> extends AsyncActionComponent<EntryProps<D>, EntryState<D>>{
     
     protected determineAsyncActionClassString(){
-        return "entry " + this.entryTypeClassName;
+        return "entry " + this.EntryTypeClassName;
     }
 
-    protected abstract get entryTypeClassName(): string;
+    protected abstract get EntryTypeClassName(): string;
 
     protected get ValueBeingEntered(): D{
         return this.state.valueBeingEntered;
