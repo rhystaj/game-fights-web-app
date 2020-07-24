@@ -1,10 +1,13 @@
 import DataInterface from "../../lib/abstract_implementations/AbstractDataInterface";
-
 import IMatchDataInterface from "../../game_fights_data_interface/data_interfaces/IMatchDataInterface";
 
+import ISearchInterface from "../../lib/interfaces/ISearchInterface";
+import MockFighterDataSearchInterface from "./MockFighterDataSearchInterface";
+
 import { MatchData, FighterData } from "../../../types/datatypes";
-import { FAILURE_FIGHTER_ID } from "../test_data/testFighterDatabase";
+import testFighterDatabase, { FAILURE_FIGHTER_ID } from "../test_data/testFighterDatabase";
 import { DateType } from "../../../enums/referenceEnums";
+
 
 export default class MockMatchInfoDataInterface extends DataInterface<MatchData> implements IMatchDataInterface{
     
@@ -46,6 +49,10 @@ export default class MockMatchInfoDataInterface extends DataInterface<MatchData>
 
         return this.matchData;
 
+    }
+
+    getPotentialParticipantSearchInterface(): ISearchInterface<FighterData> {
+        return new MockFighterDataSearchInterface(testFighterDatabase.asArray());
     }
 
     public async submitMatchParticipants(invites: FighterData[]){

@@ -1,23 +1,24 @@
-import SearchInterface from "../../lib/abstract_implementations/AbstarctSearchInterface";
+import ISearchInterface from '../../lib/interfaces/ISearchInterface'
+
 import { FighterData } from "../../../types/datatypes";
 
-export default class MockFighterDataSearchInterface extends SearchInterface<FighterData> {
+export default class MockFighterDataSearchInterface implements ISearchInterface<FighterData> {
     
     private fighters: FighterData[];
 
     constructor(fighters: FighterData[]){
-        super();
         this.fighters = fighters;
     }
+    
+    public async searchDataByString (searchString: string) {
 
-    protected async loadSearchData(searchString: string) {
-        
-        if(searchString.length === 0){
-            return [];
+        let result: FighterData[] = [];
+
+        if(searchString.length > 0){
+            result = this.fighters.filter(f => f.name.includes(searchString));
         }
-        else{
-            return this.fighters.filter(f => f.name.includes(searchString));
-        }
+
+        return result;
 
     }
 

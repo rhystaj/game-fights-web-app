@@ -24,8 +24,6 @@ export abstract class GameFightsDataInterfaceManager{
 
     public abstract get answerSubmissionsInterface(): IAnswerSubmissionDataInterface;
 
-    public abstract get fighterDataInvitationInterface(): ISearchInterface<FighterData>;
-
     public abstract get matchResultsInterface(): IMatchResultsDataInterface;
 
 }

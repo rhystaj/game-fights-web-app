@@ -1,7 +1,5 @@
-import IDataInterface from "./IDataInterface";
+export default interface ISearchInterface<D>{
 
-export default interface ISearchInterface<D> extends IDataInterface<D[]>{
-
-    searchDataByString: (searchString: string) => Promise<void>; 
+    searchDataByString: (searchString: string) => Promise<D[]>; 
 
 }

@@ -2,6 +2,7 @@ import IDataInterface from "../../lib/interfaces/IDataInterface";
 
 import { MatchData, FighterData } from "../../../types/datatypes";
 import { DateType } from "../../../enums/referenceEnums";
+import ISearchInterface from "../../lib/interfaces/ISearchInterface";
 
 export default interface IMatchDataInterface extends IDataInterface<MatchData>{
 
@@ -17,6 +18,11 @@ export default interface IMatchDataInterface extends IDataInterface<MatchData>{
      * @param date The value the date will be changed to.
      */
     submitMatchDate(type: DateType, date: Date): Promise<MatchData>;
+
+    /**
+     * Retrieve the interface that can be used to find participants that can be invited to the match.
+     */
+    getPotentialParticipantSearchInterface(): ISearchInterface<FighterData>
 
     /**
      * Submit the list of participants that have been invited to participate in the match.

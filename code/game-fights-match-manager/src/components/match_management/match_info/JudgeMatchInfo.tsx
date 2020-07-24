@@ -100,7 +100,7 @@ export default class JudgeMatchInfo extends MatchInfoComponent<JudgeMatchInfoSta
         if(showingModal){
             return(
                 <FighterInvitationSearchModal 
-                    dataInterfaceManager={this.props.dataInterfaceManager}
+                    searchInterface={this.getDataInterface().getPotentialParticipantSearchInterface()}
                     preInvitedFighters={data.invitedFighters}
                     onCancel={() => { this.setState({ showingInvitationModal: false }) }}
                     onConfirmInvites={this.onConfirmInvites}
