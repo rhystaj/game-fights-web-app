@@ -11,15 +11,17 @@
 @import './components/match_info/matchInfo';
 @import './components/match_info/judgeMatchInfo';
 
-@import './components/lib/entry';
-@import './components/lib/dateEntry';
+@import './components/lib/entries/entry';
+@import './components/lib/entries/dateEntry';
+@import './components/lib/entries/mutliLinedTextEntry';
 @import './components/lib/enterableText';
 @import './components/lib/enterableHeading';
-@import './components/lib/searchModal';
+@import './components/lib/modals/modal';
+@import './components/lib/modals/textEntryModal';
 @import './components/lib/asyncActionComponent';
 @import './components/lib/confirmationCancelButtons';
 
-@import './components//modals/fighterInvitationSearchModal';
+@import './components/modals/fighterInvitationSearchModal';
 
 @import './components/question_management/questionsComponent';
 @import './components/question_management/questionsEditor';

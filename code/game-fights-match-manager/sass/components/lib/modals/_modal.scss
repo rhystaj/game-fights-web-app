@@ -1,7 +1,4 @@
-$modalWidth: 1000px;
-$modalMargin: calc(50% - #{$modalWidth}/2);
-
-.searchModal{
+.modal{
 
     display: flex;
     justify-content: center;
@@ -18,7 +15,7 @@ $modalMargin: calc(50% - #{$modalWidth}/2);
 
     z-index: 1;
 
-    .searchModalContent {
+    .modalContent {
 
         border: solid 5px;
         background-color: whitesmoke;

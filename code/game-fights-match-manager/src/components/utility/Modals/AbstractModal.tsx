@@ -26,7 +26,7 @@ export default abstract class AbstractModal<P extends ModalProps, S extends Moda
 
     renderComponentContents(){
         return[
-            <div className="searchModalContent">
+            <div className="modalContent">
                 {this.renderModalContents(this.onCancel)}
             </div>
         ]
