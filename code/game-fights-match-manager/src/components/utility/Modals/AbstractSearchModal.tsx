@@ -18,8 +18,10 @@ export interface SearchModalState<D> extends ModalState{
 export default abstract class AbstractSearchModal<D, P extends SearchModalProps<D>, S extends SearchModalState<D>>
         extends AbstractModal<P, S>{
 
-    protected determineComponentClassString(){
-        return "searchModal " + this.searchModalTypeClass;
+    
+    
+    protected determineModalTypeClassName(){
+        return "searchModal " + this.searchModalTypeClass; 
     }
 
     /**

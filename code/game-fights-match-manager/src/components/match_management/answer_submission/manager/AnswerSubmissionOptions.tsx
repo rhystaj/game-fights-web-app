@@ -8,7 +8,6 @@ interface AnswerSubmissionOptionsProps{
   state: AnswerSubmissionState,
   validatedByUser: boolean,
   onOptionSelection: (selection: AnswerSubmissionOptionSelection) => void,
-  enabled: boolean
 }
 
 export enum AnswerSubmissionOptionSelection{
@@ -33,7 +32,6 @@ export default class AnswerSubmissionOptions extends OEComponent<AnswerSubmissio
     if(renderButton){
       return (
         <button className={SUBMISSION_OPTION_CLASS_NAME + " displaying"}
-          disabled = {!this.props.enabled}
           onClick={() => {this.props.onOptionSelection(optionSelection)}}
         >
           {optionText}

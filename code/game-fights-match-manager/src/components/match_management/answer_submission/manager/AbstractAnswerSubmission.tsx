@@ -2,6 +2,7 @@ import React from 'react'
 import OEComponent from '../../../utility/OEComponent';
 
 import { AnswerSubmissionData } from '../../../../types/datatypes';
+import { ComponentContents } from '../../../../types/customCompositeTypes';
 
 export interface AnswerSubmissionProps{
   submission: AnswerSubmissionData
@@ -21,7 +22,7 @@ export default abstract class AbstractAnswerSubmission<P extends AnswerSubmissio
     return <p>{answer ? answer : '-'}</p>
   }
   
-  protected renderComponentContents(){
+  protected renderComponentContents(): ComponentContents{
     return [ 
       (<h3>{this.props.submission.question}</h3>),
       this.renderAnswer(this.props.submission.answer)

@@ -8,21 +8,22 @@ import SubmissionOptionAction from '../../../../actions/SubmissionOptionActions/
 import UpdateAnswerSubmissionOptionAction from '../../../../actions/SubmissionOptionActions/UpdateAnswerSubmissionOptionAction';
 
 import AbstractAnswerSubmission, { AnswerSubmissionProps } from './AbstractAnswerSubmission';
-import SingleLineTextEntry from '../../../utility/Entry/Text Entry/SingleLineTextEntry';
+import TextEntryModal from '../../../utility/Modals/TextEntryModal';
+import { ComponentContents } from '../../../../types/customCompositeTypes';
 
 export interface EditableAnswerSubmissionProps extends AnswerSubmissionProps{
   onSubmissionOptionAction: (action: SubmissionOptionAction) => Promise<void>
 }
 
 export interface EditableAnswerSubmissionState{
-  editingAnswer: boolean
+  editingAnswer: boolean;
 }
 
 /**
  * Shows the submission of an answer to a question and it's related details such as status.
  * @param props The properties of the submission to display.
  */
-export default class EditableAnswerSubmission extends AbstractAnswerSubmission<EditableAnswerSubmissionProps,
+export default class EditableAnswerSubmission extends AbstractAnswerSubmission<EditableAnswerSubmissionProps, 
     EditableAnswerSubmissionState> {
   
   constructor(props: EditableAnswerSubmissionProps){
@@ -74,6 +75,10 @@ export default class EditableAnswerSubmission extends AbstractAnswerSubmission<E
     })
   }
 
+  private onCancelAnswerEntry = () => {
+    this.setState({ editingAnswer: false });
+  }
+
   private onConfirmAnswerEntry = async (answer: string) => {
     await this.props.onSubmissionOptionAction(new UpdateAnswerSubmissionOptionAction(this.props.submission, answer));
     this.setState({ 
@@ -81,36 +86,29 @@ export default class EditableAnswerSubmission extends AbstractAnswerSubmission<E
     });
   }
 
-  protected renderAnswer(answer: string): JSX.Element {
-
-    if(this.state.editingAnswer){
-      return <SingleLineTextEntry
-        initialValue={answer}
-        onConfirmEntry={this.onConfirmAnswerEntry}
-        onCancelEntry={() => {this.setState({ editingAnswer: false })}}
-      />
-    }
-    else{
-      return super.renderAnswer(answer);
-    }
-
-  }
-
-  protected renderComponentContents(){
+  protected renderComponentContents(): ComponentContents{
     
     return [
       
-        ...(super.renderComponentContents() as JSX.Element[]),
+        ...super.renderComponentContents(),
       
+        this.state.editingAnswer ? <TextEntryModal
+          promptText={this.props.submission.question}
+          defaultText={this.props.submission.answer}
+          onConfirmEntry={this.onConfirmAnswerEntry}
+          onCancel={this.onCancelAnswerEntry}
+        /> 
+          : 
+        null,
+
         (<p className="statusText">
-        {this.determineStatusText(this.props.submission.state, this.props.submission.validatedByUser)}
+          {this.determineStatusText(this.props.submission.state, this.props.submission.validatedByUser)}
         </p>),
 
         <AnswerSubmissionOptions
-        state={this.props.submission.state}
-        validatedByUser={this.props.submission.validatedByUser}
-        onOptionSelection={this.onOptionSelection}
-        enabled={!this.state.editingAnswer}
+          state={this.props.submission.state}
+          validatedByUser={this.props.submission.validatedByUser}
+          onOptionSelection={this.onOptionSelection}
         />
         
     ]
