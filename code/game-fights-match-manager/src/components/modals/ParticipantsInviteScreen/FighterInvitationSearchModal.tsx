@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SearchModal, { SearchModalProps, SearchModalState } from '../../utility/SearchModal';
+import AbstractSearchModal, { SearchModalProps, SearchModalState } from '../../utility/Modals/AbstractSearchModal';
 
 import InvitationSearchResultsFighterList from './InvitationSearchResultsFighterList';
 
@@ -9,12 +9,10 @@ import { whenUnassigned } from '../../../utility/functions/qolFunctions'
 
 import InvitedFighterList from './InvitedFighterList';
 import { FighterMatchStatus } from '../../../enums/statusEnums';
-import { GameFightsDataInterfaceManager } from '../../../backend_interface/game_fights_data_interface/GameFightsDataInterfaceManager';
-import ISearchInterface from '../../../backend_interface/lib/interfaces/ISearchInterface';
 
 import '../../../style/main.css'
 
-interface FighterInvitationSearchModalProps extends SearchModalProps<GameFightsDataInterfaceManager>{
+interface FighterInvitationSearchModalProps extends SearchModalProps<FighterData>{
     preInvitedFighters: FighterData[],
     onConfirmInvites: (invites: FighterData[]) => Promise<void>;
 };
@@ -26,20 +24,16 @@ interface FighterInvitationSearchModalState extends SearchModalState<FighterData
 /**
  * [DES] A SearchModal that allows you to search for and invite fighters.
  */
-export default class FighterInvitationSearchModal extends SearchModal<GameFightsDataInterfaceManager, FighterData, 
-    ISearchInterface<FighterData>, FighterInvitationSearchModalProps, FighterInvitationSearchModalState>{
+export default class FighterInvitationSearchModal extends AbstractSearchModal<FighterData, 
+        FighterInvitationSearchModalProps, FighterInvitationSearchModalState>{
     
     protected get searchModalTypeClass(){
         return "fighterInvitation";
     }
 
-    protected getDataInterface(): ISearchInterface<FighterData> {
-        return this.props.dataInterfaceManager.fighterDataInvitationInterface;
-    }
-
-    protected determineInitialSearchModalState(initialData: FighterData[], showingConfirmationError: boolean){
+    protected determineInitialSearchModalState(initalSearchResults: FighterData[], showingConfirmationError: boolean){
         return{
-            data: initialData,
+            searchResults: initalSearchResults,
             showingConfirmationError: showingConfirmationError,
             invitedFighters: this.props.preInvitedFighters
         }
@@ -78,7 +72,7 @@ export default class FighterInvitationSearchModal extends SearchModal<GameFights
             [
                 <InvitationSearchResultsFighterList 
                     itemListTypeName="fighterInvitationSearchResults"
-                    items={this.state === null ? [] : this.state.data.filter(this.invitedFightersFilter)} 
+                    items={this.state === null ? [] : this.state.searchResults.filter(this.invitedFightersFilter)} 
                     onInviteFighter={this.onInviteFighter}    
                 />,
                 <InvitedFighterList
@@ -101,4 +95,5 @@ export default class FighterInvitationSearchModal extends SearchModal<GameFights
     protected async confirm(){
         await this.props.onConfirmInvites(this.state.invitedFighters);
     }
+    
 }
