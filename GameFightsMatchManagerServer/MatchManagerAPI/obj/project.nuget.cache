@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "nTXCAqmPOQvXNBam4P+Qcu4TzK4o8FWsKXtfvzMKab+H7n3dpC84jnkA6FiPovSFDne5o7kt+Eq7IUkvAwO+/g==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\rhyst\\OneDrive\\Documents\\GitHub\\game-fights-web-app\\GameFightsMatchManagerServer\\MatchManagerAPI\\MatchManagerAPI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\rhyst\\.nuget\\packages\\microsoft.identitymodel.logging\\6.7.1\\microsoft.identitymodel.logging.6.7.1.nupkg.sha512",
+    "C:\\Users\\rhyst\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.7.1\\microsoft.identitymodel.tokens.6.7.1.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.security.cryptography.cng\\4.5.0\\system.security.cryptography.cng.4.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
