@@ -21,3 +21,5 @@ C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchMana
 C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchManagerServer\MatchManagerAPI\obj\Debug\netcoreapp3.1\MatchManagerAPI.csproj.CoreCompileInputs.cache
 C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchManagerServer\MatchManagerAPI\obj\Debug\netcoreapp3.1\MatchManagerAPI.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchManagerServer\MatchManagerAPI\obj\Debug\netcoreapp3.1\MatchManagerAPI.csproj.CopyComplete
+C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchManagerServer\MatchManagerAPI\bin\Debug\netcoreapp3.1\MatchManager.dll
+C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchManagerServer\MatchManagerAPI\bin\Debug\netcoreapp3.1\MatchManager.pdb

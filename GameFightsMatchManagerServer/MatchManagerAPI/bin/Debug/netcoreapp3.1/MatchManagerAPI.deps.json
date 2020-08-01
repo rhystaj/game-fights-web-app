@@ -24,6 +24,7 @@
     ".NETCoreApp,Version=v3.1": {
       "MatchManagerAPI/1.0.0": {
         "dependencies": {
+          "MatchManager": "1.0.0",
           "Microsoft.IdentityModel.Tokens": "6.7.1",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "3.1.0.0",
@@ -344,6 +345,14 @@
         }
       },
       "System.Security.Cryptography.Cng/4.5.0": {},
+      "MatchManager/1.0.0": {
+        "runtime": {
+          "MatchManager.dll": {}
+        },
+        "compile": {
+          "MatchManager.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Antiforgery/3.1.0.0": {
         "compile": {
           "Microsoft.AspNetCore.Antiforgery.dll": {}
@@ -2071,6 +2080,11 @@
       "sha512": "sha512-WG3r7EyjUe9CMPFSs6bty5doUqT+q9pbI80hlNzo2SkPkZ4VTuZkGWjpp77JB8+uaL4DFPRdBsAY+DX3dBK92A==",
       "path": "system.security.cryptography.cng/4.5.0",
       "hashPath": "system.security.cryptography.cng.4.5.0.nupkg.sha512"
+    },
+    "MatchManager/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Microsoft.AspNetCore.Antiforgery/3.1.0.0": {
       "type": "referenceassembly",
