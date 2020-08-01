@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[Fighters]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
+    [Name] NCHAR(50) NOT NULL, 
+    [ProfileImageURL] NVARCHAR(MAX) NOT NULL, 
+    [Status] INT NULL
+)
