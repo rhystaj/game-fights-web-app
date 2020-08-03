@@ -18,8 +18,9 @@ C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchMana
 C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchManagerServer\MatchManagerAPI\obj\Debug\netcoreapp3.1\MatchManagerAPI.genruntimeconfig.cache
 C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchManagerServer\MatchManagerAPI\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
 C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchManagerServer\MatchManagerAPI\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
-C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchManagerServer\MatchManagerAPI\obj\Debug\netcoreapp3.1\MatchManagerAPI.csproj.CoreCompileInputs.cache
-C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchManagerServer\MatchManagerAPI\obj\Debug\netcoreapp3.1\MatchManagerAPI.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchManagerServer\MatchManagerAPI\obj\Debug\netcoreapp3.1\MatchManagerAPI.csproj.CopyComplete
 C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchManagerServer\MatchManagerAPI\bin\Debug\netcoreapp3.1\MatchManager.dll
 C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchManagerServer\MatchManagerAPI\bin\Debug\netcoreapp3.1\MatchManager.pdb
+C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchManagerServer\MatchManagerAPI\bin\Debug\netcoreapp3.1\Dapper.dll
+C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchManagerServer\MatchManagerAPI\obj\Debug\netcoreapp3.1\MatchManagerAPI.csproj.CoreCompileInputs.cache
+C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchManagerServer\MatchManagerAPI\obj\Debug\netcoreapp3.1\MatchManagerAPI.MvcApplicationPartsAssemblyInfo.cache
