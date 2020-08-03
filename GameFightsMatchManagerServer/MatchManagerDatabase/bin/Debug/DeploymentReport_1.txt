@@ -1,0 +1,23 @@
+﻿** Highlights
+     Tables that will be rebuilt
+       None
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       None
+
+** User actions
+     Create
+       [dbo].[Fighters] (Table)
+       [dbo].[Invitations] (Table)
+       [dbo].[Matches] (Table)
+       [dbo].[Participation] (Table)
+       [dbo].[FK_Invitations_Fighter] (Foreign Key)
+       [dbo].[FK_Invitations_Match] (Foreign Key)
+       [dbo].[FK_Invitations_Judge] (Foreign Key)
+       [dbo].[FK_Participation_Fighter] (Foreign Key)
+       [dbo].[FK_Participation_Match] (Foreign Key)
+
+** Supporting actions

@@ -56,9 +56,19 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
-    <Folder Include="Build Scripts" />
+    <Folder Include="Tables" />
+    <Folder Include="Publish_Profiles" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Build Scripts\Match.sql" />
+    <Build Include="Tables\Matches.sql" />
+    <Build Include="Tables\Fighters.sql" />
+    <Build Include="Tables\Invitations.sql" />
+    <Build Include="Tables\Participation.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="MatchManagerDatabase.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Publish_Profiles\MatchManagerDatabase_LocalTest.publish.xml" />
   </ItemGroup>
 </Project>
