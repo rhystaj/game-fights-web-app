@@ -4,6 +4,6 @@ C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchMana
 C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchManagerServer\MatchManager\obj\Debug\netcoreapp3.1\MatchManager.csprojAssemblyReference.cache
 C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchManagerServer\MatchManager\obj\Debug\netcoreapp3.1\MatchManager.AssemblyInfoInputs.cache
 C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchManagerServer\MatchManager\obj\Debug\netcoreapp3.1\MatchManager.AssemblyInfo.cs
-C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchManagerServer\MatchManager\obj\Debug\netcoreapp3.1\MatchManager.csproj.CoreCompileInputs.cache
 C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchManagerServer\MatchManager\obj\Debug\netcoreapp3.1\MatchManager.dll
 C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchManagerServer\MatchManager\obj\Debug\netcoreapp3.1\MatchManager.pdb
+C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchManagerServer\MatchManager\obj\Debug\netcoreapp3.1\MatchManager.csproj.CoreCompileInputs.cache
