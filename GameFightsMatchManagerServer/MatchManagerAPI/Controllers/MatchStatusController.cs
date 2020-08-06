@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 using MatchManager;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Routing;
 
 namespace MatchManagerAPI.Controllers
 {
@@ -13,6 +15,13 @@ namespace MatchManagerAPI.Controllers
     public class MatchStatusController : ControllerBase
     {
 
+        private readonly IMatchManager _matchManager;
+
+        public MatchStatusController(IMatchManager matchManager)
+        {
+            _matchManager = matchManager;
+        }
+
         /// <summary>
         /// Retrieve the status of the current match in relation to the user.
         /// </summary>
@@ -20,15 +29,14 @@ namespace MatchManagerAPI.Controllers
         [HttpGet]
         public IMatchStatus Get()
         {
-            throw new System.NotImplementedException();
+            return _matchManager.Match.Status;
         }
 
         /// <summary>
         /// Create a new match to be judged.
         /// </summary>
         /// <returns></returns>
-        [Route("api/[controller]/judgeNew")]
-        [HttpPost]
+        [HttpPost][Route("api/[controller]/judgeNew")]
         public IActionResult JudgeNew()
         {
             throw new System.NotImplementedException();
@@ -38,11 +46,10 @@ namespace MatchManagerAPI.Controllers
         /// Retrieve the matches that the user has been invited to.
         /// </summary>
         /// <returns></returns>
-        [Route("api/[controller]/invitations")]
-        [HttpGet]
-        public IMatchData[] GetInvitations()
+        [HttpGet][Route("invitations")]
+        public IEnumerable<IMatchData> GetInvitations()
         {
-            throw new System.NotImplementedException();
+            return _matchManager.GetInvitationsForUser("doesn't really matter about the id at this point.");
         }
 
         /// <summary>
@@ -50,8 +57,7 @@ namespace MatchManagerAPI.Controllers
         /// </summary>
         /// <param name="invitationId"></param>
         /// <returns></returns>
-        [Route("api/[controller]/acceptInvitation")]
-        [HttpPatch]
+        [HttpPatch][Route("api/[controller]/acceptInvitation")]
         public IActionResult AcceptInvitation(long invitationId)
         {
             throw new System.NotImplementedException();
