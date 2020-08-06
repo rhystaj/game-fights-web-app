@@ -1,6 +1,0 @@
-C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchManagerServer\MatchManagerDatabase\bin\Debug\MatchManagerDatabase.dacpac
-C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchManagerServer\MatchManagerDatabase\bin\Debug\MatchManagerDatabase.dll
-C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchManagerServer\MatchManagerDatabase\bin\Debug\MatchManagerDatabase.pdb
-C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchManagerServer\MatchManagerDatabase\obj\Debug\MatchManagerDatabase.sqlprojAssemblyReference.cache
-C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchManagerServer\MatchManagerDatabase\obj\Debug\MatchManagerDatabase.dll
-C:\Users\rhyst\OneDrive\Documents\GitHub\game-fights-web-app\GameFightsMatchManagerServer\MatchManagerDatabase\obj\Debug\MatchManagerDatabase.pdb
