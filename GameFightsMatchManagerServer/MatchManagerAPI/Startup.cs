@@ -6,7 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using MatchManager;
-using MatchManager.Mocks;
+
+using MatchManagerAPI.Internal.Mocks;
 
 namespace MatchManagerAPI
 {

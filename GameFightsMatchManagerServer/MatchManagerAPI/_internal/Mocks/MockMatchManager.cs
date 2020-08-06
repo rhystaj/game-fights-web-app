@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MatchManager.Mocks
+using MatchManager;
+
+namespace MatchManagerAPI.Internal.Mocks
 {
-    public class MockMatchManager : IMatchManager
+    internal class MockMatchManager : IMatchManager
     {
 
         private static readonly IFighter[] MOCK_FIGHTERS = new IFighter[]

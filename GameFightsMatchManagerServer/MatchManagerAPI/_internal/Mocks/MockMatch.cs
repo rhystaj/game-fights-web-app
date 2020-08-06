@@ -1,6 +1,8 @@
-﻿namespace MatchManager.Mocks
+﻿using MatchManager;
+
+namespace MatchManagerAPI.Internal.Mocks
 {
-    public class MockMatch : IMatch
+    internal class MockMatch : IMatch
     {
         public IMatchStatus Status => new MatchStatus(UserMatchStatus.JUDGING, MatchStage.ANSWERS_OPENED);
 
