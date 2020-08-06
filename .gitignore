@@ -1,3 +1,9 @@
-*.tmp
+**/bin/
+**/obj/
+**/.vs/
 
-**/bin
+*.tmp
+*.dbmdl
+*.jfm
+
+
