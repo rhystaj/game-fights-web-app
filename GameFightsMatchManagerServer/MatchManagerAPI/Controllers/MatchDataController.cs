@@ -10,23 +10,31 @@ namespace MatchManagerAPI.Controllers
     public class MatchDataController : ControllerBase
     {
 
+        private IMatchManager _matchManager;
+
+        public MatchDataController(IMatchManager matchManager)
+        {
+            _matchManager = matchManager;
+        }
+
         /// <summary>
         /// Retrieve the data for the match the user is currently involved in.
         /// </summary>
         [HttpGet]
         public IMatchData Get()
         {
-            throw new System.NotImplementedException();
+            return _matchManager.Match;
         }
 
         /// <summary>
         /// Update the title the match is referred to by.
         /// </summary>
         /// <param name="title"></param>
-        [HttpPut][Route("api/[controller]/updateTitle")]
-        public IActionResult UpdateTitle(string title)
+        [HttpPut][Route("updateTitle")]
+        public IActionResult UpdateTitle([FromBody] string title)
         {
-            throw new System.NotImplementedException();
+            _matchManager.Match.Title = title;
+            return Ok();
         }
 
         /// <summary>
@@ -34,10 +42,11 @@ namespace MatchManagerAPI.Controllers
         /// </summary>
         /// <param name="matchDates"></param>
         /// <returns></returns>
-        [HttpPut][Route("api/[controller]/updateDates")]
-        public IActionResult UpdateDates(IMatchDates matchDates)
+        [HttpPut][Route("updateDates")]
+        public IActionResult UpdateDates(MatchDates matchDates)
         {
-            throw new System.NotImplementedException();
+            _matchManager.Match.Dates = matchDates;
+            return Ok();
         }
 
         /// <summary>
@@ -45,7 +54,7 @@ namespace MatchManagerAPI.Controllers
         /// </summary>
         /// <param name="fighters"></param>
         /// <returns></returns>
-        [HttpPost][Route("api/[controller]/inviteFighters")]
+        [HttpPost][Route("inviteFighters")]
         public IActionResult InviteFighters(IFighter[] fighters)
         {
             throw new System.NotImplementedException();
