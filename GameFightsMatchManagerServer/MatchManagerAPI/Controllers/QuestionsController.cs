@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+
 using Microsoft.AspNetCore.Mvc;
+
+using MatchManager;
 
 namespace MatchManagerAPI.Controllers
 {
@@ -13,7 +13,23 @@ namespace MatchManagerAPI.Controllers
     public class QuestionsController : ControllerBase
     {
 
+        [HttpGet]
+        public IEnumerable<IQuestion> GetQuestions()
+        {
+            throw new NotImplementedException();
+        }
 
+        [HttpPost]
+        public IActionResult PostQuestion(Question question)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpDelete]
+        public IActionResult DeleteQuestion(Question question)
+        {
+            throw new NotImplementedException();
+        }
 
     }
 
