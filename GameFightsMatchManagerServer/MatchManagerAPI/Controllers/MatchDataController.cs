@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 using MatchManager;
+using System.Linq;
 
 namespace MatchManagerAPI.Controllers
 {
@@ -54,10 +55,23 @@ namespace MatchManagerAPI.Controllers
         /// </summary>
         /// <param name="fighters"></param>
         /// <returns></returns>
-        [HttpPost][Route("inviteFighters")]
-        public IActionResult InviteFighters(IFighter[] fighters)
+        [HttpPatch][Route("inviteFighters")]
+        public IActionResult InviteFighters(Fighter[] fighters)
         {
-            throw new System.NotImplementedException();
+            _matchManager.Match.InviteFighters(fighters.OfType<IFighter>());
+            return Ok();
+        }
+
+        /// <summary>
+        /// Remove invitations for fighters previous invited to the match.
+        /// </summary>
+        /// <param name="fighters">The fighters to remove invitations for.</param>
+        /// <returns></returns>
+        [HttpPatch][Route("uninviteFighters")]
+        public IActionResult UninviteFighters(Fighter[] fighters)
+        {
+            _matchManager.Match.UninviteFighters(fighters.OfType<IFighter>());
+            return Ok();
         }
 
     }
