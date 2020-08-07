@@ -38,7 +38,7 @@ namespace MatchManagerAPI.Internal.Mocks
             return new IMatchData[]
             {
 
-                new MatchData(
+                new MockMatchData(
                     title: "The Best Match Ever!",
                     dates: new MatchDates(
                                 match: new DateTime(2017, 3, 5, 17, 30, 20),
@@ -54,7 +54,7 @@ namespace MatchManagerAPI.Internal.Mocks
                     }
                 ),
 
-                new MatchData(
+                new MockMatchData(
                     title: "The ACTUAL Best Match Ever!",
                     dates: new MatchDates(
                                 match: new DateTime(1997, 12, 3, 15, 25, 7),

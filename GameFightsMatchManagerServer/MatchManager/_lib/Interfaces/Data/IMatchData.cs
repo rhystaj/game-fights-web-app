@@ -6,9 +6,9 @@ namespace MatchManager
     public interface IMatchData
     {
 
-        [JsonPropertyName("title")] string Title { get; }
+        [JsonPropertyName("title")] string Title { get; set;  }
 
-        [JsonPropertyName("dates")] IMatchDates Dates { get; }
+        [JsonPropertyName("dates")] IMatchDates Dates { get; set; }
 
         [JsonPropertyName("judge")] IFighter Judge { get; }
 
