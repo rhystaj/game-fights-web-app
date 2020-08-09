@@ -1,4 +1,4 @@
-﻿namespace MatchManager.Enums
+﻿namespace MatchManager
 {
     public enum AnswerSubmissionState
     {
