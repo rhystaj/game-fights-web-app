@@ -6,13 +6,13 @@ namespace MatchManager
     /// <summary>
     /// A submission for an answer a question.
     /// </summary>
-    public interface IAnswerSubmission : IUniquelyIdentifiable<long>
+    public interface IAnswerSubmission
     {
 
         /// <summary>
         /// The question the answer in the submission is answering.
         /// </summary>
-        [JsonPropertyName("question")] string Question { get; }
+        [JsonPropertyName("question")] IQuestion Question { get; }
 
         /// <summary>
         /// The answer to the question.
