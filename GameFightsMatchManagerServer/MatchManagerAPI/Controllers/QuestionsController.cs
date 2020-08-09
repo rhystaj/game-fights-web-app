@@ -12,23 +12,49 @@ namespace MatchManagerAPI.Controllers
     [ApiController]
     public class QuestionsController : ControllerBase
     {
+        private readonly IMatchManager _matchManager;
+
+        public QuestionsController(IMatchManager matchManager)
+        {
+            _matchManager = matchManager;
+        }
 
         [HttpGet]
         public IEnumerable<IQuestion> GetQuestions()
         {
-            throw new NotImplementedException();
+            return _matchManager.Match.Questions;
         }
 
-        [HttpPost]
-        public IActionResult PostQuestion(Question question)
+        [HttpPost][Route("submit")]
+        public IActionResult SubmitQuestion([FromBody] string questionText)
         {
-            throw new NotImplementedException();
+            
+            try
+            {
+                _matchManager.Match.SubmitQuestion(questionText);
+                return Ok();
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            
         }
 
-        [HttpDelete]
-        public IActionResult DeleteQuestion(Question question)
+        [HttpDelete][Route("removeById")]
+        public IActionResult DeleteQuestion([FromBody] long questionId)
         {
-            throw new NotImplementedException();
+
+            try
+            {
+                _matchManager.Match.RemoveQuestion(questionId);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            
         }
 
     }

@@ -1,4 +1,6 @@
-﻿namespace MatchManager
+﻿using System;
+
+namespace MatchManager
 {
     public struct Question : IQuestion
     {
@@ -13,6 +15,17 @@
             Text = text;
         }
 
+        public override bool Equals(object obj)
+        {
+            return obj is Question question &&
+                   Id == question.Id &&
+                   Text == question.Text;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id, Text);
+        }
     }
 
 }
