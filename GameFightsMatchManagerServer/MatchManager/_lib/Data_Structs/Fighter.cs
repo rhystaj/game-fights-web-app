@@ -2,6 +2,8 @@
 
 namespace MatchManager
 {
+
+    /// <inheritdoc/>
     public struct Fighter : IFighter
     {
 

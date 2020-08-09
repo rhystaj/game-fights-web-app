@@ -3,6 +3,7 @@
 namespace MatchManager
 {
 
+    /// <inheritdoc/>
     public struct MatchDates : IMatchDates
     {
 
