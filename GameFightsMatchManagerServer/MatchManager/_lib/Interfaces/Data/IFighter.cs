@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Text.Json.Serialization;
 
 namespace MatchManager
 {
@@ -6,7 +7,7 @@ namespace MatchManager
     /// <summary>
     /// Information on users that can participate in matches.
     /// </summary>
-    public interface IFighter
+    public interface IFighter : IUniquelyIdentifiable<Guid>
     {
         /// <summary>
         /// The name this fighter is referred to by.

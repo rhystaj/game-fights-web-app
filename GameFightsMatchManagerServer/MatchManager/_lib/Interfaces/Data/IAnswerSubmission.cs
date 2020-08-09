@@ -6,7 +6,7 @@ namespace MatchManager
     /// <summary>
     /// A submission for an answer a question.
     /// </summary>
-    public interface IAnswerSubmission
+    public interface IAnswerSubmission : IUniquelyIdentifiable<long>
     {
 
         /// <summary>

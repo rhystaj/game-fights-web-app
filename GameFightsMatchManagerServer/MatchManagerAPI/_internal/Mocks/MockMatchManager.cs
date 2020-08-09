@@ -10,11 +10,11 @@ namespace MatchManagerAPI.Internal.Mocks
 
         private static readonly IFighter[] MOCK_FIGHTERS = new IFighter[]
         {
-            new Fighter("Rhys", FighterMatchStatus.PARTICIPATING, "dfjwebfhw"),
-            new Fighter("Saylor", FighterMatchStatus.DECLINED, "sksn dhfsf"),
-            new Fighter("Brett", FighterMatchStatus.AVALIABLE, "sufhwejkfbnwekjfbweif"),
-            new Fighter("Cameron", FighterMatchStatus.PARTICIPATING, "mfngkgwbnegkweg"),
-            new Fighter("Vaughan", FighterMatchStatus.ENGAGED, "qoweijngng")
+            new Fighter(Guid.NewGuid(), "Rhys",     FighterMatchStatus.PARTICIPATING,   "dfjwebfhw"),
+            new Fighter(Guid.NewGuid(), "Saylor",   FighterMatchStatus.DECLINED,        "sksn dhfsf"),
+            new Fighter(Guid.NewGuid(), "Brett",    FighterMatchStatus.AVALIABLE,       "sufhwejkfbnwekjfbweif"),
+            new Fighter(Guid.NewGuid(), "Cameron",  FighterMatchStatus.PARTICIPATING,   "mfngkgwbnegkweg"),
+            new Fighter(Guid.NewGuid(), "Vaughan",  FighterMatchStatus.ENGAGED,         "qoweijngng")
         };
         
         public IMatch Match { get; private set; }
@@ -28,7 +28,7 @@ namespace MatchManagerAPI.Internal.Mocks
 
         public IMatch LoadMatchForUser(string userId)
         {
-            throw new System.NotImplementedException("For now, testing the match management doesn't require testing user logins; " +
+            throw new NotImplementedException("For now, testing the match management doesn't require testing user logins; " +
                 "I will probably need to provide a mock implementation for this method when I get to the point that I will need to " +
                 "test logging in.");
         }

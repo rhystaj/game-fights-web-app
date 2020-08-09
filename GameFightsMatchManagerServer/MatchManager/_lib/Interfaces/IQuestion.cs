@@ -3,10 +3,8 @@
 namespace MatchManager
 {
 
-    public interface IQuestion
+    public interface IQuestion : IUniquelyIdentifiable<long>
     {
-
-        [JsonPropertyName("id")] long Id { get; }
 
         [JsonPropertyName("text")] string Text { get; }
 
