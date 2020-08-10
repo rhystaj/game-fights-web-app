@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchManagerAPI", "MatchManagerAPI\MatchManagerAPI.csproj", "{70827425-CB5D-48B3-97A7-35F1D2BA7975}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchManager", "MatchManager\MatchManager.csproj", "{578A938B-D5FA-4945-B410-F09BA952F9C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchManager", "MatchManager\MatchManager.csproj", "{578A938B-D5FA-4945-B410-F09BA952F9C0}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MatchManagerDatabase", "MatchManagerDatabase\MatchManagerDatabase.sqlproj", "{50DE5CA1-544B-4FF5-9AF8-5807481D323B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchManagerTests", "MatchManagerTests\MatchManagerTests.csproj", "{7F511814-4133-4CE8-ABC4-A424DFEEFFC8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{50DE5CA1-544B-4FF5-9AF8-5807481D323B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50DE5CA1-544B-4FF5-9AF8-5807481D323B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{50DE5CA1-544B-4FF5-9AF8-5807481D323B}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{7F511814-4133-4CE8-ABC4-A424DFEEFFC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F511814-4133-4CE8-ABC4-A424DFEEFFC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F511814-4133-4CE8-ABC4-A424DFEEFFC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F511814-4133-4CE8-ABC4-A424DFEEFFC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
