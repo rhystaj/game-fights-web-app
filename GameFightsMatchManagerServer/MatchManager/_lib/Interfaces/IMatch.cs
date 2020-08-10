@@ -1,9 +1,9 @@
-﻿using Microsoft.Win32.SafeHandles;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace MatchManager
 {
 
+    /// <inheritdoc/>
     public interface IMatch : IEditableMatchData
     {
 
@@ -16,6 +16,11 @@ namespace MatchManager
         /// The collections of questions being posed for the match.
         /// </summary>
         IEnumerable<IQuestion> Questions { get; }
+
+        /// <summary>
+        /// IEnumerable the answer to questions that participants have submittied.
+        /// </summary>
+        IEnumerable<IAnswerSubmission> AnswerSubmissions { get; }
 
         /// <summary>
         /// Invite fighters to participate in the match.
@@ -42,6 +47,13 @@ namespace MatchManager
         /// <param name="id">The id of the question to remove from the match.</param>
         /// <returns>True iif the question was successfully removed.</returns>
         void RemoveQuestion(long id);
+
+        /// <summary>
+        /// Update the answer submitted for a question.
+        /// </summary>
+        /// <param name="questionId">The id for the answer for which to update the question.</param>
+        /// <param name="answerText">The text to update answer to.</param>
+        void UpdateAnswerToQuestion(long questionId, string answerText);
 
     }
 

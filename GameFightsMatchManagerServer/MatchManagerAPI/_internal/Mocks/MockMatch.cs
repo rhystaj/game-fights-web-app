@@ -6,61 +6,99 @@ using MatchManager;
 
 namespace MatchManagerAPI.Internal.Mocks
 {
-    internal class MockMatch : IMatch
+
+    /// <inheritdoc/>
+    internal class MockMatch : AbstractMatch
     {
 
         private readonly HashSet<IFighter> _invitedFighters = new HashSet<IFighter>();
 
         private readonly HashSet<IQuestion> _questions = new HashSet<IQuestion>();
 
-        public IMatchStatus Status => new MatchStatus(UserMatchStatus.JUDGING, MatchStage.ANSWERS_OPENED);
+        private readonly HashSet<EditableAnswerSubmission> _answerSubmissions = new HashSet<EditableAnswerSubmission>();
 
-        public string Title { get; set; }
+        public override IMatchStatus Status => new MatchStatus(UserMatchStatus.JUDGING, MatchStage.ANSWERS_OPENED);
 
-        public IMatchDates Dates { get; set; }
+        public override string Title { get; set; }
 
-        public IFighter Judge { get; }
+        public override IMatchDates Dates { get; set; }
 
-        public IEnumerable<IFighter> InvitedFighters => _invitedFighters;
+        public override IFighter Judge { get; }
 
-        public IEnumerable<IQuestion> Questions => _questions;
+        public override IEnumerable<IFighter> InvitedFighters => _invitedFighters;
 
-        public void InviteFighters(IEnumerable<IFighter> fighters)
+        public override IEnumerable<IQuestion> Questions => _questions;
+
+        public override IEnumerable<IAnswerSubmission> AnswerSubmissions => _answerSubmissions.OfType<IAnswerSubmission>();
+
+        public override void InviteFighters(IEnumerable<IFighter> fighters)
         {
             foreach (IFighter fighter in fighters)
                 _invitedFighters.Add(fighter);
         }
 
-        public void UninviteFighters(IEnumerable<IFighter> fighters)
+        public override void UninviteFighters(IEnumerable<IFighter> fighters)
         {
             _invitedFighters.RemoveWhere(f => fighters.Contains(f));
         }
 
-        public void SubmitQuestion(string questionText)
+        
+        protected override IQuestion GenerateAndStoreNewQuestion(string questionText)
         {
-            //Add the question with any id - for mock purposes it doesn't matter. In this case make it the hash code so it is
-            //at least consistent.
-            if (!_questions.Add(new Question(questionText.GetHashCode(), questionText)))
-            {
-                throw new Exception("The question '" + questionText + "' could not be added to the match.");
+
+            IQuestion newQuestion = new Question(questionText.GetHashCode(), questionText);
+            _questions.Add(newQuestion);
+
+            return newQuestion;
+
+        }
+
+        protected override void GenerateAndStoreAnswerSubmissionsForQuestion(IQuestion question)
+        {
+
+            //TODO: When it comes time to implement logins, make this method generate an answer submission for each method for each user.
+
+            EditableAnswerSubmission newAnswerSubmission = new EditableAnswerSubmission { 
+                Question = question,
+                Answer = null,
+                State = AnswerSubmissionState.NO_ANSWER,
+                ValidatedByUser = false
             };
+
+            _answerSubmissions.Add(newAnswerSubmission);
+
         }
 
-        public void RemoveQuestion(long questionId)
+        protected override void RemoveStoredQuestionWithId(long questionId)
+        {
+            _questions.RemoveWhere(q => q.Id == questionId);
+        }
+
+        protected override void RemoveStoredAnswerSubmissionsForQuestionWithId(long questionId)
+        {
+            _answerSubmissions.RemoveWhere(q => q.Question.Id == questionId);
+        }
+
+        public override void UpdateAnswerToQuestion(long questionId, string answerText)
         {
 
-            if(_questions.FirstOrDefault(q => q.Id == questionId) == null)
-            {
-                throw new ArgumentException("There is no question with id '" + questionId + "' that has been added to the match.");
-            }
+            bool submissionHasQuestionWithProvidedId(EditableAnswerSubmission s) => s.Question.Id == questionId;
 
-            if(_questions.RemoveWhere(q => q.Id == questionId) <= 0)
-            {
-                throw new Exception("The question with id '" + questionId + "' could not be removed from the match.");
-            }
+
+            if (!_answerSubmissions.Any(submissionHasQuestionWithProvidedId))
+                throw new ArgumentException("A submission for a question with id '" + questionId + "' could not be found.");
+
+            if(_answerSubmissions.Where(submissionHasQuestionWithProvidedId).Count() > 1)
+                throw new Exception("There are multiple submissions for a question with id '" + questionId + "'.");
+
+
+            EditableAnswerSubmission answerSubmission = _answerSubmissions.First(submissionHasQuestionWithProvidedId);
+            answerSubmission.Answer = answerText;
+            answerSubmission.State = AnswerSubmissionState.PENDING_JUDGE_APPROVAL;
 
         }
 
+       
     }
 
 }
