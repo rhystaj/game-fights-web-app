@@ -56,8 +56,6 @@ namespace MatchManagerAPI.Internal.Mocks
         protected override void GenerateAndStoreAnswerSubmissionsForQuestion(IQuestion question)
         {
 
-            //TODO: When it comes time to implement logins, make this method generate an answer submission for each method for each user.
-
             EditableAnswerSubmission newAnswerSubmission = new EditableAnswerSubmission { 
                 Question = question,
                 Answer = null,

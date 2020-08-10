@@ -33,7 +33,9 @@ namespace MatchManager
 
         public void SubmitQuestion(string questionText)
         {
-            
+
+            //TODO: When it comes time to implement logins, make this method generate an answer submission for each question for each user.
+
             IQuestion newQuestion = GenerateAndStoreNewQuestion(questionText);
             
             Debug.Assert(Questions.Where(q => q.Id == newQuestion.Id).Count() == 1,
