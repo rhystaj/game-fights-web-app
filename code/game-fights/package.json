@@ -7,7 +7,7 @@
     "@types/react-dom": "^16.9.5",
     "compass": "^0.1.1",
     "jsx": "^0.9.89",
-    "react-scripts": "2.1.1",
+    "react-scripts": "5.0.1",
     "scss": "^0.2.4"
   },
   "scripts": {
